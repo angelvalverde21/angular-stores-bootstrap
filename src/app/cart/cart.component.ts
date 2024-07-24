@@ -1,6 +1,5 @@
 import {Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-declare var $: any;
-declare var bootstrap: any;
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,28 +12,27 @@ export class CartComponent implements AfterViewInit {
 
   @ViewChild('offcanvasExample', { static: false }) offcanvasElement!: ElementRef;
 
-  private offcanvas: any;
-
-  constructor() { }
+  constructor(private _cartService: CartService) {}
 
   ngAfterViewInit() {
-    // Asegúrate de que Bootstrap esté disponible globalmente
-    if (typeof bootstrap !== 'undefined') {
-      const offcanvasElement = document.getElementById('offcanvasExample');
-      if (offcanvasElement) {
-        const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
-        (window as any).offcanvas = offcanvas; // Hacer offcanvas accesible globalmente para demostración
-      }
+    if (this.offcanvasElement) {
+      console.log('offcanvasElement cargado');
+      this._cartService.initializeOffcanvas(this.offcanvasElement);
+
+    } else {
+      console.log('offcanvasElement noooooooo cargado');
     }
   }
 
-  openOffcanvas() {
-    (window as any).offcanvas.show(); // Mostrar el offcanvas
+  openCart() {
+
+    console.log('click');
+    this._cartService.openCart();
+    
   }
 
-  closeOffcanvas() {
-    if (this.offcanvas) {
-      this.offcanvas.hide();
-    }
+  closeCart() {
+    this._cartService.closeCart();
   }
+
 }
