@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./header/header.component";
 import { CartComponent } from "./cart/cart.component";
-import { HomeComponent } from "./home/home.component";
 declare var $: any;
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, CartComponent, HomeComponent],
+  imports: [RouterOutlet, CartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
