@@ -3,6 +3,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { OrderComponent } from './pages/order/order.component';
+import { TrackingComponent } from './pages/tracking/tracking.component';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,10 @@ export const routes: Routes = [
   {
     path: 'order',
     component: OrderComponent,
+  },
+  {
+    path: 'tracking',
+    component: TrackingComponent,
   },
 
   { path: '', component: HomeComponent },

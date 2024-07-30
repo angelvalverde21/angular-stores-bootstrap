@@ -2,11 +2,13 @@ import {Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { LogoComponent } from "../components/logo/logo.component";
 import { RouterModule } from '@angular/router';
+import { ButtonLoginComponent } from "../components/buttons/button-login/button-login.component";
+import { ButtonRegisterComponent } from "../components/buttons/button-register/button-register.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [LogoComponent, RouterModule],
+  imports: [LogoComponent, RouterModule, ButtonLoginComponent, ButtonRegisterComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
