@@ -1,0 +1,21 @@
+<div class="spinner-border" *ngIf="loading" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+<div class="products">
+
+    <!-- {{ products | json}} -->
+
+    <!-- <div class="card" *ngFor="let product of products">
+        <div class="card-body">
+            {{ product | json }}
+        </div>
+    </div> -->
+
+    <app-card-product *ngFor="let product of products">
+        <img card-image class="card-img-top" [src]="[product.image]" alt="Sample Image">
+        <h5 card-title class="card-title">S/. 79.95</h5>
+        <a card-link [routerLink]="['/' + product.slug]" routerLinkActive="router-link-active"  class="btn btn-primary">Comprar</a>
+    </app-card-product>
+
+</div>
