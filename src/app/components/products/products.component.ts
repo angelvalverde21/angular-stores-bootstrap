@@ -3,12 +3,13 @@ import { CardProductComponent } from '../card-product/card-product.component';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { PipesModule } from '../../shared/pipes.module';
 
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CardProductComponent, CommonModule, RouterModule],
+  imports: [CardProductComponent, CommonModule, RouterModule, PipesModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })

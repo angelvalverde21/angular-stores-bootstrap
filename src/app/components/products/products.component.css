@@ -1,6 +1,11 @@
-.products{
+.color{
     display: grid;
     gap: 1rem;
-    /* grid-auto-rows: 22rem; */
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(50%, 10rem), 1fr));
 }
+
+/* .products {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(50%, 15rem), 1fr));
+} */

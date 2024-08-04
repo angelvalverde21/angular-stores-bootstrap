@@ -1,5 +1,5 @@
 <div class="card">
-<!-- 
+    <!-- 
     <div class="card-header">
         <ng-content select="[card-header]"></ng-content>
     </div> -->
@@ -8,14 +8,18 @@
 
     <div class="card-body">
 
-        <ng-content select="[card-title]"></ng-content>
-        <ng-content select="[card-text]"></ng-content>
-        <ng-content select="[card-link]"></ng-content>
-        <!-- <ng-content select="[card-footer]"></ng-content> -->
+        <div class="d-flex justify-content-between">
+            <ng-content select="[card-title]"></ng-content>
+            <!-- <ng-content select="[card-text]"></ng-content> -->
+            <ng-content select="[card-link]"></ng-content>
+        </div>
 
     </div>
+    <!-- <ng-content select="[card-footer]"></ng-content> -->
 
-    <!-- Asi se llama al card
+</div>
+
+<!-- Asi se llama al card
     <app-card>
         <img card-image class="card-img-top" src="https://via.placeholder.com/150/150" alt="Sample Image">
         <h5 card-title class="card-title">Card Title</h5>
@@ -24,5 +28,3 @@
         <a card-link href="https://example.com" class="btn btn-primary">Go somewhere</a>
     </app-card> 
     -->
-
-</div>
