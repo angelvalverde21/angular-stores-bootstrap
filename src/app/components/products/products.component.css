@@ -1,11 +1,41 @@
 .color{
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(min(50%, 10rem), 1fr));
+    grid-template-columns: repeat(2, minmax(10rem, 1fr)); /* 1 fr quiere decir una fraccion */
 }
 
-/* .products {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(50%, 15rem), 1fr));
-} */
+.products h1{
+    font-size: 1.25rem;
+}
+
+/* por ejemplo si queremos dividir el espacio disponible en pantalla en 3 columnas hariamos esto
+
+    grid-template-columns: 1fr 1fr 1fr;
+
+    pero para no escribir 3 veces hariamos
+
+    grid-template-columns: repeat(3, 1fr)
+
+*/
+
+
+@media (min-width: 800px) and (max-width: 1367px) {
+    .color{
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(3, minmax(10rem, 1fr)); /* 1 fr quiere decir una fraccion */
+    }
+}
+
+@media (min-width: 1368px){
+    .color{
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(4, minmax(10rem, 1fr)); /* 1 fr quiere decir una fraccion */
+    }
+}
+
+/* minmax() define un rango de tamaños permitidos para las columnas. */
+/* min(50%, 10rem) calcula el mínimo entre el 50% del ancho del contenedor y 10 rem. Esto asegura que el ancho mínimo de una columna sea el menor entre estos dos valores. */
+/* auto-fill es una palabra clave que hace que las columnas se llenen automáticamente, tantas veces como quepan en el contenedor, sin que se desborden. */
+

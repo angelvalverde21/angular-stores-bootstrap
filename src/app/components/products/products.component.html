@@ -1,5 +1,5 @@
-<div class="spinner-border" *ngIf="loading" role="status">
-    <span class="sr-only">Loading...</span>
+<div class="text-center my-3">
+    <app-loading *ngIf="loading" ></app-loading>
 </div>
 
 <div class="products" *ngFor="let product of products">
@@ -11,18 +11,17 @@
             {{ product | json }}
         </div>
     </div> -->
+    <div class="title">
+        <h1 class="mt-3">
+            <div class="title">{{ product.name | shortTitle }}</div>
+        </h1>
+        <div class="price">{{ (product.price[0] != null ? product.price[0].value : 0) | pen }}</div>
+    </div>
+
+    <hr>
 
     <div class="color">
-        <app-card-product *ngFor="let color of product.colors">
-
-            <img card-image class="card-img-top" [src]="[color.image.url_thumbnail]" alt="Sample Image">
-    
-            <h5 card-title class="card-title">{{ (product.price[0] != null ? product.price[0].value : 0) | pen }}</h5>
-    
-            <a card-link [routerLink]="['/' + product.slug]" routerLinkActive="router-link-active"
-                class="btn btn-success"><i class="fa-brands fa-whatsapp me-2"></i></a>
-    
-        </app-card-product>
+        <app-card-color *ngFor="let color of product.colors" [color]="color"></app-card-color>
     </div>
 
 </div>
