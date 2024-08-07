@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient  } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -30,7 +30,7 @@ export class StoreService {
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.url_base}/${store}`;
     // const url = `${this.url_base}?store=${store}`;
-    // console.log('ooooooooooooooooooooooo');
+    // console.log(url);
     
     return this.http.get(url);
 

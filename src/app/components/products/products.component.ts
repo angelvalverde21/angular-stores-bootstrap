@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { CardProductComponent } from '../cards/card-product/card-product.component';
 import { CardColorComponent } from '../cards/card-color/card-color.component';
 import { ProductService } from '../../services/product.service';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from '../../shared/pipes.module';
 import { LoadingComponent } from '../loading/loading.component';
+import { CardPlaceHolderComponent } from "../card-place-holder/card-place-holder.component";
 
 @Component({
   selector: 'app-products',
@@ -17,13 +18,14 @@ import { LoadingComponent } from '../loading/loading.component';
     CardColorComponent,
     PipesModule,
     LoadingComponent,
-  ],
+    CardPlaceHolderComponent
+],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
 })
 
 // export class ButtonLoginComponent implements OnInit {
-export class ProductsComponent implements AfterViewInit {
+export class ProductsComponent{
   products: any = [];
   loading: boolean = true;
 
@@ -50,5 +52,5 @@ export class ProductsComponent implements AfterViewInit {
       });
   }
 
-  ngAfterViewInit() {}
+
 }

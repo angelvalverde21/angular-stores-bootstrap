@@ -4,6 +4,7 @@
     grid-template-columns: repeat(2, minmax(10rem, 1fr)); /* 1 fr quiere decir una fraccion */
 }
 
+
 .products h1{
     font-size: 1.25rem;
 }

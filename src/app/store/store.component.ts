@@ -23,10 +23,8 @@ export class StoreComponent implements OnInit {
     private _storeService: StoreService,
     private _productService: ProductService,
     private router: Router
-  ) {}
+  ) {
 
-  ngOnInit(): void {
-    
     this.route.paramMap.subscribe(params => {
 
       const store = params.get(environment.parametroBase); //el parametro base es store
@@ -39,6 +37,8 @@ export class StoreComponent implements OnInit {
 
           next: (resp: any) => {
             // Manejo de la respuesta exitosa
+            // console.log(resp.data);
+            
             this._productService.setProducts(resp.data.products);
           },
           error: (err: any) => {
@@ -51,6 +51,12 @@ export class StoreComponent implements OnInit {
       }
 
     });
+
+  }
+
+  ngOnInit(): void {
+    
+
 
   }
 

@@ -1,7 +1,20 @@
 <div class="text-center my-3">
-    <app-loading *ngIf="loading" ></app-loading>
+
+    <!-- <app-loading *ngIf="loading"></app-loading> -->
+
+    <div class="color" *ngIf="loading">
+        <app-card-place-holder></app-card-place-holder>
+        <app-card-place-holder></app-card-place-holder>
+        <app-card-place-holder></app-card-place-holder>
+        <app-card-place-holder></app-card-place-holder>
+        <app-card-place-holder></app-card-place-holder>
+        <app-card-place-holder></app-card-place-holder>
+        <app-card-place-holder></app-card-place-holder>
+        <app-card-place-holder></app-card-place-holder>
+        <app-card-place-holder></app-card-place-holder>
+    </div>
+
 </div>
-<!-- {{ products | json}} -->
 
 <div *ngIf="!loading">
     <div class="products" *ngFor="let product of products">
@@ -12,13 +25,12 @@
             </h1>
             <!-- <div class="price">{{ (product.price[0] != null ? product.price[0].value : 0) | pen }}</div> -->
         </div>
-    
+
         <hr>
-    
+
         <div class="color">
             <app-card-color *ngFor="let color of product.colors" [color]="color"></app-card-color>
         </div>
-    
+
     </div>
 </div>
-
