@@ -30,34 +30,10 @@ export class StoreService {
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.url_base}/${store}`;
     // const url = `${this.url_base}?store=${store}`;
+    // console.log('ooooooooooooooooooooooo');
+    
     return this.http.get(url);
 
-  }
-
-  getAll(){
-    return this.http.get(this.url);
-  }
-
-  getItem(id: any ){
-    return this.http.get(this.url + '/' + id);
-    
-  }
-
-  getStockColorsize(id:number){
-    return this.http.get(this.url + '/color/size/stock/' + id); 
-  }
-
-  getStock(id: number ){
-    return this.http.get(this.url + id);
-    
-  }
-
-  getFotos(id: number ){
-    return this.http.get(this.url + id);
-  }
-
-  getColor(id: number){
-    return this.http.get(this.url + '/color/' + id);  
   }
 
 }

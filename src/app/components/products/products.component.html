@@ -3,25 +3,22 @@
 </div>
 <!-- {{ products | json}} -->
 
-<div class="products" *ngFor="let product of products">
+<div *ngIf="!loading">
+    <div class="products" *ngFor="let product of products">
 
-
-    <!-- <div class="card" *ngFor="let product of products">
-        <div class="card-body">
-            {{ product | json }}
+        <div class="title">
+            <h1 class="mt-3">
+                <div class="title">{{ product.name | shortTitle }}</div>
+            </h1>
+            <!-- <div class="price">{{ (product.price[0] != null ? product.price[0].value : 0) | pen }}</div> -->
         </div>
-    </div> -->
-    <div class="title">
-        <h1 class="mt-3">
-            <div class="title">{{ product.name | shortTitle }}</div>
-        </h1>
-        <div class="price">{{ (product.price[0] != null ? product.price[0].value : 0) | pen }}</div>
+    
+        <hr>
+    
+        <div class="color">
+            <app-card-color *ngFor="let color of product.colors" [color]="color"></app-card-color>
+        </div>
+    
     </div>
-
-    <hr>
-
-    <div class="color">
-        <app-card-color *ngFor="let color of product.colors" [color]="color"></app-card-color>
-    </div>
-
 </div>
+

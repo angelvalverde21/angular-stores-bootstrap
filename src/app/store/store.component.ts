@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { RouteService } from '../services/route.service';
 import { environment } from '../../environments/environment';
 import { StoreService } from '../services/store.service';
@@ -22,7 +22,7 @@ export class StoreComponent implements OnInit {
     private _routeService: RouteService, 
     private _storeService: StoreService,
     private _productService: ProductService,
-  
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,11 +35,18 @@ export class StoreComponent implements OnInit {
         this._routeService.setStore(store);
 
         //Consultamos a la base de datos la informacion del perfil y productos
-        this._storeService.getHome(store).subscribe((data:any) => {
-          // this.products = data.products;
-          console.log(data);
-          //ahora que tenemos la informacion en data lo seteamos en un servicio
-          this._productService.setProducts(data.products);
+        this._storeService.getHome(store).subscribe({
+
+          next: (resp: any) => {
+            // Manejo de la respuesta exitosa
+            this._productService.setProducts(resp.data.products);
+          },
+          error: (err: any) => {
+            // Manejo del error
+            this.router.navigate(['/error-404']);
+            console.error('Error al obtener la información:', err);
+          }
+
         }); 
       }
 

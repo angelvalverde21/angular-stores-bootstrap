@@ -8,6 +8,14 @@ import { StoreComponent } from './store/store.component';
 import { RegisterComponent } from './auth/register/register.component';
 
 export const routes: Routes = [
+
+
+  {
+    path: 'error-404',
+    component: Error404Component,
+    title: 'Error 404 | Pagina no encontrada',
+  },
+
   {
     path: ':store',
     component: StoreComponent,
@@ -33,11 +41,8 @@ export const routes: Routes = [
 
   { path: '', component: RegisterComponent },
   // { path: ':link', component: ShowProductComponent, title: 'Informacion del producto || ARA'},
-  { path: '**', redirectTo: '/error-404', pathMatch: 'full' },
+  { path: '**', redirectTo: '/error-404', pathMatch: 'full' }
 
-  {
-    path: 'error-404',
-    component: Error404Component,
-    title: 'Error 404 | Pagina no encontrada',
-  },
+
+
 ];

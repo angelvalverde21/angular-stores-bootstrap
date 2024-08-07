@@ -17,9 +17,9 @@ export class ProductService {
   private url = environment.apiUrl + '/products';
   // private products : [] = [];
 
-  /*********** CREANDO UN SERVICIO SUSCRIBIBLE PARA EL GRAN TOTAL ***********/
+  /*********** CREANDO UN SERVICIO SUSCRIBIBLE PARA LOS PRODUCTOS ***********/
 
-  private products: Subject<[]> = new Subject<[]>(); //Parametro por defecto falso
+  private products: Subject<[]> = new Subject<[]>();
 
   /** CREANDO LOS SETTER Y GETTER */
 
@@ -41,30 +41,30 @@ export class ProductService {
   // }
 
   
-  getAll(){
-    return this.http.get(this.url);
-  }
+  // getAll(){
+  //   return this.http.get(this.url);
+  // }
 
-  getItem(id: any ){
-    return this.http.get(this.url + '/' + id);
+  // getItem(id: any ){
+  //   return this.http.get(this.url + '/' + id);
     
-  }
+  // }
 
-  getStockColorsize(id:number){
-    return this.http.get(this.url + '/color/size/stock/' + id); 
-  }
+  // getStockColorsize(id:number){
+  //   return this.http.get(this.url + '/color/size/stock/' + id); 
+  // }
 
-  getStock(id: number ){
-    return this.http.get(this.url + id);
+  // getStock(id: number ){
+  //   return this.http.get(this.url + id);
     
-  }
+  // }
 
-  getFotos(id: number ){
-    return this.http.get(this.url + id);
-  }
+  // getFotos(id: number ){
+  //   return this.http.get(this.url + id);
+  // }
 
-  getColor(id: number){
-    return this.http.get(this.url + '/color/' + id);  
-  }
+  // getColor(id: number){
+  //   return this.http.get(this.url + '/color/' + id);  
+  // }
   
 }
