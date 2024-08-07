@@ -22,25 +22,15 @@ export class ProductsComponent {
   ) {
     console.log('se ingreso al home');
 
-    // this.loading = true;
-    // this._console.log('loading es true');
-
-    // this._product.getAll()
-    // .subscribe ( (data: any) => {
-    //   this._console.log(data);
-
-    //   this.productos = data;
-    //   this.loading = false
-    //   // this.loading   = false;
-    // });
-
     this._product.getAll().subscribe((resp: any) => {
+      
       console.log(resp);
       this.loading = false;
       this.products = resp;
       console.log('productos cargados');
       
     });
+
   }
 
 }
