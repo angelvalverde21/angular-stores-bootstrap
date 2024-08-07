@@ -1,9 +1,10 @@
 import {Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { LogoComponent } from "../components/logo/logo.component";
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ButtonLoginComponent } from "../components/buttons/button-login/button-login.component";
 import { ButtonRegisterComponent } from "../components/buttons/button-register/button-register.component";
+
 
 @Component({
   selector: 'app-header',
@@ -14,9 +15,14 @@ import { ButtonRegisterComponent } from "../components/buttons/button-register/b
 })
 export class HeaderComponent {
 
+
+  // store: string = '';
+
   @ViewChild('offcanvasExample', { static: false }) offcanvasElement!: ElementRef;
 
-  constructor(private _cartService: CartService) {}
+  constructor(
+    private _cartService: CartService
+  ) {}
 
   ngAfterViewInit() {
     if (this.offcanvasElement) {
