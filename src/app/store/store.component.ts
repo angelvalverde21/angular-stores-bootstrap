@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { RouteService } from '../services/route.service';
 import { environment } from '../../environments/environment';
@@ -12,7 +12,7 @@ import { ProductService } from '../services/product.service';
   templateUrl: './store.component.html',
   styleUrl: './store.component.css'
 })
-export class StoreComponent implements OnInit {
+export class StoreComponent{
 
   store: string = "";
   products: [] = [];
@@ -39,6 +39,8 @@ export class StoreComponent implements OnInit {
             // Manejo de la respuesta exitosa
             // console.log(resp.data);
             
+            console.log('llamando a store.component');
+            
             this._productService.setProducts(resp.data.products);
           },
           error: (err: any) => {
@@ -51,12 +53,6 @@ export class StoreComponent implements OnInit {
       }
 
     });
-
-  }
-
-  ngOnInit(): void {
-    
-
 
   }
 

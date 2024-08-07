@@ -41,14 +41,19 @@ export class ProductsComponent{
 
     //Esta funcion trae los datos que en store.component.ts se setea
     this.products = this._product
+
       .getProductsObservable()
       .subscribe((resp: any) => {
         console.log('imprimiendo desde el componente products.ts');
         console.log(resp);
         // this.products = data.products;
 
+        console.log('llamando a products');
+        
+
         this.loading = false;
         this.products = resp;
+
       });
   }
 
