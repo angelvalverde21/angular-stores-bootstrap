@@ -6,6 +6,8 @@ import { OrderComponent } from './pages/order/order.component';
 import { TrackingComponent } from './pages/tracking/tracking.component';
 import { StoreComponent } from './store/store.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { storeNameGuard } from './guards/store-name.guard';
+// import { StoreNameGuard } from './guards/store-name.guard';
 
 export const routes: Routes = [
 
@@ -19,6 +21,8 @@ export const routes: Routes = [
   {
     path: ':store',
     component: StoreComponent,
+    canActivate: [storeNameGuard],
+    
     children: [
       {
         path: '',

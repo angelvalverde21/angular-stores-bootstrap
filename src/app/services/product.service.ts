@@ -23,13 +23,14 @@ export class ProductService {
 
   /** CREANDO LOS SETTER Y GETTER */
 
+  setProducts(value: []) {
+    this.products.next(value);
+  }
+
   getProductsObservable() {
     return this.products.asObservable();
   }
 
-  setProducts(value: []) {
-    this.products.next(value);
-  }
 
   // setProducts(products: any[]): void {
   //   this.productsSubject.next(products);

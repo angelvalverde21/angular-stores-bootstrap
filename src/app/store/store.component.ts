@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { RouteService } from '../services/route.service';
-import { environment } from '../../environments/environment';
 import { StoreService } from '../services/store.service';
 import { ProductService } from '../services/product.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-store',
@@ -19,41 +18,30 @@ export class StoreComponent{
   
   constructor(
     private route: ActivatedRoute, 
-    private _routeService: RouteService, 
     private _storeService: StoreService,
     private _productService: ProductService,
-    private router: Router
+    private router: Router,
+
   ) {
 
-    this.route.paramMap.subscribe(params => {
+    this.route.params.subscribe(params => {
 
-      const store = params.get(environment.parametroBase); //el parametro base es store
+      const store = params[environment.parametroBase]; //el parametro base es store
+
       if (store) {
         //setea el nombre de la tienda
-        this._routeService.setStore(store);
+        console.log('seteando el nombre del slug del store ' + store);
+        
+        this._storeService.setSlug(store);
 
-        //Consultamos a la base de datos la informacion del perfil y productos
-        this._storeService.getHome(store).subscribe({
-
-          next: (resp: any) => {
-            // Manejo de la respuesta exitosa
-            // console.log(resp.data);
-            
-            console.log('llamando a store.component');
-            
-            this._productService.setProducts(resp.data.products);
-          },
-          error: (err: any) => {
-            // Manejo del error
-            this.router.navigate(['/error-404']);
-            console.error('Error al obtener la información:', err);
-          }
-
-        }); 
       }
 
     });
 
   }
+
+  // ngOnInit(): void {
+
+  // }
 
 }

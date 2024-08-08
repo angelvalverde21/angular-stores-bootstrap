@@ -49,8 +49,7 @@ export class ProductsComponent{
         // this.products = data.products;
 
         console.log('llamando a products');
-        
-
+      
         this.loading = false;
         this.products = resp;
 

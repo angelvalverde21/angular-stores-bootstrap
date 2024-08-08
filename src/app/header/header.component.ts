@@ -26,11 +26,11 @@ export class HeaderComponent {
 
   ngAfterViewInit() {
     if (this.offcanvasElement) {
-      console.log('offcanvasElement cargado');
+      // console.log('offcanvasElement cargado');
       this._cartService.initializeOffcanvas(this.offcanvasElement);
 
     } else {
-      console.log('offcanvasElement noooooooo cargado');
+      // console.log('offcanvasElement noooooooo cargado');
     }
   }
 

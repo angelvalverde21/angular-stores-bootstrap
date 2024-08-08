@@ -42,12 +42,12 @@ export class TokenInterceptor implements HttpInterceptor {
         },
       });
 
-      console.log('se paso por el interceptor');
+      // console.log('se paso por el interceptor');
       // throw new Error('Method not implemented.');
       return next.handle(reqClone);
     } else {
       // Manejo en caso de no estar en un entorno de navegador
-      console.log('No se puede acceder a localStorage en este entorno.');
+      // console.log('No se puede acceder a localStorage en este entorno.');
       return next.handle(req);
     }
   }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { RouteService } from '../../services/route.service';
+import { Router, RouterModule } from '@angular/router';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-logo',
@@ -13,13 +13,21 @@ export class LogoComponent{
 
   store: string = "";
   
-  constructor(private _routeService: RouteService){
-    console.log(this.store + 'desde btn login');
+  constructor(private _storeService: StoreService, private router: Router){
+    // console.log(this.store + 'desde btn login');
   }
   
   ngOnInit(): void {
-    this.store = this._routeService.getStore();
-    console.log('Store logo component:', this.store);
+    this.store = this._storeService.getSlug();
+    // console.log('Store logo component:', this.store);
+  }
+
+  goHome(){
+    
+    this.router.navigate(['/', this.store]);
+
+    console.log('click en goHome');
+    
   }
 
 }

@@ -16,7 +16,7 @@ declare var $: any;
 export class AppComponent {
 
   constructor(private route: ActivatedRoute, private _store: StoreService) {
-    console.log('AppComponent initialized');
+    // console.log('AppComponent initialized');
   }
 
   title = 'stores';

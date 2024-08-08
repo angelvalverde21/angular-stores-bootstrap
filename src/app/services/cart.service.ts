@@ -11,7 +11,7 @@ export class CartService {
   private offcanvas: any;
 
   constructor() {
-    console.log('servicio cargado');
+    // console.log('servicio cargado');
   }
 
   initializeOffcanvas(offcanvasElement: ElementRef | undefined) {

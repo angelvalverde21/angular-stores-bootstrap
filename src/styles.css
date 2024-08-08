@@ -2,3 +2,7 @@ a {
     color: inherit; /* Hereda el color del elemento padre */
     text-decoration: none; /* Quita el subrayado */
 }
+
+.pointer-cursor {
+    cursor: pointer;
+}
