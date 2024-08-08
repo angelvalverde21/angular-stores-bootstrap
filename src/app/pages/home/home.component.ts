@@ -23,6 +23,7 @@ export class HomeComponent {
     private router: Router,
     
   ) {
+    
     console.log('se llama a los productos');
     //Consultamos a la base de datos la informacion del perfil y productos
     this.store = this._storeService.getSlug();
@@ -42,7 +43,7 @@ export class HomeComponent {
         console.error('Error al obtener la información:', err);
       },
     });
-    
+
   }
 }
 

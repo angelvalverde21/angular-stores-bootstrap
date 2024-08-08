@@ -37,6 +37,17 @@ export class StoreService {
     return this.http.get(url);
 
   }
+  
+  search(store: string, search: string): Observable<any> {
+
+    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.url_base}/${store}/search/${search}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+    
+    return this.http.get(url);
+
+  }
 
   verifyStore(store: string): Observable<any> {
 

@@ -11,6 +11,9 @@ export const storeNameGuard: CanActivateFn = (route, state) => {
 
   const storeName = route.paramMap.get(environment.parametroBase) || '';
 
+  console.log(storeName);
+  
+
   const router = inject(Router);
   // console.log(state);
 
@@ -18,7 +21,10 @@ export const storeNameGuard: CanActivateFn = (route, state) => {
     console.log('parado para evtar un bucle');
     return false;
   } else {
+
+    //Aqui es importante el return
     return _storeService.getHome(storeName).pipe(
+
       map((response) => {
         if (response.success) {
           console.log('navegacion correcta');
@@ -29,12 +35,15 @@ export const storeNameGuard: CanActivateFn = (route, state) => {
           return false;
         }
       }),
+
       catchError(() => {
-        console.log('navegacion errone catch');
+        console.log('navegacion erronea catch');
         router.navigate(['/error-404']);
         return of(false);
       })
+      
     );
+
   }
 };
 

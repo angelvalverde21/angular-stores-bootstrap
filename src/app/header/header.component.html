@@ -1,19 +1,33 @@
 <header
     class="d-flex mx-3 flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom my-3">
+
     <div class="col-md-3 mb-2 mb-md-0">
+
         <app-logo></app-logo>
 
     </div>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a [routerLinkActive]="['active']" [routerLink]="['/']" [routerLinkActiveOptions]="{ exact: true }" class="nav-link px-2">Home</a></li>
+        <li><a [routerLinkActive]="['active']" [routerLink]="['/']" [routerLinkActiveOptions]="{ exact: true }"
+                class="nav-link px-2">Home</a></li>
         <!-- <li><a [routerLinkActive]="['active']" [routerLink]="['/tracking']" class="nav-link px-2">Tracking</a></li> -->
         <!-- <li><a [routerLinkActive]="['active']" [routerLink]="['/order']" class="nav-link px-2">Transportes</a></li> -->
     </ul>
 
     <div class="col-md-3 text-end">
+        <button (click)="openSearch()"  type="button" class="btn btn-outline-secondary me-2"><i class="fa-solid fa-magnifying-glass"></i></button>
         <app-button-login></app-button-login>
         <app-button-register></app-button-register>
     </div>
-    
+
 </header>
+
+<div class="container" *ngIf="showSearch">
+    <div class="search">
+        <form class="d-flex">
+            <input class="form-control me-2" (keyup)="searchProduct($event)" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-outline-secondary"type="submit">Buscar</button>
+        </form>
+    </div>
+</div>
+

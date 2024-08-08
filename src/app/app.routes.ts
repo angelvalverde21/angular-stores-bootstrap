@@ -21,17 +21,14 @@ export const routes: Routes = [
   {
     path: ':store',
     component: StoreComponent,
-    canActivate: [storeNameGuard],
+    // canActivate: [storeNameGuard],
     
     children: [
       {
         path: '',
         component: HomeComponent,
       },
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
+
       {
         path: 'order',
         component: OrderComponent,
@@ -41,6 +38,12 @@ export const routes: Routes = [
         component: TrackingComponent,
       }
     ]
+  },
+
+  {
+    path: ':store/login',
+    component: LoginComponent,
+    // canActivate: [storeNameGuard],
   },
 
   { path: '', component: RegisterComponent },
