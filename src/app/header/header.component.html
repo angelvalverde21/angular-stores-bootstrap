@@ -21,13 +21,8 @@
     </div>
 
 </header>
-
 <div class="container" *ngIf="showSearch">
-    <div class="search">
-        <form class="d-flex">
-            <input class="form-control me-2" (keyup)="searchProduct($event)" type="search" placeholder="Buscar" aria-label="Search">
-            <button class="btn btn-outline-secondary"type="submit">Buscar</button>
-        </form>
-    </div>
+    <app-form-search></app-form-search>
 </div>
+
 

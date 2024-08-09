@@ -7,6 +7,7 @@ import { TrackingComponent } from './pages/tracking/tracking.component';
 import { StoreComponent } from './store/store.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { storeNameGuard } from './guards/store-name.guard';
+import { SearchComponent } from './pages/search/search.component';
 // import { StoreNameGuard } from './guards/store-name.guard';
 
 export const routes: Routes = [
@@ -38,6 +39,12 @@ export const routes: Routes = [
         component: TrackingComponent,
       }
     ]
+  },
+
+  {
+    path: ':store/search/:search',
+    component: SearchComponent,
+    // canActivate: [storeNameGuard],
   },
 
   {
