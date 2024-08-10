@@ -5,6 +5,7 @@ import { ProductsComponent } from '../../components/products/products.component'
 import { ProductService } from '../../services/product.service';
 import { StoreService } from '../../services/store.service';
 import { Router } from '@angular/router';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomeComponent {
   constructor(
     private _storeService: StoreService,
     private _productService: ProductService,
+    private _commonService: CommonService,
     private router: Router,
     
   ) {
@@ -27,6 +29,8 @@ export class HomeComponent {
     console.log('se llama a los productos');
     //Consultamos a la base de datos la informacion del perfil y productos
     this.store = this._storeService.getSlug();
+    
+    this._commonService.setCardPlaceHolder(true);
 
     this._storeService.getHome(this.store).subscribe({
       next: (resp: any) => {
@@ -35,11 +39,13 @@ export class HomeComponent {
 
         console.log('llamando a store.component');
 
+        
+
         this._productService.setProducts(resp.data.products);
       },
       error: (err: any) => {
         // Manejo del error
-        this.router.navigate(['/error-404']);
+        this.router.navigate(['/', this.store, 'error-404']);
         console.error('Error al obtener la información:', err);
       },
     });

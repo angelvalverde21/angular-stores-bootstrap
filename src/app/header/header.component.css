@@ -2,3 +2,29 @@
     font-weight: bold;
     color: #007bff;
   }
+
+  /* .fade-in {
+    opacity: 0;
+    height: 0px;
+    transition: opacity 300ms ease-in-out, height 300ms ease-in-out;
+  } */
+  
+  .fade-in {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: opacity 300ms ease-in-out, height 300ms ease-in-out;
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+    height: auto; /* Ajusta la altura al contenido automáticamente */
+  }
+
+  li{
+    list-style: none;
+  }
+
+  a{
+    text-decoration: none;
+  }

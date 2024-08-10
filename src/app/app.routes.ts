@@ -33,11 +33,8 @@ export const routes: Routes = [
       {
         path: 'order',
         component: OrderComponent,
-      },
-      {
-        path: 'tracking',
-        component: TrackingComponent,
       }
+
     ]
   },
 
@@ -45,6 +42,16 @@ export const routes: Routes = [
     path: ':store/search/:search',
     component: SearchComponent,
     // canActivate: [storeNameGuard],
+  },
+
+  {
+    path: ':store/tracking',
+    component: TrackingComponent,
+  },
+
+  {
+    path: ':store/order',
+    component: OrderComponent,
   },
 
   {

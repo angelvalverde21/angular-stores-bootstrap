@@ -35,4 +35,18 @@ export class CommonService {
     this.cardPlaceHolderLoading.next(value)
   }
 
+  private showSearch: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false); //aqui el BehaviorSubject necesita un valor inicial en el argumento y le estamos pasando []
+
+  //Envia el valor de la propieadad a los componentes
+  getShowSearchObservable() {
+    return this.showSearch.asObservable();
+  }
+
+  //Establece el valor de la propiedad 
+  setShowSearch(value: boolean) {
+    // console.log();
+    this.showSearch.next(value)
+  }
+
+
 }

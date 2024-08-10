@@ -30,6 +30,9 @@ export class SearchComponent {
   ) {
     console.log('Buscando productos');
 
+
+    this._commonService.setCardPlaceHolder(true);
+    this._commonService.setShowSearch(true);
     this.cargarResultados();
     // this.store = this._storeService.getSlug();
   }

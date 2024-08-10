@@ -13,4 +13,6 @@ export class CardColorComponent {
 
   @Input() color: Color = {}; 
   
+  @Input() precio: number = 0; 
+  
 }

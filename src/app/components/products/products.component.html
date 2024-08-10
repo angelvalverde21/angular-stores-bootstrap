@@ -21,7 +21,7 @@
 
 </div>
 
-<section *ngIf="!loading && productsEncontrados; else noProducts">
+<section *ngIf="!loading && productsEncontrados; else noProducts" class="fade-in" [class.visible]="!loading && productsEncontrados">
 
     <div class="products" *ngFor="let product of products">
 
@@ -35,7 +35,7 @@
         <hr>
 
         <div class="color">
-            <app-card-color *ngFor="let color of product.colors" [color]="color"></app-card-color>
+            <app-card-color  *ngFor="let color of product.colors" [color]="color" [precio]="product.prices[0] ? product.prices[0].value : 0"></app-card-color>
         </div>
 
     </div>

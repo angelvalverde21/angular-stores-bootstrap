@@ -64,12 +64,14 @@ export class FormSearchComponent {
 
     this._commonService.setIconLoading(true);
     this._commonService.setCardPlaceHolder(true);
+    console.log('this._commonService.setShowSearch(true)');
+    
     // this.iconLoading = this._commonService.getIconLoading();
     // this._productService.setProducts([]);
 
     event.preventDefault();
 
-    this.search = this.convertToSlug(this.search); // Captura el valor del inputd
+    // this.search = encodeURIComponent(this.search); // Captura el valor del inputd
 
     this.route.params.subscribe((params) => {
 

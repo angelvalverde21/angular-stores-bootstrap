@@ -1,27 +1,36 @@
-<header
-    class="d-flex mx-3 flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom my-3">
+<header>
 
-    <div class="col-md-3 mb-2 mb-md-0">
+    <div class="wrap d-flex mx-3 flex-wrap align-items-center justify-content-between justify-content-md-between py-3 mb-4 border-bottom">
 
-        <app-logo></app-logo>
+        <div class="col-md-3 mb-2 mb-md-0">
 
+            <app-logo></app-logo>
+    
+        </div>
+    
+        <div class="col-12 col-md-auto mb-2 d-none d-lg-block d-xl-none d-flex flex-row justify-content-center">
+            <a [routerLinkActive]="['active']" [routerLink]="['/', store]" [routerLinkActiveOptions]="{ exact: true }"
+                    class=" px-2">Home</a>
+            <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a> -->
+            <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'order']" class=" px-2">Transportes</a> -->
+        </div>
+    
+        <div class="col-md-3 text-end">
+            <button (click)="openSearch()"  type="button" class="btn btn-outline-secondary me-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <app-button-login></app-button-login>
+            <app-button-register></app-button-register>
+        </div>
     </div>
 
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a [routerLinkActive]="['active']" [routerLink]="['/']" [routerLinkActiveOptions]="{ exact: true }"
-                class="nav-link px-2">Home</a></li>
-        <!-- <li><a [routerLinkActive]="['active']" [routerLink]="['/tracking']" class="nav-link px-2">Tracking</a></li> -->
-        <!-- <li><a [routerLinkActive]="['active']" [routerLink]="['/order']" class="nav-link px-2">Transportes</a></li> -->
-    </ul>
-
-    <div class="col-md-3 text-end">
-        <button (click)="openSearch()"  type="button" class="btn btn-outline-secondary me-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <app-button-login></app-button-login>
-        <app-button-register></app-button-register>
-    </div>
+    <!-- <div class="col-12 col-md-auto mb-2 d-block d-sm-none d-flex flex-row justify-content-center">
+        <a [routerLinkActive]="['active']" [routerLink]="['/', store]" [routerLinkActiveOptions]="{ exact: true }"
+                class=" px-2">Home</a>
+        <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a>
+        <a [routerLinkActive]="['active']" [routerLink]="['/',store,'order']" class=" px-2">Transportes</a>
+    </div> -->
 
 </header>
-<div class="container" *ngIf="showSearch">
+<div class="container fade-in" [class.visible]="showSearch">
     <app-form-search></app-form-search>
 </div>
 

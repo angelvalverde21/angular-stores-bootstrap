@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CardProductComponent } from '../cards/card-product/card-product.component';
 import { CardColorComponent } from '../cards/card-color/card-color.component';
 import { ProductService } from '../../services/product.service';
@@ -26,11 +26,15 @@ import { CommonService } from '../../services/common.service';
 })
 
 // export class ButtonLoginComponent implements OnInit {
-export class ProductsComponent{
+export class ProductsComponent implements OnInit{
 
   products: any = [];
   loading: boolean = true;
   productsEncontrados: boolean =  false;
+
+  ngOnInit(){
+
+  }
 
   constructor(
     private _productsService: ProductService,
@@ -47,6 +51,8 @@ export class ProductsComponent{
 
     this._commonService.getCardPlaceHolderObservable().subscribe((value:boolean) => {
 
+      console.log('el valor actual de value es ' + value);
+      
       this.loading = value;
 
     })
