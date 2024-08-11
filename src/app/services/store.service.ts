@@ -17,13 +17,16 @@ export class StoreService {
 
   }
 
-  private slug: string = "";
+  private slug: string | null = localStorage.getItem('store');
 
   setSlug(slug: string): void {
-    this.slug = slug;
+    if (localStorage.getItem('store') == null) {
+      localStorage.setItem('store', slug);
+      this.slug = localStorage.getItem('store');
+    }
   }
 
-  getSlug(): string {
+  getSlug(): string | null{
     return this.slug;
   }
   
