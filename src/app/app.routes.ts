@@ -33,32 +33,32 @@ export const routes: Routes = [
       {
         path: 'order',
         component: OrderComponent,
-      }
-
+      },
+      {
+        path: 'search/:search',
+        component: SearchComponent,
+        // canActivate: [storeNameGuard],
+      },
+    
+      {
+        path: 'tracking',
+        component: TrackingComponent,
+      },
+    
+      {
+        path: 'order',
+        component: OrderComponent,
+      },
+    
+      {
+        path: 'login',
+        component: LoginComponent,
+        // canActivate: [storeNameGuard],
+      },
     ]
   },
 
-  {
-    path: ':store/search/:search',
-    component: SearchComponent,
-    // canActivate: [storeNameGuard],
-  },
 
-  {
-    path: ':store/tracking',
-    component: TrackingComponent,
-  },
-
-  {
-    path: ':store/order',
-    component: OrderComponent,
-  },
-
-  {
-    path: ':store/login',
-    component: LoginComponent,
-    // canActivate: [storeNameGuard],
-  },
 
   { path: '', component: RegisterComponent },
   // { path: ':link', component: ShowProductComponent, title: 'Informacion del producto || ARA'},

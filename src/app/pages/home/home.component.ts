@@ -4,8 +4,9 @@ import { FooterComponent } from '../../footer/footer.component';
 import { ProductsComponent } from '../../components/products/products.component';
 import { ProductService } from '../../services/product.service';
 import { StoreService } from '../../services/store.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -15,42 +16,44 @@ import { CommonService } from '../../services/common.service';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-
-  store: string = "";
+  // store: string = '';
 
   constructor(
+    private route: ActivatedRoute,
     private _storeService: StoreService,
     private _productService: ProductService,
     private _commonService: CommonService,
-    private router: Router,
-    
+    private router: Router
   ) {
-    
-    console.log('se llama a los productos');
+    // console.log('se llama a los productos');
     //Consultamos a la base de datos la informacion del perfil y productos
-    this.store = this._storeService.getSlug();
-    
+    // this.store = this._storeService.getSlug();
+
     this._commonService.setCardPlaceHolder(true);
 
-    this._storeService.getHome(this.store).subscribe({
-      next: (resp: any) => {
-        // Manejo de la respuesta exitosa
-        // console.log(resp.data);
+    const slugBase = localStorage.getItem('slug_base')!;
 
-        console.log('llamando a store.component');
+    this._storeService.setSlugBase(slugBase).subscribe((resp: any) => {
 
-        
+      console.log('ingresamos correctamente al store.component');
 
-        this._productService.setProducts(resp.data.products);
-      },
-      error: (err: any) => {
-        // Manejo del error
-        this.router.navigate(['/', this.store, 'error-404']);
-        console.error('Error al obtener la información:', err);
-      },
+      console.log(localStorage.getItem('slug_base'));
+
+      this._storeService.getHome(slugBase).subscribe({
+        next: (resp: any) => {
+          // Manejo de la respuesta exitosa
+          // console.log(resp.data);
+
+          console.log('llamando a store.component');
+
+          this._productService.setProducts(resp.data.products);
+        },
+        error: (err: any) => {
+          // Manejo del error
+          this.router.navigate(['error-404']);
+          console.error('Error al obtener la información:', err);
+        },
+      });
     });
-
   }
 }
-
-

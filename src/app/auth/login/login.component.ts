@@ -22,9 +22,9 @@ export class LoginComponent {
   ) {
 
 
-    this.store = this.route.snapshot.paramMap.get((environment.parametroBase)) || "";
-
-    this._storeService.setSlug(this.store);
+    this._storeService.setSlugBase('ara').subscribe((resp: any) => {
+      console.log('ingresamos correctamente al LoginCompoent.ts');
+    });
 
     // console.log(this.store + '       x');
     

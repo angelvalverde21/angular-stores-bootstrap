@@ -9,39 +9,44 @@ import { environment } from '../../environments/environment';
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './store.component.html',
-  styleUrl: './store.component.css'
+  styleUrl: './store.component.css',
 })
-export class StoreComponent{
-
-  store: string = "";
+export class StoreComponent {
+  store: string = '';
   products: [] = [];
-  
+
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private _storeService: StoreService,
-    private _productService: ProductService,
-    private router: Router,
-
+    // private _productService: ProductService,
+    // private router: Router
   ) {
+    // this._storeService.setSlugBase().subscribe((resp: any) => {
 
-    this.route.params.subscribe(params => {
+    //   console.log('ingresamos correctamente al store.component');
+      
+    //   console.log(localStorage.getItem('slug_base'));
+      
+    // });
+    this.route.params.subscribe((params) => {
 
       const store = params[environment.parametroBase]; //el parametro base es store
 
-      if (store) {
-        //setea el nombre de la tienda
-        console.log('seteando el nombre del slug del store ' + store);
-        
-        this._storeService.setSlug(store);
+      this._storeService.setSlugBase(store).subscribe((resp: any) => {
 
-      }
+          console.log('SE HA COMPROBADO EL SETSLUGBASE');
+          
+
+      });
 
     });
-
   }
+
+
+  
+
 
   // ngOnInit(): void {
 
   // }
-
 }
