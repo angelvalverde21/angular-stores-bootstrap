@@ -25,6 +25,7 @@ export class ProductService {
 
   setProducts(value: []) {
     this.products.next(value);
+    // this.products.complete(); //termina la suscripcion, util cuando solo se requiere usar una sola vez
   }
 
   getProductsObservable() {

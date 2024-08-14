@@ -13,9 +13,11 @@ export class ButtonLoginComponent{
 
   store: string = '/'; 
   
-  constructor(private _storeService: StoreService){
-    // console.log(this.store + 'desde btn login');
-    this.store = this._storeService.getSlug();
+  constructor(private _store: StoreService){
+    this._store.getNameObservable().subscribe((store: string) => {
+      // console.log(store + ' desde header');
+      this.store = store;
+    });
   }
   
 

@@ -17,61 +17,77 @@ import { CommonService } from '../../services/common.service';
   styleUrl: './search.component.css',
 })
 export class SearchComponent {
-  store: string = '';
-  search: string = '';
+  // store: string = '';
+  // search: string = '';
 
   //Consultamos a la base de datos la informacion del perfil y productos
   constructor(
-    private _storeService: StoreService,
+    private _store: StoreService,
     private _productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
-    private _commonService: CommonService
+    private _common: CommonService
   ) {
     console.log('Buscando productos');
 
-
-    this._commonService.setCardPlaceHolder(true);
-    this._commonService.setShowSearch(true);
+    this._common.setCardPlaceHolder(true);
+    this._common.setShowSearch(true);
     this.cargarResultados();
     // this.store = this._storeService.getSlug();
   }
 
-  cargarResultados(){
-    
-  this.route.params.subscribe(params => {
+  store: string = "";
+  search: string = "";
 
-    this.search = params['search']; //el parametro base es store
-    this.store = params[environment.parametroBase]; //el parametro base es store
+  cargarResultados() {
+    /***************************************** */
 
-    if (this.search) {
-      //setea el nombre de la tienda
-      console.log('se esta buscando ' + this.search);
-      // this._storeService.setSlug(search);
-    }
+    this.route.parent?.params.subscribe((params) => { //recibe el nombre del store desde la ruta padre
 
-    this._storeService.search(this.store, this.search).subscribe({
 
-      next: (resp: any) => {
-        // Manejo de la respuesta exitosa
-        console.log(resp);
-  
-        console.log('llamando a search.component');
-  
-        this._productService.setProducts(resp.data);
+      console.log('imprimiendo valores recibidos de route.parent?.params');
+      
 
-        this._commonService.setIconLoading(false);
-      },
-  
-      error: (err: any) => {
-        // Manejo del error
-        this.router.navigate(['/error-404']);
-        console.error('Error al obtener la información de search:', err);
-      },
+      console.log(params);
+      
+      this.store = params[environment.parametroBase]; 
+
+      console.log('el campo buscado es xxx ' + this.store);
+
+      this.route.params.subscribe((params) => { //recibe el parametro del mismo componente (que no es el padre)
+
+        console.log(params);
+
+        this.search = params['search']; //el parametro base es store
+
+        this._store.slugBase(this.store).subscribe((resp: any) => {
+
+          this._store.setName(resp.name); //setea la url de la pagina web (StoreName)
+
+          this._store.search(this.store, this.search).subscribe({
+            next: (resp: any) => {
+              // Manejo de la respuesta exitosa
+              console.log(resp);
+
+              console.log('llamando a search.component');
+
+              
+              this._productService.setProducts(resp.data);
+
+              this._common.setIconLoading(false);
+            },
+
+            error: (err: any) => {
+              // Manejo del error
+              this.router.navigate(['/error-404']);
+              console.error('Error al obtener la información de search:', err);
+            },
+          });
+
+        });
+
+      });
 
     });
-
-  });
   }
-
 }

@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { StoreService } from '../services/store.service';
-import { ProductService } from '../services/product.service';
-import { environment } from '../../environments/environment';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-store',
@@ -16,8 +13,7 @@ export class StoreComponent {
   products: [] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private _storeService: StoreService,
+
     // private _productService: ProductService,
     // private router: Router
   ) {
@@ -28,24 +24,22 @@ export class StoreComponent {
     //   console.log(localStorage.getItem('slug_base'));
       
     // });
-    this.route.params.subscribe((params) => {
 
-      const store = params[environment.parametroBase]; //el parametro base es store
+    // this.route.params.subscribe((params) => {
 
-      this._storeService.setSlugBase(store).subscribe((resp: any) => {
+    //   const store = params[environment.parametroBase]; //el parametro base es store
+    //   console.log('valor inicial ' + store);
 
-          console.log('SE HA COMPROBADO EL SETSLUGBASE');
+    //   this._storeService.setSlugBase(store).subscribe((resp: any) => {
+
+    //       console.log('el slug base ha sido seteado correctamente');
           
+    //   });
 
-      });
+    // });
 
-    });
   }
-
-
   
-
-
   // ngOnInit(): void {
 
   // }

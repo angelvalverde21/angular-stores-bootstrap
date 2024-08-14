@@ -16,44 +16,46 @@ import { environment } from '../../../environments/environment';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  // store: string = '';
+  // private subscription: Subscription;
 
   constructor(
-    private route: ActivatedRoute,
-    private _storeService: StoreService,
-    private _productService: ProductService,
-    private _commonService: CommonService,
-    private router: Router
+    private _store: StoreService,
+    private _product: ProductService,
+    private _common: CommonService,
+    private route: ActivatedRoute
   ) {
     // console.log('se llama a los productos');
     //Consultamos a la base de datos la informacion del perfil y productos
     // this.store = this._storeService.getSlug();
 
-    this._commonService.setCardPlaceHolder(true);
+    console.log('se llamo a homeComponent');
 
-    const slugBase = localStorage.getItem('slug_base')!;
+    this._common.setCardPlaceHolder(true);
 
-    this._storeService.setSlugBase(slugBase).subscribe((resp: any) => {
+    // const slugBase = localStorage.getItem('slug_base')!;/
 
-      console.log('ingresamos correctamente al store.component');
+    this.route.parent?.params.subscribe((params) => {
 
-      console.log(localStorage.getItem('slug_base'));
+      const slugBase = params[environment.parametroBase]; //el parametro base es store
+      console.log('valor inicial ' + slugBase);
 
-      this._storeService.getHome(slugBase).subscribe({
-        next: (resp: any) => {
-          // Manejo de la respuesta exitosa
-          // console.log(resp.data);
+      //usamos un suscribe porque para determinar que es slugBase es correcto, tomara un poco de tiempo
+      this._store.slugBase(slugBase).subscribe((resp: any) => {
 
-          console.log('llamando a store.component');
+        console.log('el valor que viene de ******** setSlugBase ');
+        console.log(resp);
 
-          this._productService.setProducts(resp.data.products);
-        },
-        error: (err: any) => {
-          // Manejo del error
-          this.router.navigate(['error-404']);
-          console.error('Error al obtener la información:', err);
-        },
+        this._store.setName(resp.name); //setea la url de la pagina web (StoreName)
+        
+        this._store.getHome(resp.name).subscribe((resp: any) => {
+
+          //setea los productos para que se puedan mostrar
+          this._product.setProducts(resp.data.products);
+
+        });
+
       });
+      
     });
   }
 }

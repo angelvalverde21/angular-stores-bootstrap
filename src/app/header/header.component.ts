@@ -5,12 +5,17 @@ import { RouterModule } from '@angular/router';
 import { ButtonLoginComponent } from '../components/buttons/button-login/button-login.component';
 import { ButtonRegisterComponent } from '../components/buttons/button-register/button-register.component';
 import { LoadingComponent } from '../components/loading/loading.component';
-import { FormSearchComponent } from "../components/form-search/form-search.component";
+import { FormSearchComponent } from '../components/form-search/form-search.component';
 import { CommonModule } from '@angular/common';
 import { StoreService } from '../services/store.service';
-import { trigger, style, state, animate, transition } from '@angular/animations';
+import {
+  trigger,
+  style,
+  state,
+  animate,
+  transition,
+} from '@angular/animations';
 import { CommonService } from '../services/common.service';
-
 
 @Component({
   selector: 'app-header',
@@ -22,31 +27,35 @@ import { CommonService } from '../services/common.service';
     ButtonRegisterComponent,
     LoadingComponent,
     FormSearchComponent,
-    CommonModule
-],
+    CommonModule,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   animations: [
     trigger('searchTransition', [
-      state('hidden', style({
-        opacity: 0,
-        height: '0px',
-        overflow: 'hidden'
-      })),
-      state('visible', style({
-        opacity: 1,
-        height: '*',
-        overflow: 'hidden'
-      })),
-      transition('hidden <=> visible', [
-        animate('300ms ease-in-out')
-      ]),
-    ])
-  ]
+      state(
+        'hidden',
+        style({
+          opacity: 0,
+          height: '0px',
+          overflow: 'hidden',
+        })
+      ),
+      state(
+        'visible',
+        style({
+          opacity: 1,
+          height: '*',
+          overflow: 'hidden',
+        })
+      ),
+      transition('hidden <=> visible', [animate('300ms ease-in-out')]),
+    ]),
+  ],
 })
 export class HeaderComponent {
   showSearch: boolean = false;
-  store: string = "";
+  store: string = '';
 
   // store: string = '';
 
@@ -54,20 +63,22 @@ export class HeaderComponent {
   offcanvasElement!: ElementRef;
 
   constructor(
-    private _cartService: CartService,
-    private _commonService: CommonService,
-    private _storeService: StoreService,
+    private _cart: CartService,
+    private _common: CommonService,
+    private _store: StoreService
   ) {
+    // this.store = this._store.getSlug();
 
-    this.store = this._storeService.getSlug();
+    this._common.getShowSearchObservable().subscribe((value: boolean) => {
+      this.showSearch = value;
+      console.log('escuche el valor seteado y es ' + value);
+    });
 
-    this._commonService.getShowSearchObservable().subscribe(
-      (value:boolean) => {
-        this.showSearch = value;
-        console.log('escuche el valor seteado y es ' + value);
-        
-      }
-    );
+    //Espera el nombre del componente padre, que en este caso es home
+    this._store.getNameObservable().subscribe((store: string) => {
+      console.log(store + ' desde header');
+      this.store = store;
+    });
 
   }
 
@@ -79,7 +90,7 @@ export class HeaderComponent {
   ngAfterViewInit() {
     if (this.offcanvasElement) {
       // console.log('offcanvasElement cargado');
-      this._cartService.initializeOffcanvas(this.offcanvasElement);
+      this._cart.initializeOffcanvas(this.offcanvasElement);
     } else {
       // console.log('offcanvasElement noooooooo cargado');
     }
@@ -87,10 +98,10 @@ export class HeaderComponent {
 
   openCart() {
     console.log('click');
-    this._cartService.openCart();
+    this._cart.openCart();
   }
 
   closeCart() {
-    this._cartService.closeCart();
+    this._cart.closeCart();
   }
 }

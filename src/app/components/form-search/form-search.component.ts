@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
 import { LoadingComponent } from "../loading/loading.component";
-import { SetterGetterService } from '../../services/setter-getter.service';
 import { CommonService } from '../../services/common.service';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-form-search',
@@ -27,27 +26,23 @@ export class FormSearchComponent {
 
   constructor(
 
-    private route: ActivatedRoute,
     private router: Router,
-    private _commonService: CommonService
+    private _common: CommonService,
+    private _store: StoreService,
+    private route: ActivatedRoute,
   ) {
 
     //este es un observable que verifica el estado del iconLoading
-    this._commonService.geIconLoadingObservable().subscribe( (value:boolean) => {
+    this._common.getIconLoadingObservable().subscribe( (value:boolean) => {
       this.iconLoading = value;
     });
-
+  
+    this.route.params.subscribe((params) => {
+      console.log('imprimiendo parametros');
+      console.log(params);
+      this.search = params['search'];
+    });
   }
-
-  convertToSlug(text: string): string {
-    return text
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9 -]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-');
-  }
-
 
   keyUpSearch($event: any){
     if(this.search.length>4){
@@ -62,8 +57,8 @@ export class FormSearchComponent {
 
   searchProduct(event: any) {
 
-    this._commonService.setIconLoading(true);
-    this._commonService.setCardPlaceHolder(true);
+    this._common.setIconLoading(true);
+    this._common.setCardPlaceHolder(true);
     console.log('this._commonService.setShowSearch(true)');
     
     // this.iconLoading = this._commonService.getIconLoading();
@@ -73,39 +68,15 @@ export class FormSearchComponent {
 
     // this.search = encodeURIComponent(this.search); // Captura el valor del inputd
 
-    this.route.params.subscribe((params) => {
+    this._store.getNameObservable().subscribe((name:string) => {
+      this.store = name;
+    }); //el parametro base es store
 
-      // this.search = params['search']; //el parametro base es store
-      this.store = params[environment.parametroBase]; //el parametro base es store
+    console.log(this.search); //
+    console.log(this.store); //
 
-      console.log(this.search); //
-      console.log(this.store); //
+    
+    this.router.navigate(['/', this.store, 'search', this.search]);
 
-      
-      this.router.navigate(['/', this.store, 'search', this.search]);
-
-      // this.buscando = false;
-
-    });
-
-    // this._storeService.search(this._storeService.getSlug(), search).subscribe({
-    //   next: (resp: any) => {
-    //     // Manejo de la respuesta exitosa
-    //     // console.log(resp.data);
-
-    //     this.buscando = false;
-
-    //     console.log('respuesta para el buscador');
-
-    //     this._productService.setProducts(resp.data);
-    //   },
-    //   error: (err: any) => {
-    //     // Manejo del error
-
-    //     this._productService.setProducts([]);
-
-    //     console.error('No hay resultados desde header', err);
-    //   },
-    // });
   }
 }
