@@ -19,6 +19,10 @@ export const routes: Routes = [
     title: 'Error 404 | Pagina no encontrada',
   },
 
+  { path: 'register', component: RegisterComponent },
+
+  { path: '', component: RegisterComponent },
+  
   {
     path: ':store',
     component: StoreComponent,
@@ -55,12 +59,13 @@ export const routes: Routes = [
         component: LoginComponent,
         // canActivate: [storeNameGuard],
       },
+    
     ]
   },
 
 
 
-  { path: '', component: RegisterComponent },
+  // 
   // { path: ':link', component: ShowProductComponent, title: 'Informacion del producto || ARA'},
   { path: '**', redirectTo: '/error-404', pathMatch: 'full' }
 

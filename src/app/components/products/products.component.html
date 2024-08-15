@@ -21,28 +21,34 @@
 
 </div>
 
-<section *ngIf="!loading && productsEncontrados; else noProducts" class="fade-in" [class.visible]="!loading && productsEncontrados">
+<section *ngIf="!loading && productsEncontrados; else noProducts" class="fade-in"
+    [class.visible]="!loading && productsEncontrados">
 
     <div class="products" *ngFor="let product of products">
 
-        <div class="title">
-            <h1 class="mt-3">
-                <div class="title">{{ product.name | shortTitle }}</div>
-            </h1>
-            <!-- <div class="price">{{ (product.price[0] != null ? product.price[0].value : 0) | pen }}</div> -->
-        </div>
+        <section *ngIf="product.sku_quantity ">
+            <div class="title">
+                <h1 class="mt-3">
+                    <div class="title">{{ product.name | shortTitle }}</div>
+                </h1>
+                <!-- <div class="price">{{ (product.price[0] != null ? product.price[0].value : 0) | pen }}</div> -->
+            </div>
 
-        <hr>
+            <hr>
 
-        <div class="color">
-            <app-card-color  *ngFor="let color of product.colors" [color]="color" [precio]="product.prices[0] ? product.prices[0].value : 0"></app-card-color>
-        </div>
+            <div class="color">
+                <app-card-color *ngFor="let color of product.colors_active" [color]="color"
+                    [precio]="product.prices[0] ? product.prices[0].value : 0"></app-card-color>
+            </div>
+        </section>
+
+
 
     </div>
-    
+
 </section>
 
 <ng-template #noProducts>
     <!-- Contenido que se muestra cuando no hay productos -->
     <p>No se encontraron productos.</p>
-  </ng-template>
+</ng-template>
