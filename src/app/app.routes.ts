@@ -10,6 +10,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { SearchComponent } from './pages/search/search.component';
 import { DashboardComponent } from './auth/dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
+import { verifyStoreResolver } from './resolvers/verify-store.resolver';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -21,15 +22,17 @@ export const routes: Routes = [
   {
     path: ':store',
     component: StoreComponent,
-
+    // resolve: {
+    //   slugBase: verifyStoreResolver
+    // },
     children: [
 
-      { path: '', component: HomeComponent },
       { path: 'order', component: OrderComponent },
       { path: 'search/:search', component: SearchComponent },
       { path: 'tracking', component: TrackingComponent},
       { path: 'order', component: OrderComponent},
       { path: 'login', component: LoginComponent },
+      { path: '', component: HomeComponent },
 
       {
         path: 'auth', component: DashboardComponent, 

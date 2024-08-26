@@ -33,7 +33,15 @@ export class HomeComponent {
     this._common.setCardPlaceHolder(true);
 
     // const slugBase = localStorage.getItem('slug_base')!;/
-    this._store.getNameObservable().subscribe((name:string) => {
+    this.route.params.subscribe((params) => {
+      //recibe el parametro del mismo componente (que no es el padre)
+
+      console.log(params);
+      console.log('empezando a solicitar la busqueda');
+      
+      const name = params[environment.parametroBase]; //el parametro base es store
+      console.log(name);
+
 
       this._store.getHome(name).subscribe((resp: any) => {
 

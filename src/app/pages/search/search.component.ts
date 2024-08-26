@@ -41,13 +41,23 @@ export class SearchComponent {
 
   cargarResultados() {
 
-    this._store.getNameObservable().subscribe((name:string) => {
+    this.route.parent?.params.subscribe((params) => {
+      //recibe el nombre del store desde la ruta padre
 
-      
+      console.log('imprimiendo valores recibidos de route.parent?.params');
+
+      console.log(params);
+
+      const name = params[environment.parametroBase];
+
+      console.log('el campo buscado es xxx ' + name);
+
       this.route.params.subscribe((params) => {
         //recibe el parametro del mismo componente (que no es el padre)
 
         console.log(params);
+        console.log(name);
+        console.log('empezando a solicitar la busqueda');
 
         this.search = params['search']; //el parametro base es store
 
@@ -72,7 +82,11 @@ export class SearchComponent {
         });
 
       });
+
+
     });
+
+
 
   }
 }
