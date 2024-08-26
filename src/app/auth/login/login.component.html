@@ -1,5 +1,5 @@
 <main class="form-signin m-auto text-center d-flex align-items-center justify-content-center">
-    <form>
+    <form [formGroup]="form" (ngSubmit)="iniciarSesion()">
       <app-logo></app-logo>
 
       <div class="form-floating mt-3">
@@ -8,7 +8,9 @@
           class="form-control" 
           id="floatingInput" 
           placeholder="name@example.com"
-          autocomplete="email">
+          autocomplete="email"
+          formControlName="email"
+          >
           
         <label for="floatingInput">Email</label>
       </div>
@@ -18,18 +20,32 @@
         class="form-control" 
         id="floatingPassword" 
         placeholder="Password"
-        autocomplete="current-password">
+        autocomplete="current-password"
+        formControlName="password"
+        >
         
         <label for="floatingPassword">Password</label>
       </div>
   
       <div class="form-check text-start my-3">
-        <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" autocomplete="off">
+        <input class="form-check-input " formControlName="recuerdame" type="checkbox" value="remember-me" id="flexCheckDefault" autocomplete="off">
         <label class="form-check-label" for="flexCheckDefault">
           Recordarme
         </label>
       </div>
-      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+
+      <div class="alert alert-danger fade show" role="alert" *ngIf="!valid">
+        {{ message }}
+      </div>
+
+      <button class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center" [disabled]="!form.valid" type="submit" disabled>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        <i *ngIf="!loading" class="fa-solid fa-lock me-2" style="font-size: 0.9rem;"></i>
+        <span>Iniciar Sesion</span>
+      </button>
+
+      <!-- <button class="btn btn-primary w-100 py-2" type="submit"></button> -->
+
       <p class="mt-5 mb-3 text-body-secondary">&copy; 2011–2024</p>
     </form>
 </main>

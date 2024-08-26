@@ -36,58 +36,43 @@ export class SearchComponent {
     // this.store = this._storeService.getSlug();
   }
 
-  store: string = "";
-  search: string = "";
+  store: string = '';
+  search: string = '';
 
   cargarResultados() {
-    /***************************************** */
 
-    this.route.parent?.params.subscribe((params) => { //recibe el nombre del store desde la ruta padre
+    this._store.getNameObservable().subscribe((name:string) => {
 
-
-      console.log('imprimiendo valores recibidos de route.parent?.params');
       
-
-      console.log(params);
-      
-      this.store = params[environment.parametroBase]; 
-
-      console.log('el campo buscado es xxx ' + this.store);
-
-      this.route.params.subscribe((params) => { //recibe el parametro del mismo componente (que no es el padre)
+      this.route.params.subscribe((params) => {
+        //recibe el parametro del mismo componente (que no es el padre)
 
         console.log(params);
 
         this.search = params['search']; //el parametro base es store
 
-        this._store.slugBase(this.store).subscribe((resp: any) => {
+        this._store.search(name, this.search).subscribe({
 
-          this._store.setName(resp.name); //setea la url de la pagina web (StoreName)
+          next: (resp: any) => {
+            // Manejo de la respuesta exitosa
+            console.log(resp);
 
-          this._store.search(this.store, this.search).subscribe({
-            next: (resp: any) => {
-              // Manejo de la respuesta exitosa
-              console.log(resp);
+            console.log('llamando a search.component');
 
-              console.log('llamando a search.component');
+            this._productService.setProducts(resp.data);
 
-              
-              this._productService.setProducts(resp.data);
+            this._common.setIconLoading(false);
+          },
 
-              this._common.setIconLoading(false);
-            },
-
-            error: (err: any) => {
-              // Manejo del error
-              this.router.navigate(['/error-404']);
-              console.error('Error al obtener la información de search:', err);
-            },
-          });
-
+          error: (err: any) => {
+            // Manejo del error
+            this.router.navigate(['/error-404']);
+            console.error('Error al obtener la información de search:', err);
+          },
         });
 
       });
-
     });
+
   }
 }

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { environment } from '../../environments/environment';
+import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'app-store',
@@ -8,39 +10,31 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './store.component.html',
   styleUrl: './store.component.css',
 })
-export class StoreComponent {
+export class StoreComponent implements AfterViewInit {
   store: string = '';
   products: [] = [];
 
   constructor(
-
     // private _productService: ProductService,
-    // private router: Router
+    private router: Router,
+    private _route: ActivatedRoute,
+    private _store: StoreService
   ) {
-    // this._storeService.setSlugBase().subscribe((resp: any) => {
 
-    //   console.log('ingresamos correctamente al store.component');
-      
-    //   console.log(localStorage.getItem('slug_base'));
-      
-    // });
+    // console.log('xxxxxxxxxx respuesta del slug base de  storeComponent.ts ');
 
-    // this.route.params.subscribe((params) => {
+    //* Primero llamamos para verificar si existe la tienda en la base de datos **/
+    this._route.params.subscribe((params: any) => {
+      const slugBase = params[environment.parametroBase]; //el parametro base es store
+      console.log('valor inicial ' + slugBase);
 
-    //   const store = params[environment.parametroBase]; //el parametro base es store
-    //   console.log('valor inicial ' + store);
-
-    //   this._storeService.setSlugBase(store).subscribe((resp: any) => {
-
-    //       console.log('el slug base ha sido seteado correctamente');
-          
-    //   });
-
-    // });
-
+      //usamos un suscribe porque para determinar que es slugBase es correcto, tomara un poco de tiempo por eso usamos un suscribe, la respuesta es verdadero o falso
+      this._store.isValid(slugBase).subscribe((isValid: boolean) => {
+        this._store.setName(slugBase);
+      });
+    });
   }
-  
-  // ngOnInit(): void {
-
-  // }
+  ngAfterViewInit(): void {
+    console.log('Se ha pasado por el storeComponent.ts ');
+  }
 }

@@ -16,6 +16,7 @@ import {
   transition,
 } from '@angular/animations';
 import { CommonService } from '../services/common.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -56,6 +57,7 @@ import { CommonService } from '../services/common.service';
 export class HeaderComponent {
   showSearch: boolean = false;
   store: string = '';
+  estaAutenticado: boolean = false;
 
   // store: string = '';
 
@@ -65,9 +67,14 @@ export class HeaderComponent {
   constructor(
     private _cart: CartService,
     private _common: CommonService,
-    private _store: StoreService
+    private _store: StoreService,
+    private _auth: AuthService,
   ) {
     // this.store = this._store.getSlug();
+
+    if(this._auth.estaAutenticado()){
+      this.estaAutenticado = true;
+    }
 
     this._common.getShowSearchObservable().subscribe((value: boolean) => {
       this.showSearch = value;

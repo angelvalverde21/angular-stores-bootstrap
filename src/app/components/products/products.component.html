@@ -24,9 +24,14 @@
 <section *ngIf="!loading && productsEncontrados; else noProducts" class="fade-in"
     [class.visible]="!loading && productsEncontrados">
 
+    <!-- {{ products | json }} -->
+
     <div class="products" *ngFor="let product of products">
 
-        <section *ngIf="product.sku_quantity ">
+        <section *ngIf="product.sku_quantity">
+
+            <!-- {{ product.sku_quantity | json }} -->
+
             <div class="title">
                 <h1 class="mt-3">
                     <div class="title">{{ product.name | shortTitle }}</div>
@@ -38,11 +43,10 @@
 
             <div class="color">
                 <app-card-color *ngFor="let color of product.colors_active" [color]="color"
-                    [precio]="product.prices[0] ? product.prices[0].value : 0"></app-card-color>
+                    [precio]="product.price ? product.price.value : 0"></app-card-color>
             </div>
+            
         </section>
-
-
 
     </div>
 
@@ -50,5 +54,5 @@
 
 <ng-template #noProducts>
     <!-- Contenido que se muestra cuando no hay productos -->
-    <p>No se encontraron productos.</p>
+    <!-- <p>No se encontraron productos.</p> -->
 </ng-template>

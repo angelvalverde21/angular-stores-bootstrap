@@ -39,7 +39,6 @@ export class CartService {
 
   }
 
-
   openCart() {
     if (this.offcanvas) {
       console.log('clickc--');

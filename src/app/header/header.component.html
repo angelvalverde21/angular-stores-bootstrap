@@ -11,6 +11,15 @@
         <div class="col-12 col-md-auto mb-2 d-none d-lg-block d-xl-none d-flex flex-row justify-content-center">
             <a [routerLinkActive]="['active']" [routerLink]="['/', store]" [routerLinkActiveOptions]="{ exact: true }"
                     class=" px-2">Home</a>
+
+            <ng-container *ngIf="estaAutenticado">
+            <a [routerLinkActive]="['active']" [routerLink]="['/', store]" [routerLinkActiveOptions]="{ exact: true }"
+                    class=" px-2">Orders</a>
+            <a [routerLinkActive]="['active']" [routerLink]="['/', store]" [routerLinkActiveOptions]="{ exact: true }"
+                    class=" px-2">Tracking</a>                
+            </ng-container>
+
+
             <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a> -->
             <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'order']" class=" px-2">Transportes</a> -->
         </div>

@@ -16,12 +16,12 @@ export class StoreService {
 
 
 
-  slugBase(name: string): Observable<any> { //name quiere decir el nombre del la primera (storeName) palabra del slug /storeName/login/etc
+  isValid(name: string): Observable<boolean> { //name quiere decir el nombre del la primera (storeName) palabra del slug /storeName/login/etc
 
     console.log('Impresión desde la función setSlugBase: ' + name);
 
     if (!name) {
-      return of(null);
+      return of(false);
     }
 
     if (
@@ -35,28 +35,28 @@ export class StoreService {
     } else {
       console.log('El slug existe y es ' + name);
       
-      return of({ name }); 
+      return of(true); 
     }
 
   }
 
-  SlugVerification(name: string): Observable<any> {
+  SlugVerification(name: string): Observable<boolean> {
     
     return this.verifyStore(name).pipe(
-      switchMap((resp: any) => {
+      map((resp: any) => {
         console.log('se ha seteado el slug_base ' + name);
 
         localStorage.setItem('slug_base', name);
-
-        return of({ name });
+        return true;
       }),
       catchError((err: any) => {
+        console.log('redireccionando a la pagina de login');
         this.router.navigate(['/', name, 'error-404']);
         console.error(
           'El nombre de la tienda ' + name + ' no existe:',
           err
         );
-        return of(null); // Devuelve un observable vacío para manejar el error
+        return of(false); // Devuelve un observable vacío para manejar el error
       })
     );
   }
@@ -96,6 +96,9 @@ export class StoreService {
   // }
 
   getHome(store: string): Observable<any> {
+    console.log('se llamo a getHome');
+    console.log(store);
+    
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.url_base}/${store}`;
     // const url = `${this.url_base}?store=${store}`;

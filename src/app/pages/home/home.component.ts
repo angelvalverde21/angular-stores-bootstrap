@@ -33,29 +33,16 @@ export class HomeComponent {
     this._common.setCardPlaceHolder(true);
 
     // const slugBase = localStorage.getItem('slug_base')!;/
+    this._store.getNameObservable().subscribe((name:string) => {
 
-    this.route.parent?.params.subscribe((params) => {
+      this._store.getHome(name).subscribe((resp: any) => {
 
-      const slugBase = params[environment.parametroBase]; //el parametro base es store
-      console.log('valor inicial ' + slugBase);
-
-      //usamos un suscribe porque para determinar que es slugBase es correcto, tomara un poco de tiempo
-      this._store.slugBase(slugBase).subscribe((resp: any) => {
-
-        console.log('el valor que viene de ******** setSlugBase ');
-        console.log(resp);
-
-        this._store.setName(resp.name); //setea la url de la pagina web (StoreName)
-        
-        this._store.getHome(resp.name).subscribe((resp: any) => {
-
-          //setea los productos para que se puedan mostrar
-          this._product.setProducts(resp.data.products);
-
-        });
+        //setea los productos para que se puedan mostrar
+        this._product.setProducts(resp.data.products);
 
       });
       
     });
+
   }
 }
