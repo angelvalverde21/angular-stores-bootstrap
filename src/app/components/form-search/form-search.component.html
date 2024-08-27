@@ -1,7 +1,7 @@
-<div class="search">
+<div class="search mb-3">
     <form class="d-flex">
-        <input class="form-control me-2" [(ngModel)]="search" (keyup)="keyUpSearch($event)" name="search" type="search" placeholder="Buscar" aria-label="Search">
-        <button class="btn" [disabled]="search ? false : true"  [ngClass]="{'btn-secondary': search, 'btn-outline-secondary': !search}" (click)="clickSearch($event)">
+        <input class="form-control px-3 py-2 me-2" [(ngModel)]="search" (keyup)="keyUpSearch($event)" name="search" type="search" placeholder="Buscar" aria-label="Search">
+        <button class="btn" [disabled]="search ? false : true"  [ngClass]="{'btn-dark': search, 'btn-secondary': !search}" (click)="clickSearch($event)">
             <span *ngIf="!iconLoading">Buscar</span>
             <app-loading *ngIf="iconLoading"></app-loading>
         </button>
