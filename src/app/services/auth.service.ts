@@ -41,6 +41,11 @@ export class AuthService {
 
   }
 
+  user(){
+    return JSON.parse(localStorage.getItem('user')!); 
+  }
+  
+
   login(user: User) {
     
     return this.http.post(this.url + '/login', user, this.opciones).pipe(
@@ -61,9 +66,9 @@ export class AuthService {
     );
   }
 
-  user() {
-    return this.http.get(this.url + '/user', this.opciones);
-  }
+  // user() {
+  //   return this.http.get(this.url + '/user', this.opciones);
+  // }
 
   private guardarToken(token: string) {
     this.userToken = token;

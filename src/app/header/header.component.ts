@@ -18,6 +18,8 @@ import {
 import { CommonService } from '../services/common.service';
 import { AuthService } from '../services/auth.service';
 import { ButtonLogoutComponent } from "../components/buttons/button-logout/button-logout.component";
+import { User } from '../interfaces/user.interface';
+import { PipesModule } from '../shared/pipes.module';
 
 @Component({
   selector: 'app-header',
@@ -30,7 +32,8 @@ import { ButtonLogoutComponent } from "../components/buttons/button-logout/butto
     LoadingComponent,
     FormSearchComponent,
     CommonModule,
-    ButtonLogoutComponent
+    ButtonLogoutComponent,
+    PipesModule
 ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
@@ -57,25 +60,34 @@ import { ButtonLogoutComponent } from "../components/buttons/button-logout/butto
   ],
 })
 export class HeaderComponent {
+
   showSearch: boolean = false;
   store: string = '';
   estaAutenticado: boolean = false;
+  user: any;
 
+  // links : {}[] = [];
+  // authLinks : {}[] = [];
   // store: string = '';
 
   @ViewChild('offcanvasExample', { static: false })
   offcanvasElement!: ElementRef;
 
   constructor(
+
     private _cart: CartService,
     private _common: CommonService,
     private _store: StoreService,
     private _auth: AuthService,
+
   ) {
     // this.store = this._store.getSlug();
 
     if(this._auth.estaAutenticado()){
       this.estaAutenticado = true;
+      this.user = this._auth.user();
+      console.log(this.user.name);
+      
     }
 
     this._common.getShowSearchObservable().subscribe((value: boolean) => {
@@ -87,6 +99,17 @@ export class HeaderComponent {
     this._store.getNameObservable().subscribe((store: string) => {
       console.log(store + ' desde header');
       this.store = store;
+
+      // this.links = [
+      //   { path: `/${this.store}`, label: 'Home', exact: true },
+      //   { path: `/${this.store}/tracking`, label: 'Tracking', exact: false }
+      // ];
+    
+      // this.authLinks = [
+      //   { path: `/${this.store}`, label: 'Orders', exact: true },
+      //   { path: `/${this.store}/tracking`, label: 'Tracking', exact: false }
+      // ];
+      
     });
 
   }

@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'shortName'
+  name: 'firstName'
 })
-export class ShortNamePipe implements PipeTransform {
+export class FirstNamePipe implements PipeTransform {
 
   arrayName: any = [];
 

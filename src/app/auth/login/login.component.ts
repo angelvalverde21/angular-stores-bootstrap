@@ -29,6 +29,7 @@ export class LoginComponent {
   loading: boolean = false;
   message: string = '';
   web: any;
+  buttonLoginActive: boolean = true;
 
   constructor(
     private _auth: AuthService,
@@ -75,6 +76,7 @@ export class LoginComponent {
 
   iniciarSesion() {
     this.loading = true;
+    this.buttonLoginActive = false;
 
     this._auth.login(this.form.value).subscribe({
       next: (resp: any) => {
@@ -98,6 +100,7 @@ export class LoginComponent {
         this.valid = false;
         this.loading = false;
         this.message = resp.error.message;
+        this.buttonLoginActive = true;
         // console.log(resp.error.message);
       },
       complete: () => {

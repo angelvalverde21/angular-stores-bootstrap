@@ -38,7 +38,7 @@
         {{ message }}
       </div>
 
-      <button class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center" [disabled]="!form.valid" type="submit" disabled>
+      <button class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center" [disabled]="!form.valid || !buttonLoginActive" type="submit">
         <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
         <i *ngIf="!loading" class="fa-solid fa-lock me-2" style="font-size: 0.9rem;"></i>
         <span>Iniciar Sesion</span>
