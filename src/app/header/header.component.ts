@@ -17,6 +17,7 @@ import {
 } from '@angular/animations';
 import { CommonService } from '../services/common.service';
 import { AuthService } from '../services/auth.service';
+import { ButtonLogoutComponent } from "../components/buttons/button-logout/button-logout.component";
 
 @Component({
   selector: 'app-header',
@@ -29,7 +30,8 @@ import { AuthService } from '../services/auth.service';
     LoadingComponent,
     FormSearchComponent,
     CommonModule,
-  ],
+    ButtonLogoutComponent
+],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   animations: [

@@ -8,7 +8,7 @@
     
         </div>
     
-        <div class="col-12 col-md-auto mb-2 d-none d-lg-block d-xl-none d-flex flex-row justify-content-center">
+        <div class="col-12 col-md-auto mb-2 d-none d-lg-block d-flex flex-row justify-content-center">
             <a [routerLinkActive]="['active']" [routerLink]="['/', store]" [routerLinkActiveOptions]="{ exact: true }"
                     class=" px-2">Home</a>
 
@@ -26,7 +26,8 @@
     
         <div class="col-md-3 text-end">
             <button (click)="openSearch()"  type="button" class="btn btn-outline-secondary me-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <app-button-login></app-button-login>
+            <app-button-login *ngIf="!estaAutenticado"></app-button-login>
+            <app-button-logout *ngIf="estaAutenticado"></app-button-logout>
             <!-- <app-button-register></app-button-register> -->
         </div>
     </div>

@@ -30,13 +30,13 @@ export class AuthService {
     private router: Router,
   ) {}
 
-  logout() {
+  logout(store: string) {
 
     localStorage.setItem('access_token', '');
     localStorage.setItem('roles', '');
     localStorage.setItem('user', '');
     // localStorage.setItem('store', '');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl(store + '/login');
     console.log('logout');
 
   }

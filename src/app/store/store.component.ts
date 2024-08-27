@@ -34,6 +34,7 @@ export class StoreComponent{
         this._store.setName(slugBase);
       });
     });
+    
   }
 
   /**************** para recibir el slugbase con el resolve *******************/
