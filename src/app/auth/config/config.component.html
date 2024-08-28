@@ -8,40 +8,100 @@
         <div class="card mb-3">
             <div class="body p-3">
 
-                <div class="accordion accordion-flush" id="accordionContent">
+                <form [formGroup]="form">
 
-                    <app-accordion-item [item]="{ id:'1', base:'accordionContent', title:'Redes'}">
-                        <div class="row">
+                    <div class="accordion accordion-flush" id="accordionContent">
 
-                            <div class="col-lg-4">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fa-brands fa-facebook"></i></span>
-                                    <input type="text" class="form-control" placeholder="Facebook" aria-label="facebook"
-                                        aria-describedby="basic-addon1">
+                        <app-accordion-item [item]="{ id:'1', base:'accordionContent', title:'Redes'}">
+                            <div class="row">
+
+                                <div class="col-lg-4">
+                                    <app-input-text
+                                        [data]="{'id':'facebook', 'icon': 'fa-brands fa-facebook', 'placeholder': 'facebook', 'name': 'facebook'}"
+                                        [controlName]="'facebook'"></app-input-text>
                                 </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fa-brands fa-tiktok"></i></span>
-                                    <input type="text" class="form-control" placeholder="TikTok" aria-label="tiktok"
-                                        aria-describedby="basic-addon1">
+                                <div class="col-lg-4">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa-brands fa-tiktok"></i></span>
+                                        <input type="text" class="form-control" placeholder="TikTok" aria-label="tiktok"
+                                            aria-describedby="basic-addon1">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fa-brands fa-instagram"></i></span>
-                                    <input type="text" class="form-control" placeholder="Instagram" aria-label="instagram"
-                                        aria-describedby="basic-addon1">
+                                <div class="col-lg-4">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fa-brands fa-instagram"></i></span>
+                                        <input type="text" class="form-control" placeholder="Instagram"
+                                            aria-label="instagram" aria-describedby="basic-addon1">
+                                    </div>
                                 </div>
+
                             </div>
-                
-                        </div>
-                    </app-accordion-item>
-                    <app-accordion-item [item]="{ id:'2', base:'accordionContent', title:'Informacion de pagina web'}"></app-accordion-item>
-                    <app-accordion-item [item]="{ id:'3', base:'accordionContent', title:'Otros'}"></app-accordion-item>
+                        </app-accordion-item>
+                        <app-accordion-item
+                            [item]="{ id:'2', base:'accordionContent', title:'Informacion de pagina web'}">
+                            <div class="row">
 
-                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fas fa-home"></i></span>
+                                        <input type="text" class="form-control"
+                                            wire:model.debounce.500ms="options.title"
+                                            placeholder="Titulo de la pagina web" aria-label="Username"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
 
+
+                                <div class="col-lg-3 col-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1"><i
+                                                class="fas fa-home"></i></span>
+                                        <input type="text" class="form-control"
+                                            wire:model.debounce.500ms="options.iniciales"
+                                            placeholder="Iniciales, Ejemplo: ARA" aria-label="Iniciales"
+                                            aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
+                                        <input type="text" class="form-control"
+                                            wire:model.debounce.500ms="options.domain" placeholder="dominio"
+                                            aria-label="Amount (to the nearest dollar)">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">S/.</span>
+                                        <input type="number" class="form-control"
+                                            wire:model.debounce.500ms="options.ship_min"
+                                            placeholder="Monto minimo para envio gratis"
+                                            aria-label="Amount (to the nearest dollar)">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fab fa-whatsapp"></i></span>
+                                        <input type="number" class="form-control"
+                                            wire:model.debounce.500ms="options.whatsapp" placeholder="whatsapp"
+                                            aria-label="Amount (to the nearest dollar)">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </app-accordion-item>
+                        <app-accordion-item
+                            [item]="{ id:'3', base:'accordionContent', title:'Otros'}"></app-accordion-item>
+
+                    </div>
+                </form>
 
             </div>
         </div>

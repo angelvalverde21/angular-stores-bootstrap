@@ -1,0 +1,11 @@
+<div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon-{{ data.id }}"><i class="{{ data.icon }}"></i></span>
+    <input 
+        type="text" 
+        class="form-control" 
+        placeholder="{{ data.placeholder }}" 
+        [attr.aria-label]="data.placeholder"
+        [attr.aria-describedby]="'basic-addon-' + data.id"
+    />
+</div>
+
