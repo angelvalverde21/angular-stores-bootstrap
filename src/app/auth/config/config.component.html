@@ -18,7 +18,7 @@
                                 <div class="col-lg-4">
                                     <app-input-text
                                         [data]="{'id':'facebook', 'icon': 'fa-brands fa-facebook', 'placeholder': 'facebook', 'name': 'facebook'}"
-                                        [controlName]="'facebook'"></app-input-text>
+                                        [controlName]="'facebook'" (keyup)="test()"></app-input-text>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="input-group mb-3">
