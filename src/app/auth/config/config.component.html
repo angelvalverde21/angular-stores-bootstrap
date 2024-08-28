@@ -4,10 +4,49 @@
 
     <form action="#">
 
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1"></span>
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-          </div>
+
+        <div class="card">
+            <div class="body p-3">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+
+                    <div class="accordion-item" *ngFor="let section of sections">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            {{ section.title! | json }}
+                          </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                          <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                        </div>
+                      </div>
+
+                  </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-brands fa-facebook"></i></span>
+                    <input type="text" class="form-control" placeholder="Facebook" aria-label="facebook" aria-describedby="basic-addon1">
+                  </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-brands fa-tiktok"></i></span>
+                    <input type="text" class="form-control" placeholder="TikTok" aria-label="tiktok" aria-describedby="basic-addon1">
+                  </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-brands fa-instagram"></i></span>
+                    <input type="text" class="form-control" placeholder="Instagram" aria-label="instagram" aria-describedby="basic-addon1">
+                  </div>
+            </div>
+        </div>
+
+
+
           
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
