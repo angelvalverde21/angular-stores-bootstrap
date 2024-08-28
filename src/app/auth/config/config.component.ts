@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../header/header.component";
 import { CommonModule } from '@angular/common';
+import { AccordionItemComponent } from "../../components/accordion/accordion-item/accordion-item.component";
 
 @Component({
   selector: 'app-config',
   standalone: true,
-  imports: [HeaderComponent, CommonModule],
+  imports: [HeaderComponent, CommonModule, AccordionItemComponent],
   templateUrl: './config.component.html',
   styleUrl: './config.component.css'
 })

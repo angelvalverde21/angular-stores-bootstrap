@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class AccordionItemComponent {
 
-  @Input() item : any[] = []; 
+  @Input() item : any; 
   
   constructor(){
 
