@@ -11,13 +11,15 @@ import { CommonModule } from '@angular/common';
 })
 export class ConfigComponent {
 
-  sections: {}[] = [];
+  sections: any;
 
   constructor(){
+
     this.sections = [
       {
+        'id':'1',
         'title':'Redes',
-        'inputs':[
+        'col':[
           {
             'name':'instagram',
             'type':'text',
@@ -40,8 +42,9 @@ export class ConfigComponent {
 
       },
       {
+        'id':'2',
         'title':'Informacion de la pagina web',
-        'inputs':[
+        'col':[
           {
             'name':'title',
             'type':'text',
