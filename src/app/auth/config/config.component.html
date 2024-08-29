@@ -11,6 +11,8 @@
 
     <form [formGroup]="form" (ngSubmit)="enviarForm()">
 
+        <app-upload-dropzone></app-upload-dropzone>
+
         <app-card-config title="Informacion web" [loading]="loadingData">
             <div class="col-lg-6 col-12">
                 <app-input-group icon="fas fa-home">

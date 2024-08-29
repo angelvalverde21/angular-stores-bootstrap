@@ -9,11 +9,12 @@ import { CardConfigComponent } from "../../components/forms/card-config/card-con
 import { OptionService } from '../../services/api/option.service';
 import { domainValidator } from '../../validators/domain.validator';
 import { ValidatorsService } from '../../services/validators.service';
+import { UploadDropzoneComponent } from "../../components/upload-dropzone/upload-dropzone.component";
 
 @Component({
   selector: 'app-config',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, AccordionItemComponent, InputTextComponent, ReactiveFormsModule, InputGroupComponent, CardConfigComponent],
+  imports: [HeaderComponent, CommonModule, AccordionItemComponent, InputTextComponent, ReactiveFormsModule, InputGroupComponent, CardConfigComponent, UploadDropzoneComponent],
   templateUrl: './config.component.html',
   styleUrl: './config.component.css'
 })
@@ -89,7 +90,7 @@ export class ConfigComponent {
     this.loadingSubmit = true;
     this.loadingData = true;
     this.success = false;
-    
+
     console.log('form enviado');
     
     this._option.save(this.form.value).subscribe((resp:any) => {
