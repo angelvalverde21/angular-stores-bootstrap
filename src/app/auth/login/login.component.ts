@@ -27,9 +27,9 @@ export class LoginComponent {
   form!: FormGroup;
   valid: boolean = true;
   loading: boolean = false;
+  buttonLoginActive: boolean = true;
   message: string = '';
   web: any;
-  buttonLoginActive: boolean = true;
 
   constructor(
     private _auth: AuthService,
