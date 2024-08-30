@@ -2,113 +2,73 @@
 
 <div class="container">
 
-    <form action="#">
+    <!-- {{ form.value | json }} -->
 
+    <div *ngIf="success" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Guardado</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
-        <div class="card mb-3">
-            <div class="body p-3">
+    <form [formGroup]="form" (ngSubmit)="enviarForm()">
 
-                <form [formGroup]="form">
+        <app-upload-dropzone></app-upload-dropzone>
 
-                    <div class="accordion accordion-flush" id="accordionContent">
-
-                        <app-accordion-item [item]="{ id:'1', base:'accordionContent', title:'Redes'}">
-                            <div class="row">
-
-                                <div class="col-lg-4">
-                                    <app-input-text
-                                        [data]="{'id':'facebook', 'icon': 'fa-brands fa-facebook', 'placeholder': 'facebook', 'name': 'facebook'}"
-                                        (keyup)="test()"></app-input-text>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><i
-                                                class="fa-brands fa-tiktok"></i></span>
-                                        <input type="text" class="form-control" placeholder="TikTok" aria-label="tiktok"
-                                            aria-describedby="basic-addon1">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><i
-                                                class="fa-brands fa-instagram"></i></span>
-                                        <input type="text" class="form-control" placeholder="Instagram"
-                                            aria-label="instagram" aria-describedby="basic-addon1">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </app-accordion-item>
-                        <app-accordion-item
-                            [item]="{ id:'2', base:'accordionContent', title:'Informacion de pagina web'}">
-                            <div class="row">
-
-                                <div class="col-lg-6 col-12">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><i
-                                                class="fas fa-home"></i></span>
-                                        <input type="text" class="form-control"
-                                            wire:model.debounce.500ms="options.title"
-                                            placeholder="Titulo de la pagina web" aria-label="Username"
-                                            aria-describedby="basic-addon1">
-                                    </div>
-                                </div>
-
-
-                                <div class="col-lg-3 col-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1"><i
-                                                class="fas fa-home"></i></span>
-                                        <input type="text" class="form-control"
-                                            wire:model.debounce.500ms="options.iniciales"
-                                            placeholder="Iniciales, Ejemplo: ARA" aria-label="Iniciales"
-                                            aria-describedby="basic-addon1">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text"><i class="fas fa-globe-americas"></i></span>
-                                        <input type="text" class="form-control"
-                                            wire:model.debounce.500ms="options.domain" placeholder="dominio"
-                                            aria-label="Amount (to the nearest dollar)">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">S/.</span>
-                                        <input type="number" class="form-control"
-                                            wire:model.debounce.500ms="options.ship_min"
-                                            placeholder="Monto minimo para envio gratis"
-                                            aria-label="Amount (to the nearest dollar)">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6 col-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text"><i class="fab fa-whatsapp"></i></span>
-                                        <input type="number" class="form-control"
-                                            wire:model.debounce.500ms="options.whatsapp" placeholder="whatsapp"
-                                            aria-label="Amount (to the nearest dollar)">
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </app-accordion-item>
-                        <app-accordion-item
-                            [item]="{ id:'3', base:'accordionContent', title:'Otros'}"></app-accordion-item>
-
-                    </div>
-                </form>
+        <app-card-config title="Informacion web" [loading]="loadingData">
+            <div class="col-lg-6 col-12">
+                <app-input-group icon="fas fa-home">
+                    <input formControlName="title" (keyup)="test()" type="text" class="form-control" [ngClass]="{'is-invalid': isValidField('title')}"
+                     placeholder="Titulo de la pagina web" aria-label="tiktok" aria-describedby="basic-tiktok">
+                </app-input-group>
 
             </div>
-        </div>
+            <div class="col-lg-6 col-6">
+                <app-input-group icon="fas fa-home">
+                    <input formControlName="iniciales" (keyup)="test()" type="text" class="form-control" placeholder="Iniciales" aria-label="iniciales" aria-describedby="basic-iniciales">
+                </app-input-group>
+            </div>
+            <div class="col-lg-6 col-6">
+                <app-input-group icon="fas fa-globe-americas">
+                    <input formControlName="dominio" (keyup)="test()" type="text" class="form-control" [ngClass]="{'is-invalid': isValidField('dominio')}" placeholder="Dominio" aria-label="dominio" aria-describedby="basic-dominio">
+                </app-input-group>
+                
+            </div>
+            <div class="col-lg-6 col-12">
+                <app-input-group icontext="S/.">
+                    <input formControlName="ship_min" (keyup)="test()" type="number" step="0.01" class="form-control" placeholder="Monto minimo para envio gratis" aria-label="Monto minimo para envio gratis" aria-describedby="basic-envio-gratis">
+                </app-input-group>
+            </div>
+        </app-card-config>
+   
 
+        <app-card-config title="Redes Sociales" [loading]="loadingData">
+            <div class="col-lg-6 col-6">
+                <app-input-group icon="fa-brands fa-tiktok">
+                    <input formControlName="tiktok" (keyup)="test()" type="text" class="form-control" placeholder="TikTok" aria-label="tiktok" aria-describedby="basic-tiktok">
+                </app-input-group>
 
+            </div>
+            <div class="col-lg-6 col-6">
+                <app-input-group icon="fa-brands fa-facebook">
+                    <input formControlName="facebook" (keyup)="test()" type="text" class="form-control" placeholder="Facebook" aria-label="facebook" aria-describedby="basic-facebook">
+                </app-input-group>
+            </div>
+            <div class="col-lg-6 col-6">
+                <app-input-group icon="fa-brands fa-instagram">
+                    <input formControlName="instagram" (keyup)="test()" type="text" class="form-control" placeholder="Instagram" aria-label="instagram" aria-describedby="basic-instagram">
+                </app-input-group>
+            </div>
+            <div class="col-lg-6 col-6">
+                <app-input-group icon="fa-brands fa-whatsapp">
+                    <input formControlName="whatsapp" (keyup)="test()" type="number" step="1" class="form-control" placeholder="Whatsapp" aria-label="whatsapp" aria-describedby="basic-whatsapp">
+                </app-input-group>
+            </div>
+        </app-card-config>
 
-
+        <button class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center" [disabled]="form.invalid || buttonSubmitActive" type="submit">
+            <span *ngIf="loadingSubmit" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                <i *ngIf="!loadingSubmit" class="fa-solid fa-lock me-2" style="font-size: 0.9rem;"></i>
+            <span>Guardar Cambios</span>
+        </button>
 
     </form>
 
