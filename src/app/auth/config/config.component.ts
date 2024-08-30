@@ -23,6 +23,7 @@ export class ConfigComponent {
   sections: any;
   form!: FormGroup;
   loadingData: boolean = false;
+  dataReady: boolean = false;
   loadingSubmit: boolean = false;
   success: boolean = false;
   buttonSubmitActive: boolean = false;
@@ -42,6 +43,19 @@ export class ConfigComponent {
       dominio: ['', [Validators.required, domainValidator]],
       ship_min: [''],
       whatsapp: [''],
+      name: [''],
+      phone: [''],
+      dni: [''],
+      logo: [''],
+      address: [''],
+      qr_yape: [''],
+      qr_yape_name: [''],
+      qr_yape_phone: [''],
+      qr_yape_code: [''],
+      qr_plin: [''],
+      qr_plin_name: [''],
+      qr_plin_phone: [''],
+      qr_plin_code: ['']
     });
 
   }
@@ -59,6 +73,7 @@ export class ConfigComponent {
     this._option.all().subscribe(
       resp => {
         this.loadingData = false;
+        this.dataReady = true;
         const formattedData = this.formatData(resp.data);
         this.form.patchValue(formattedData);
       }

@@ -1,15 +1,16 @@
-<div class="row mb-3">
+<form class="dropzone" [id]="dropzoneId" [ngStyle]="{'background-image': 'url(' + image + ')'}"></form>
+<!-- <div class="row">
     <div class="col-lg-6 col-12">
-        <form class="dropzone" [id]="dropzoneId"></form>
+        <form class="dropzone" [id]="dropzoneId" [ngStyle]="{'background-image': 'url(' + imageOption + ')'}"></form>
 
     </div>
 
     <div class="col-lg-6 col-12">
 
         <div class="card h-100">
-            <img height="100" width="" src="{{ imageOption }}" alt="">
+            <img height="100" width="" [src]="imageOption" alt="">
             <div class="card-body"></div>
         </div>
         
     </div>
-</div>
+</div> -->
