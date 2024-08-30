@@ -23,6 +23,7 @@
         <app-card-config title="Informacion web" [loading]="loadingData">
 
             <div class="col-lg-4">
+                <!-- para que este componente funcione correctamente se ha agregado un retraso son setTimeOut -->
                 <app-upload-option-dropzone name="logo" [image]="form.value.logo" *ngIf="!loadingData"></app-upload-option-dropzone>
             </div>
 
@@ -114,7 +115,7 @@
     
         <app-card-config title="Yape" [loading]="loadingData">
             <div class="col-lg-4">
-                <app-upload-option-dropzone name="qr_yape" [image]="form.value.qr_yape" *ngIf="!loadingData"></app-upload-option-dropzone>
+                <app-upload-option-dropzone name="upload_qr_yape" [image]="form.value.upload_qr_yape" *ngIf="!loadingData"></app-upload-option-dropzone>
             </div>
 
             <div class="col-lg-8 col-12">
@@ -144,9 +145,9 @@
             </div>
         </app-card-config>
     
-        <app-card-config title="Yape" [loading]="loadingData">
+        <app-card-config title="Plin" [loading]="loadingData">
             <div class="col-lg-4">
-                <app-upload-option-dropzone name="qr_plin" [image]="form.value.qr_plin" *ngIf="!loadingData"></app-upload-option-dropzone>
+                <app-upload-option-dropzone name="upload_qr_plin" [image]="form.value.upload_qr_plin" *ngIf="!loadingData"></app-upload-option-dropzone>
             </div>
 
             <div class="col-lg-8 col-12">

@@ -29,7 +29,7 @@
             <app-button-login *ngIf="!estaAutenticado"></app-button-login>
             <ng-container *ngIf="estaAutenticado">
                 <button type="button" [routerLink]="['/', store, 'auth']" class="btn btn-dark me-2"><span>{{ user.name | firstName }}</span></button>
-                <button type="button" [routerLink]="['/', store, 'auth', 'config']" class="btn btn-outline-secondary me-2"><i class="fas fa-cog"></i></button>
+                <button type="button" [routerLink]="['/', store, 'auth', 'config']" class="btn btn-outline-dark me-2"><i class="fas fa-cog"></i></button>
                 <app-button-logout></app-button-logout>
             </ng-container>
             <!-- <app-button-register></app-button-register> -->

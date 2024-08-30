@@ -10,6 +10,8 @@ import { OptionService } from '../../services/api/option.service';
 import { domainValidator } from '../../validators/domain.validator';
 import { ValidatorsService } from '../../services/validators.service';
 import { UploadOptionDropzoneComponent } from "../../components/upload-option-dropzone/upload-option-dropzone.component";
+import { phoneValidator } from '../../validators/phone.validator';
+import { dniValidator } from '../../validators/dni.validator';
 
 @Component({
   selector: 'app-config',
@@ -42,19 +44,19 @@ export class ConfigComponent {
       iniciales: [''],
       dominio: ['', [Validators.required, domainValidator]],
       ship_min: [''],
-      whatsapp: [''],
+      whatsapp: ['', phoneValidator],
       name: [''],
-      phone: [''],
-      dni: [''],
+      phone: ['', phoneValidator],
+      dni: ['', dniValidator],
       logo: [''],
       address: [''],
-      qr_yape: [''],
+      upload_qr_yape: [''],
       qr_yape_name: [''],
-      qr_yape_phone: [''],
+      qr_yape_phone: ['', phoneValidator],
       qr_yape_code: [''],
-      qr_plin: [''],
+      upload_qr_plin: [''],
       qr_plin_name: [''],
-      qr_plin_phone: [''],
+      qr_plin_phone: ['', phoneValidator],
       qr_plin_code: ['']
     });
 
