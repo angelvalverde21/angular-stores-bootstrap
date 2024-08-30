@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { FooterComponent } from '../../footer/footer.component';
-import { ProductsComponent } from '../../components/products/products.component';
 import { ProductService } from '../../services/product.service';
 import { StoreService } from '../../services/store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { environment } from '../../../environments/environment';
+import { CatalogoComponent } from "../../components/catalogo/catalogo.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, ProductsComponent],
+  imports: [HeaderComponent, FooterComponent, CatalogoComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

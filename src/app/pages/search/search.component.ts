@@ -8,11 +8,12 @@ import { ProductsComponent } from '../../components/products/products.component'
 import { FooterComponent } from '../../footer/footer.component';
 import { SetterGetterService } from '../../services/setter-getter.service';
 import { CommonService } from '../../services/common.service';
+import { CatalogoComponent } from "../../components/catalogo/catalogo.component";
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [HeaderComponent, ProductsComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent, CatalogoComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
