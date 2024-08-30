@@ -8,11 +8,12 @@ import { StoreComponent } from './store/store.component';
 import { RegisterComponent } from './auth/register/register.component';
 
 import { SearchComponent } from './pages/search/search.component';
-import { DashboardComponent } from './auth/dashboard/dashboard.component';
+import { DashboardComponent } from './auth/pages/dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 import { verifyStoreResolver } from './resolvers/verify-store.resolver';
 import { AuthComponent } from './auth/auth.component';
 import { ConfigComponent } from './auth/config/config.component';
+import { InventoryComponent } from './auth/pages/inventory/inventory.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -39,6 +40,7 @@ export const routes: Routes = [
         children: [
           { path: '', component: DashboardComponent},
           { path: 'orders', component: OrderComponent},
+          { path: 'inventory', component: InventoryComponent},
           { path: 'config', component: ConfigComponent },
           { path: 'dashboard', component: DashboardComponent },
         ],

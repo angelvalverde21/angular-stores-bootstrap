@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 // import { LogService } from './log.service';
 import { environment } from '../../environments/environment';
 import { User } from '../interfaces/user.interface';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,7 @@ export class AuthService {
   constructor(
     private http: HttpClient, 
     private router: Router,
+    private _store: StoreService,
   ) {}
 
   logout(store: string) {
@@ -48,7 +50,7 @@ export class AuthService {
 
   login(user: User) {
     
-    return this.http.post(this.url + '/login', user, this.opciones).pipe(
+    return this.http.post(this.url + '/'  + this._store.leerSlugBase() +  '/login', user, this.opciones).pipe(
       map((resp: any) => {
         // this._console.log('entro al RXJS');
 

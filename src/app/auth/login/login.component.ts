@@ -50,7 +50,7 @@ export class LoginComponent {
     this.form = this.fb.group({
       email: ['', [Validators.required, this.emailOrNumberValidator]],
       password: ['', [Validators.required]],
-      recuerdame: [false],
+      recuerdame: ['', false],
     });
 
     /** final **/
@@ -59,18 +59,19 @@ export class LoginComponent {
   emailOrNumberValidator(
     control: AbstractControl
   ): { [key: string]: boolean } | null {
-    const value = control.value;
+    const value = control.value ? control.value.trim() : ''; // Elimina espacios en blanco al inicio o final
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const numberPattern = /^9\d{8}$/;
-
+  
     if (!value) {
       return null; // No hay valor, deja que el validador 'required' lo maneje
     }
-
+  
     if (emailPattern.test(value) || numberPattern.test(value)) {
-      return null; // Valido
+      return null; // Válido
     }
-
+  
+    console.log('Valor ingresado:', value); // Para depurar
     return { emailOrNumberInvalid: true }; // No válido
   }
 
