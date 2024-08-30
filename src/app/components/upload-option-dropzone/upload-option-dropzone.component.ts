@@ -1,38 +1,47 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import Dropzone from 'dropzone';
 import { StoreService } from '../../services/store.service';
 import { environment } from '../../../environments/environment';
+// import { UpperFirstPipe } from '../../shared/Pipes/upper-first.pipe';
+import { PipesModule } from '../../shared/pipes.module';
 
 @Component({
-  selector: 'app-upload-dropzone',
+  selector: 'app-upload-option-dropzone',
   standalone: true,
-  imports: [],
-  templateUrl: './upload-dropzone.component.html',
-  styleUrl: './upload-dropzone.component.css',
+  imports: [PipesModule],
+  templateUrl: './upload-option-dropzone.component.html',
+  styleUrl: './upload-option-dropzone.component.css'
 })
-export class UploadDropzoneComponent {
+export class UploadOptionDropzoneComponent implements OnInit, AfterViewInit {
 
   store: string = "";
   url: string = "";
   imageOption: string = "";
+  dropzoneId: string = "";
 
   @Input() name: string = "logo"; 
   
   constructor(
-    private _store : StoreService
+    private _store : StoreService,
+    // private upperFirstPipe: UpperFirstPipe
   ){
 
   }
 
   ngOnInit(): void {
 
+    this.dropzoneId = `dropzone-${this.name}-${Math.floor(Math.random() * 1000)}`;
     this.store = this._store.leerSlugBase()!;
+    this.url =  environment.apiUrl + '/procesos/options/' + this.store + '/upload'; // Actualiza esto con la URL de tu servidor
+    
+  }
+  
+  ngAfterViewInit(): void { 
+    
     const self = this; // Guardamos una referencia al componente
-    this.url =  environment.apiUrl + '/procesos/options/' + this.store + '/upload', // Actualiza esto con la URL de tu servidor
-      
     Dropzone.autoDiscover = false; // Desactivar la auto-detección de Dropzone
 
-    const dropzone = new Dropzone('#my-dropzone', {
+    const dropzone = new Dropzone(`#${this.dropzoneId}`, {
       url: this.url,
       headers: {
         'X-CSRF-TOKEN': 'tu-csrf-token', // Actualiza esto según corresponda

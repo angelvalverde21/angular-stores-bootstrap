@@ -9,12 +9,12 @@ import { CardConfigComponent } from "../../components/forms/card-config/card-con
 import { OptionService } from '../../services/api/option.service';
 import { domainValidator } from '../../validators/domain.validator';
 import { ValidatorsService } from '../../services/validators.service';
-import { UploadDropzoneComponent } from "../../components/upload-dropzone/upload-dropzone.component";
+import { UploadOptionDropzoneComponent } from "../../components/upload-option-dropzone/upload-option-dropzone.component";
 
 @Component({
   selector: 'app-config',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, AccordionItemComponent, InputTextComponent, ReactiveFormsModule, InputGroupComponent, CardConfigComponent, UploadDropzoneComponent],
+  imports: [HeaderComponent, CommonModule, AccordionItemComponent, InputTextComponent, ReactiveFormsModule, InputGroupComponent, CardConfigComponent, UploadOptionDropzoneComponent],
   templateUrl: './config.component.html',
   styleUrl: './config.component.css'
 })
