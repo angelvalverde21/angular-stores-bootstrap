@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingComponent } from "../loading/loading.component";
@@ -17,12 +17,13 @@ import { StoreService } from '../../services/store.service';
   templateUrl: './form-search.component.html',
   styleUrl: './form-search.component.css'
 })
-export class FormSearchComponent {
+export class FormSearchComponent implements OnInit {
 
   iconLoading: boolean = false;
   
   search: string = '';
   store: string = '';
+  hasAuthSearch: boolean = false;
 
   constructor(
 
@@ -43,6 +44,12 @@ export class FormSearchComponent {
       this.search = params['search'];
     });
   }
+  ngOnInit(): void {
+    // Verificar si la URL contiene el segmento "auth"
+    this.hasAuthSearch = this.router.url.includes('/auth');
+    console.log('¿Contiene el segmento "auth"?', this.hasAuthSearch);
+  }
+
 
   keyUpSearch($event: any){
     if(this.search.length>4){
@@ -75,8 +82,11 @@ export class FormSearchComponent {
     console.log(this.search); //
     console.log(this.store); //
 
-    
-    this.router.navigate(['/', this.store, 'search', this.search]);
+    if (this.hasAuthSearch) {
+      this.router.navigate(['/', this.store, 'auth', 'search', this.search]);
+    }else{
+      this.router.navigate(['/', this.store, 'search', this.search]);
+    }
 
   }
 }

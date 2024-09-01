@@ -14,6 +14,8 @@ import { verifyStoreResolver } from './resolvers/verify-store.resolver';
 import { AuthComponent } from './auth/auth.component';
 import { ConfigComponent } from './auth/config/config.component';
 import { InventoryComponent } from './auth/pages/inventory/inventory.component';
+import { ShowInventoryComponent } from './auth/pages/inventory/show-inventory/show-inventory.component';
+import { InventorySearchComponent } from './auth/pages/inventory/inventory-search/inventory-search.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -41,6 +43,8 @@ export const routes: Routes = [
           { path: '', component: DashboardComponent},
           { path: 'orders', component: OrderComponent},
           { path: 'inventory', component: InventoryComponent},
+          { path: 'inventory/:id', component: ShowInventoryComponent},
+          { path: 'search/:search', component: InventorySearchComponent},
           { path: 'config', component: ConfigComponent },
           { path: 'dashboard', component: DashboardComponent },
         ],

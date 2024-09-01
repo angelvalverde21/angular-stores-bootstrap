@@ -1,17 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CardProductComponent } from '../cards/card-product/card-product.component';
-import { CardColorComponent } from '../cards/card-color/card-color.component';
-import { ProductService } from '../../services/product.service';
+import { CardProductComponent } from '../../cards/card-product/card-product.component';
+import { CardColorComponent } from '../../cards/card-color/card-color.component';
+import { ProductService } from '../../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { PipesModule } from '../../shared/pipes.module';
-import { LoadingComponent } from '../loading/loading.component';
-import { CardPlaceHolderComponent } from "../card-place-holder/card-place-holder.component";
-import { CommonService } from '../../services/common.service';
+import { PipesModule } from '../../../shared/pipes.module';
+import { LoadingComponent } from '../../loading/loading.component';
+import { CardPlaceHolderComponent } from "../../card-place-holder/card-place-holder.component";
+import { CommonService } from '../../../services/common.service';
 import { Subscription } from 'rxjs';
+import { StoreService } from '../../../services/store.service';
 
 @Component({
-  selector: 'app-catalogo',
+  selector: 'app-table-products',
   standalone: true,
   imports: [
     CardProductComponent,
@@ -22,29 +23,31 @@ import { Subscription } from 'rxjs';
     LoadingComponent,
     CardPlaceHolderComponent
 ],
-  templateUrl: './catalogo.component.html',
-  styleUrl: './catalogo.component.css'
+  templateUrl: './table-products.component.html',
+  styleUrl: './table-products.component.css'
 })
-
-export class CatalogoComponent implements OnInit, OnDestroy{
+export class TableProductsComponent implements OnInit, OnDestroy{
 
   count: number = 0;
   products: any = [];
   loading: boolean = true;
   productsEncontrados: boolean =  false;
-
+  store: string = "";
   private commonSubscription!: Subscription;
   private productsSubscription!: Subscription;
 
   
   constructor(
     private _productsService: ProductService,
-    private _commonService: CommonService
+    private _commonService: CommonService,
+    private _store: StoreService
   ) {
 
   }
 
   ngOnInit(): void {
+
+    this.store = this._store.leerSlugBase()!;
     // this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe(data => {
     //   console.log('Data received', data);
     // });
@@ -109,5 +112,6 @@ export class CatalogoComponent implements OnInit, OnDestroy{
     this.productsSubscription.unsubscribe();
     this.commonSubscription.unsubscribe;
   }
+
 
 }

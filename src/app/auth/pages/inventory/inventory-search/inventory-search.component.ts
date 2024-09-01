@@ -1,25 +1,23 @@
 import { Component } from '@angular/core';
-import { StoreService } from '../../services/store.service';
-import { ProductService } from '../../services/product.service';
+import { StoreService } from '../../../../services/store.service';
+import { ProductService } from '../../../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
-import { HeaderComponent } from '../../header/header.component';
-import { FooterComponent } from '../../footer/footer.component';
-import { CommonService } from '../../services/common.service';
-import { CatalogoComponent } from "../../components/catalogo/catalogo.component";
+import { environment } from '../../../../../environments/environment';
+import { HeaderComponent } from '../../../../header/header.component';
+import { FooterComponent } from '../../../../footer/footer.component';
+import { CommonService } from '../../../../services/common.service';
+import { CatalogoComponent } from "../../../../components/catalogo/catalogo.component";
+import { TableProductsComponent } from "../../../../components/products/table-products/table-products.component";
 
 @Component({
-  selector: 'app-search',
+  selector: 'app-inventory-search',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, CatalogoComponent],
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.css',
+  imports: [HeaderComponent, FooterComponent, CatalogoComponent, TableProductsComponent],
+  templateUrl: './inventory-search.component.html',
+  styleUrl: './inventory-search.component.css'
 })
-export class SearchComponent {
-  // store: string = '';
-  // search: string = '';
+export class InventorySearchComponent {
 
-  //Consultamos a la base de datos la informacion del perfil y productos
   constructor(
     private _store: StoreService,
     private _productService: ProductService,
@@ -27,7 +25,7 @@ export class SearchComponent {
     private route: ActivatedRoute,
     private _common: CommonService
   ) {
-    console.log('Buscando productos');
+    console.log('Search inventory');
 
     this._common.setCardPlaceHolder(true);
     this._common.setShowSearch(true);
@@ -46,7 +44,7 @@ export class SearchComponent {
     // console.log(this.route.parent?.parent?.snapshot.paramMap.get('store'));
     // console.log('imprimiendo search');
     
-    this.route.parent?.params.subscribe((params) => {
+    this.route.parent?.parent?.params.subscribe((params) => {
       //recibe el nombre del store desde la ruta padre
 
       console.log('imprimiendo valores recibidos de route.parent?.params');

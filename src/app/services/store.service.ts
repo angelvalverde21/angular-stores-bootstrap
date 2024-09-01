@@ -122,6 +122,16 @@ export class StoreService {
     return this.http.get(url);
   }
 
+  inventory(): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.url_base}/${this.leerSlugBase()}/products`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+
+
 
   // verifyStore(storeName: string): Observable<boolean> {
   //   return this.http.get<{status: number, success: boolean, message: string, error?: any}>(`${this.url_base}/${storeName}`).pipe(
