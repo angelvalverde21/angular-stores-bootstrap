@@ -69,7 +69,7 @@ export class InventoryComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    
+    this.productsSubscription.unsubscribe();
   }
   
 

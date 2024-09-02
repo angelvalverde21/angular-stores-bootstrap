@@ -19,7 +19,7 @@
             <tr *ngFor="let product of products">
               <td>
                 
-                <a [routerLink]="['/', store, 'auth', 'inventory',product.id]">
+                <a [routerLink]="['/', store, 'auth', 'inventory', product.id]">
                   <div class="card" style="width: 150px;">
                     <img [src]="product.image.url_thumbnail" alt="">
                   </div>
