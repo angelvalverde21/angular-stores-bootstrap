@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 
 import { ProductService } from '../../../../services/product.service';
 import { ButtonSaveComponent } from '../../../../components/buttons/button-save/button-save.component';
+import { LoadingComponent } from "../../../../components/loading/loading.component";
 
 @Component({
   selector: 'app-show-inventory',
   standalone: true,
-  imports: [HeaderComponent, InputGroupComponent, CommonModule, ReactiveFormsModule, ButtonSaveComponent],
+  imports: [HeaderComponent, InputGroupComponent, CommonModule, ReactiveFormsModule, ButtonSaveComponent, LoadingComponent],
   templateUrl: './show-inventory.component.html',
   styleUrl: './show-inventory.component.css'
 })
@@ -20,24 +21,16 @@ export class ShowInventoryComponent {
   form!: FormGroup;
   loading: boolean = false;
   btnActive: boolean = false;
-  
-
-  loadingData: boolean = false;
-  dataReady: boolean = false;
-  loadingSubmit: boolean = false;
-  success: boolean = false;
-  buttonSubmitActive: boolean = false;
 
   constructor(
-    private _route: ActivatedRoute,
     private fb: FormBuilder,
     private _product: ProductService,
     private route: ActivatedRoute,
   ){ }
 
   ngOnInit(): void {
-    this.initForm();
-    this.load();
+    this.initForm(); //inicial el formulario
+    this.loadForm(); //carga el formulario
   }
 
   private initForm():void{
@@ -48,13 +41,16 @@ export class ShowInventoryComponent {
     });
   }
 
-  private load(){
+  private loadForm(){
+
+    this.loading = true;
 
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
       this._product.load(Number(id)).subscribe({
         next: (resp:any) => {
+          this.loading = false;
           this.form.patchValue(resp.data);
         },
         error: (error:any) => {
@@ -92,8 +88,6 @@ export class ShowInventoryComponent {
     });
 
   }
-
-
 
 }
 // (resp:any) => {

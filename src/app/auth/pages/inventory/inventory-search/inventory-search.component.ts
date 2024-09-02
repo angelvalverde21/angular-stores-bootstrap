@@ -7,12 +7,12 @@ import { HeaderComponent } from '../../../../header/header.component';
 import { FooterComponent } from '../../../../footer/footer.component';
 import { CommonService } from '../../../../services/common.service';
 import { CatalogoComponent } from "../../../../components/catalogo/catalogo.component";
-import { TableProductsComponent } from "../../../../components/products/table-products/table-products.component";
+import { ProductsComponent } from "../../../../components/products/products.component";
 
 @Component({
   selector: 'app-inventory-search',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, CatalogoComponent, TableProductsComponent],
+  imports: [HeaderComponent, FooterComponent, CatalogoComponent, ProductsComponent],
   templateUrl: './inventory-search.component.html',
   styleUrl: './inventory-search.component.css'
 })
