@@ -1,6 +1,6 @@
 <div class="{{ col }}">
     <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1" [innerHTML]="iconHtml"></span>
+        <span class="input-group-text" *ngIf="isValid" id="basic-addon1" [innerHTML]="iconHtml"></span>
             <ng-content></ng-content>
     </div>
 </div>

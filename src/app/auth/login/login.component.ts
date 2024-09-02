@@ -10,9 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/environment';
 import { StoreService } from '../../services/store.service';
 
 @Component({

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,12 @@ import { BehaviorSubject, Subject } from 'rxjs';
 
 export class ProductService {
 
-  constructor( private http: HttpClient) {
+  constructor( private http: HttpClient, private _store: StoreService) {
 
   }
 
   //private url = 'https://3b.pe/api/v1/ara/products';
-  private url = environment.apiUrl + '/products';
+  private url = environment.apiUrl;
   // private products : [] = [];
 
   /*********** CREANDO UN SERVICIO SUSCRIBIBLE PARA LOS PRODUCTOS ***********/
@@ -33,6 +34,26 @@ export class ProductService {
   }
 
 
+  load(id: number | null): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    
+    const url = `${this.url}/${this._store.leerSlugBase()}/products/${id}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+
+  
+  save(id: number | null): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    
+    const url = `${this.url}/${this._store.leerSlugBase()}/products/${id}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
   // setProducts(products: any[]): void {
   //   this.productsSubject.next(products);
   // }

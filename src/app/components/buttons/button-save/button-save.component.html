@@ -1,0 +1,6 @@
+
+<button class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center" [disabled]="!btnActive || btnLoading" type="submit">
+    <span *ngIf="btnLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+    <i *ngIf="!btnLoading" class="fa-regular fa-floppy-disk me-2" style="font-size: 0.9rem;"></i>
+    <span>{{ text }}</span>
+</button>
