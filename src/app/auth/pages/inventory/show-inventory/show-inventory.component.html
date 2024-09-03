@@ -5,6 +5,7 @@
 
     <form [formGroup]="form" (ngSubmit)="save()">
 
+        <app-alert *ngIf="success"></app-alert>
 
         <div class="card mb-3" aria-hidden="true" *ngIf="loading">
 
@@ -51,6 +52,12 @@
     </button> -->
 
     </form>
+
+    <ng-container>
+        <div class="card mt-3 mx-auto" style="width: 440px;" *ngFor="let color of colors">
+            <img width="200px" src="{{ color.image.url_thumbnail }}" alt="">
+        </div>
+    </ng-container>
 
 </div>
 
