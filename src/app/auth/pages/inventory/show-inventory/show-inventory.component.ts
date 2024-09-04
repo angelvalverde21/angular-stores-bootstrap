@@ -92,9 +92,7 @@ export class ShowInventoryComponent {
     });
 
   }
-
-
-
+  
 }
 // (resp:any) => {
 //   this.btnActive = true;
