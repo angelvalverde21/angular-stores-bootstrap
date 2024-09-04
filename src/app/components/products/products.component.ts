@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CardProductComponent } from '../cards/card-product/card-product.component';
 import { CardColorComponent } from '../cards/card-color/card-color.component';
 import { ProductService } from '../../services/product.service';
@@ -8,7 +8,8 @@ import { PipesModule } from '../../shared/pipes.module';
 import { LoadingComponent } from '../loading/loading.component';
 import { CardPlaceHolderComponent } from "../card-place-holder/card-place-holder.component";
 import { CommonService } from '../../services/common.service';
-import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-products',
@@ -23,18 +24,30 @@ import { take } from 'rxjs/operators';
     CardPlaceHolderComponent
 ],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.css',
+  styleUrl: './products.component.css'
 })
-
-// export class ButtonLoginComponent implements OnInit {
-export class ProductsComponent implements OnInit{
+export class ProductsComponent implements OnInit, OnDestroy{
 
   count: number = 0;
   products: any = [];
   loading: boolean = true;
   productsEncontrados: boolean =  false;
+  store: string = "";
+  private commonSubscription!: Subscription;
+  private productsSubscription!: Subscription;
+
+  
+  constructor(
+    private _productsService: ProductService,
+    private _commonService: CommonService,
+    private _store: StoreService
+  ) {
+
+  }
 
   ngOnInit(): void {
+
+    this.store = this._store.leerSlugBase()!;
     // this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe(data => {
     //   console.log('Data received', data);
     // });
@@ -44,7 +57,7 @@ export class ProductsComponent implements OnInit{
     //   this.products = resp;
     // });
 
-    this._commonService.getCardPlaceHolderObservable().subscribe((value:boolean) => {
+    this.commonSubscription = this._commonService.getCardPlaceHolderObservable().subscribe((value:boolean) => {
 
       this.count  = this.count + 1;
       console.log('contador');
@@ -55,9 +68,9 @@ export class ProductsComponent implements OnInit{
       
       this.loading = value;
 
-    })
+    });
 
-    this.products = this._productsService.getProductsObservable()
+    this.productsSubscription = this._productsService.getProductsObservable()
     
     .subscribe({
 
@@ -95,11 +108,9 @@ export class ProductsComponent implements OnInit{
     });
   }
 
-  constructor(
-    private _productsService: ProductService,
-    private _commonService: CommonService
-  ) {
-
+  ngOnDestroy(): void {
+    this.productsSubscription.unsubscribe();
+    this.commonSubscription.unsubscribe;
   }
 
 

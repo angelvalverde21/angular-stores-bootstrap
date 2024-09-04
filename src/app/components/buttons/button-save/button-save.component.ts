@@ -10,6 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonSaveComponent {
   @Input() btnLoading: boolean = false; 
+  @Input() type: string = "primary"; 
   @Input() btnActive: boolean = false; 
   @Input() text: string = "Guardar cambios"; 
   

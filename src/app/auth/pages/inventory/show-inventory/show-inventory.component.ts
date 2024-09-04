@@ -7,11 +7,13 @@ import { CommonModule } from '@angular/common';
 
 import { ProductService } from '../../../../services/product.service';
 import { ButtonSaveComponent } from '../../../../components/buttons/button-save/button-save.component';
+import { LoadingComponent } from "../../../../components/loading/loading.component";
+import { AlertComponent } from "../../../../components/alerts/alert/alert.component";
 
 @Component({
   selector: 'app-show-inventory',
   standalone: true,
-  imports: [HeaderComponent, InputGroupComponent, CommonModule, ReactiveFormsModule, ButtonSaveComponent],
+  imports: [HeaderComponent, InputGroupComponent, CommonModule, ReactiveFormsModule, ButtonSaveComponent, LoadingComponent, AlertComponent],
   templateUrl: './show-inventory.component.html',
   styleUrl: './show-inventory.component.css'
 })
@@ -20,24 +22,19 @@ export class ShowInventoryComponent {
   form!: FormGroup;
   loading: boolean = false;
   btnActive: boolean = false;
-  
-
-  loadingData: boolean = false;
-  dataReady: boolean = false;
-  loadingSubmit: boolean = false;
   success: boolean = false;
-  buttonSubmitActive: boolean = false;
+  id: number = 0;
+  colors: any;
 
   constructor(
-    private _route: ActivatedRoute,
     private fb: FormBuilder,
     private _product: ProductService,
     private route: ActivatedRoute,
   ){ }
 
   ngOnInit(): void {
-    this.initForm();
-    this.load();
+    this.initForm(); //inicial el formulario
+    this.loadForm(); //carga el formulario
   }
 
   private initForm():void{
@@ -48,13 +45,19 @@ export class ShowInventoryComponent {
     });
   }
 
-  private load(){
+  private loadForm(){
 
-    const id = this.route.snapshot.paramMap.get('id');
+    this.loading = true;
 
-    if (id) {
-      this._product.load(Number(id)).subscribe({
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (this.id) {
+      this._product.load(this.id).subscribe({
         next: (resp:any) => {
+          console.log(resp.data.colors_active);
+          
+          this.colors = resp.data.colors_active;
+          this.loading = false;
           this.form.patchValue(resp.data);
         },
         error: (error:any) => {
@@ -80,9 +83,13 @@ export class ShowInventoryComponent {
     this.btnSaveBusy();
 
     console.log('form enviado');
+
+    this.success = false;
     
-    this._product.save(this.form.value).subscribe({
+    this._product.save(this.form.value, this.id).subscribe({
       next: (resp:any) => {
+        console.log(resp);
+        this.success = true;
         this.btnSaveReady();
       },
       error: (error: any) => {
@@ -92,12 +99,11 @@ export class ShowInventoryComponent {
     });
 
   }
-  
 }
 // (resp:any) => {
 //   this.btnActive = true;
 //   this.loading = false;
-//   this.buttonSubmitActive = false;
+//   this.buttonSubmitActive = false;git
 //   if (resp.success) {
 //     this.success = true;
 //   }

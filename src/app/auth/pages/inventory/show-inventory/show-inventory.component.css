@@ -1,0 +1,12 @@
+.show-stock{
+    position: relative;
+}
+
+.stock{
+    opacity: 10%;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    bottom: 5px;
+    text-align: center;
+}

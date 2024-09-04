@@ -16,6 +16,7 @@ export class ProductService {
 
   //private url = 'https://3b.pe/api/v1/ara/products';
   private url = environment.apiUrl;
+  private urlPrivate = environment.apiPrivate;
   // private products : [] = [];
 
   /*********** CREANDO UN SERVICIO SUSCRIBIBLE PARA LOS PRODUCTOS ***********/
@@ -37,7 +38,7 @@ export class ProductService {
   load(id: number | null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     
-    const url = `${this.url}/${this._store.leerSlugBase()}/products/${id}`;
+    const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/products/${id}`;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
@@ -45,14 +46,14 @@ export class ProductService {
   }
 
   
-  save(id: number | null): Observable<any> {
+  save(data:[], id: number | null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
-    
-    const url = `${this.url}/${this._store.leerSlugBase()}/products/${id}`;
+
+    const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/products/${id}`;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
-    return this.http.get(url);
+    return this.http.post(url, data);
   }
   // setProducts(products: any[]): void {
   //   this.productsSubject.next(products);

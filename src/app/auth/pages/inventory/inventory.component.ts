@@ -6,23 +6,23 @@ import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../../../components/loading/loading.component";
 import { StoreService } from '../../../services/store.service';
 import { RouterModule } from '@angular/router';
+import { ProductsComponent } from "../../../components/products/products.component";
 
 @Component({
   selector: 'app-inventory',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule,],
+  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, ProductsComponent],
   templateUrl: './inventory.component.html',
   styleUrl: './inventory.component.css'
 })
 export class InventoryComponent implements OnInit, OnDestroy{
 
   public products: any = [];
-  public loading: boolean = true;
   productsEncontrados: boolean = false;
   private productsSubscription!: Subscription;
   public store: string = "";
 
-  constructor(private _store: StoreService){
+  constructor(private _store: StoreService, private _product: ProductService){
 
   }
 
@@ -41,16 +41,13 @@ export class InventoryComponent implements OnInit, OnDestroy{
         // this.products = data.products;
 
         // console.log('llamando a products');
-        this.loading = false;
+
         // this._commonService.setCardPlaceHolder(false);
         // console.log('loading es ' + this.loading);
         this.products = resp.data;
         console.log(this.products);
         // console.log('contando ' + this.products.length)
-
-        if (this.products.length > 0) {
-          this.productsEncontrados = true;
-        }
+        this._product.setProducts(resp.data);
         
       },
   
