@@ -1,23 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputGroupComponent } from "../../../components/forms/input-group/input-group.component";
 import { PipesModule } from '../../../shared/pipes.module';
+import { LoadingComponent } from "../../../components/loading/loading.component";
 
 @Component({
   selector: 'app-size',
   standalone: true,
-  imports: [CommonModule, InputGroupComponent, PipesModule, ReactiveFormsModule],
+  imports: [CommonModule, InputGroupComponent, PipesModule, ReactiveFormsModule, LoadingComponent],
   templateUrl: './size.component.html',
   styleUrl: './size.component.css'
 })
 export class SizeComponent {
+  loading: boolean = false;
   @Input() size: any; // Recibe el grupo de formulario de color
   @Output() colorUpdated = new EventEmitter<void>(); // Notifica cambios en el color
   sizeForm!: FormGroup;
   @ViewChild('myInput') myInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {}
 
   selectInput() {
     this.myInput.nativeElement.select();
@@ -33,6 +35,21 @@ export class SizeComponent {
         quantity: ['']
       })
     });
+
+  }
+
+  updateStock($event: any){
+
+    if($event.target.value > 0){
+      this.loading = true;
+      setTimeout(() => {
+        console.log($event.target.value);
+        console.log(this.size.pivot.id);
+        this.loading = false;
+        console.log(this.loading);
+        this.cdr.detectChanges();
+      },1000);
+    }
 
   }
 
