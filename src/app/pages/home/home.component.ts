@@ -46,7 +46,7 @@ export class HomeComponent {
       this._store.getHome(name).subscribe((resp: any) => {
 
         //setea los productos para que se puedan mostrar
-        this._product.setProducts(resp.data.products);
+        this._product.setProducts(resp.data);
 
       });
       

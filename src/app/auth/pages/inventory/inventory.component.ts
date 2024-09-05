@@ -44,8 +44,11 @@ export class InventoryComponent implements OnInit, OnDestroy{
 
         // this._commonService.setCardPlaceHolder(false);
         // console.log('loading es ' + this.loading);
-        this.products = resp.data;
-        console.log(this.products);
+        this.products = resp;
+        // console.log(resp);
+        // console.log('imprimiendo products de inventory');
+        
+        // console.log(this.products);
         // console.log('contando ' + this.products.length)
         this._product.setProducts(resp.data);
         

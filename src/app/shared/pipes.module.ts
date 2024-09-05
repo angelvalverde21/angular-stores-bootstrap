@@ -3,6 +3,7 @@ import { ShortTitlePipe } from './Pipes/short-title.pipe';
 import { FirstNamePipe } from './Pipes/first-name.pipe';
 import { PenPipe } from './Pipes/pen.pipe';
 import { UpperFirstPipe } from './Pipes/upper-first.pipe';
+import { ShortNameSizePipe } from './Pipes/short-name-size.pipe';
 
 
 
@@ -13,6 +14,7 @@ import { UpperFirstPipe } from './Pipes/upper-first.pipe';
     FirstNamePipe,
     PenPipe,
     UpperFirstPipe,
+    ShortNameSizePipe
   ],
   
   exports: [
@@ -20,6 +22,7 @@ import { UpperFirstPipe } from './Pipes/upper-first.pipe';
     FirstNamePipe,
     PenPipe,
     UpperFirstPipe,
+    ShortNameSizePipe
   ],
 
   imports: [

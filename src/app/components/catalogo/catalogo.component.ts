@@ -38,8 +38,8 @@ export class CatalogoComponent implements OnInit, OnDestroy{
 
   
   constructor(
-    private _productsService: ProductService,
-    private _commonService: CommonService
+    private _products: ProductService,
+    private _common: CommonService
   ) {
 
   }
@@ -54,7 +54,7 @@ export class CatalogoComponent implements OnInit, OnDestroy{
     //   this.products = resp;
     // });
 
-    this.commonSubscription = this._commonService.getCardPlaceHolderObservable().subscribe((value:boolean) => {
+    this.commonSubscription = this._common.getCardPlaceHolderObservable().subscribe((value:boolean) => {
 
       this.count  = this.count + 1;
       console.log('contador');
@@ -67,7 +67,7 @@ export class CatalogoComponent implements OnInit, OnDestroy{
 
     });
 
-    this.productsSubscription = this._productsService.getProductsObservable()
+    this.productsSubscription = this._products.getProductsObservable()
     
     .subscribe({
 
@@ -79,7 +79,7 @@ export class CatalogoComponent implements OnInit, OnDestroy{
 
         // console.log('llamando a products');
       
-        this._commonService.setCardPlaceHolder(false);
+        this._common.setCardPlaceHolder(false);
         // console.log('loading es ' + this.loading);
         this.products = resp;
 

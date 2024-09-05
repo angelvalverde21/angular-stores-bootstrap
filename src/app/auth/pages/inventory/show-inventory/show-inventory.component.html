@@ -2,6 +2,7 @@
 
 <div class="container">
 
+    <!-- {{ form.value | json}} -->
 
     <form [formGroup]="form" (ngSubmit)="save()">
 
@@ -54,33 +55,28 @@
     </form>
 
     <ng-container>
-        <div class="card mt-3 mx-auto" style="width: 440px;" *ngFor="let color of colors">
+
+        <app-color [color]="color" *ngFor="let color of colors"></app-color>
+
+        <!-- <div class="card mt-3 mx-auto" style="width: 440px;" *ngFor="let color of colors">
             <div class="d-flex justify-content-between">
-                <img width="200px" src="{{ color.image.url_thumbnail }}" alt="">
+                <img width="200px" [src]="color.image.url_thumbnail" alt="">
                 <div class="p-3">
-                    <div class="inputs">
-                        <app-input-group icontext="S">
-                            <input type="text" class="form-control" placeholder="0" aria-label="Tallas"
+
+                    <div class="sizes">
+                        <app-input-group icontext="{{ size.name | shortNameSize }}" *ngFor="let size of color.sizes;">
+
+                            <input type="number" step="1" [value]="size.pivot.quantity" (keyup)="updateQuantity(size.pivot.id, $event)" class="form-control" placeholder="0" aria-label="Tallas"
                                 aria-describedby="basic-Tallas">
-                        </app-input-group>
-                        <app-input-group icontext="M">
-                            <input type="text" class="form-control" placeholder="0" aria-label="Tallas"
-                                aria-describedby="basic-Tallas">
-                        </app-input-group>
-                        <app-input-group icontext="L">
-                            <input type="text" class="form-control" placeholder="0" aria-label="Tallas"
-                                aria-describedby="basic-Tallas">
-                        </app-input-group>
-                        <app-input-group icontext="EST">
-                            <input type="text" class="form-control" placeholder="0" aria-label="Tallas"
-                                aria-describedby="basic-Tallas">
-                        </app-input-group>
+                            </app-input-group>
+
                     </div>  
-                    <!-- <app-button-save type="success"></app-button-save>   -->
-                    <div class="text-center"><h3>3</h3></div>                
+
+                    <div class="text-center"><h3>{{ getTotalQuantity(color.sizes) }}</h3></div>                
                 </div>
             </div>
-        </div>
+        </div> -->
+
     </ng-container>
 
 </div>

@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class StoreService {
   //private url = 'https://3b.pe/api/v1/ara/products';
   private url_base = environment.apiUrl;
+  private url_private = environment.apiPrivate;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -126,7 +127,9 @@ export class StoreService {
 
   inventory(): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
-    const url = `${this.url_base}/${this.leerSlugBase()}/products`;
+    const url = `${this.url_private}/${this.leerSlugBase()}/products`;
+    console.log(url);
+    
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
