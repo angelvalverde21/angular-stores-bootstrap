@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputGroupComponent } from "../../../components/forms/input-group/input-group.component";
 import { PipesModule } from '../../../shared/pipes.module';
@@ -15,8 +15,13 @@ export class SizeComponent {
   @Input() size: any; // Recibe el grupo de formulario de color
   @Output() colorUpdated = new EventEmitter<void>(); // Notifica cambios en el color
   sizeForm!: FormGroup;
+  @ViewChild('myInput') myInput!: ElementRef<HTMLInputElement>;
 
   constructor(private fb: FormBuilder) {}
+
+  selectInput() {
+    this.myInput.nativeElement.select();
+  }
 
   private initForm(): void {
 
@@ -34,7 +39,7 @@ export class SizeComponent {
   ngOnInit(): void {
     this.initForm(); // Inicializa el formulario
     if (this.size) {
-      console.log('Size data:', this.size); // Verifica los datos de entrada
+      // console.log('Size data:', this.size); // Verifica los datos de entrada
       this.sizeForm.patchValue({
         id: this.size.id,
         name: this.size.name,
