@@ -86,11 +86,15 @@ export class ProductsComponent implements OnInit, OnDestroy{
         // console.log('loading es ' + this.loading);
         this.products = resp;
 
-        // console.log('contando ' + this.products.length)
+        console.log('imprimiendo desde el componente products');
+        console.log(resp);
+        
 
-        if (this.products.length > 0) {
-          this.productsEncontrados = true;
-        }
+        // console.log('contando ' + this.products.length)
+        this.productsEncontrados = true;
+        // if (this.products.length > 0) {
+          
+        // }
         
       },
   

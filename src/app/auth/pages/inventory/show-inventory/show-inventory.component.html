@@ -8,6 +8,8 @@
 
         <app-alert *ngIf="success"></app-alert>
 
+        <h1>{{ totalQuantity }}</h1>
+
         <div class="card mb-3" aria-hidden="true" *ngIf="loading">
 
             <div class="card-body">
@@ -56,7 +58,7 @@
 
     <ng-container>
 
-        <app-color [color]="color" *ngFor="let color of colors"></app-color>
+        <app-color (quantityColorUpdated)="handleQuantityUpdate($event)" [color]="color" *ngFor="let color of colors"></app-color>
 
         <!-- <div class="card mt-3 mx-auto" style="width: 440px;" *ngFor="let color of colors">
             <div class="d-flex justify-content-between">

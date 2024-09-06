@@ -14,8 +14,9 @@ import { SizeComponent } from "../size/size.component";
 export class ColorComponent {
 
   @Input() color: any; // Recibe el grupo de formulario de color
-  @Output() colorUpdated = new EventEmitter<void>(); // Notifica cambios en el color
+  @Output() quantityColorUpdated = new EventEmitter<number>(); // Notifica cambios en el color
   colorForm!: FormGroup;
+  totalQuantity: number = 0;
   
   constructor(private fb: FormBuilder) {}
 
@@ -41,7 +42,7 @@ export class ColorComponent {
 
   // Método para emitir el evento cuando haya cambios en el color
   updateColor() {
-    this.colorUpdated.emit();
+    this.quantityColorUpdated.emit();
   }
 
   private updateSizes(sizes: any[]): void {
@@ -64,6 +65,14 @@ export class ColorComponent {
 
   save(){
 
+  }
+
+  handleQuantityUpdate(quantity: number) {
+    // Actualiza el totalQuantity con el valor recibido
+    this.totalQuantity = quantity;
+    console.log('Quantity updated:', quantity);
+
+    this.quantityColorUpdated.emit(quantity);
   }
 
 }

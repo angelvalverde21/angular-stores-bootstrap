@@ -4,6 +4,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
+  HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // import { LogService } from '../servicios/log.service';
@@ -12,12 +13,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TokenInterceptor implements HttpInterceptor {
-  // constructor(
 
-  // ) {
-  //   console.log('he pasado por el token interceptor');
-
-  //  }
+  private opciones = {
+    headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+      'Content-Type': 'application/json; charset=utf-8',
+      Accept: 'application/json,text/*;q=0.99',
+    }),
+  }
 
   intercept(
     req: HttpRequest<any>,
@@ -36,18 +40,20 @@ export class TokenInterceptor implements HttpInterceptor {
     // });
 
     if (typeof window !== 'undefined') {
-      const reqClone = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
-      });
+      
+      const token = localStorage.getItem('access_token');
 
-      // console.log('se paso por el interceptor');
-      // throw new Error('Method not implemented.');
+      // Combina los headers de opciones con el token de autorización
+      const headers = this.opciones.headers.set(
+        'Authorization',
+        `Bearer ${token}`
+      );
+
+      const reqClone = req.clone({ headers });
+
       return next.handle(reqClone);
     } else {
       // Manejo en caso de no estar en un entorno de navegador
-      // console.log('No se puede acceder a localStorage en este entorno.');
       return next.handle(req);
     }
   }

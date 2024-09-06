@@ -1,31 +1,8 @@
-<div class="text-center my-3">
-
-    <!-- <app-loading *ngIf="loading"></app-loading> -->
-
-
-    <!-- <div class="waiting my-3" *ngIf="loading">Espere...</div> -->
-  
-    <div class="color" *ngIf="loading">
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-      <app-card-place-holder></app-card-place-holder>
-    </div>
-  
-  </div>
-  
+ 
   <!-- {{ products | json}} -->
 
-  <section *ngIf="!loading && productsEncontrados; else noProducts" class="fade-in"
-    [class.visible]="!loading && productsEncontrados">
+  <section *ngIf="productsEncontrados; else noProducts" class="fade-in"
+    [class.visible]="productsEncontrados">
   
     <!-- {{ products | json }} -->
   

@@ -40,6 +40,7 @@ export class ShowInventoryComponent {
   btnActive: boolean = false;
   success: boolean = false;
   id: number = 0;
+  totalQuantity: number = 0;
   colors: any;
 
   constructor(
@@ -120,6 +121,13 @@ export class ShowInventoryComponent {
   updateQuantity(color_size_id: number, $event: any){
     console.log($event);
     console.log(color_size_id);
+  }
+
+  handleQuantityUpdate(quantity: number) {
+    // Actualiza el totalQuantity con el valor recibido
+    this.totalQuantity = quantity;
+    console.log('Quantity updated:', quantity);
+
   }
 }
 // (resp:any) => {
