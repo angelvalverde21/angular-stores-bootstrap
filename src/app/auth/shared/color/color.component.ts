@@ -14,6 +14,7 @@ import { SizeComponent } from "../size/size.component";
 export class ColorComponent {
 
   @Input() color: any; // Recibe el grupo de formulario de color
+  @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
   @Output() quantityColorUpdated = new EventEmitter<number>(); // Notifica cambios en el color
   colorForm!: FormGroup;
   totalQuantity: number = 0;

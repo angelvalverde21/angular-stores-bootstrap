@@ -1,26 +1,35 @@
-import { Component } from '@angular/core';
-import { StoreService } from '../../../../services/store.service';
-import { ProductService } from '../../../../services/product.service';
+import { Component, OnDestroy } from '@angular/core';
+import { StoreService } from '../../../services/store.service';
+import { ProductService } from '../../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../../../environments/environment';
-import { HeaderComponent } from '../../../../header/header.component';
-import { FooterComponent } from '../../../../footer/footer.component';
-import { CommonService } from '../../../../services/common.service';
-import { CatalogoComponent } from "../../../../components/catalogo/catalogo.component";
-import { ProductsComponent } from "../../../../components/products/products.component";
+import { environment } from '../../../../environments/environment';
+import { HeaderComponent } from '../../../header/header.component';
+import { FooterComponent } from '../../../footer/footer.component';
+import { CommonService } from '../../../services/common.service';
+import { CatalogoComponent } from "../../../components/catalogo/catalogo.component";
+import { ProductsComponent } from "../../../components/products/products.component";
+import { TableProductsComponent } from '../../shared/table-products/table-products.component';
+import { CommonModule } from '@angular/common';
+import { LoadingComponent } from "../../../components/loading/loading.component";
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-inventory-search',
+  selector: 'app-product-search',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, CatalogoComponent, ProductsComponent],
-  templateUrl: './inventory-search.component.html',
-  styleUrl: './inventory-search.component.css'
+  imports: [HeaderComponent, FooterComponent, CatalogoComponent, ProductsComponent, TableProductsComponent, CommonModule, LoadingComponent],
+  templateUrl: './product-search.component.html',
+  styleUrl: './product-search.component.css'
 })
-export class InventorySearchComponent {
+export class ProductSearchComponent implements OnDestroy {
+
+  products: any[] = [];
+  store: string = '';
+  search: string = '';
+  loading: boolean = true;
+  private searchSubscription!: Subscription;
 
   constructor(
     private _store: StoreService,
-    private _productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
     private _common: CommonService
@@ -30,13 +39,17 @@ export class InventorySearchComponent {
     this._common.setCardPlaceHolder(true);
     this._common.setShowSearch(true);
     this.cargarResultados();
+
     // this.store = this._storeService.getSlug();
   }
 
-  store: string = '';
-  search: string = '';
+  ngOnDestroy(): void {
+    this.searchSubscription.unsubscribe();
+  }
 
   cargarResultados() {
+
+
 
     // console.log('imprimiendo search');
     // console.log(this.route.snapshot.paramMap.get('search'));
@@ -64,16 +77,17 @@ export class InventorySearchComponent {
 
         this.search = params['search']; //el parametro base es store
 
-        this._store.search(name, this.search).subscribe({
+        this.loading = true;
+
+        this.searchSubscription = this._store.search(name, this.search).subscribe({
 
           next: (resp: any) => {
             // Manejo de la respuesta exitosa
+
+            this.loading = false;
+            this.products = resp.data;
             console.log(resp);
-
             console.log('llamando a search.component');
-
-            this._productService.setProducts(resp.data);
-
             this._common.setIconLoading(false);
           },
 
@@ -86,10 +100,7 @@ export class InventorySearchComponent {
 
       });
 
-
     });
-
-
 
   }
 }

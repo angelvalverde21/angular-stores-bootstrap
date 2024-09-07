@@ -35,6 +35,7 @@ import { InventoryService } from '../../../services/api/inventory.service';
 export class SizeComponent {
   loading: boolean = false;
   @Input() size: any; // Recibe el grupo de formulario de color
+  @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
   @Output() quantitySizeUpdated = new EventEmitter<number>(); // Notifica cambios en el color
   sizeForm!: FormGroup;
   @ViewChild('myInput') myInput!: ElementRef<HTMLInputElement>;
@@ -63,11 +64,14 @@ export class SizeComponent {
 
   updateStock($event: any) {
 
+    console.log('actualizando stock');
+    
+
     if ($event.target.value > 0) {
       this.loading = true;
 
       this._inventory
-        .updateColorSize(this.sizeForm.value.pivot)
+        .updateColorSize(this.sizeForm.value.pivot, this.warehouse_id)
         .subscribe((resp: any) => {
           console.log(resp);
           this.loading = false;

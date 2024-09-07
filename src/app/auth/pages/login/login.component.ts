@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { LogoComponent } from '../../components/logo/logo.component';
+import { LogoComponent } from '../../../components/logo/logo.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../interfaces/user.interface';
+import { User } from '../../../interfaces/user.interface';
 import {
   AbstractControl,
   FormBuilder,
@@ -9,9 +9,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { StoreService } from '../../services/store.service';
+import { StoreService } from '../../../services/store.service';
 
 @Component({
   selector: 'app-login',

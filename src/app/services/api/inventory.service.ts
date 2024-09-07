@@ -17,11 +17,11 @@ export class InventoryService {
     this.url_private = environment.apiPrivate + '/' + this._store.leerSlugBase() + '/inventory';
   }
 
-  updateColorSize(data:any): Observable<any> {
+  updateColorSize(data:any, warehouse_id: number): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
-    const url = `${this.url_private}/color-size`;
+    const url = `${this.url_private}/warehouse/${warehouse_id}/color-size`;
     // const url = `${this.url_base}?store=${store}`;
-    // console.log(url);
+    console.log(url);
     return this.http.post(url, data);
   }
 }

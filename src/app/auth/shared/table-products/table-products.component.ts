@@ -1,11 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ProductService } from '../../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from '../../../shared/pipes.module';
 import { LoadingComponent } from '../../../components/loading/loading.component';
-import { CardPlaceHolderComponent } from '../../../components/card-place-holder/card-place-holder.component';
-import { CommonService } from '../../../services/common.service';
 import { Subscription } from 'rxjs';
 import { StoreService } from '../../../services/store.service';
 
@@ -14,10 +11,9 @@ import { StoreService } from '../../../services/store.service';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
+    RouterModule, //para los links
     PipesModule,
     LoadingComponent,
-    CardPlaceHolderComponent
 ],
   templateUrl: './table-products.component.html',
   styleUrl: './table-products.component.css'
@@ -27,16 +23,13 @@ export class TableProductsComponent implements OnInit, OnDestroy{
 
   count: number = 0;
   @Input() products: any[] = []; 
-  loading: boolean = true;
+  // loading: boolean = true;
   productsEncontrados: boolean =  false;
   store: string = "";
-  private commonSubscription!: Subscription;
 
 
-  
+
   constructor(
-    private _products: ProductService,
-    private _commonService: CommonService,
     private _store: StoreService
   ) {
 
@@ -54,21 +47,7 @@ export class TableProductsComponent implements OnInit, OnDestroy{
     //   this.products = resp;
     // });
 
-    this.commonSubscription = this._commonService.getCardPlaceHolderObservable().subscribe((value:boolean) => {
-
-      this.count  = this.count + 1;
-      console.log('contador');
-      
-      console.log(this.count);
-
-      console.log('el valor actual de value es ' + value);
-      
-      this.loading = value;
-
-    });
-
-    
-    this._commonService.setCardPlaceHolder(false);
+    // this._commonService.setCardPlaceHolder(false);
 
     console.log('table-products');
     
@@ -82,7 +61,7 @@ export class TableProductsComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     // this.productsSubscription.unsubscribe();
-    this.commonSubscription.unsubscribe;
+    // this.commonSubscription.unsubscribe;
   }
 
 

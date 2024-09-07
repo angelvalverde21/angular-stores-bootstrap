@@ -6,7 +6,7 @@
   
     <!-- {{ products | json }} -->
   
-    <table *ngIf="!loading" class="table table-striped table-hover">
+    <table class="table table-striped table-hover">
       <thead>
         <tr class="">
             <th scope="col">Image</th>
@@ -27,7 +27,7 @@
             <!-- <div class="mb-3">---------------------------------------</div> -->
 
             <ng-container>
-              <a [routerLink]="['/', store, 'auth', 'inventory',product.id]">
+              <a [routerLink]="['/', store, 'auth', 'products',product.id]">
                 <div class="card" style="width: 150px;">
                   <img [src]="product.image.url_thumbnail" alt="">
                 </div>
