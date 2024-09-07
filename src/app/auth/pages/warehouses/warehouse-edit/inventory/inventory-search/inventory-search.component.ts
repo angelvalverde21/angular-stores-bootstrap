@@ -77,23 +77,12 @@ export class InventorySearchComponent implements OnDestroy {
 
         this.loading = true;
 
-        this.searchSubscription = this._store.search(this._store.leerSlugBase()!, this.search).subscribe({
-
-          next: (resp: any) => {
-            // Manejo de la respuesta exitosa
-
-            this.loading = false;
-            this.products = resp.data;
-            console.log(resp);
-            console.log('llamando a search.component');
-            this._common.setIconLoading(false);
-          },
-
-          error: (err: any) => {
-            // Manejo del error
-            this.router.navigate(['/error-404']);
-            console.error('Error al obtener la información de search:', err);
-          },
+        this.searchSubscription = this._store.search(this._store.leerSlugBase()!, this.search).subscribe((resp: any) => {
+          this.loading = false;
+          this.products = resp.data;
+          console.log(resp);
+          console.log('llamando a search.component');
+          this._common.setIconLoading(false);
         });
 
       });
