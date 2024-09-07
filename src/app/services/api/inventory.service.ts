@@ -13,14 +13,37 @@ export class InventoryService {
   private url_private: string = "";
   
   constructor(private http: HttpClient, private _store: StoreService) {
-    this.url_base = environment.apiUrl + '/' + this._store.leerSlugBase() + '/inventory';
-    this.url_private = environment.apiPrivate + '/' + this._store.leerSlugBase() + '/inventory';
+    this.url_base = environment.apiUrl + '/' + this._store.leerSlugBase() + '/inventory/warehouse';
+    this.url_private = environment.apiPrivate + '/' + this._store.leerSlugBase() + '/inventory/warehouse';
+  }
+
+
+
+
+  /*** actualizaciones **/
+
+  updateProduct(data:any, warehouse_id: number): Observable<any> {
+
+    const url = `${this.url_private}/${warehouse_id}/product`;
+
+    console.log(url);
+    return this.http.post(url, data);
+  }
+
+  updateProductColor(data:any, warehouse_id: number): Observable<any> {
+    const url = `${this.url_private}/${warehouse_id}/product/color`;
+    console.log(url);
+    return this.http.post(url, data);
+  }
+
+  updateProductSize(data:any, warehouse_id: number): Observable<any> {
+    const url = `${this.url_private}/${warehouse_id}/product/size`;
+    console.log(url);
+    return this.http.post(url, data);
   }
 
   updateColorSize(data:any, warehouse_id: number): Observable<any> {
-    // Construye la URL con el parámetro 'nombre'
-    const url = `${this.url_private}/warehouse/${warehouse_id}/color-size`;
-    // const url = `${this.url_base}?store=${store}`;
+    const url = `${this.url_private}/${warehouse_id}/product/color-size`;
     console.log(url);
     return this.http.post(url, data);
   }

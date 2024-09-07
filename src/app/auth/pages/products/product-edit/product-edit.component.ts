@@ -75,7 +75,7 @@ export class ProductEditComponent {
           console.log(resp.data.colors_active);
 
           this.colors = resp.data.colors_active;
-          this.warehouses = resp.data.store.warehouses;
+          this.warehouses = resp.data.store;
           this.loading = false;
           this.form.patchValue(resp.data);
         },

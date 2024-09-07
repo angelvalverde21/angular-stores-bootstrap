@@ -45,6 +45,16 @@ export class ProductService {
     return this.http.get(url);
   }
 
+  all(): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    
+    const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/products`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+
   
   save(data:[], id: number | null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'

@@ -23,6 +23,7 @@ export class FormSearchComponent implements OnInit {
   
   search: string = '';
   store: string = '';
+  path: string = '';
   hasAuthSearch: boolean = false;
   btnActive: boolean = true;
 
@@ -40,7 +41,7 @@ export class FormSearchComponent implements OnInit {
     });
   
     this.route.params.subscribe((params) => {
-      console.log('imprimiendo parametros');
+      console.log('imprimiendo parametros from');
       console.log(params);
       this.search = params['search'];
       this.btnActive = false; 
@@ -50,7 +51,9 @@ export class FormSearchComponent implements OnInit {
 
   ngOnInit(): void {
     // Verificar si la URL contiene el segmento "auth"
-    this.hasAuthSearch = this.router.url.includes('/auth');
+
+    // this.path = this.router.url.includes('/auth');
+    this.path = this.router.url.includes('/inventory') ? 'authInventory' : (this.router.url.includes('/auth') ? 'auth' : '');
     console.log('¿Contiene el segmento "auth"?', this.hasAuthSearch);
   }
 
@@ -97,16 +100,45 @@ export class FormSearchComponent implements OnInit {
     // }); //el parametro base es store
 
     // console.log(this.search); //
-    // console.log(this.store); //
+    console.log('imprimiendo url desde form');
+    
+    console.log(this.path); //
 
-    if (this.hasAuthSearch) {
-      this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'search', this.search]);
-      console.log('navigate a auth/search');
+
+
+
+    switch (this.path) {
+
+
       
-    }else{
-      this.router.navigate(['/', this._store.leerSlugBase(), 'search', this.search]);
-      console.log('navigate a search');
+      case 'auth':
+        console.log('navigate a auth/search');
+        this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'search', this.search]); //this.search viene del formulario de este componente
+        break;
+    
+      case 'authInventory':
+          console.log('navigate a auth/authInventory');
+          this.route.params.subscribe((params) => {
+            console.log(params);
+            
+            this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'w', params['warehouse_id'] , 'inventory', 'search', this.search]);
+          });
+        break;
+          
+      default:
+        console.log('navigate a search');
+        this.router.navigate(['/', this._store.leerSlugBase(), 'search', this.search]);
+        break;
     }
+
+    // if (this.hasAuthSearch) {
+    //   this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'search', this.search]);
+    //   console.log('navigate a auth/search');
+      
+    // }else{
+    //   this.router.navigate(['/', this._store.leerSlugBase(), 'search', this.search]);
+    //   console.log('navigate a search');
+    // }
 
     // event.preventDefault();
 

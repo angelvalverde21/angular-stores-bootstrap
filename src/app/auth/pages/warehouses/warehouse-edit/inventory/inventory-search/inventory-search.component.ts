@@ -1,27 +1,29 @@
 import { Component, OnDestroy } from '@angular/core';
-import { StoreService } from '../../../services/store.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../../environments/environment';
-import { HeaderComponent } from '../../../header/header.component';
-import { CommonService } from '../../../services/common.service';
-import { TableProductsComponent } from '../../shared/table-products/table-products.component';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from "../../../components/loading/loading.component";
 import { Subscription } from 'rxjs';
+import { StoreService } from '../../../../../../services/store.service';
+import { CommonService } from '../../../../../../services/common.service';
+import { LoadingComponent } from '../../../../../../components/loading/loading.component';
+import { TableProductsComponent } from '../../../../../shared/table-products/table-products.component';
+import { HeaderComponent } from '../../../../../../header/header.component';
+import { environment } from '../../../../../../../environments/environment';
+import { ColorSizeComponent } from "../../../../../shared/color-size/color-size.component";
 
 @Component({
-  selector: 'app-product-search',
+  selector: 'app-inventory-search',
   standalone: true,
-  imports: [HeaderComponent, TableProductsComponent, CommonModule, LoadingComponent],
-  templateUrl: './product-search.component.html',
-  styleUrl: './product-search.component.css'
+  imports: [HeaderComponent, TableProductsComponent, CommonModule, LoadingComponent, ColorSizeComponent],
+  templateUrl: './inventory-search.component.html',
+  styleUrl: './inventory-search.component.css'
 })
-export class ProductSearchComponent implements OnDestroy {
+export class InventorySearchComponent implements OnDestroy {
 
   products: any[] = [];
   store: string = '';
   search: string = '';
   loading: boolean = true;
+  warehouse_id: number = 0;
   private searchSubscription!: Subscription;
 
   constructor(
@@ -53,14 +55,14 @@ export class ProductSearchComponent implements OnDestroy {
     // console.log(this.route.parent?.parent?.snapshot.paramMap.get('store'));
     // console.log('imprimiendo search');
     
-    this.route.parent?.parent?.params.subscribe((params) => {
+    this.route.parent?.params.subscribe((params) => {
       //recibe el nombre del store desde la ruta padre
 
       console.log('imprimiendo valores recibidos de route.parent?.params');
 
       console.log(params);
 
-      const name = params[environment.parametroBase];
+      this.warehouse_id = params['warehouse_id'];
 
       console.log('el campo buscado es xxx ' + name);
 
@@ -68,14 +70,14 @@ export class ProductSearchComponent implements OnDestroy {
         //recibe el parametro del mismo componente (que no es el padre)
 
         console.log(params);
-        console.log(name);
+
         console.log('empezando a solicitar la busqueda');
 
         this.search = params['search']; //el parametro base es store
 
         this.loading = true;
 
-        this.searchSubscription = this._store.search(name, this.search).subscribe({
+        this.searchSubscription = this._store.search(this._store.leerSlugBase()!, this.search).subscribe({
 
           next: (resp: any) => {
             // Manejo de la respuesta exitosa

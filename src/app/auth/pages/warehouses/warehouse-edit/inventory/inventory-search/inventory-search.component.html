@@ -1,0 +1,23 @@
+<div class="container">
+    <h4>Resultados de busqueda: <strong>{{ search}}</strong></h4>
+    <!-- {{ products | json}} -->
+    <hr>
+    <div [ngSwitch]="product.have" *ngFor="let product of products">
+        <!-- Caso 1 -->
+
+        <h5>{{ product.name }}</h5>
+
+        <ng-container *ngSwitchCase="'ColorSize'">
+            <app-color-size [warehouse_id]="warehouse_id" [color]="color"
+                *ngFor="let color of product.colors_active"></app-color-size>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'Size'">Size</ng-container>
+        <ng-container *ngSwitchCase="'Color'">Color</ng-container>
+        <ng-container *ngSwitchCase="'Product'">Product</ng-container>
+        <p *ngSwitchDefault>No se ha podido cargr la relacion del producto have_color o have_size</p>
+
+        <hr>
+    </div>
+
+</div>

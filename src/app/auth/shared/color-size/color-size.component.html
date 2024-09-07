@@ -1,0 +1,15 @@
+<div class="card mt-3 mx-auto" style="width: 360px;">
+    <div class="d-flex justify-content-between">
+      <img width="200px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
+      <div class="p-3">
+  
+        <!-- {{ colorForm.value | json }} -->
+  
+        <app-size (quantitySizeUpdated)="handleQuantityUpdate($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-size>
+  
+        <h3>{{ totalQuantity }}</h3>
+  
+      </div>
+    </div>
+  </div>
+  
