@@ -2,26 +2,17 @@
 
 <div class="container">
 
-    <h1 class="text-center">Almacen A</h1>
+    <!-- <h1 class="text-center">Almacen A</h1> -->
+    <div class="text-center">
+        <app-loading *ngIf="loading"></app-loading>
+    </div>
+
     <p *ngIf="search">Resultados de busqueda: <strong>{{ search}} : {{ products.length }}</strong></p>
     <!-- {{ products | json}} -->
     <hr>
-    <div [ngSwitch]="product.have" *ngFor="let product of products">
-        <!-- Caso 1 -->
 
-        <h5>{{ product.name }}</h5>
+    <app-table-products-inventory [products]="products" [warehouse_id]="warehouse_id"></app-table-products-inventory>
 
-        <ng-container *ngSwitchCase="'ColorSize'">
-            <app-color-size [warehouse_id]="warehouse_id" [color]="color"
-                *ngFor="let color of product.colors_active"></app-color-size>
-        </ng-container>
 
-        <ng-container *ngSwitchCase="'Size'">Size</ng-container>
-        <ng-container *ngSwitchCase="'Color'">Color</ng-container>
-        <ng-container *ngSwitchCase="'Product'">Product</ng-container>
-        <p *ngSwitchDefault>No se ha podido cargr la relacion del producto have_color o have_size</p>
-
-        <hr>
-    </div>
 
 </div>

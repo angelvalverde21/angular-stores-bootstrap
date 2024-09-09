@@ -52,7 +52,9 @@ export class StoreService {
     return this.verifyStore(name).pipe(
       map((resp: any) => {
         console.log('se ha seteado el slug_base ' + name);
+        console.log(resp);
 
+        localStorage.setItem('store', JSON.stringify(resp.data));
         localStorage.setItem('slug_base', name);
         return true;
       }),

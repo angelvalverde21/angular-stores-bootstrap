@@ -1,0 +1,26 @@
+<div class="card mb-3">
+    <div class="card-body d-flex justify-content-between">
+        <div class="image">
+            <img height="200px" [src]="color.image.url_thumbnail" alt="">
+            <div> {{color.id}}</div>
+        </div>
+        <div class="controls">
+            <form [formGroup]="form" (ngSubmit)="save()">
+
+                <!-- {{ form.value | json}} -->
+
+                <app-button-switch formControlName="status" [id]="'color-status-switch'" />
+
+                <app-input-group>
+                    <input formControlName="name" type="text" class="form-control" placeholder="Name" aria-label="name"
+                        aria-describedby="basic-name">
+                </app-input-group>
+
+                <!-- Este boton es del tipo submit por lo que se necestia encerrarlo en un formulario -->
+                <!-- <app-button-save [btnActive]="form.valid" type="dark" /> -->
+                <app-button-save [btnLoading]="loading" [btnActive]="form.valid" type="dark"></app-button-save>
+            </form>
+
+        </div>
+    </div>
+</div>

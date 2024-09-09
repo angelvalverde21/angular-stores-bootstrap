@@ -1,0 +1,23 @@
+<div [ngSwitch]="product.have" *ngFor="let product of products">
+    <!-- Caso 1 -->
+
+    <div class="controls d-flex justify-content-between align-items-center">
+        <h5>{{ product.name }}</h5>
+        <button type="button" class="btn btn-dark" [routerLink]="['/', store, 'auth', 'products',product.id]">Detalles</button>
+    </div>
+
+    <ng-container *ngSwitchCase="'ColorSize'">
+
+        {{ product | json}}
+
+        <app-color-size [warehouse_id]="warehouse_id" [color]="color"
+            *ngFor="let color of product.colors"></app-color-size>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'Size'">Size</ng-container>
+    <ng-container *ngSwitchCase="'Color'">Color</ng-container>
+    <ng-container *ngSwitchCase="'Product'">Product</ng-container>
+    <p *ngSwitchDefault>No se ha podido cargr la relacion del producto have_color o have_size</p>
+
+    <hr>
+</div>

@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { StoreService } from '../../../../../../services/store.service';
@@ -9,15 +9,16 @@ import { TableProductsComponent } from '../../../../../shared/table-products/tab
 import { HeaderComponent } from '../../../../../../header/header.component';
 import { environment } from '../../../../../../../environments/environment';
 import { ColorSizeComponent } from "../../../../../shared/color-size/color-size.component";
+import { TableProductsInventoryComponent } from "../../../../../shared/table-products-inventory/table-products-inventory.component";
 
 @Component({
   selector: 'app-inventory-search',
   standalone: true,
-  imports: [HeaderComponent, TableProductsComponent, CommonModule, LoadingComponent, ColorSizeComponent],
+  imports: [HeaderComponent, TableProductsComponent, CommonModule, LoadingComponent, ColorSizeComponent, RouterModule, TableProductsInventoryComponent],
   templateUrl: './inventory-search.component.html',
   styleUrl: './inventory-search.component.css'
 })
-export class InventorySearchComponent implements OnDestroy {
+export class InventorySearchComponent implements OnDestroy, OnInit {
 
   products: any[] = [];
   store: string = '';
@@ -39,6 +40,10 @@ export class InventorySearchComponent implements OnDestroy {
     this.cargarResultados();
 
     // this.store = this._storeService.getSlug();
+  }
+
+  ngOnInit(): void {
+    this.store = this._store.leerSlugBase()!;
   }
 
   ngOnDestroy(): void {

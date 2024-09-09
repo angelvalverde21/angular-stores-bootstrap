@@ -16,6 +16,10 @@ import { LoadingComponent } from '../../../../components/loading/loading.compone
 import { AlertComponent } from '../../../../components/alerts/alert/alert.component';
 import { PipesModule } from '../../../../shared/pipes.module';
 import { ColorComponent } from "../../../shared/color/color.component";
+import { ProductColorComponent } from "../../../shared/product/product-color/product-color.component";
+import { UploadDropzoneColorComponent } from "../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component";
+import { Subscription } from 'rxjs';
+import { UploadService } from '../../../../services/upload.service';
 
 @Component({
   selector: 'app-product-edit',
@@ -29,7 +33,9 @@ import { ColorComponent } from "../../../shared/color/color.component";
     LoadingComponent,
     AlertComponent,
     PipesModule,
-    ColorComponent
+    ColorComponent,
+    ProductColorComponent,
+    UploadDropzoneColorComponent
 ],
   templateUrl: './product-edit.component.html',
   styleUrl: './product-edit.component.css'
@@ -41,18 +47,29 @@ export class ProductEditComponent {
   success: boolean = false;
   id: number = 0;
   totalQuantity: number = 0;
+  product: any;
   colors: any;
   warehouses: any;
+  private uploadSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private _product: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _upload: UploadService
   ) {}
 
   ngOnInit(): void {
     this.initForm(); //inicial el formulario
     this.loadForm(); //carga el formulario
+
+    this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
+      // Actualiza el componente con la respuesta del servidor
+      console.log('Imagen subida y notificada:', resp);
+      this.product.colors_active.push(resp.color)
+      // Actualiza tu UI o realiza otras acciones necesarias
+    });
+
   }
 
   private initForm(): void {
@@ -74,7 +91,7 @@ export class ProductEditComponent {
         next: (resp: any) => {
           console.log(resp.data.colors_active);
 
-          this.colors = resp.data.colors_active;
+          this.product = resp.data;
           this.warehouses = resp.data.store;
           this.loading = false;
           this.form.patchValue(resp.data);
@@ -130,6 +147,12 @@ export class ProductEditComponent {
     this.totalQuantity = quantity;
     console.log('Quantity updated:', quantity);
 
+  }
+
+  ngOnDestroy(): void {
+    if (this.uploadSubscription) {
+      this.uploadSubscription.unsubscribe();
+    }
   }
 }
 // (resp:any) => {

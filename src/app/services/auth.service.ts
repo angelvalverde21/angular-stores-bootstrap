@@ -85,6 +85,14 @@ export class AuthService {
     }
   }
 
+  getToken() {
+    if (localStorage.getItem('access_token')) {
+      return localStorage.getItem('access_token')!; //el ! le indica que no sera vacio
+    } else {
+      return null;
+    }
+  }
+
   estaAutenticado(): boolean {
     this.leerToken();
     return this.userToken.length > 2;

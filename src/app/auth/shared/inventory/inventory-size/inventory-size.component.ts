@@ -14,13 +14,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { InputGroupComponent } from '../../../components/forms/input-group/input-group.component';
-import { PipesModule } from '../../../shared/pipes.module';
-import { LoadingComponent } from '../../../components/loading/loading.component';
-import { InventoryService } from '../../../services/api/inventory.service';
+import { InputGroupComponent } from '../../../../components/forms/input-group/input-group.component';
+import { PipesModule } from '../../../../shared/pipes.module';
+import { LoadingComponent } from '../../../../components/loading/loading.component';
+import { InventoryService } from '../../../../services/api/inventory.service';
 
 @Component({
-  selector: 'app-size',
+  selector: 'app-inventory-size',
   standalone: true,
   imports: [
     CommonModule,
@@ -29,10 +29,10 @@ import { InventoryService } from '../../../services/api/inventory.service';
     ReactiveFormsModule,
     LoadingComponent,
   ],
-  templateUrl: './size.component.html',
-  styleUrl: './size.component.css',
+  templateUrl: './inventory-size.component.html',
+  styleUrl: './inventory-size.component.css'
 })
-export class SizeComponent {
+export class InventorySizeComponent {
   loading: boolean = false;
   @Input() size: any; // Recibe el grupo de formulario de color
   @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
@@ -51,18 +51,11 @@ export class SizeComponent {
   }
 
   private initForm(): void {
-
-    // console.log(this.size);
-    
     this.sizeForm = this.fb.group({
       id: ['', [Validators.required]],
       name: [''],
       product_id: [''],
       pivot: this.fb.group({
-        id: [''],
-        quantity: [''],
-      }),
-      sku: this.fb.group({
         id: [''],
         quantity: [''],
       }),
@@ -73,17 +66,12 @@ export class SizeComponent {
 
     console.log('actualizando stock');
     
-    // console.log(this.sizeForm);
-    // console.log(this.sizeForm.value);
-    // console.log(this.sizeForm.value.pivot);
-    // console.log(this.sizeForm.value.sku);
-    
 
     if ($event.target.value > 0) {
       this.loading = true;
 
       this._inventory
-        .updateColorSize(this.sizeForm.value.sku.warehouses[0].pivot, this.warehouse_id)
+        .updateColorSize(this.sizeForm.value.pivot, this.warehouse_id)
         .subscribe((resp: any) => {
           console.log(resp);
           this.loading = false;
@@ -113,10 +101,6 @@ export class SizeComponent {
         pivot: {
           id: this.size.pivot?.id, // Asegúrate de que `pivot` y `quantity` existan
           quantity: this.size.pivot?.quantity, // Asegúrate de que `pivot` y `quantity` existan
-        },
-        sku: {
-          id: this.size.sku?.id, // Asegúrate de que `pivot` y `quantity` existan
-          quantity: this.size.sku?.quantity, // Asegúrate de que `pivot` y `quantity` existan
         },
       });
     }

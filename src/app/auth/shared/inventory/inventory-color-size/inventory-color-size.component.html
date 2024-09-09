@@ -4,13 +4,11 @@
       <div class="p-3">
   
         <!-- {{ colorForm.value | json }} -->
-
-          <!-- {{ color | json}} -->
-        
-        <app-size (quantitySizeUpdated)="handleQuantityUpdate($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-size>
+  
+        <app-inventory-size (quantitySizeUpdated)="handleQuantityUpdate($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
   
         <h3>{{ totalQuantity }}</h3>
-        {{ color.id }}
+  
       </div>
     </div>
   </div>
