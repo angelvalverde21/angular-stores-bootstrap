@@ -45,26 +45,33 @@ export const routes: Routes = [
       { path: 'tracking', component: TrackingComponent},
       { path: 'login', component: LoginComponent },
       {
+        /*
+          store
+          store/auth/products (All Warehouses)
+          store/auth/products/{product_id} (All Warehouses)
+          store/auth/products/warehouse/{warehouse_id} (Single Warehouse)
+          store/auth/products/{product_id}/warehouse/{warehouse_id} (Single Warehouse)
+        */
         path: 'auth', component: AuthComponent,canActivate: [authGuard],
         children: [
           { path: '', component: DashboardComponent},
           { path: 'orders', component: OrderComponent},
           { path: 'products', component: ProductsComponent},
-          { path: 'products/:id', component: ProductEditComponent},
-          { path: 'w', component: WarehousesComponent,
+          { path: 'products/:product_id', component: ProductEditComponent,
+            children: [
+              { path: '', component: InventoryIndexComponent}, //Muestra todos los productos de todos los tipos
+              { path: '', component: InventoryProductComponent},
+              { path: 'colors', component: InventoryProductColorComponent},
+              { path: 'sizes', component: InventoryProductSizeComponent},
+              { path: 'color-size', component: InventoryProductColorSizeComponent }
+            ]
+          },
+          { path: 'products/warehouse', component: WarehousesComponent,
             children: [
               { path: ':warehouse_id', component: WarehouseEditComponent},
               { path: ':warehouse_id/options', component: InventoryProductColorComponent},
-              { path: ':warehouse_id/inventory/search/:search', component: InventorySearchComponent},
-              { path: ':warehouse_id/inventory', component: InventoryComponent,
-                  children: [
-                    { path: '', component: InventoryIndexComponent}, //Muestra todos los productos de todos los tipos
-                    { path: ':product_id', component: InventoryProductComponent},
-                    { path: ':product_id/colors', component: InventoryProductColorComponent},
-                    { path: ':product_id/sizes', component: InventoryProductSizeComponent},
-                    { path: ':product_id/color-size', component: InventoryProductColorSizeComponent }
-                  ]
-              },
+              { path: ':warehouse_id/products/search/:search', component: InventorySearchComponent},
+              { path: ':warehouse_id/products', component: InventoryComponent},
             ]
           },
 

@@ -48,7 +48,7 @@ export class ProductService {
   all(): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     
-    const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/products/warehouse/1`;
+    const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/products/warehouses/2`;
 
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);

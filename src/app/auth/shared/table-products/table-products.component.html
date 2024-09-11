@@ -29,7 +29,7 @@
             <ng-container>
               <a [routerLink]="['/', store, 'auth', 'products',product.id]">
                 <div class="card" style="width: 150px;">
-                  <img [src]="product.image.url_thumbnail" alt="">
+                  <img [src]="product.image?.url_thumbnail" alt="">
                 </div>
               </a>
             </ng-container>

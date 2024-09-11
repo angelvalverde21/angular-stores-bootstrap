@@ -2,10 +2,10 @@
 
 <app-input-group icontext="{{ size.name | shortNameSize }}">
 
-
     <ng-container formGroupName="pivot">
         <!-- <input type="text" formControlName="name" step="1" class="form-control" placeholder="0" aria-label="Tallas"
         aria-describedby="basic-Tallas"> -->
+        
         
         <input type="text" formControlName="quantity" step="1" class="form-control" (keyup)="updateStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
         aria-describedby="basic-Tallas">
@@ -13,7 +13,9 @@
         <div class="loading" *ngIf="loading">
             <app-loading size="sm"></app-loading>
         </div>
-        {{ size | json }}
+        <pre>
+            {{ size | json }}
+        </pre>
     </ng-container>
 
 

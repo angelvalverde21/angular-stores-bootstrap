@@ -1,1 +1,14 @@
-<p>inventory-color works!</p>
+<div class="card mt-3 mx-auto" style="width: 360px;">
+    <div class="d-flex justify-content-between">
+      <img width="200px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
+      <div class="p-3">
+  
+        
+        <app-inventory-color-size [size]="size" *ngFor="let size of color.sizes"></app-inventory-color-size>
+
+        <h3>{{ totalQuantity }}</h3>
+        {{ color.id }}
+      </div>
+    </div>
+  </div>
+  

@@ -4,18 +4,17 @@
     <pre>
 
     </pre>
-    {{ product | json}}
+    <!-- {{ product | json}} -->
     <div class="controls d-flex justify-content-between align-items-center">
         <h5>{{ product.name }}</h5>
-        <button type="button" class="btn btn-dark" [routerLink]="['/', store, 'auth', 'products',product.id]">Detalles</button>
+        <button type="button" class="btn btn-dark"
+            [routerLink]="['/', store, 'auth', 'products',product.id]">Detalles</button>
     </div>
 
     <ng-container *ngSwitchCase="'ColorSize'">
-
-
-
-        <app-color-size [warehouse_id]="warehouse_id" [color]="color"
-            *ngFor="let color of product.colors"></app-color-size>
+        <app-inventory-color [warehouse_id]="warehouse_id" [color]="color"
+        *ngFor="let color of product.colors"></app-inventory-color>
+        <!-- <app-color-size></app-color-size> -->
     </ng-container>
 
     <ng-container *ngSwitchCase="'Size'">Size</ng-container>

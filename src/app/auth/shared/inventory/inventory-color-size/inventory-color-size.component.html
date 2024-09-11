@@ -1,15 +1,16 @@
-<div class="card mt-3 mx-auto" style="width: 360px;">
-    <div class="d-flex justify-content-between">
-      <img width="200px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
-      <div class="p-3">
+<form [formGroup]="sizeForm">
+
+  <app-input-group icontext="{{ size.name | shortNameSize }}">
   
-        <!-- {{ colorForm.value | json }} -->
-  
-        <app-inventory-size (quantitySizeUpdated)="handleQuantityUpdate($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
-  
-        <h3>{{ totalQuantity }}</h3>
-  
-      </div>
+    <input type="text" formControlName="quantity" step="1" class="form-control" (keyup)="updateStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
+    aria-describedby="basic-Tallas">
+
+    <div class="loading" *ngIf="loading">
+        <app-loading size="sm"></app-loading>
     </div>
-  </div>
   
+  
+  </app-input-group>
+  {{ sizeForm.value | json }}
+  
+  </form>

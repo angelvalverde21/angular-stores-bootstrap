@@ -82,7 +82,7 @@ export class InventorySearchComponent implements OnDestroy, OnInit {
 
         this.loading = true;
 
-        this.searchSubscription = this._store.search(this._store.leerSlugBase()!, this.search).subscribe((resp: any) => {
+        this.searchSubscription = this._store.searchWarehouse(this._store.leerSlugBase()!, this.warehouse_id, this.search).subscribe((resp: any) => {
           this.loading = false;
           this.products = resp.data;
           console.log(resp);

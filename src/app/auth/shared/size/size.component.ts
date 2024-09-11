@@ -33,6 +33,7 @@ import { InventoryService } from '../../../services/api/inventory.service';
   styleUrl: './size.component.css',
 })
 export class SizeComponent {
+  
   loading: boolean = false;
   @Input() size: any; // Recibe el grupo de formulario de color
   @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
@@ -55,18 +56,29 @@ export class SizeComponent {
     // console.log(this.size);
     
     this.sizeForm = this.fb.group({
-      id: ['', [Validators.required]],
+      id: [null],
       name: [''],
-      product_id: [''],
-      pivot: this.fb.group({
-        id: [''],
-        quantity: [''],
+      product_id: [null],
+      color_sizes: this.fb.group({
+        sku: this.fb.group({
+          warehouses: this.fb.array([
+            this.fb.group({
+              pivot: this.fb.group({
+                sku_id: [null],
+                warehouse_id: [null],
+                quantity: [null], // Control para el quantity
+                id: [null],
+              }),
+            }),
+          ]),
+        }),
       }),
       sku: this.fb.group({
-        id: [''],
-        quantity: [''],
+        id: [null],
+        quantity: [null],
       }),
     });
+    
   }
 
   updateStock($event: any) {
@@ -83,7 +95,7 @@ export class SizeComponent {
       this.loading = true;
 
       this._inventory
-        .updateColorSize(this.sizeForm.value.sku.warehouses[0].pivot, this.warehouse_id)
+        .updateColorSize(this.sizeForm.value.sku, this.warehouse_id)
         .subscribe((resp: any) => {
           console.log(resp);
           this.loading = false;
@@ -110,9 +122,17 @@ export class SizeComponent {
         id: this.size.id,
         name: this.size.name,
         product_id: this.size.product_id,
-        pivot: {
-          id: this.size.pivot?.id, // Asegúrate de que `pivot` y `quantity` existan
-          quantity: this.size.pivot?.quantity, // Asegúrate de que `pivot` y `quantity` existan
+        color_sizes: {
+          sku: {
+            warehouses: {
+              pivot: {
+                sku_id: this.size.color_sizes.sku.warehouses[0]?.pivot.sku_id,
+                warehouse_id: this.size.color_sizes.sku.warehouses[0]?.pivot.warehouse_id,
+                quantity: this.size.color_sizes.sku.warehouses[0]?.pivot.quantity,
+                id: this.size.color_sizes.sku.warehouses[0]?.pivot.id
+              },
+            },
+          },
         },
         sku: {
           id: this.size.sku?.id, // Asegúrate de que `pivot` y `quantity` existan

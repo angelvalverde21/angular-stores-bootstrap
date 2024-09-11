@@ -66,7 +66,7 @@ export class ProductEditComponent {
     this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
       // Actualiza el componente con la respuesta del servidor
       console.log('Imagen subida y notificada:', resp);
-      this.product.colors_active.push(resp.color)
+      this.product.colors.push(resp.color)
       // Actualiza tu UI o realiza otras acciones necesarias
     });
 
@@ -77,7 +77,7 @@ export class ProductEditComponent {
       name: ['', [Validators.required]],
       body: [''],
       tags: [''],
-      colors_active: this.fb.array([]),
+      colors: this.fb.array([]),
     });
   }
 
@@ -89,7 +89,7 @@ export class ProductEditComponent {
     if (this.id) {
       this._product.load(this.id).subscribe({
         next: (resp: any) => {
-          console.log(resp.data.colors_active);
+          console.log(resp);
 
           this.product = resp.data;
           this.warehouses = resp.data.store;

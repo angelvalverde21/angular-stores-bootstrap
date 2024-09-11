@@ -12,6 +12,8 @@ export class StoreService {
   //private url = 'https://3b.pe/api/v1/ara/products';
   private url_base = environment.apiUrl;
   private url_private = environment.apiPrivate;
+  private urlPrivate = environment.apiPrivate;
+  private urlPublic = environment.apiPublic;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -118,7 +120,16 @@ export class StoreService {
 
   search(store: string, search: string): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
-    const url = `${this.url_base}/${store}/search/${search}`;
+    const url = `${this.urlPrivate}/${store}/products/search/${search}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+
+  searchWarehouse(store: string, warehouse: number, search: string): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.urlPrivate}/${store}/products/warehouses/${warehouse}/search/${search}`;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 

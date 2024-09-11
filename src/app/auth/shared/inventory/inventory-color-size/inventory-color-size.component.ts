@@ -1,79 +1,116 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InventorySizeComponent } from "../inventory-size/inventory-size.component";
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { InputGroupComponent } from '../../../../components/forms/input-group/input-group.component';
+import { PipesModule } from '../../../../shared/pipes.module';
+import { LoadingComponent } from '../../../../components/loading/loading.component';
+import { InventoryService } from '../../../../services/api/inventory.service';
 
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, InventorySizeComponent],
+  imports: [
+    CommonModule,
+    InputGroupComponent,
+    PipesModule,
+    ReactiveFormsModule,
+    LoadingComponent,
+  ],
   templateUrl: './inventory-color-size.component.html',
-  styleUrl: './inventory-color-size.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './inventory-color-size.component.css'
 })
 export class InventoryColorSizeComponent {
 
-  @Input() color: any; // Recibe el grupo de formulario de color
+  loading: boolean = false;
+  @Input() size: any; // Recibe el grupo de formulario de color
   @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
-  @Output() quantityColorUpdated = new EventEmitter<number>(); // Notifica cambios en el color
-  colorForm!: FormGroup;
-  totalQuantity: number = 0;
-  
-  constructor(private fb: FormBuilder) {}
+  @Output() quantitySizeUpdated = new EventEmitter<number>(); // Notifica cambios en el color
+  sizeForm!: FormGroup;
+  @ViewChild('myInput') myInput!: ElementRef<HTMLInputElement>;
+  stockWarehouse: any;
+  constructor(
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private _inventory: InventoryService
+  ) {
 
-  private initForm(): void {
-
-    this.colorForm = this.fb.group({
-      id: ['', [Validators.required]],
-      sku_quantity: [''],
-      product_id: [''],
-      image: this.fb.group({
-        id: [''],
-        thumbnail: [''],
-        url_thumbnail: ['']
-      }),
-      sizes: this.fb.array([]),
-    });
-
-  }
-
-  get sizes(): FormArray {
-    return this.color.get('sizes') as FormArray;
-  }
-
-  // Método para emitir el evento cuando haya cambios en el color
-  updateColor() {
-    this.quantityColorUpdated.emit();
-  }
-
-  private updateSizes(sizes: any[]): void {
-    const sizeFormGroups = sizes.map(size => this.fb.group({
-      id: [size.id],
-      name: [size.name],
-      quantity: [size.pivot.quantity] // Ajusta según la estructura real
-    }));
-    const formArray = this.fb.array(sizeFormGroups);
-    this.colorForm.setControl('sizes', formArray);
   }
 
   ngOnInit(): void {
-    this.initForm(); //inicial el formulario
-    if (this.color) {
-      this.colorForm.patchValue(this.color);
-      this.updateSizes(this.color.sizes);
+
+    console.log(this.size.color_size.sku);
+    console.log(this.size.color_size.sku.warehouse.pivot);
+    this.stockWarehouse = this.size.color_size.sku.warehouse.pivot
+    
+    
+    this.initForm(); // Inicializa el formulario
+    if (this.stockWarehouse) {
+      // console.log('Size data:', this.size); // Verifica los datos de entrada
+      this.sizeForm.patchValue(this.stockWarehouse);
     }
   }
 
-  save(){
-
+  selectInput() {
+    this.myInput.nativeElement.select();
   }
 
-  handleQuantityUpdate(quantity: number) {
-    // Actualiza el totalQuantity con el valor recibido
-    this.totalQuantity = quantity;
-    console.log('Quantity updated:', quantity);
+  private initForm(): void {
 
-    this.quantityColorUpdated.emit(quantity);
+    // console.log(this.size);
+    
+    this.sizeForm = this.fb.group({
+      sku_id: [null],
+      warehouse_id: [null],
+      quantity: [null], // Control para el quantity
+      id: [null],
+    });
+    
+  }
+
+  updateStock($event: any) {
+
+    console.log('actualizando stock');
+    
+    // console.log(this.sizeForm);
+    // console.log(this.sizeForm.value);
+    // console.log(this.sizeForm.value.pivot);
+    // console.log(this.sizeForm.value.sku);
+    
+
+    if ($event.target.value > 0) {
+      this.loading = true;
+
+      this._inventory
+        .updateColorSize(this.sizeForm.value.sku, this.warehouse_id)
+        .subscribe((resp: any) => {
+          console.log(resp);
+          this.loading = false;
+          this.cdr.detectChanges();
+          this.quantitySizeUpdated.emit(this.sizeForm.value.pivot.quantity);
+        });
+      // console.log();
+    }
+
+    // setTimeout(() => {
+    //   console.log($event.target.value);
+    //   console.log(this.size.pivot.id);
+    //   this.loading = false;
+    //   console.log(this.loading);
+    //   
+    // },1000);
   }
 
 }
