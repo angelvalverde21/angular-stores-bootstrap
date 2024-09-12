@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ColorService } from '../../../../services/color.service';
 import { ButtonSwitchComponent } from "../../../../components/buttons/button-switch/button-switch.component";
+import { ProductColorSizeComponent } from "../product-color-size/product-color-size.component";
 
 @Component({
   selector: 'app-product-color',
   standalone: true,
-  imports: [InputGroupComponent, ButtonSaveComponent, ReactiveFormsModule, CommonModule, ButtonSwitchComponent],
+  imports: [InputGroupComponent, ButtonSaveComponent, ReactiveFormsModule, CommonModule, ButtonSwitchComponent, ProductColorSizeComponent],
   templateUrl: './product-color.component.html',
   styleUrl: './product-color.component.css'
 })

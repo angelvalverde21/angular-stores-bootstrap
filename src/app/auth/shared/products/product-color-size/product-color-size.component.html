@@ -1,1 +1,17 @@
-<p>product-color-size works!</p>
+<form [formGroup]="sizeSkuForm">
+
+    <app-input-group icontext="{{ size.name | shortNameSize }}">
+    
+      <input type="text" formControlName="quantity" step="1" class="form-control" (keyup)="updateStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
+      aria-describedby="basic-Tallas">
+  
+      <div class="loading" *ngIf="loading">
+          <app-loading size="sm"></app-loading>
+      </div>
+    
+    
+    </app-input-group>
+    
+    {{ sizeSkuForm.value | json }}
+    
+</form>

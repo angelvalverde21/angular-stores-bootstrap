@@ -4,7 +4,15 @@
             <img height="200px" [src]="color.image.url_thumbnail" alt="">
             <div> {{color.id}}</div>
         </div>
+
+
         <div class="controls">
+            <app-product-color-size [size]="size" *ngFor="let size of color.sizes"></app-product-color-size>
+            
+        </div>
+        
+        <div class="controls">
+
             <form [formGroup]="form" (ngSubmit)="save()">
 
                 <!-- {{ form.value | json}} -->

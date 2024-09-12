@@ -95,7 +95,7 @@ export class SizeComponent {
       this.loading = true;
 
       this._inventory
-        .updateColorSize(this.sizeForm.value.sku, this.warehouse_id)
+        .updateColorSize(this.sizeForm.value.sku)
         .subscribe((resp: any) => {
           console.log(resp);
           this.loading = false;
