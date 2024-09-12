@@ -1,23 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HeaderComponent } from "../../../header/header.component";
-import { ProductService } from '../../../services/product.service';
+import { HeaderComponent } from "./../../../../header/header.component";
+import { ProductService } from './../../../../services/product.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from "../../../components/loading/loading.component";
-import { StoreService } from '../../../services/store.service';
+import { LoadingComponent } from "./../../../../components/loading/loading.component";
+import { StoreService } from './../../../../services/store.service';
 import { RouterModule } from '@angular/router';
-import { TableProductsComponent } from "../../shared/table-products/table-products.component";
-import { ProductComponent } from "./product_back/product.component";
+import { TableProductsComponent } from "./../../../shared/table-products/table-products.component";
+import { ProductComponent } from '../../../shared/products/product/product.component';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-products-page',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, ProductsComponent, TableProductsComponent, ProductComponent],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, TableProductsComponent, ProductComponent],
+  templateUrl: './products-page.component.html',
+  styleUrl: './products-page.component.css'
 })
-export class ProductsComponent implements OnInit, OnDestroy{
-
+export class ProductsPageComponent {
   loading: boolean = true;
   public products: any = [];
   productsEncontrados: boolean = false;
@@ -63,5 +62,4 @@ export class ProductsComponent implements OnInit, OnDestroy{
     this.productsSubscription.unsubscribe();
   }
   
-
 }

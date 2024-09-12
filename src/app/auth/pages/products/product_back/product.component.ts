@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs';
 import { UploadService } from '../../../../services/upload.service';
 
 @Component({
-  selector: 'app-product-edit',
+  selector: 'app-product',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -37,10 +37,10 @@ import { UploadService } from '../../../../services/upload.service';
     ProductColorComponent,
     UploadDropzoneColorComponent
 ],
-  templateUrl: './product-edit.component.html',
-  styleUrl: './product-edit.component.css'
+  templateUrl: './product.component.html',
+  styleUrl: './product.component.css'
 })
-export class ProductEditComponent {
+export class ProductComponent {
   form!: FormGroup;
   loading: boolean = false;
   btnActive: boolean = false;
@@ -62,6 +62,8 @@ export class ProductEditComponent {
   ngOnInit(): void {
     this.initForm(); //inicial el formulario
     this.loadForm(); //carga el formulario
+    console.log('xxxxxxxxxxxxx');
+    
 
     this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
       // Actualiza el componente con la respuesta del servidor
@@ -82,16 +84,20 @@ export class ProductEditComponent {
   }
 
   private loadForm() {
+    console.log('load form');
+    
     this.loading = true;
 
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = Number(this.route.snapshot.paramMap.get('product_id'));
 
     if (this.id) {
-      this._product.load(this.id).subscribe({
+      this._product.getBydId(this.id).subscribe({
         next: (resp: any) => {
           console.log(resp);
 
           this.product = resp.data;
+          console.log(resp.data);
+          
           this.warehouses = resp.data.store;
           this.loading = false;
           this.form.patchValue(resp.data);
@@ -155,12 +161,3 @@ export class ProductEditComponent {
     }
   }
 }
-// (resp:any) => {
-//   this.btnActive = true;
-//   this.loading = false;
-//   this.buttonSubmitActive = false;git
-//   if (resp.success) {
-//     this.success = true;
-//   }
-//   console.log(this.form.value);
-// }

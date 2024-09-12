@@ -113,7 +113,7 @@ export class FormSearchComponent implements OnInit {
       
       case 'auth':
         console.log('navigate a auth/search');
-        this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'search', this.search]); //this.search viene del formulario de este componente
+        this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'products', 'search', this.search]); //this.search viene del formulario de este componente
         break;
     
       case 'authInventory':

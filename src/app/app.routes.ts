@@ -12,7 +12,7 @@ import { DashboardComponent } from './auth/pages/dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 import { AuthComponent } from './auth/auth.component';
 import { ConfigComponent } from './auth/config/config.component';
-import { ProductSearchComponent } from './auth/pages/product-search/product-search.component';
+import { ProductSearchComponent } from './auth/pages/products/product-search/product-search.component';
 import { ProductsComponent } from './auth/pages/products/products.component';
 import { ProductEditComponent } from './auth/pages/products/product-edit/product-edit.component';
 import { InventoryComponent } from './auth/pages/warehouses/warehouse-edit/inventory/inventory.component';
@@ -24,6 +24,12 @@ import { WarehouseEditComponent } from './auth/pages/warehouses/warehouse-edit/w
 import { InventoryIndexComponent } from './auth/pages/warehouses/warehouse-edit/inventory/inventory-index/inventory-index.component';
 import { InventoryProductComponent } from './auth/pages/warehouses/warehouse-edit/inventory/inventory-product/inventory-product.component';
 import { InventorySearchComponent } from './auth/pages/warehouses/warehouse-edit/inventory/inventory-search/inventory-search.component';
+import { ProductComponent } from './auth/pages/products/product_back/product.component';
+import { ProductsWarehouseComponent } from './auth/pages/products/products-warehouse/products-warehouse.component';
+import { ProductWarehouseComponent } from './auth/pages/products/product-warehouse/product-warehouse.component';
+import { ProductWarehouseSearchComponent } from './auth/pages/products/product-warehouse-search/product-warehouse-search.component';
+import { ProductsPageComponent } from './auth/pages/products/products-page/products-page.component';
+import { ProductPageComponent } from './auth/pages/products/product-page/product-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -53,32 +59,22 @@ export const routes: Routes = [
           store/auth/products/{product_id}/warehouse/{warehouse_id} (Single Warehouse)
         */
         path: 'auth', component: AuthComponent,canActivate: [authGuard],
+
         children: [
           { path: '', component: DashboardComponent},
           { path: 'orders', component: OrderComponent},
-          { path: 'products', component: ProductsComponent},
-          { path: 'products/:product_id', component: ProductEditComponent,
-            children: [
-              { path: '', component: InventoryIndexComponent}, //Muestra todos los productos de todos los tipos
-              { path: '', component: InventoryProductComponent},
-              { path: 'colors', component: InventoryProductColorComponent},
-              { path: 'sizes', component: InventoryProductSizeComponent},
-              { path: 'color-size', component: InventoryProductColorSizeComponent }
-            ]
-          },
-          { path: 'products/warehouse', component: WarehousesComponent,
-            children: [
-              { path: ':warehouse_id', component: WarehouseEditComponent},
-              { path: ':warehouse_id/options', component: InventoryProductColorComponent},
-              { path: ':warehouse_id/products/search/:search', component: InventorySearchComponent},
-              { path: ':warehouse_id/products', component: InventoryComponent},
-            ]
-          },
-
-          { path: 'search/:search', component: ProductSearchComponent},
+          
+          { path: 'products', component: ProductsPageComponent}, //(All Products of all Warehouses)
+          { path: 'products/:product_id', component: ProductPageComponent}, //(Single Product of all Warehouses)             
+          { path: 'products/search/:search', component: ProductSearchComponent}, //(Single Product of all Warehouses)             
+          { path: 'products/warehouse/:warehouse_id', component: ProductsWarehouseComponent}, //(All Products of single Warehouse)           
+          { path: 'products/:product_id/warehouse/:warehouse_id', component: ProductWarehouseComponent}, //(Single Product of single Warehouse)   
+          { path: 'products/:product_id/warehouse/:warehouse_id/search/:search', component: ProductWarehouseSearchComponent},  //(Single Product of single Warehouse for search)          
+          
           { path: 'config', component: ConfigComponent },
           { path: 'dashboard', component: DashboardComponent },
         ],
+
       },
 
 

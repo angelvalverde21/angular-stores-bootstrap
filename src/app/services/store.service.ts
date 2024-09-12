@@ -25,6 +25,15 @@ export class StoreService {
     }
   }
 
+  name() {
+    if (localStorage.getItem('slug_base')) {
+      return localStorage.getItem('slug_base'); //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
+
+
   isValid(name: string): Observable<boolean> { //name quiere decir el nombre del la primera (storeName) palabra del slug /storeName/login/etc
 
     console.log('Impresión desde la función setSlugBase: ' + name);

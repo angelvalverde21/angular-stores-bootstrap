@@ -66,40 +66,59 @@ export class ProductService {
 
     return this.http.post(url, data);
   }
-  // setProducts(products: any[]): void {
-  //   this.productsSubject.next(products);
-  // }
 
+  /* Analogos en laravel
 
-  // setProducts(products: []): void {
-  //   this.products = products;
-  // }
+    getProducts (Angular: getAll)
+    {store}/products
 
-  
-  // getAll(){
-  //   return this.http.get(this.url);
-  // }
+    getProduct (Angular: getBydId)
+    {store}/products/{product_id}
 
-  // getItem(id: any ){
-  //   return this.http.get(this.url + '/' + id);
-    
-  // }
+    getProductsWarehouse (Angular: getAllWarehouse)
+    {store}/products/warehouse/{warehouse_id}
 
-  // getStockColorsize(id:number){
-  //   return this.http.get(this.url + '/color/size/stock/' + id); 
-  // }
+    getProductWarehouse (Angular: getByIdWarehouse)
+    {store}/products/{product_id}/warehouse/{warehouse_id}
 
-  // getStock(id: number ){
-  //   return this.http.get(this.url + id);
-    
-  // }
+    getProductsWarehouseSearch (Angular: getAllWarehouseSearch)
+    {store}/products/warehouse/{warehouse_id}/search/{search}
 
-  // getFotos(id: number ){
-  //   return this.http.get(this.url + id);
-  // }
+  */
 
-  // getColor(id: number){
-  //   return this.http.get(this.url + '/color/' + id);  
-  // }
-  
+  slugProducts(){
+    return `${this.urlPrivate}/${this._store.leerSlugBase()}/products`
+  }
+
+  slugInventory(){
+    return `${this.urlPrivate}/${this._store.leerSlugBase()}/inventory`
+  }
+
+  /***** peticiones GET */
+
+  getAll(): Observable<any> {
+    const url = this.slugProducts();
+    return this.http.get(url);
+  }
+
+  getAllSearch(search:string): Observable<any> {
+    const url = `${this.slugProducts()}/search/${search}`;
+    return this.http.get(url);
+  }
+  getBydId(product_id: number): Observable<any> {
+    const url = `${this.slugProducts()}/${product_id}`;
+    return this.http.get(url);
+  }
+  getAllWarehouse(warehouse_id: number): Observable<any> {
+    const url = `${this.slugInventory()}/warehouse/${warehouse_id}`;
+    return this.http.get(url);
+  }
+  getByIdWarehouse(product_id: number, warehouse_id: number): Observable<any> {
+    const url = `${this.slugInventory()}/${product_id}/warehouse/${warehouse_id}`;
+    return this.http.get(url);
+  }
+  getAllWarehouseSearch(warehouse_id: number, search: string): Observable<any> {
+    const url = `${this.slugInventory()}/warehouse/${warehouse_id}/search/${search}`;
+    return this.http.get(url);
+  }
 }

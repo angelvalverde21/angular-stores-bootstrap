@@ -1,0 +1,15 @@
+<div class="card mb-3">
+    <div class="header"></div>
+    <div class="body d-flex">
+        <div class="image me-3">
+            <a [routerLink]="['/', store, 'auth', 'products',product.id]">
+                <div class="card" style="width: 150px;">
+                  <img [src]="product.image?.url_thumbnail" alt="">
+                </div>
+            </a>
+        </div>
+        <div class="controls">
+            <h3 class="title my-3">{{ product.name }}</h3>
+        </div>
+    </div>
+</div>

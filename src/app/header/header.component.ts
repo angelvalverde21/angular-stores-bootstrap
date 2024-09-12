@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { LogoComponent } from '../components/logo/logo.component';
 import { RouterModule } from '@angular/router';
@@ -59,7 +59,7 @@ import { PipesModule } from '../shared/pipes.module';
     ]),
   ],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
 
   showSearch: boolean = false;
   store: string = '';
@@ -96,22 +96,15 @@ export class HeaderComponent {
     });
 
     //Espera el nombre del componente padre, que en este caso es home
-    this._store.getNameObservable().subscribe((store: string) => {
-      console.log(store + ' desde header');
-      this.store = store;
+    // this._store.getNameObservable().subscribe((store: string) => {
+    //   console.log(store + ' desde header');
+    //   this.store = store;
+    // });
 
-      // this.links = [
-      //   { path: `/${this.store}`, label: 'Home', exact: true },
-      //   { path: `/${this.store}/tracking`, label: 'Tracking', exact: false }
-      // ];
-    
-      // this.authLinks = [
-      //   { path: `/${this.store}`, label: 'Orders', exact: true },
-      //   { path: `/${this.store}/tracking`, label: 'Tracking', exact: false }
-      // ];
-      
-    });
+  }
 
+  ngOnInit(): void {
+    this.store = this._store.leerSlugBase()!;
   }
 
   openSearch() {

@@ -1,13 +1,14 @@
 import { Component, OnDestroy } from '@angular/core';
-import { StoreService } from '../../../services/store.service';
+import { StoreService } from '../../../../services/store.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../../environments/environment';
-import { HeaderComponent } from '../../../header/header.component';
-import { CommonService } from '../../../services/common.service';
-import { TableProductsComponent } from '../../shared/table-products/table-products.component';
+import { environment } from '../../../../../environments/environment';
+import { HeaderComponent } from '../../../../header/header.component';
+import { CommonService } from '../../../../services/common.service';
+import { TableProductsComponent } from '../../../shared/table-products/table-products.component';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from "../../../components/loading/loading.component";
+import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { Subscription } from 'rxjs';
+import { ProductService } from '../../../../services/product.service';
 
 @Component({
   selector: 'app-product-search',
@@ -25,7 +26,7 @@ export class ProductSearchComponent implements OnDestroy {
   private searchSubscription!: Subscription;
 
   constructor(
-    private _store: StoreService,
+    private _product: ProductService,
     private router: Router,
     private route: ActivatedRoute,
     private _common: CommonService
@@ -75,7 +76,7 @@ export class ProductSearchComponent implements OnDestroy {
 
         this.loading = true;
 
-        this.searchSubscription = this._store.search(name, this.search).subscribe({
+        this.searchSubscription = this._product.getAllSearch(this.search).subscribe({
 
           next: (resp: any) => {
             // Manejo de la respuesta exitosa

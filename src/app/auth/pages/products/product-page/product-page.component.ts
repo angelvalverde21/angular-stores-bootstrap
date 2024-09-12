@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../../../header/header.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { InputGroupComponent } from '../../../../components/forms/input-group/input-group.component';
 import {
   FormBuilder,
@@ -20,9 +20,11 @@ import { ProductColorComponent } from "../../../shared/products/product-color/pr
 import { UploadDropzoneColorComponent } from "../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component";
 import { Subscription } from 'rxjs';
 import { UploadService } from '../../../../services/upload.service';
+import { StoreService } from '../../../../services/store.service';
+import { HeaderProductComponent } from "../header-product/header-product.component";
 
 @Component({
-  selector: 'app-product-edit',
+  selector: 'app-product-page',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -35,12 +37,14 @@ import { UploadService } from '../../../../services/upload.service';
     PipesModule,
     ColorComponent,
     ProductColorComponent,
-    UploadDropzoneColorComponent
+    UploadDropzoneColorComponent,
+    RouterModule,
+    HeaderProductComponent
 ],
-  templateUrl: './product-edit.component.html',
-  styleUrl: './product-edit.component.css'
+  templateUrl: './product-page.component.html',
+  styleUrl: './product-page.component.css'
 })
-export class ProductEditComponent {
+export class ProductPageComponent {
   form!: FormGroup;
   loading: boolean = false;
   btnActive: boolean = false;
@@ -50,19 +54,22 @@ export class ProductEditComponent {
   product: any;
   colors: any;
   warehouses: any;
+  store: string = "";
   private uploadSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private _product: ProductService,
     private route: ActivatedRoute,
-    private _upload: UploadService
+    private _upload: UploadService,
+    private _store: StoreService
   ) {}
 
   ngOnInit(): void {
     this.initForm(); //inicial el formulario
     this.loadForm(); //carga el formulario
 
+    this.store = this._store.name()!;
     this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
       // Actualiza el componente con la respuesta del servidor
       console.log('Imagen subida y notificada:', resp);
@@ -84,10 +91,10 @@ export class ProductEditComponent {
   private loadForm() {
     this.loading = true;
 
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = Number(this.route.snapshot.paramMap.get('product_id'));
 
     if (this.id) {
-      this._product.load(this.id).subscribe({
+      this._product.getBydId(this.id).subscribe({
         next: (resp: any) => {
           console.log(resp);
 
@@ -155,12 +162,3 @@ export class ProductEditComponent {
     }
   }
 }
-// (resp:any) => {
-//   this.btnActive = true;
-//   this.loading = false;
-//   this.buttonSubmitActive = false;git
-//   if (resp.success) {
-//     this.success = true;
-//   }
-//   console.log(this.form.value);
-// }

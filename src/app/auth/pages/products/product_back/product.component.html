@@ -1,0 +1,71 @@
+<app-header></app-header>
+
+<div class="container">
+
+    <!-- {{ form.value | json}} -->
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+
+        <app-alert *ngIf="success"></app-alert>
+
+        <!-- <h1>{{ totalQuantity }}</h1> -->
+
+        <div class="card mb-3" aria-hidden="true" *ngIf="loading">
+
+            <div class="card-body">
+                <h5 class="card-title placeholder-glow">
+                    <span class="placeholder col-6"></span>
+                </h5>
+                <p class="card-text placeholder-glow">
+                    <span class="placeholder col-7"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-6"></span>
+                </p>
+
+            </div>
+        </div>
+
+        <div class="row mb-3" *ngIf="!loading">
+            <div class="col-lg-8 col-12">
+                <app-input-group>
+                    <input formControlName="name" type="text" class="form-control" placeholder="Name"
+                        aria-label="tiktok" aria-describedby="basic-tiktok">
+                </app-input-group>
+            </div>
+
+            <div class="col-lg-4 col-12">
+                <app-input-group>
+                    <input formControlName="tags" type="text" class="form-control" placeholder="tags" aria-label="tags"
+                        aria-describedby="basic-tags">
+                </app-input-group>
+            </div>
+
+            <div class="col-lg-12 col-12">
+                <textarea id="" formControlName="body" class="form-control" placeholder="Descripcion"></textarea>
+            </div>
+        </div>
+
+        <app-button-save [btnLoading]="loading" [btnActive]="form.valid"></app-button-save>
+
+        <!-- <button class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center" [disabled]="!form.valid || !buttonLoginActive" type="submit">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        <i *ngIf="!loading" class="fa-solid fa-lock me-2" style="font-size: 0.9rem;"></i>
+        <span>Guardar cambios</span>
+    </button> -->
+
+    </form>
+
+    <div class="card mb-3" *ngIf="!loading">
+      <div class="card-header">Agregar Color</div>
+      <div class="body p-3">
+        <app-upload-dropzone-color [productId]="product.id" />
+      </div>
+    </div>
+    <ng-container *ngIf="!loading">
+      <app-product-color [color]="color" *ngFor="let color of product.colors"></app-product-color>
+    </ng-container>
+
+
+
+</div>
