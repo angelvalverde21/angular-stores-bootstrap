@@ -6,12 +6,13 @@ import { CommonModule } from '@angular/common';
 import { ColorSizeComponent } from '../../../shared/color-size/color-size.component';
 import { LoadingComponent } from '../../../../components/loading/loading.component';
 import { ProductService } from '../../../../services/product.service';
+import { HeaderComponent } from "../../../../header/header.component";
 
 
 @Component({
   selector: 'app-products-warehouse',
   standalone: true,
-  imports: [CommonModule, ColorSizeComponent, TableProductsInventoryComponent, LoadingComponent],
+  imports: [CommonModule, ColorSizeComponent, TableProductsInventoryComponent, LoadingComponent, HeaderComponent],
   templateUrl: './products-warehouse.component.html',
   styleUrl: './products-warehouse.component.css'
 })
