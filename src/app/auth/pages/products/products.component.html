@@ -1,14 +1,9 @@
-<app-header></app-header>
+<h1 class="text-center">Almacen A</h1>
 
 <div class="container">
-  <div class="text-center">
-    <app-loading *ngIf="loading"></app-loading>
-  </div>
-  <!-- <app-products></app-products> -->
-   <app-product produc></app-product>
-   <app-table-products *ngIf="!loading" [products]="products"></app-table-products>
+
+    <router-outlet />
 
 </div>
-
 
 <!-- <app-footer></app-footer> -->

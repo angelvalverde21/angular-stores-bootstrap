@@ -64,13 +64,15 @@ export const routes: Routes = [
           { path: '', component: DashboardComponent},
           { path: 'orders', component: OrderComponent},
           
-          { path: 'products', component: ProductsPageComponent}, //(All Products of all Warehouses)
-          { path: 'products/:product_id', component: ProductPageComponent}, //(Single Product of all Warehouses)             
-          { path: 'products/search/:search', component: ProductSearchComponent}, //(Single Product of all Warehouses)             
-          { path: 'products/warehouse/:warehouse_id', component: ProductsWarehouseComponent}, //(All Products of single Warehouse)           
-          { path: 'products/:product_id/warehouse/:warehouse_id', component: ProductWarehouseComponent}, //(Single Product of single Warehouse)   
-          { path: 'products/:product_id/warehouse/:warehouse_id/search/:search', component: ProductWarehouseSearchComponent},  //(Single Product of single Warehouse for search)          
-          
+          { path: 'products', component: ProductsComponent, children:[
+              { path: '', component: ProductsPageComponent}, //(All Products of all Warehouses)
+              { path: ':product_id', component: ProductPageComponent}, //(Single Product of all Warehouses)       
+              { path: 'search/:search', component: ProductSearchComponent}, //(Single Product of all Warehouses)             
+              { path: 'warehouse/:warehouse_id', component: ProductsWarehouseComponent}, //(All Products of single Warehouse)           
+              { path: ':product_id/warehouse/:warehouse_id', component: ProductWarehouseComponent}, //(Single Product of single Warehouse)   
+              { path: ':product_id/warehouse/:warehouse_id/search/:search', component: ProductWarehouseSearchComponent},  //(Single Product of single Warehouse for search)          
+          ]}, //(All Products of all Warehouses)
+
           { path: 'config', component: ConfigComponent },
           { path: 'dashboard', component: DashboardComponent },
         ],

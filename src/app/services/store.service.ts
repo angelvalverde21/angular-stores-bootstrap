@@ -33,6 +33,13 @@ export class StoreService {
     }
   }
 
+  storeWarehouses() {
+    if (localStorage.getItem('store')) {
+      return localStorage.getItem('store'); //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
 
   isValid(name: string): Observable<boolean> { //name quiere decir el nombre del la primera (storeName) palabra del slug /storeName/login/etc
 

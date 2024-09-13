@@ -1,0 +1,10 @@
+<div class="dropdown mb-3">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-boxes-stacked me-2"></i><span>Inventario</span>
+    </button>
+    <ul class="dropdown-menu">
+        <li *ngFor="let warehouse of store.warehouses">
+            <a [routerLink]="['/', store.slug, 'auth', 'products','warehouse', warehouse.id]" class="dropdown-item"><i class="fa-solid fa-warehouse me-2"></i><span>{{ warehouse.name | firstName }}</span></a>
+        </li>
+    </ul>
+</div>

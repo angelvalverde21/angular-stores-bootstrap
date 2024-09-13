@@ -1,15 +1,16 @@
 <div class="card mb-3">
     <div class="header"></div>
-    <div class="body d-flex">
-        <div class="image me-3">
+    <div class="body d-flex m-3">
+        <div class="image">
             <a [routerLink]="['/', store, 'auth', 'products',product.id]">
                 <div class="card" style="width: 150px;">
                   <img [src]="product.image?.url_thumbnail" alt="">
                 </div>
             </a>
         </div>
-        <div class="controls">
-            <h3 class="title my-3">{{ product.name }}</h3>
+        <div class="controls d-flex justify-content-between w-100">
+            <h3 class="title ms-3">{{ product.name }}</h3>
+            <app-button-inventory></app-button-inventory>
         </div>
     </div>
 </div>

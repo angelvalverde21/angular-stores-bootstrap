@@ -1,17 +1,18 @@
 <nav class="mb-3">
     <div class="container d-flex flex-row-reverse">
-        <div class="dropdown mb-3">
+        <!-- <div class="dropdown mb-3">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Almacenes
+                
+                <i class="fa-solid fa-boxes-stacked me-2"></i><span>Inventario</span>
             </button>
             <ul class="dropdown-menu">
                 <li>
-                    <a [routerLink]="['/', store, 'auth', 'products','warehouse', '1']" class="dropdown-item">Aquarella</a>
+                    <a [routerLink]="['/', store, 'auth', 'products','warehouse', '1']" class="dropdown-item"><i class="fa-solid fa-warehouse me-2"></i><span>Aquarella</span></a>
                 </li>
-                <li><a class="dropdown-item" href="#">Luvadi</a></li>
-                <li><a class="dropdown-item" href="#">Otra</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-warehouse me-2"></i><span>LUVADI</span></a></li>
             </ul>
-        </div>
+        </div> -->
+        <app-button-inventory></app-button-inventory>
     </div>
 </nav>
 

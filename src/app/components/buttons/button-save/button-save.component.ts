@@ -15,3 +15,4 @@ export class ButtonSaveComponent {
   @Input() text: string = "Guardar cambios"; 
   
 }
+

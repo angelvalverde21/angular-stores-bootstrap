@@ -9,11 +9,12 @@ import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../services/product.service';
+import { ProductComponent } from '../../../shared/products/product/product.component';
 
 @Component({
   selector: 'app-product-search',
   standalone: true,
-  imports: [HeaderComponent, TableProductsComponent, CommonModule, LoadingComponent],
+  imports: [HeaderComponent, TableProductsComponent, CommonModule, LoadingComponent, ProductComponent],
   templateUrl: './product-search.component.html',
   styleUrl: './product-search.component.css'
 })

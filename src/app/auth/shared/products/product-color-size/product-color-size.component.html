@@ -1,17 +1,24 @@
 <form [formGroup]="sizeSkuForm">
 
-    <app-input-group icontext="{{ size.name | shortNameSize }}">
+    <!-- <app-input-group icontext="{{ size.name | shortNameSize }}">
     
       <input type="text" formControlName="quantity" step="1" class="form-control" (keyup)="updateStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
       aria-describedby="basic-Tallas">
-  
-      <div class="loading" *ngIf="loading">
-          <app-loading size="sm"></app-loading>
-      </div>
-    
-    
+
     </app-input-group>
-    
-    {{ sizeSkuForm.value | json }}
+      
+    <div class="loading" *ngIf="loading">
+        <app-loading size="sm"></app-loading>
+    </div> -->
+    <ul class="list-group mb-3">
+      <li class="list-group-item">
+        <span>{{ size.name }}</span>
+        <span class="mx-3">:</span>
+        <span>{{ sizeSkuForm.value.quantity }}</span>
+      </li>
+    </ul>
+
+    <!-- <hr> -->
+    <!-- {{ sizeSkuForm.value | json }} -->
     
 </form>

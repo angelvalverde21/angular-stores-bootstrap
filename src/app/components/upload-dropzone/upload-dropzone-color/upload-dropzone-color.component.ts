@@ -20,7 +20,7 @@ export class UploadDropzoneColorComponent {
   
   @Input() productId: number = 0;
   @Input() image: string = "";
-  @Input() name: string = "logo"; 
+  @Input() name: string = "AgregarColor"; 
   
   constructor(
     private _store : StoreService,
