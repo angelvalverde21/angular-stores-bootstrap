@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingComponent } from "../loading/loading.component";
 import { CommonService } from '../../services/common.service';
 import { StoreService } from '../../services/store.service';
+import { PipesModule } from '../../shared/pipes.module';
 
 @Component({
   selector: 'app-form-search',
@@ -12,7 +13,8 @@ import { StoreService } from '../../services/store.service';
   imports: [
     CommonModule,
     FormsModule,
-    LoadingComponent
+    LoadingComponent,
+    PipesModule
 ],
   templateUrl: './form-search.component.html',
   styleUrl: './form-search.component.css'
@@ -22,10 +24,12 @@ export class FormSearchComponent implements OnInit {
   iconLoading: boolean = false;
   
   search: string = '';
-  store: string = '';
+  store: any;
+  warehouses: any;
   path: string = '';
   hasAuthSearch: boolean = false;
   btnActive: boolean = true;
+  warehouse_id: number = 0;
 
   constructor(
 
@@ -52,8 +56,25 @@ export class FormSearchComponent implements OnInit {
   ngOnInit(): void {
     // Verificar si la URL contiene el segmento "auth"
 
+    console.log('init de form search');
+    
+    this.route.params.subscribe((params) => {
+      params['warehouse_id'] != undefined ? this.warehouse_id = params['warehouse_id']: this.warehouse_id = 0;
+      console.log(this.warehouse_id);
+    });
+
+    console.log('imprimendo store con warehouses');
+    
+
+    this.store = this._store.storeWarehouses();
+
+    console.log(this.store);
+    
+
     // this.path = this.router.url.includes('/auth');
+
     this.path = this.router.url.includes('/inventory') ? 'authInventory' : (this.router.url.includes('/auth') ? 'auth' : '');
+    
     console.log('¿Contiene el segmento "auth"?', this.hasAuthSearch);
   }
 
@@ -84,51 +105,71 @@ export class FormSearchComponent implements OnInit {
     this.searchProduct($event);
   }
 
-  searchProduct(event: any) {
+  // onWarehouseChange(event: Event) {
+  //   const selectedValue = (event.target as HTMLSelectElement).value;
+  //   console.log('Selected warehouse ID:', selectedValue);
+  //   this.warehouse_id = Number(selectedValue); // Asigna el valor seleccionado
+  //   if(this.warehouse_id > 0){
+  //     this.path = "searchInventoryWarehouse"
+  //   }
+  // }
 
-    this._common.setIconLoading(true);
-    this._common.setCardPlaceHolder(true);
-    console.log('this._commonService.setShowSearch(true)');
+  cambiarAlmacen(){
     
-    // this.iconLoading = this._commonService.getIconLoading();
-    // this._productService.setProducts([]);
+  }
 
-    // this.search = encodeURIComponent(this.search); // Captura el valor del inputd
+  searchProduct(event: any = null) {
 
-    // this._store.getNameObservable().subscribe((name:string) => {
-    //   this.store = name;
-    // }); //el parametro base es store
-
-    // console.log(this.search); //
-    console.log('imprimiendo url desde form');
-    
-    console.log(this.path); //
-
-
-
-
-    switch (this.path) {
-
-
+    if (this.search) {
+      this._common.setIconLoading(true);
+      this._common.setCardPlaceHolder(true);
+      console.log('this._commonService.setShowSearch(true)');
       
-      case 'auth':
-        console.log('navigate a auth/search');
-        this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'products', 'search', this.search]); //this.search viene del formulario de este componente
-        break;
-    
-      case 'authInventory':
-          console.log('navigate a auth/authInventory');
-          this.route.params.subscribe((params) => {
-            console.log(params);
+      // this.iconLoading = this._commonService.getIconLoading();
+      // this._productService.setProducts([]);
+  
+      // this.search = encodeURIComponent(this.search); // Captura el valor del inputd
+  
+      // this._store.getNameObservable().subscribe((name:string) => {
+      //   this.store = name;
+      // }); //el parametro base es store
+  
+      // console.log(this.search); //
+      console.log('imprimiendo url desde form');
+      
+      console.log(this.path); //
+  
+      if(this.warehouse_id > 0){
+        this.path = "searchInventoryWarehouse"
+      }
+  
+      switch (this.path) {
+  
+        case 'auth':
+          console.log('navigate a auth/search');
+          this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'products', 'search', this.search]); //this.search viene del formulario de este componente
+          break;
+      
+        case 'authInventory':
+            console.log('navigate a auth/authInventory');
+            this.route.params.subscribe((params) => {
+              console.log(params);
+              this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'w', params['warehouse_id'] , 'inventory', 'search', this.search]);
+            });
+          break;
+      
+        case 'searchInventoryWarehouse':
+            console.log('navigate a auth/searchInventoryWarehouse');
+            if (this.search) {
+              this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'products', 'warehouse', this.warehouse_id, 'search', this.search]); //this.search viene del formulario de este componente
+            }
+          break;
             
-            this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'w', params['warehouse_id'] , 'inventory', 'search', this.search]);
-          });
-        break;
-          
-      default:
-        console.log('navigate a search');
-        this.router.navigate(['/', this._store.leerSlugBase(), 'search', this.search]);
-        break;
+        default:
+          console.log('navigate a search');
+          this.router.navigate(['/', this._store.leerSlugBase(), 'search', this.search]);
+          break;
+      }
     }
 
     // if (this.hasAuthSearch) {

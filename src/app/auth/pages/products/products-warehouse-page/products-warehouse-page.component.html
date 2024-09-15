@@ -1,1 +1,9 @@
-<p>products-warehouse-page works!</p>
+<app-header></app-header>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="container">
+    <app-table-products-inventory [product]="product" [warehouse_id]="warehouse_id" *ngFor="let product of products"></app-table-products-inventory>
+</div>
+
+

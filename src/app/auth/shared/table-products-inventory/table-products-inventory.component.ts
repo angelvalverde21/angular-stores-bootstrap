@@ -14,7 +14,7 @@ import { InventoryColorComponent } from "../inventory/inventory-color/inventory-
 })
 export class TableProductsInventoryComponent implements OnInit {
 
-  @Input() products: any; 
+  @Input() product: any; 
   @Input() warehouse_id: number = 0; 
   
   store: string = "";

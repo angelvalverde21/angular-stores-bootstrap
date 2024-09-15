@@ -8,11 +8,12 @@ import { StoreService } from './../../../../services/store.service';
 import { RouterModule } from '@angular/router';
 import { TableProductsComponent } from "./../../../shared/table-products/table-products.component";
 import { ProductComponent } from '../../../shared/products/product/product.component';
+import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, TableProductsComponent, ProductComponent],
+  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, TableProductsComponent, ProductComponent, LoadingCenterComponent],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css'
 })

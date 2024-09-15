@@ -93,15 +93,18 @@ export class InventoryColorSizeComponent {
     if ($event.target.value > 0) {
       this.loading = true;
 
-      // this._inventory
-      //   .updateColorSize(this.sizeForm.value.sku, this.warehouse_id)
-      //   .subscribe((resp: any) => {
-      //     console.log(resp);
-      //     this.loading = false;
-      //     this.cdr.detectChanges();
-      //     this.quantitySizeUpdated.emit(this.sizeForm.value.pivot.quantity);
-      //   });
-      // console.log();
+      console.log(this.sizeForm.value);
+      
+      this._inventory
+        .updateWarehouseColorSize(this.sizeForm.value, this.warehouse_id)
+        .subscribe((resp: any) => {
+          console.log(resp);
+          this.loading = false;
+          this.cdr.detectChanges();
+          this.quantitySizeUpdated.emit(this.sizeForm.value.quantity);
+        });
+
+      console.log();
     }
 
     // setTimeout(() => {

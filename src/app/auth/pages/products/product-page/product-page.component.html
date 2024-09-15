@@ -1,8 +1,12 @@
 <app-header></app-header>
 
-<app-header-product></app-header-product>
+<app-loading-center *ngIf="loading"></app-loading-center>
 
 <div class="container">
+
+    <ng-container *ngIf="!loading">
+        <app-button-inventory [product_id]="product.id"></app-button-inventory>
+    </ng-container>
 
     <!-- {{ form.value | json}} -->
 
@@ -48,7 +52,7 @@
             </div>
         </div>
 
-        <app-button-save [btnLoading]="loading" [btnActive]="form.valid"></app-button-save>
+        <app-button-save [btnLoading]="loadingEdit" [btnActive]="form.valid"></app-button-save>
 
         <!-- <button class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center" [disabled]="!form.valid || !buttonLoginActive" type="submit">
         <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

@@ -1,10 +1,17 @@
-<div class="dropdown mb-3">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa-solid fa-boxes-stacked me-2"></i><span>Inventario</span>
-    </button>
-    <ul class="dropdown-menu">
-        <li *ngFor="let warehouse of store.warehouses">
-            <a [routerLink]="['/', store.slug, 'auth', 'products','warehouse', warehouse.id]" class="dropdown-item"><i class="fa-solid fa-warehouse me-2"></i><span>{{ warehouse.name | firstName }}</span></a>
-        </li>
-    </ul>
+<div class="controls-warehouses d-flex justify-content-between mb-3">
+    <div class="dropdown">
+
+        <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-warehouse me-2"></i><span>{{ warehouseName }}</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li *ngFor="let warehouse of store.warehouses">
+                <a [routerLink]="['/', store.slug, 'auth', 'products', product_id ,'warehouse', warehouse.id]" class="dropdown-item" (click)="setWarehouseId(warehouse.id)"><span>- {{ warehouse.name }}</span></a>
+            </li>
+        </ul>
+        
+    </div>
+
+    <!-- <a [routerLink]="['/', store.slug, 'auth', 'products']" class="btn btn-outline-dark"><i class="fa-solid fa-warehouse me-2"></i><span>Almacenes</span></a> -->
+
 </div>

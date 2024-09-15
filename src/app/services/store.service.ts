@@ -35,7 +35,7 @@ export class StoreService {
 
   storeWarehouses() {
     if (localStorage.getItem('store')) {
-      return localStorage.getItem('store'); //el ! le indica que no sera vacio
+      return JSON.parse(localStorage.getItem('store')!); //el ! le indica que no sera vacio
     } else {
       return '';
     }

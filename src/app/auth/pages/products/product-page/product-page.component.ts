@@ -22,6 +22,8 @@ import { Subscription } from 'rxjs';
 import { UploadService } from '../../../../services/upload.service';
 import { StoreService } from '../../../../services/store.service';
 import { HeaderProductComponent } from "../header-product/header-product.component";
+import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
+import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 
 @Component({
   selector: 'app-product-page',
@@ -32,14 +34,15 @@ import { HeaderProductComponent } from "../header-product/header-product.compone
     CommonModule,
     ReactiveFormsModule,
     ButtonSaveComponent,
-    LoadingComponent,
     AlertComponent,
     PipesModule,
     ColorComponent,
     ProductColorComponent,
     UploadDropzoneColorComponent,
     RouterModule,
-    HeaderProductComponent
+    HeaderProductComponent,
+    ButtonInventoryComponent,
+    LoadingCenterComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'
@@ -47,6 +50,7 @@ import { HeaderProductComponent } from "../header-product/header-product.compone
 export class ProductPageComponent {
   form!: FormGroup;
   loading: boolean = false;
+  loadingEdit: boolean = false;
   btnActive: boolean = false;
   success: boolean = false;
   id: number = 0;
@@ -70,6 +74,7 @@ export class ProductPageComponent {
     this.loadForm(); //carga el formulario
 
     this.store = this._store.name()!;
+
     this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
       // Actualiza el componente con la respuesta del servidor
       console.log('Imagen subida y notificada:', resp);
@@ -112,15 +117,16 @@ export class ProductPageComponent {
 
   btnSaveReady() {
     this.btnActive = true;
-    this.loading = false;
+    this.loadingEdit = false;
   }
 
   btnSaveBusy() {
     this.btnActive = false;
-    this.loading = true;
+    this.loadingEdit = true;
   }
 
   save() {
+    
     this.btnSaveBusy();
 
     console.log('form enviado');

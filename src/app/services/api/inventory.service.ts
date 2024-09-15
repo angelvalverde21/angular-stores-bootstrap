@@ -48,7 +48,7 @@ export class InventoryService {
     return this.http.post(url, data);
   }
 
-  updateColorSizeWarehouse(data:any, warehouse_id: number): Observable<any> {
+  updateWarehouseColorSize(data:any, warehouse_id: number): Observable<any> {
     const url = `${this.url_private}/${warehouse_id}/product/color-size`;
     console.log(url);
     return this.http.post(url, data);

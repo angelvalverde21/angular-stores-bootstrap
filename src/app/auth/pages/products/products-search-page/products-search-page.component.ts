@@ -1,25 +1,22 @@
-import { Component, OnDestroy } from '@angular/core';
-import { StoreService } from '../../../../services/store.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { HeaderComponent } from '../../../../header/header.component';
 import { CommonService } from '../../../../services/common.service';
 import { TableProductsComponent } from '../../../shared/table-products/table-products.component';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../services/product.service';
 import { ProductComponent } from '../../../shared/products/product/product.component';
-
+import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 @Component({
-  selector: 'app-product-search',
+  selector: 'app-products-search-page',
   standalone: true,
-  imports: [HeaderComponent, TableProductsComponent, CommonModule, LoadingComponent, ProductComponent],
-  templateUrl: './product-search.component.html',
-  styleUrl: './product-search.component.css'
+  imports: [HeaderComponent, TableProductsComponent, CommonModule, ProductComponent, LoadingCenterComponent],
+  templateUrl: './products-search-page.component.html',
+  styleUrl: './products-search-page.component.css'
 })
-export class ProductSearchComponent implements OnDestroy {
-
+export class ProductsSearchPageComponent implements OnInit, OnDestroy{
   products: any[] = [];
   store: string = '';
   search: string = '';
@@ -34,11 +31,15 @@ export class ProductSearchComponent implements OnDestroy {
   ) {
     console.log('Search inventory');
 
+
+    // this.store = this._storeService.getSlug();
+  }
+
+  ngOnInit(): void {
     this._common.setCardPlaceHolder(true);
     this._common.setShowSearch(true);
     this.cargarResultados();
 
-    // this.store = this._storeService.getSlug();
   }
 
   ngOnDestroy(): void {
@@ -46,8 +47,6 @@ export class ProductSearchComponent implements OnDestroy {
   }
 
   cargarResultados() {
-
-
 
     // console.log('imprimiendo search');
     // console.log(this.route.snapshot.paramMap.get('search'));
