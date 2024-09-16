@@ -117,7 +117,7 @@ export class ProductService {
     const url = `${this.slugInventory()}/${product_id}/warehouse/${warehouse_id}`;
     return this.http.get(url);
   }
-  getAllWarehouseSearch(warehouse_id: number, search: string): Observable<any> {
+  getAllWarehouseSearch(search: string, warehouse_id: number): Observable<any> {
     const url = `${this.slugInventory()}/warehouse/${warehouse_id}/search/${search}`;
     return this.http.get(url);
   }

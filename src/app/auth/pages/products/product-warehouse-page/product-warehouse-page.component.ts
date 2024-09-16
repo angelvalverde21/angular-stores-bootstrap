@@ -1,27 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TableProductsInventoryComponent } from "../../../shared/table-products-inventory/table-products-inventory.component";
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ColorSizeComponent } from '../../../shared/color-size/color-size.component';
-import { LoadingComponent } from '../../../../components/loading/loading.component';
 import { ProductService } from '../../../../services/product.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { HeaderComponent } from "../../../../header/header.component";
+import { TableProductsInventoryComponent } from "../../../shared/table-products-inventory/table-products-inventory.component";
+import { CommonModule } from '@angular/common';
+import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
+import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
 
 @Component({
-  selector: 'app-products-warehouse-page',
+  selector: 'app-product-warehouse-page',
   standalone: true,
-  imports: [CommonModule, ColorSizeComponent, TableProductsInventoryComponent, HeaderComponent, LoadingCenterComponent],
-  templateUrl: './products-warehouse-page.component.html',
-  styleUrl: './products-warehouse-page.component.css'
+  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, ButtonInventoryComponent],
+  templateUrl: './product-warehouse-page.component.html',
+  styleUrl: './product-warehouse-page.component.css'
 })
-export class ProductsWarehousePageComponent implements OnInit, OnDestroy {
-
+export class ProductWarehousePageComponent implements OnInit, OnDestroy {
   private InventorySubscription!: Subscription; 
 
-  products: any;
+  product: any;
   warehouse_id: any;
+  product_id: any;
   loading: boolean = true;
 
   constructor(
@@ -38,10 +38,11 @@ export class ProductsWarehousePageComponent implements OnInit, OnDestroy {
       this.loading = true;
       console.log('Parámetros en el primer hijo de la ruta actual:', params.keys); // Aquí debería obtener los parámetros de las rutas hijas
       this.warehouse_id = params.get('warehouse_id');
+      this.product_id = params.get('product_id');
       console.log(this.warehouse_id);
-      this.InventorySubscription = this._products.getAllWarehouse(this.warehouse_id).subscribe((resp: any) => {
+      this.InventorySubscription = this._products.getByIdWarehouse(this.product_id, this.warehouse_id).subscribe((resp: any) => {
         this.loading = false;
-        this.products = resp.data;
+        this.product = resp.data;
       });
     });
 
@@ -50,6 +51,5 @@ export class ProductsWarehousePageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.InventorySubscription.unsubscribe();
   }
-
 
 }

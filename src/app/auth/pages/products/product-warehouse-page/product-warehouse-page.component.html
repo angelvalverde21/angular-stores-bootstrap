@@ -1,0 +1,8 @@
+<app-header></app-header>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="container" *ngIf="!loading">
+    <app-button-inventory [product_id]="product.id"></app-button-inventory>
+    <app-table-products-inventory [product]="product" [warehouse_id]="warehouse_id"></app-table-products-inventory>
+</div>

@@ -11,3 +11,5 @@ export class LoadingComponent {
   @Input() size: string = ""; 
   
 }
+
+
