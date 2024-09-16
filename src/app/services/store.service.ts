@@ -57,6 +57,7 @@ export class StoreService {
       console.log('verificaremos el slug inicial ' + name);
       
       return this.SlugVerification(name);
+      
     } else {
       console.log('El slug existe y es ' + name);
       
