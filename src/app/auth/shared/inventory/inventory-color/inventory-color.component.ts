@@ -75,4 +75,13 @@ export class InventoryColorComponent {
     this.quantityColorUpdated.emit(quantity);
   }
 
+  getQuantity(quantity: number){
+
+    console.log(quantity);
+    console.log(this.color.sku.warehouse.pivot.quantity);
+    
+
+    this.color.sku.warehouse.pivot.quantity = Number(this.color.sku.warehouse.pivot.quantity) + Number(quantity);
+  }
+
 }

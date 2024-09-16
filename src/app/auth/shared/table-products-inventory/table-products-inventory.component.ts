@@ -20,10 +20,12 @@ export class TableProductsInventoryComponent implements OnInit {
   store: string = "";
 
   constructor(private _store: StoreService){
-
+    
   }
 
   ngOnInit(): void {
+
+    this.product.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
     this.store = this._store.leerSlugBase()!;
   }
 }

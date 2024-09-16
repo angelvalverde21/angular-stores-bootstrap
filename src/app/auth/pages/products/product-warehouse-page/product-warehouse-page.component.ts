@@ -43,6 +43,10 @@ export class ProductWarehousePageComponent implements OnInit, OnDestroy {
       this.InventorySubscription = this._products.getByIdWarehouse(this.product_id, this.warehouse_id).subscribe((resp: any) => {
         this.loading = false;
         this.product = resp.data;
+        console.log('imprimiendo productos ****************************');
+        
+        console.log(this.product);
+        
       });
     });
 

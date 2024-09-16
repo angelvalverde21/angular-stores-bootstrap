@@ -51,8 +51,8 @@ export class InventoryColorSizeComponent {
 
   ngOnInit(): void {
 
-    console.log(this.size.color_size.sku);
-    console.log(this.size.color_size.sku.warehouse.pivot);
+    // console.log(this.size.color_size.sku);
+    // console.log(this.size.color_size.sku.warehouse.pivot);
     this.stockWarehouse = this.size.color_size.sku.warehouse.pivot
     
     
@@ -115,5 +115,6 @@ export class InventoryColorSizeComponent {
     //   
     // },1000);
   }
+
 
 }

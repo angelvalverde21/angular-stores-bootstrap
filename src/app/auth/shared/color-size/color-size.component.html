@@ -5,8 +5,6 @@
   
         <!-- {{ colorForm.value | json }} -->
 
-        
-        
         <app-size (quantitySizeUpdated)="handleQuantityUpdate($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-size>
   
         <h3>{{ totalQuantity }}</h3>
