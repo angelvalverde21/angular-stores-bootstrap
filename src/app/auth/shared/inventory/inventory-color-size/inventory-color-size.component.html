@@ -6,7 +6,7 @@
 
       <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
 
-      <h3>{{ totalQuantityColor }}</h3>
+      <h3 class="text-center">{{ totalQuantityColor }}</h3>
       
     </div>
   </div>

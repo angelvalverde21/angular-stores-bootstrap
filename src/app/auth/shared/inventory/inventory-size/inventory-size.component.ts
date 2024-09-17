@@ -18,6 +18,8 @@ import { InputGroupComponent } from '../../../../components/forms/input-group/in
 import { PipesModule } from '../../../../shared/pipes.module';
 import { LoadingComponent } from '../../../../components/loading/loading.component';
 import { InventoryService } from '../../../../services/api/inventory.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-inventory-size',
@@ -44,6 +46,11 @@ export class InventorySizeComponent {
   sizeForm!: FormGroup;
   @ViewChild('myInput') myInput!: ElementRef<HTMLInputElement>;
   stockWarehouse: any;
+
+  updateQuantitySubject: Subject<number> = new Subject();
+
+
+
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
@@ -53,6 +60,14 @@ export class InventorySizeComponent {
   }
 
   ngOnInit(): void {
+
+    this.updateQuantitySubject
+    .pipe(debounceTime(350))  // Retrasa la búsqueda 300ms después del último evento
+    .subscribe((quantity: number) => {
+      console.log('se recibio');
+      
+      this.updateStock(quantity);
+    });
 
     // console.log(this.size.color_size.sku);
     // console.log(this.size.color_size.sku.warehouse.pivot);
@@ -91,21 +106,32 @@ export class InventorySizeComponent {
     });
     
   }
-  
-  updateStock($event: any) {
 
-    this.quantityAfter = $event.target.value;
+  updateKeyupStock($event: any){
+
+    
+    
+    var quantityInput = $event.target.value;
+    console.log(quantityInput);
+    
+    if (quantityInput > 0) {
+      this.updateQuantitySubject.next(quantityInput); // Emite el término de búsqueda
+    }
+  }
+  
+  updateStock(quantity: number) {
+
+    this.quantityAfter = quantity;
 
     if (this.quantityAfter != this.quantityInit) {
       
       console.log('actualizando stock');
 
-      if ($event.target.value > 0) {
+      if (quantity > 0) {
 
         this.loading = true;
         //Aqui guardamos el nuevo valor del cantidad
         
-  
         console.log(this.sizeForm.value);
         
         this._inventory

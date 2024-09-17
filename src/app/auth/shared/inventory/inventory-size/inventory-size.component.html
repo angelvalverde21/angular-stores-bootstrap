@@ -3,7 +3,7 @@
 
     <app-input-group icontext="{{ size.name | shortNameSize }}">
     
-      <input type="text" formControlName="quantity" step="1" class="form-control" (keyup)="updateStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
+      <input type="text" formControlName="quantity" step="1" class="form-control" (keyup)="updateKeyupStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
       aria-describedby="basic-Tallas">
   
       <div class="loading" *ngIf="loading">
