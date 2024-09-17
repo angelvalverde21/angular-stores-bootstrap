@@ -41,10 +41,5 @@ export class InventoryIndexComponent {
         this.products = resp.data;
       });
     });
-
-
-
   }
-
-  
 }

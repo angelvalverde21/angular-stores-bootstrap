@@ -113,12 +113,20 @@ export class ProductService {
     const url = `${this.slugInventory()}/warehouse/${warehouse_id}`;
     return this.http.get(url);
   }
+  
   getByIdWarehouse(product_id: number, warehouse_id: number): Observable<any> {
     const url = `${this.slugInventory()}/${product_id}/warehouse/${warehouse_id}`;
     return this.http.get(url);
   }
+
+  
   getAllWarehouseSearch(search: string, warehouse_id: number): Observable<any> {
     const url = `${this.slugInventory()}/warehouse/${warehouse_id}/search/${search}`;
+    return this.http.get(url);
+  }
+
+  getByIdSkuWarehouse(sku_warehouse_id: number){
+    const url = `${this.slugInventory()}/sku-warehouse/${sku_warehouse_id}`;
     return this.http.get(url);
   }
 }

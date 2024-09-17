@@ -1,12 +1,12 @@
+<!-- el componte padre este componenten es table-products-inventory.component -->
 <div class="card mt-3 mx-auto" style="width: 360px;">
   <div class="d-flex justify-content-between">
     <img width="200px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
     <div class="p-3">
 
-      
-      <app-inventory-size (quantitySizeUpdated)="getQuantity($event)" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
+      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
 
-      <h3>{{ color.sku.warehouse.pivot.quantity }}</h3>
+      <h3>{{ totalQuantityColor }}</h3>
       
     </div>
   </div>

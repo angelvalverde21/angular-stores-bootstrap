@@ -1,5 +1,5 @@
 <div class="controls d-flex justify-content-between align-items-center">
-    <h5>{{ product.name }}</h5>
+    <h5>{{ product.name }} - {{ totalQuantityProduct }}</h5>
     <button type="button" class="btn btn-primary"
         [routerLink]="['/', store, 'auth', 'products',product.id]"><i class="fa-solid fa-bars me-2"></i><span>Editar</span></button>
 </div>
@@ -7,7 +7,7 @@
 @switch (product.have) {
     
     @case ('ColorSize') {
-        <app-inventory-color-size [warehouse_id]="warehouse_id" [color]="color"
+        <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id" [color]="color"
         *ngFor="let color of product.colors"></app-inventory-color-size>
     }
     @case ('Size') {

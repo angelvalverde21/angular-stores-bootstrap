@@ -91,9 +91,7 @@ export class InventorySizeComponent {
     });
     
   }
-
   
-
   updateStock($event: any) {
 
     this.quantityAfter = $event.target.value;
