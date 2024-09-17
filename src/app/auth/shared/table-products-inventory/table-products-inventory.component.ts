@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
 import { ColorSizeComponent } from "../color-size/color-size.component";
 import { InventoryColorComponent } from "../inventory/inventory-color/inventory-color.component";
+import { ColorComponent } from "../color/color.component";
+import { InventoryColorSizeComponent } from "../inventory/inventory-color-size/inventory-color-size.component";
 
 @Component({
   selector: 'app-table-products-inventory',
   standalone: true,
-  imports: [RouterModule, CommonModule, ColorSizeComponent, InventoryColorComponent],
+  imports: [RouterModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent],
   templateUrl: './table-products-inventory.component.html',
   styleUrl: './table-products-inventory.component.css'
 })

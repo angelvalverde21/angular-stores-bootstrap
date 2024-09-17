@@ -33,76 +33,103 @@ import { InventoryService } from '../../../../services/api/inventory.service';
   styleUrl: './inventory-size.component.css'
 })
 export class InventorySizeComponent {
+
   loading: boolean = false;
+  hasColor: boolean = false;
+  quantityInit: number = 0;
+  quantityAfter: number = 0;
   @Input() size: any; // Recibe el grupo de formulario de color
   @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
   @Output() quantitySizeUpdated = new EventEmitter<number>(); // Notifica cambios en el color
   sizeForm!: FormGroup;
   @ViewChild('myInput') myInput!: ElementRef<HTMLInputElement>;
-
+  stockWarehouse: any;
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
     private _inventory: InventoryService
-  ) {}
+  ) {
+
+  }
+
+  ngOnInit(): void {
+
+    // console.log(this.size.color_size.sku);
+    // console.log(this.size.color_size.sku.warehouse.pivot);
+    // this.stockWarehouse = this.size.color_size.sku.warehouse.pivot
+    if (this.size.color_size) {
+      this.stockWarehouse =  this.size.color_size.sku.warehouse.pivot;
+      this.hasColor = true;
+      this.quantityInit = this.size.color_size.sku.warehouse.pivot.quantity; //Cantidad antes de ingresar el nuevo valor (ColorSize)
+    } else {
+      this.stockWarehouse =  this.size.sku.warehouse.pivot;
+      this.hasColor = false;
+      this.quantityInit = this.size.sku.warehouse.pivot.quantity; //Cantidad antes de ingresar el nuevo valor (Color)
+    }
+    // this.stockWarehouse = this.size.color_size ? this.size.color_size.sku.warehouse.pivot : this.size.sku.warehouse.pivot
+  
+    this.initForm(); // Inicializa el formulario
+    if (this.stockWarehouse) {
+      console.log('Size data:', this.size); // Verifica los datos de entrada
+      this.sizeForm.patchValue(this.stockWarehouse);
+    }
+  }
 
   selectInput() {
     this.myInput.nativeElement.select();
   }
 
   private initForm(): void {
+
+    // console.log(this.size);
+    
     this.sizeForm = this.fb.group({
-      id: ['', [Validators.required]],
-      name: [''],
-      product_id: [''],
-      pivot: this.fb.group({
-        id: [''],
-        quantity: [''],
-      }),
+      sku_id: [null],
+      warehouse_id: [null],
+      quantity: [null], // Control para el quantity
+      id: [null],
     });
+    
   }
+
+  
 
   updateStock($event: any) {
 
-    console.log('actualizando stock');
-    
+    this.quantityAfter = $event.target.value;
 
-    if ($event.target.value > 0) {
-      this.loading = true;
+    if (this.quantityAfter != this.quantityInit) {
+      
+      console.log('actualizando stock');
 
-      this._inventory
-        .updateColorSize(this.sizeForm.value.pivot, this.warehouse_id)
-        .subscribe((resp: any) => {
-          console.log(resp);
-          this.loading = false;
-          this.cdr.detectChanges();
-          this.quantitySizeUpdated.emit(this.sizeForm.value.pivot.quantity);
-        });
-      // console.log();
+      if ($event.target.value > 0) {
+
+        this.loading = true;
+        //Aqui guardamos el nuevo valor del cantidad
+        
+  
+        console.log(this.sizeForm.value);
+        
+        this._inventory
+          .updateWarehouseColorSize(this.sizeForm.value, this.warehouse_id)
+          .subscribe((resp: any) => {
+            console.log(resp);
+            this.loading = false;
+            this.cdr.detectChanges();
+            this.quantitySizeUpdated.emit(this.sizeForm.value.quantity);
+          });
+  
+        console.log();
+
+      }
+
+
+    }else{
+      console.log('como la cantidad ingresada es la misma que la original no se hace nada');
+      
     }
 
-    // setTimeout(() => {
-    //   console.log($event.target.value);
-    //   console.log(this.size.pivot.id);
-    //   this.loading = false;
-    //   console.log(this.loading);
-    //   
-    // },1000);
+
   }
 
-  ngOnInit(): void {
-    this.initForm(); // Inicializa el formulario
-    if (this.size) {
-      // console.log('Size data:', this.size); // Verifica los datos de entrada
-      this.sizeForm.patchValue({
-        id: this.size.id,
-        name: this.size.name,
-        product_id: this.size.product_id,
-        pivot: {
-          id: this.size.pivot?.id, // Asegúrate de que `pivot` y `quantity` existan
-          quantity: this.size.pivot?.quantity, // Asegúrate de que `pivot` y `quantity` existan
-        },
-      });
-    }
-  }
 }

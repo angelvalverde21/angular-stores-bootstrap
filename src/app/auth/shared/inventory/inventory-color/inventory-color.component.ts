@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InventoryColorSizeComponent } from "../inventory-color-size/inventory-color-size.component";
+import { InventorySizeComponent } from "../inventory-size/inventory-size.component";
 
 @Component({
   selector: 'app-inventory-color',
   standalone: true,
-  imports: [InventoryColorSizeComponent, CommonModule],
+  imports: [CommonModule, InventorySizeComponent],
   templateUrl: './inventory-color.component.html',
   styleUrl: './inventory-color.component.css'
 })

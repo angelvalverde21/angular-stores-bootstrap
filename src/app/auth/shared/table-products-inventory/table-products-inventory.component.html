@@ -1,27 +1,26 @@
-<div [ngSwitch]="product.have">
-    <!-- Caso 1 -->
-
-    <pre>
-
-    </pre>
-    <!-- {{ product | json}} -->
-    <div class="controls d-flex justify-content-between align-items-center">
-        <h5>{{ product.name }}</h5>
-        <button type="button" class="btn btn-primary"
-            [routerLink]="['/', store, 'auth', 'products',product.id]"><i class="fa-solid fa-bars me-2"></i><span>Editar</span></button>
-    </div>
-
-    <ng-container *ngSwitchCase="'ColorSize'">
-        <app-inventory-color [warehouse_id]="warehouse_id" [color]="color"
-        *ngFor="let color of product.colors"></app-inventory-color>
-        <!-- <app-color-size></app-color-size> -->
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'Size'">Size</ng-container>
-    <ng-container *ngSwitchCase="'Color'">Color</ng-container>
-    <ng-container *ngSwitchCase="'Product'">Product</ng-container>
-    <p *ngSwitchDefault>No se ha podido cargr la relacion del producto have_color o have_size</p>
-
-    <hr>
-
+<div class="controls d-flex justify-content-between align-items-center">
+    <h5>{{ product.name }}</h5>
+    <button type="button" class="btn btn-primary"
+        [routerLink]="['/', store, 'auth', 'products',product.id]"><i class="fa-solid fa-bars me-2"></i><span>Editar</span></button>
 </div>
+
+@switch (product.have) {
+    
+    @case ('ColorSize') {
+        <app-inventory-color-size [warehouse_id]="warehouse_id" [color]="color"
+        *ngFor="let color of product.colors"></app-inventory-color-size>
+    }
+    @case ('Size') {
+        Size
+    }
+    @case ('Color') {
+        Color
+    }
+    @case ('Product') {
+        Product
+    }
+
+    @default {
+        <p>No se ha podido cargr la relacion del producto have_color o have_size</p>
+    }
+}
