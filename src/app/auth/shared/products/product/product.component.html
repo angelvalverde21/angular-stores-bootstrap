@@ -9,8 +9,18 @@
             </a>
         </div>
         <div class="controls d-flex justify-content-between w-100">
-            <h3 class="title ms-3">{{ product.name }}</h3>
-            <app-button-inventory [product_id]="product.id"></app-button-inventory>
+            <div class="row w-100">
+                <div class="col-lg-6 col-12">
+                    <div class="title ms-3">
+                        <h3 class="title">{{ product.name }}</h3>
+                        <span>{{ quantityGlobalProduct }}</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12 d-flex flex-row-reverse">
+                    <app-button-inventory [product_id]="product.id"></app-button-inventory>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

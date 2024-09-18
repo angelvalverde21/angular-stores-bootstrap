@@ -6,6 +6,8 @@ import { LoadingComponent } from "../loading/loading.component";
 import { CommonService } from '../../services/common.service';
 import { StoreService } from '../../services/store.service';
 import { PipesModule } from '../../shared/pipes.module';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form-search',
@@ -20,6 +22,8 @@ import { PipesModule } from '../../shared/pipes.module';
   styleUrl: './form-search.component.css'
 })
 export class FormSearchComponent implements OnInit {
+
+  searchSubject: Subject<string> = new Subject();
 
   iconLoading: boolean = false;
   
@@ -56,6 +60,12 @@ export class FormSearchComponent implements OnInit {
   ngOnInit(): void {
     // Verificar si la URL contiene el segmento "auth"
 
+    this.searchSubject
+    .pipe(debounceTime(500))  // Retrasa la búsqueda 300ms después del último evento
+    .subscribe((searchTerm: string) => {
+      this.searchProduct(searchTerm);
+    });
+
     console.log('init de form search');
     
     this.route.params.subscribe((params) => {
@@ -78,13 +88,14 @@ export class FormSearchComponent implements OnInit {
     console.log('¿Contiene el segmento "auth"?', this.hasAuthSearch);
   }
 
-  keyUpSearch($event: any){
-    this.btnActive = true; 
-    if(this.search.length>5){
-      this.searchProduct($event);
-    }
-    // this.searchProduct($event);
+keyUpSearch($event: any) {
+  this.btnActive = true;
+  const searchTerm = $event.target.value;
+
+  if (searchTerm.length > 3) {
+    this.searchSubject.next(searchTerm); // Emite el término de búsqueda
   }
+}
 
   keyEnter($event: any){
     console.log('click en keyup');

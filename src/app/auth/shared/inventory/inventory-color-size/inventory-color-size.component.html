@@ -1,16 +1,13 @@
-<form [formGroup]="sizeForm">
+<!-- el componte padre este componenten es table-products-inventory.component -->
+<div class="card mb-3 mx-auto" style="width: 360px;">
+  <div class="d-flex justify-content-between">
+    <img width="200px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
+    <div class="p-3">
 
-  <app-input-group icontext="{{ size.name | shortNameSize }}">
-  
-    <input type="text" formControlName="quantity" step="1" class="form-control" (keyup)="updateStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
-    aria-describedby="basic-Tallas">
+      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
 
-    <div class="loading" *ngIf="loading">
-        <app-loading size="sm"></app-loading>
+      <h3 class="text-center">{{ totalQuantityColor }}</h3>
+      
     </div>
-  
-  
-  </app-input-group>
-  <!-- {{ sizeForm.value | json }} -->
-  
-  </form>
+  </div>
+</div>

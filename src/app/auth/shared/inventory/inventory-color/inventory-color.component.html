@@ -4,11 +4,12 @@
       <div class="p-3">
   
         
-        <app-inventory-color-size [size]="size" *ngFor="let size of color.sizes"></app-inventory-color-size>
+        <app-inventory-size (quantitySizeUpdated)="getQuantity($event)" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
 
-        <h3>{{ totalQuantity }}</h3>
-        {{ color.id }}
+        <h3>{{ color.sku.warehouse.pivot.quantity }}</h3>
+        
       </div>
     </div>
-  </div>
+ </div>
   
+ <!-- mudado a color size se tiene que reahacer -->

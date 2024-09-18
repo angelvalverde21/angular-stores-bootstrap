@@ -20,6 +20,9 @@ import { AuthService } from '../services/auth.service';
 import { ButtonLogoutComponent } from "../components/buttons/button-logout/button-logout.component";
 import { User } from '../interfaces/user.interface';
 import { PipesModule } from '../shared/pipes.module';
+import { CartComponent } from "../cart/cart.component";
+import { HeaderMiddleComponent } from "./header-middle/header-middle.component";
+import { HeaderBottomComponent } from "./header-bottom/header-bottom.component";
 
 @Component({
   selector: 'app-header',
@@ -33,7 +36,10 @@ import { PipesModule } from '../shared/pipes.module';
     FormSearchComponent,
     CommonModule,
     ButtonLogoutComponent,
-    PipesModule
+    PipesModule,
+    CartComponent,
+    HeaderMiddleComponent,
+    HeaderBottomComponent
 ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
@@ -61,7 +67,8 @@ import { PipesModule } from '../shared/pipes.module';
 })
 export class HeaderComponent implements OnInit{
 
-  showSearch: boolean = false;
+
+  showSearch : boolean = false;
   store: string = '';
   estaAutenticado: boolean = false;
   user: any;
@@ -90,10 +97,10 @@ export class HeaderComponent implements OnInit{
       
     }
 
-    this._common.getShowSearchObservable().subscribe((value: boolean) => {
-      this.showSearch = value;
-      console.log('escuche el valor seteado y es ' + value);
-    });
+    // this._common.getShowSearchObservable().subscribe((value: boolean) => {
+    //   this.showSearch = value;
+    //   console.log('escuche el valor seteado y es ' + value);
+    // });
 
     //Espera el nombre del componente padre, que en este caso es home
     // this._store.getNameObservable().subscribe((store: string) => {
@@ -107,10 +114,6 @@ export class HeaderComponent implements OnInit{
     this.store = this._store.leerSlugBase()!;
   }
 
-  openSearch() {
-    console.log('click');
-    this.showSearch = !this.showSearch;
-  }
 
   ngAfterViewInit() {
     if (this.offcanvasElement) {
@@ -128,5 +131,9 @@ export class HeaderComponent implements OnInit{
 
   closeCart() {
     this._cart.closeCart();
+  }
+
+  changeShowSearch($event:any){
+    this.showSearch = $event;
   }
 }

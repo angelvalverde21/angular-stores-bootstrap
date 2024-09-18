@@ -70,6 +70,7 @@ export class ProductPageComponent {
   ) {}
 
   ngOnInit(): void {
+
     this.initForm(); //inicial el formulario
     this.loadForm(); //carga el formulario
 
@@ -78,7 +79,8 @@ export class ProductPageComponent {
     this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
       // Actualiza el componente con la respuesta del servidor
       console.log('Imagen subida y notificada:', resp);
-      this.product.colors.push(resp.color)
+      // this.product.colors.push(resp.color) // Lo agrega al final
+      this.product.colors.unshift(resp.color) // Lo agrega al inicio
       // Actualiza tu UI o realiza otras acciones necesarias
     });
 
@@ -103,7 +105,11 @@ export class ProductPageComponent {
         next: (resp: any) => {
           console.log(resp);
 
+
+
           this.product = resp.data;
+          this.product.colors.sort((a:any, b: any) => b.id - a.id);
+
           this.warehouses = resp.data.store;
           this.loading = false;
           this.form.patchValue(resp.data);

@@ -49,19 +49,25 @@ export class AuthService {
   
 
   login(user: User) {
+
+    console.log(this.url + '/'  + this._store.leerSlugBase() +  '/login');
+    
     
     return this.http.post(this.url + '/'  + this._store.leerSlugBase() +  '/login', user, this.opciones).pipe(
       map((resp: any) => {
         // this._console.log('entro al RXJS');
 
         console.log(resp);
-        
-
+      
         this.guardarToken(resp.data.access_token);
         
         localStorage.setItem('user',JSON.stringify(resp.data.user));
         localStorage.setItem('roles',JSON.stringify(resp.data.user.roles));
+<<<<<<< HEAD
         // localStorage.setItem('store', JSON.stringify(resp.data.store)) //Esto se carga SlugVerification de (store.service)
+=======
+        localStorage.setItem('store', JSON.stringify(resp.data.store))
+>>>>>>> 78b0be93fe4bbbebb9b62f0457db8fa598a909d7
 
         return resp;
       })

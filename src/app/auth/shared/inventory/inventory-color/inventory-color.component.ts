@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InventoryColorSizeComponent } from "../inventory-color-size/inventory-color-size.component";
+import { InventorySizeComponent } from "../inventory-size/inventory-size.component";
 
 @Component({
   selector: 'app-inventory-color',
   standalone: true,
-  imports: [InventoryColorSizeComponent, CommonModule],
+  imports: [CommonModule, InventorySizeComponent],
   templateUrl: './inventory-color.component.html',
   styleUrl: './inventory-color.component.css'
 })
@@ -73,6 +74,15 @@ export class InventoryColorComponent {
     console.log('Quantity updated:', quantity);
 
     this.quantityColorUpdated.emit(quantity);
+  }
+
+  getQuantity(quantity: number){
+
+    console.log(quantity);
+    console.log(this.color.sku.warehouse.pivot.quantity);
+    
+
+    this.color.sku.warehouse.pivot.quantity = Number(this.color.sku.warehouse.pivot.quantity) + Number(quantity);
   }
 
 }

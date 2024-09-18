@@ -1,0 +1,30 @@
+
+<app-button-login *ngIf="!estaAutenticado"></app-button-login>
+<ng-container *ngIf="estaAutenticado">
+
+    <!-- Example single danger button -->
+    <button (click)="openSearch()" type="button" [ngClass]="showSearch ? 'btn-dark' : 'btn-outline-secondary'"
+    class="btn me-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+    <button type="button" [routerLink]="['/', store, 'auth']" class="btn btn-outline-dark me-2"><span>{{ user.name |
+        firstName }}</span></button>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/', store, 'auth', 'products']" ><i class="fa-solid fa-box me-2"></i>Products</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/', store, 'auth', 'config']" ><i class="fas fa-cog me-2"></i>Settings</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a (click)="logout()" routerLinkActive="router-link-active"  class="dropdown-item me-2"><i class="fa-solid fa-right-from-bracket me-2"></i>Salir</a></li>
+        </ul>
+    </div>
+    <!-- <app-cart></app-cart> -->
+
+</ng-container>
+
+

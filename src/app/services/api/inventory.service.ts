@@ -53,4 +53,6 @@ export class InventoryService {
     console.log(url);
     return this.http.post(url, data);
   }
+
+
 }
