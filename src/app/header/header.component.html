@@ -1,61 +1,52 @@
+
+
 <header>
 
     <div class="wrap d-flex mx-3 flex-wrap align-items-center justify-content-between justify-content-md-between py-3 mb-4 border-bottom">
 
-        <div class="col-md-3 mb-2 mb-md-0">
+        <div class="">
 
             <app-logo></app-logo>
-    
-        </div>
-    
-        <div class="col-12 col-md-auto mb-2 d-flex flex-row justify-content-center">
 
-            <a [routerLinkActive]="['active']" [routerLink]="['/', store]" [routerLinkActiveOptions]="{ exact: true }"
-                    class="mx-2 d-none d-lg-block">Home</a>
+        </div>
+
+        <div class="d-none d-sm-block">
 
             <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a> -->
 
             <ng-container *ngIf="estaAutenticado">
-                
-            <a [routerLinkActive]="['active']" [routerLink]="['/', store, 'auth', 'orders']" [routerLinkActiveOptions]="{ exact: true }"
-                    class="mx-2 d-none d-lg-block">Orders</a>
-            <a [routerLinkActive]="['active']" [routerLink]="['/', store, 'auth', 'products']" [routerLinkActiveOptions]="{ exact: true }"
-                    class="mx-2">Productos</a>
 
+                <app-header-middle [store]="store"></app-header-middle>
 
-            <!-- <a [routerLinkActive]="['active']" [routerLink]="['/', store,'tracking']" [routerLinkActiveOptions]="{ exact: true }"
-                    class="mx-2">Tracking</a>                 -->
             </ng-container>
 
-            <button (click)="openSearch()"  type="button" [ngClass]="showSearch ? 'btn-dark' : 'btn-outline-secondary'" class="btn mx-3"><i class="fa-solid fa-magnifying-glass"></i></button>
-            
+
         </div>
-    
-        <div class="col-md-3 text-end">
-            <app-button-login *ngIf="!estaAutenticado"></app-button-login>
-            <ng-container *ngIf="estaAutenticado">
-                <button type="button" [routerLink]="['/', store, 'auth']" class="btn btn-dark me-2"><span>{{ user.name | firstName }}</span></button>
-                <button type="button" [routerLink]="['/', store, 'auth', 'config']" class="btn btn-outline-dark me-2"><i class="fas fa-cog"></i></button>
-                <app-button-logout></app-button-logout>
-            </ng-container>
-            <!-- <app-button-register></app-button-register> -->
 
-              
+        <div class="">
+
+            <app-header-bottom [store]="store" [estaAutenticado]="estaAutenticado" (statusShowSearch)="changeShowSearch($event)" [user]="user"></app-header-bottom>
+
+        </div>
+
+        <div class="d-block d-sm-none mx-auto">
+
+            <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a> -->
+            <hr>
+
+            <div class="px-auto" *ngIf="estaAutenticado">
+                                
+                <app-header-middle [store]="store"></app-header-middle>
+            </div>
+
+
         </div>
 
     </div>
 
-    <!-- <div class="col-12 col-md-auto mb-2 d-block d-sm-none d-flex flex-row justify-content-center">
-        <a [routerLinkActive]="['active']" [routerLink]="['/', store]" [routerLinkActiveOptions]="{ exact: true }"
-                class=" px-2">Home</a>
-        <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a>
-        <a [routerLinkActive]="['active']" [routerLink]="['/',store,'order']" class=" px-2">Transportes</a>
-    </div> -->
 
 </header>
 
 <div class="container fade-in" [class.visible]="showSearch">
     <app-form-search></app-form-search>
 </div>
-
-
