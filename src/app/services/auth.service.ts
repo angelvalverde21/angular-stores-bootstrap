@@ -63,11 +63,7 @@ export class AuthService {
         
         localStorage.setItem('user',JSON.stringify(resp.data.user));
         localStorage.setItem('roles',JSON.stringify(resp.data.user.roles));
-<<<<<<< HEAD
-        // localStorage.setItem('store', JSON.stringify(resp.data.store)) //Esto se carga SlugVerification de (store.service)
-=======
         localStorage.setItem('store', JSON.stringify(resp.data.store))
->>>>>>> 78b0be93fe4bbbebb9b62f0457db8fa598a909d7
 
         return resp;
       })

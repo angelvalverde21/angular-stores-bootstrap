@@ -83,7 +83,8 @@ export class FormSearchComponent implements OnInit {
 
     // this.path = this.router.url.includes('/auth');
 
-    this.path = this.router.url.includes('/inventory') ? 'authInventory' : (this.router.url.includes('/auth') ? 'auth' : '');
+    // this.path = this.router.url.includes('/inventory') ? 'authInventory' : (this.router.url.includes('/auth') ? 'auth' : '');
+    this.path = this.router.url.includes('/auth') ? 'auth' : '';
     
     console.log('¿Contiene el segmento "auth"?', this.hasAuthSearch);
   }
@@ -150,9 +151,9 @@ keyUpSearch($event: any) {
       
       console.log(this.path); //
   
-      if(this.warehouse_id > 0){
-        this.path = "searchInventoryWarehouse"
-      }
+      // if(this.warehouse_id > 0){
+      //   this.path = "searchInventoryWarehouse"
+      // }
   
       switch (this.path) {
   
