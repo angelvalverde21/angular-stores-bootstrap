@@ -49,19 +49,21 @@ export class AuthService {
   
 
   login(user: User) {
+
+    console.log(this.url + '/'  + this._store.leerSlugBase() +  '/login');
+    
     
     return this.http.post(this.url + '/'  + this._store.leerSlugBase() +  '/login', user, this.opciones).pipe(
       map((resp: any) => {
         // this._console.log('entro al RXJS');
 
         console.log(resp);
-        
-
+      
         this.guardarToken(resp.data.access_token);
         
         localStorage.setItem('user',JSON.stringify(resp.data.user));
         localStorage.setItem('roles',JSON.stringify(resp.data.user.roles));
-        // localStorage.setItem('store', JSON.stringify(resp.store))
+        localStorage.setItem('store', JSON.stringify(resp.data.store))
 
         return resp;
       })
