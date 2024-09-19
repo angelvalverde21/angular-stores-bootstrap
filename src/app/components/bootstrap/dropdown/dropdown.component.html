@@ -1,0 +1,28 @@
+<div ngbDropdown class="d-inline-block me-2">
+
+    <button class="btn btn-outline-dark" ngbDropdownToggle>
+      <i class="{{icon}} me-2"></i><span>{{ buttonLabel }}</span>
+    </button>
+
+    <div ngbDropdownMenu>
+      <ng-container *ngFor="let item of items">
+        <button ngbDropdownItem (click)="onItemClick(item)">{{ item.label }}</button>
+      </ng-container>
+    </div>
+
+    <!-- {{ items | json }} -->
+</div>
+
+<!-- 
+<div class="dropdown">
+
+  <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa-solid fa-warehouse me-2"></i><span>{{ warehouseName }}</span>
+  </button>
+  <ul class="dropdown-menu">
+      <li *ngFor="let warehouse of store.warehouses">
+          <a [routerLink]="['/', store.slug, 'auth', 'products', product_id ,'warehouse', warehouse.id]" class="dropdown-item" (click)="setWarehouseId(warehouse.id)"><span>- {{ warehouse.name }}</span></a>
+      </li>
+  </ul>
+  
+</div> -->

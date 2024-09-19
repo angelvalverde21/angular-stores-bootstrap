@@ -1,6 +1,6 @@
 <div class="controls d-flex justify-content-between mb-3">
 
-    <app-button-inventory [product_id]="product.id"></app-button-inventory>
+    <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
 
     <button type="button" class="btn btn-outline-dark"
         [routerLink]="['/', store, 'auth', 'products',product.id]"><i class="fa-solid fa-bars mx-1"></i></button>

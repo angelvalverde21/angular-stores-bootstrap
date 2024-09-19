@@ -8,11 +8,14 @@ import { FormSearchComponent } from "../../components/form-search/form-search.co
 import { PipesModule } from '../../shared/pipes.module';
 import { ButtonProductsComponent } from "../../components/buttons/button-products/button-products.component";
 import { ButtonOrdersComponent } from "../../components/buttons/button-orders/button-orders.component";
+import { DropdownAuthHomeComponent } from "../../components/bootstrap/dropdown-auth-home/dropdown-auth-home.component";
+import { DropdownComponent } from "../../components/bootstrap/dropdown/dropdown.component";
+import { DropdownAuthUserComponent } from "../../components/bootstrap/dropdown-auth-user/dropdown-auth-user.component";
 
 @Component({
   selector: 'app-header-bottom',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonLoginComponent, FormSearchComponent, PipesModule, ButtonProductsComponent, ButtonOrdersComponent],
+  imports: [CommonModule, RouterModule, ButtonLoginComponent, FormSearchComponent, PipesModule, ButtonProductsComponent, ButtonOrdersComponent, DropdownAuthHomeComponent, DropdownComponent, DropdownAuthUserComponent],
   templateUrl: './header-bottom.component.html',
   styleUrl: './header-bottom.component.css'
 })
@@ -27,10 +30,6 @@ export class HeaderBottomComponent implements OnInit{
   
   constructor(private _auth: AuthService, private _common: CommonService,){
 
-  }
-
-  logout(){
-    this._auth.logout(this.store);
   }
 
   ngOnInit(): void {

@@ -26,6 +26,10 @@ import { ButtonInventoryComponent } from "../../../../components/buttons/button-
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 import { ButtonColorsComponent } from "../../../../components/buttons/button-colors/button-colors.component";
 import { ModalComponent } from "../../../../components/modal/modal.component";
+import { DropdownComponent } from "../../../../components/bootstrap/dropdown/dropdown.component";
+import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
+import { DropdownColorsComponent } from "../../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-page',
@@ -46,7 +50,11 @@ import { ModalComponent } from "../../../../components/modal/modal.component";
     ButtonInventoryComponent,
     LoadingCenterComponent,
     ButtonColorsComponent,
-    ModalComponent
+    ModalComponent,
+    DropdownComponent,
+    DropdownInventoryComponent,
+    DropdownColorsComponent,
+    NgbModule
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'
@@ -177,4 +185,5 @@ export class ProductPageComponent {
       this.uploadSubscription.unsubscribe();
     }
   }
+
 }

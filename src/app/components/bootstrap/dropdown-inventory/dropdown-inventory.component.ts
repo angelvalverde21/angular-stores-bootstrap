@@ -1,18 +1,18 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
-import { PipesModule } from '../../../shared/pipes.module';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-button-inventory',
+  selector: 'app-dropdown-inventory',
   standalone: true,
-  imports: [CommonModule, RouterModule, PipesModule],
-  templateUrl: './button-inventory.component.html',
-  styleUrl: './button-inventory.component.css'
+  imports: [NgbModule, CommonModule, RouterModule],
+  templateUrl: './dropdown-inventory.component.html',
+  styleUrl: './dropdown-inventory.component.css'
 })
-export class ButtonInventoryComponent implements OnInit, AfterViewInit{
-  
+export class DropdownInventoryComponent {
+
   store: any;
   warehouses: any;
   warehouseName: string = "Almacenes";
@@ -22,7 +22,7 @@ export class ButtonInventoryComponent implements OnInit, AfterViewInit{
   constructor(private _storeWarehouse: StoreService, private _route: ActivatedRoute){
 
   }
-
+  
   setWarehouseId(warehouse_id: number = 0){
     this.warehouse_id = warehouse_id;
     this.warehouseName = this.setName();
@@ -57,5 +57,5 @@ export class ButtonInventoryComponent implements OnInit, AfterViewInit{
   ngAfterViewInit(): void {
     
   }
-  
+
 }

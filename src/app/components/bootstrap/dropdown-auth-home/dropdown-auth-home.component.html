@@ -1,0 +1,26 @@
+<div ngbDropdown class="d-inline-block me-2">
+
+    <button class="btn btn-outline-dark" ngbDropdownToggle>
+        <i class="fa-solid fa-store"></i>
+    </button>
+
+    <div ngbDropdownMenu>
+        
+
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-regular fa-rectangle-list me-2"></i>Products</button>
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'config']"><i class="fa-solid fa-plus me-2"></i>Create Product</button>
+        
+        <hr class="dropdown-divider">
+        
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'orders']"><i class="fa-solid fa-clipboard-list me-2"></i>Orders</button>
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'create-order']"><i class="fa-solid fa-plus me-2"></i>Create Order</button>
+
+
+        <!-- <ng-container *ngFor="let item of items">
+            
+        </ng-container> -->
+
+    </div>
+
+    <!-- {{ items | json }} -->
+</div>

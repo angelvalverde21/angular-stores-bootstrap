@@ -1,0 +1,28 @@
+<div ngbDropdown class="d-inline-block me-2">
+
+    <button class="btn btn-outline-dark" ngbDropdownToggle>
+        <i class="fa-solid fa-image me-2"></i><span>Colores</span>
+    </button>
+
+    <div ngbDropdownMenu>
+        
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Agregar Color</button>
+
+        <hr class="dropdown-divider">
+        
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-solid fa-check me-2"></i>Colores Activos</button>
+
+        <hr class="dropdown-divider">
+
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-solid fa-xmark me-2"></i>Colores Inactivos</button>
+        
+
+        <!-- <ng-container *ngFor="let item of items">
+            
+        </ng-container> -->
+
+    </div>
+
+    <!-- {{ items | json }} -->
+</div>
+

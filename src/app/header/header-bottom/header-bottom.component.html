@@ -7,10 +7,12 @@
 
     <!-- <button type="button" [routerLink]="['/', store, 'auth']" class="btn btn-outline-dark me-2"><span>{{ user.name |
         firstName }}</span></button> -->
-    <div class="btn-group me-2">
+    <!-- <div class="btn-group me-2">
+
         <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-store"></i>
         </button>
+
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" [routerLink]="['/', store, 'auth', 'products']"><i
                         class="fa-regular fa-rectangle-list me-2"></i>Products</a></li>
@@ -23,32 +25,15 @@
                         class="fa-solid fa-clipboard-list me-2"></i>Orders</a></li>
             <li><a class="dropdown-item" [routerLink]="['/', store, 'auth', 'config']"><i
                         class="fa-solid fa-plus me-2"></i>Create Order</a></li>
-
-            <!-- <li><a (click)="logout()" routerLinkActive="router-link-active"  class="dropdown-item me-2"><i class="fa-solid fa-right-from-bracket me-2"></i>Salir</a></li> -->
         </ul>
 
-    </div>
+    </div> -->
 
-    <div class="btn-group">
-        <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ user.name | firstName }}
-            <!-- <i class="fa-solid fa-bars"></i> -->
-        </button>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['/', store, 'auth']"><i
-                        class="fa-solid fa-user me-2"></i>Perfil</a></li>
-            <hr class="dropdown-divider">
+    <app-dropdown-auth-home [store]="store"></app-dropdown-auth-home>
 
-            <li><a class="dropdown-item" [routerLink]="['/', store, 'auth', 'config']"><i
-                        class="fas fa-cog me-2"></i>Settings</a></li>
-            <hr class="dropdown-divider">
+    <app-dropdown-auth-user [store]="store" [name]="user.name"></app-dropdown-auth-user>
 
-            <li><a (click)="logout()" routerLinkActive="router-link-active" class="dropdown-item me-2"><i
-                        class="fa-solid fa-right-from-bracket me-2"></i>Salir</a></li>
-        </ul>
-
-
-    </div>
+ 
 
     <!-- <app-button-products></app-button-products>
     <app-button-orders></app-button-orders> -->

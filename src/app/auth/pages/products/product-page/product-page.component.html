@@ -14,8 +14,12 @@
 
             <div class="mb-3 d-flex justify-content-between">
 
-                <app-button-inventory [product_id]="product.id"></app-button-inventory>
-                <app-button-colors [id]="'agregarColor'"></app-button-colors>
+                <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
+                <app-dropdown-colors [store]="store"></app-dropdown-colors>
+                <!-- <app-button-inventory></app-button-inventory> -->
+                 <app-modal>
+                </app-modal>
+                <app-upload-dropzone-color [productId]="product.id" />
 
             </div>
 
@@ -90,9 +94,9 @@
         <app-product-color [color]="color" *ngFor="let color of product.colors"></app-product-color>
     </ng-container>
 
-    <app-modal [id]="'agregarColor'">
+    <!-- <app-modal [id]="'agregarColor'"> -->
         <app-upload-dropzone-color [productId]="product.id" />
-    </app-modal>
+    <!-- </app-modal> -->
 
 </div>
 

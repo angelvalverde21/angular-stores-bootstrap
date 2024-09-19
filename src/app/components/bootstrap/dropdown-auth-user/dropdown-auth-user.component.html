@@ -1,0 +1,26 @@
+<div ngbDropdown class="d-inline-block me-2">
+
+    <button class="btn btn-outline-dark" ngbDropdownToggle>
+        {{ name | firstName }}
+    </button>
+
+    <div ngbDropdownMenu>
+        
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth']"><i class="fa-solid fa-user me-2"></i>Perfil</button>
+
+        <hr class="dropdown-divider">
+
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'config']"><i class="fas fa-cog me-2"></i>Settings</button>
+        
+        <hr class="dropdown-divider">
+        
+        <button ngbDropdownItem (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i>Salir</button>
+
+        <!-- <ng-container *ngFor="let item of items">
+            
+        </ng-container> -->
+
+    </div>
+
+    <!-- {{ items | json }} -->
+</div>

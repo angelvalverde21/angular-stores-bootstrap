@@ -8,11 +8,12 @@ import { ColorComponent } from "../color/color.component";
 import { InventoryColorSizeComponent } from "../inventory/inventory-color-size/inventory-color-size.component";
 import { SkuWarehouseService } from '../../../services/api/sku-warehouse.service';
 import { ButtonInventoryComponent } from "../../../components/buttons/button-inventory/button-inventory.component";
+import { DropdownInventoryComponent } from "../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
 
 @Component({
   selector: 'app-table-products-inventory',
   standalone: true,
-  imports: [RouterModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent],
+  imports: [RouterModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent, DropdownInventoryComponent],
   templateUrl: './table-products-inventory.component.html',
   styleUrl: './table-products-inventory.component.css'
 })
