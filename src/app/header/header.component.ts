@@ -23,6 +23,8 @@ import { PipesModule } from '../shared/pipes.module';
 import { CartComponent } from "../cart/cart.component";
 import { HeaderMiddleComponent } from "./header-middle/header-middle.component";
 import { HeaderBottomComponent } from "./header-bottom/header-bottom.component";
+import { ButtonProductsComponent } from "../components/buttons/button-products/button-products.component";
+import { ButtonOrdersComponent } from "../components/buttons/button-orders/button-orders.component";
 
 @Component({
   selector: 'app-header',
@@ -39,7 +41,9 @@ import { HeaderBottomComponent } from "./header-bottom/header-bottom.component";
     PipesModule,
     CartComponent,
     HeaderMiddleComponent,
-    HeaderBottomComponent
+    HeaderBottomComponent,
+    ButtonProductsComponent,
+    ButtonOrdersComponent
 ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',

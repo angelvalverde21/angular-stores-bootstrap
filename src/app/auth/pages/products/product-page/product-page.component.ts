@@ -24,6 +24,8 @@ import { StoreService } from '../../../../services/store.service';
 import { HeaderProductComponent } from "../header-product/header-product.component";
 import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
+import { ButtonColorsComponent } from "../../../../components/buttons/button-colors/button-colors.component";
+import { ModalComponent } from "../../../../components/modal/modal.component";
 
 @Component({
   selector: 'app-product-page',
@@ -42,7 +44,9 @@ import { LoadingCenterComponent } from "../../../../components/loading-center/lo
     RouterModule,
     HeaderProductComponent,
     ButtonInventoryComponent,
-    LoadingCenterComponent
+    LoadingCenterComponent,
+    ButtonColorsComponent,
+    ModalComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'

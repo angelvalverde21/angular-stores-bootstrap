@@ -2,21 +2,25 @@
     <div class="card-body">
 
         <div class="row">
+
             <div class="col-lg-4 col-md-4 col-12">
-                <div class="image">
+                <div class="image mb-3 text-center">
                     <img height="150px" [src]="color.image?.url_thumbnail" alt="">
                     <!-- <div> {{color.id}}</div> -->
                 </div>
             </div>
+
             <div class="col-lg-8 col-md-4 col-12">
 
-                <div class="controls d-flex justify-content-between">
-                    <div class="sizes">
-                        <app-product-color-size [size]="size" *ngFor="let size of color.sizes"></app-product-color-size>
+                <div class="row">
+
+                    <div class="col-lg-6 col-12">
+                        <div class="size mx-auto" style="width: 50%;">
+                            <app-product-color-size [size]="size" *ngFor="let size of color.sizes"></app-product-color-size>
+                        </div>
                     </div>
-            
-                    <div class="edit">
-            
+
+                    <div class="col-lg-6 col-12">
                         <form [formGroup]="form" (ngSubmit)="save()">
             
                             <!-- {{ form.value | json}} -->
@@ -33,6 +37,7 @@
                             <app-button-save [btnLoading]="loading" [btnActive]="form.valid" type="dark"></app-button-save>
                         </form>
                     </div>
+
                 </div>
 
             </div>

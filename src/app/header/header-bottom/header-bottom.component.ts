@@ -6,11 +6,13 @@ import { ButtonLoginComponent } from "../../components/buttons/button-login/butt
 import { CommonService } from '../../services/common.service';
 import { FormSearchComponent } from "../../components/form-search/form-search.component";
 import { PipesModule } from '../../shared/pipes.module';
+import { ButtonProductsComponent } from "../../components/buttons/button-products/button-products.component";
+import { ButtonOrdersComponent } from "../../components/buttons/button-orders/button-orders.component";
 
 @Component({
   selector: 'app-header-bottom',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonLoginComponent, FormSearchComponent, PipesModule],
+  imports: [CommonModule, RouterModule, ButtonLoginComponent, FormSearchComponent, PipesModule, ButtonProductsComponent, ButtonOrdersComponent],
   templateUrl: './header-bottom.component.html',
   styleUrl: './header-bottom.component.css'
 })

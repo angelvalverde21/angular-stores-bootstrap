@@ -9,11 +9,13 @@ import { RouterModule } from '@angular/router';
 import { TableProductsComponent } from "./../../../shared/table-products/table-products.component";
 import { ProductComponent } from '../../../shared/products/product/product.component';
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
+import { ButtonProductsComponent } from "../../../../components/buttons/button-products/button-products.component";
+import { ButtonOrdersComponent } from "../../../../components/buttons/button-orders/button-orders.component";
 
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, TableProductsComponent, ProductComponent, LoadingCenterComponent],
+  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, TableProductsComponent, ProductComponent, LoadingCenterComponent, ButtonProductsComponent, ButtonOrdersComponent],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css'
 })

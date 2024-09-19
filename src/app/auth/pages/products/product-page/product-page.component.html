@@ -4,9 +4,11 @@
 
 <div class="container">
 
-    <ng-container *ngIf="!loading">
+    <div class="mb-3 d-flex justify-content-between" *ngIf="!loading">
         <app-button-inventory [product_id]="product.id"></app-button-inventory>
-    </ng-container>
+        <app-button-colors></app-button-colors>
+
+    </div>
 
     <!-- {{ form.value | json}} -->
 
@@ -62,14 +64,20 @@
 
     </form>
 
-    <div class="card mb-3" *ngIf="!loading">
+    <!-- <div class="card mb-3" *ngIf="!loading">
         <div class="card-header">Agregar Color</div>
         <div class="body p-3">
-            <app-upload-dropzone-color [productId]="product.id" />
+            
         </div>
-    </div>
+    </div> -->
+
     <ng-container *ngIf="!loading">
         <app-product-color [color]="color" *ngFor="let color of product.colors"></app-product-color>
     </ng-container>
 
 </div>
+
+<app-modal>
+    <app-upload-dropzone-color [productId]="product.id" />
+</app-modal>
+

@@ -1,0 +1,15 @@
+<div class="btn-group">
+    <button type="button" class="btn  btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        <i class="fa-solid fa-image me-2"></i><span>Colores</span>
+    </button>
+    <ul class="dropdown-menu">
+
+        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Agregar Color</a></li>
+        <hr class="dropdown-divider">
+        <li><a class="dropdown-item" [routerLink]="['/', store, 'auth', 'products']" ><i class="fa-solid fa-check me-2"></i>Colores Activos</a></li>
+        <hr class="dropdown-divider">
+        <li><a class="dropdown-item" [routerLink]="['/', store, 'auth', 'products']" ><i class="fa-solid fa-xmark me-2"></i>Colores Inactivos</a></li>
+        
+    </ul>
+</div>
