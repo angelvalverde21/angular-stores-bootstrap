@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="container" *ngIf="!loading">
+
+
+
+  <nav aria-label="breadcrumb mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Products</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/', store, 'auth', 'products',product.id]">{{ product.name }}</a>
+      </li>
+      <li class="breadcrumb-item"><a [routerLink]="['/', store, 'auth', 'products',product.id, 'colors']">Colors</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Inactive</li>
+    </ol>
+  </nav>
+
+  <div class="mb-3 d-flex justify-content-between">
+    <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
+    <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors>
+  </div>
+
+  <app-upload-dropzone-color [productId]="product.id" />
+
+  <div class="text-center">
+    <h5>{{ product.colors.length }}</h5>
+  </div>
+
+  <app-product-color [color]="color" *ngFor="let color of product.colors"></app-product-color>
+</div>

@@ -6,15 +6,15 @@
 
     <div ngbDropdownMenu>
         
-        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Agregar Color</button>
+        <!-- <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Agregar Color</button> -->
 
-        <hr class="dropdown-divider">
+        <!-- <hr class="dropdown-divider"> -->
         
-        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-solid fa-check me-2"></i>Colores Activos</button>
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products', product_id, 'colors']"><i class="fa-solid fa-check me-2"></i>Colores Activos</button>
 
         <hr class="dropdown-divider">
 
-        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-solid fa-xmark me-2"></i>Colores Inactivos</button>
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products', product_id, 'colors', 'inactive']"><i class="fa-solid fa-xmark me-2"></i>Colores Inactivos</button>
         
 
         <!-- <ng-container *ngFor="let item of items">
@@ -25,4 +25,3 @@
 
     <!-- {{ items | json }} -->
 </div>
-

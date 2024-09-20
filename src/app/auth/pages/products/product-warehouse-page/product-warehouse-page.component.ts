@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../../../../services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HeaderComponent } from "../../../../header/header.component";
 import { TableProductsInventoryComponent } from "../../../shared/table-products-inventory/table-products-inventory.component";
@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
+import { StoreService } from '../../../../services/store.service';
 
 @Component({
   selector: 'app-product-warehouse-page',
   standalone: true,
-  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, ButtonInventoryComponent],
+  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, ButtonInventoryComponent, RouterModule],
   templateUrl: './product-warehouse-page.component.html',
   styleUrl: './product-warehouse-page.component.css'
 })
@@ -23,15 +24,16 @@ export class ProductWarehousePageComponent implements OnInit, OnDestroy {
   warehouse_id: any;
   product_id: any;
   loading: boolean = true;
-
+  store: string = "";
   constructor(
     private _products: ProductService, 
-    private _route: ActivatedRoute){
-
-  }
+    private _store: StoreService,
+    private _route: ActivatedRoute
+  ){}
 
   ngOnInit(): void {
   
+    this.store = this._store.name()!;
 
     // Escuchar los parámetros del nivel actual de la ruta
     this._route.paramMap.subscribe(params => {

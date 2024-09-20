@@ -3,6 +3,13 @@
 <app-loading-center *ngIf="loading"></app-loading-center>
 
 <div class="container" *ngIf="!loading">
-    
+  <nav aria-label="breadcrumb mb-3">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Products</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/', store, 'auth', 'products',product.id]">{{ product.name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Stock</li>
+    </ol>
+</nav>
+
     <app-table-products-inventory [product]="product" [warehouse_id]="warehouse_id"></app-table-products-inventory>
 </div>

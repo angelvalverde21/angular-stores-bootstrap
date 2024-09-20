@@ -19,6 +19,8 @@ import { ProductWarehousePageComponent } from './auth/pages/products/product-war
 import { ProductsWarehouseSearchPageComponent } from './auth/pages/products/products-warehouse-search-page/products-warehouse-search-page.component';
 import { ProductsWarehousePageComponent } from './auth/pages/products/products-warehouse-page/products-warehouse-page.component';
 import { ProductsSearchPageComponent } from './auth/pages/products/products-search-page/products-search-page.component';
+import { ProductColorsPageComponent } from './auth/pages/roducts/product-colors-page/product-colors-page.component';
+import { ProductColorsInactivePageComponent } from './auth/pages/roducts/product-colors-inactive-page/product-colors-inactive-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -56,6 +58,8 @@ export const routes: Routes = [
           { path: 'products', component: ProductsComponent, children:[
               { path: '', component: ProductsPageComponent}, //(All Products of all Warehouses)
               { path: ':product_id', component: ProductPageComponent}, //(Single Product of all Warehouses)       
+              { path: ':product_id/colors', component: ProductColorsPageComponent}, //(Single Product of all Warehouses)       
+              { path: ':product_id/colors/inactive', component: ProductColorsInactivePageComponent}, //(Single Product of all Warehouses)       
               { path: 'search/:search', component: ProductsSearchPageComponent}, //(Single Product of all Warehouses)             
               { path: 'warehouse/:warehouse_id', component: ProductsWarehousePageComponent}, //(All Products of single Warehouse)           
               { path: ':product_id/warehouse/:warehouse_id', component: ProductWarehousePageComponent}, //(Single Product of single Warehouse)   
@@ -67,8 +71,7 @@ export const routes: Routes = [
         ],
 
       },
-
-
+        
     ],
   },
   

@@ -4,6 +4,14 @@
 
 <div class="container" *ngIf="!loading">
 
+    <nav aria-label="breadcrumb mb-3">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/', store, 'auth', 'products']">Products</a></li>
+          <li class="breadcrumb-item active">{{ product.name }}</li>
+          <!-- <li class="breadcrumb-item active" aria-current="page">Colors</li> -->
+        </ol>
+    </nav>
+
     <div class="card mb-3">
 
         <div class="card-header">
@@ -15,11 +23,11 @@
             <div class="mb-3 d-flex justify-content-between">
 
                 <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
-                <app-dropdown-colors [store]="store"></app-dropdown-colors>
+                <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors>
                 <!-- <app-button-inventory></app-button-inventory> -->
-                 <app-modal>
-                </app-modal>
-                <app-upload-dropzone-color [productId]="product.id" />
+                 <!-- <app-modal>
+                     <app-upload-dropzone-color [productId]="product.id" />
+                </app-modal> -->
 
             </div>
 
@@ -90,13 +98,15 @@
         </div>
     </div> -->
 
-    <ng-container>
+    <!-- <ng-container>
         <app-product-color [color]="color" *ngFor="let color of product.colors"></app-product-color>
-    </ng-container>
+    </ng-container> -->
 
     <!-- <app-modal [id]="'agregarColor'"> -->
-        <app-upload-dropzone-color [productId]="product.id" />
+        
     <!-- </app-modal> -->
 
 </div>
+
+
 

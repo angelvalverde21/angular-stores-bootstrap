@@ -1,26 +1,32 @@
 <div class="card mb-3">
     <div class="header"></div>
-    <div class="body d-flex m-3">
-        <div class="image">
-            <a [routerLink]="['/', store, 'auth', 'products',product.id]">
-                <div class="card" style="width: 150px;">
-                  <img [src]="product.image?.url_thumbnail" alt="">
-                </div>
-            </a>
-        </div>
-        <div class="controls d-flex justify-content-between w-100">
-            <div class="row w-100">
-                <div class="col-lg-6 col-12">
-                    <div class="title ms-3">
-                        <h3 class="title">{{ product.name }}</h3>
-                        <span>{{ quantityGlobalProduct }}</span>
+    <div class="body m-3">
+
+        <div class="row">
+            <div class="col-lg-4 col-6">
+                <a [routerLink]="['/', store, 'auth', 'products',product.id]">
+                    <div class="card" style="width: 100px;">
+                      <img [src]="product.image?.url_thumbnail" alt="">
                     </div>
-                </div>
-                <div class="col-lg-6 col-12 d-flex flex-row-reverse">
-                    <app-button-inventory [product_id]="product.id"></app-button-inventory>
+                </a>
+            </div>
+            <div class="col-lg-4 col-6">
+                <div class="title ms-3">
+                    <h3 class="title">{{ product.name }}</h3>
+                    <span>{{ quantityGlobalProduct }}</span>
                 </div>
             </div>
-
+            <div class="col-lg-4 col-12">
+                <div class="mt-3 d-flex justify-content-between">
+                    <div class="mb-3">
+                        <app-dropdown-colors [product_id]="product.id" [store]="store"></app-dropdown-colors>
+                    </div>
+                    <div class="mb-3">
+                        <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>

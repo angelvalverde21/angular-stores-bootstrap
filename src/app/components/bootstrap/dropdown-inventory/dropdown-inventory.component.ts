@@ -15,7 +15,7 @@ export class DropdownInventoryComponent {
 
   store: any;
   warehouses: any;
-  warehouseName: string = "Almacenes";
+  warehouseName: string = "Stock";
   @Input() product_id: number = 0;
   @Input() warehouse_id: any;
   
@@ -30,7 +30,7 @@ export class DropdownInventoryComponent {
 
   setName() : string{
 
-    return this.warehouse_id > 0 ? this.store.warehouses.find((warehouse:any) => warehouse.id == this.warehouse_id).name : "Almacenes";
+    return this.warehouse_id > 0 ? this.store.warehouses.find((warehouse:any) => warehouse.id == this.warehouse_id).name : this.warehouseName;
     // console.log(this.store.warehouses[warehouse_id]);
   }
 

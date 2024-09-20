@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, TemplateRef } from '@angular/core';
 import { HeaderComponent } from '../../../../header/header.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { InputGroupComponent } from '../../../../components/forms/input-group/input-group.component';
@@ -6,7 +6,7 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -30,6 +30,9 @@ import { DropdownComponent } from "../../../../components/bootstrap/dropdown/dro
 import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
 import { DropdownColorsComponent } from "../../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
+import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-page',
@@ -71,15 +74,33 @@ export class ProductPageComponent {
   colors: any;
   warehouses: any;
   store: string = "";
-  private uploadSubscription!: Subscription;
+  // private uploadSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private _product: ProductService,
     private route: ActivatedRoute,
-    private _upload: UploadService,
+    // private _upload: UploadService,
     private _store: StoreService
   ) {}
+
+  private modalService = inject(NgbModal);
+	closeResult = '';
+
+
+	openModal(content: TemplateRef<any>) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+			(result:any) => {
+				this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+        
+			},
+			(reason:any) => {
+        this.closeResult = `Dismissed ${reason}`;
+        console.log(this.closeResult);
+			},
+		);
+	}
 
   ngOnInit(): void {
 
@@ -88,13 +109,6 @@ export class ProductPageComponent {
 
     this.store = this._store.name()!;
 
-    this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
-      // Actualiza el componente con la respuesta del servidor
-      console.log('Imagen subida y notificada:', resp);
-      // this.product.colors.push(resp.color) // Lo agrega al final
-      this.product.colors.unshift(resp.color) // Lo agrega al inicio
-      // Actualiza tu UI o realiza otras acciones necesarias
-    });
 
   }
 
@@ -117,10 +131,8 @@ export class ProductPageComponent {
         next: (resp: any) => {
           console.log(resp);
 
-
-
           this.product = resp.data;
-          this.product.colors.sort((a:any, b: any) => b.id - a.id);
+          // this.product.colors.sort((a:any, b: any) => b.id - a.id);
 
           this.warehouses = resp.data.store;
           this.loading = false;
@@ -180,10 +192,10 @@ export class ProductPageComponent {
 
   }
 
-  ngOnDestroy(): void {
-    if (this.uploadSubscription) {
-      this.uploadSubscription.unsubscribe();
-    }
-  }
+  // ngOnDestroy(): void {
+  //   if (this.uploadSubscription) {
+  //     this.uploadSubscription.unsubscribe();
+  //   }
+  // }
 
 }

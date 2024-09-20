@@ -101,6 +101,16 @@ export class ProductService {
     return this.http.get(url);
   }
 
+  getColorsActive(product_id: number): Observable<any> {
+    const url = `${this.slugProducts()}/${product_id}/colors`;
+    return this.http.get(url);
+  }
+
+  getColorsInactive(product_id: number): Observable<any> {
+    const url = `${this.slugProducts()}/${product_id}/colors/inactive`;
+    return this.http.get(url);
+  }
+
   getAllSearch(search:string): Observable<any> {
     const url = `${this.slugProducts()}/search/${search}`;
     return this.http.get(url);

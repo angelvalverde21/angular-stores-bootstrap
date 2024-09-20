@@ -3,11 +3,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StoreService } from '../../../../services/store.service';
 import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
+import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
+import { DropdownComponent } from "../../../../components/bootstrap/dropdown/dropdown.component";
+import { DropdownColorsComponent } from "../../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonInventoryComponent],
+  imports: [CommonModule, RouterModule, ButtonInventoryComponent, DropdownInventoryComponent, DropdownComponent, DropdownColorsComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
