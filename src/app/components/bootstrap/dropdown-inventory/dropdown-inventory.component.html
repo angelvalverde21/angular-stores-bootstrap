@@ -1,7 +1,7 @@
 <div ngbDropdown class="d-inline-block me-2">
 
     <button class="btn btn-outline-dark dropdown-toggle" ngbDropdownToggle>
-        <i class="fa-solid fa-warehouse me-2"></i><span>{{ warehouseName }}</span>
+        <i class="fa-solid fa-warehouse me-2"></i><span>{{ warehouseName  | firstName }}</span>
     </button>
     <ul ngbDropdownMenu>
         <li *ngFor="let warehouse of store.warehouses">

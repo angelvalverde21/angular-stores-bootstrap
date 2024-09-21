@@ -3,11 +3,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { StoreService } from '../../../services/store.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { PipesModule } from '../../../shared/pipes.module';
 
 @Component({
   selector: 'app-dropdown-inventory',
   standalone: true,
-  imports: [NgbModule, CommonModule, RouterModule],
+  imports: [NgbModule, CommonModule, RouterModule, PipesModule],
   templateUrl: './dropdown-inventory.component.html',
   styleUrl: './dropdown-inventory.component.css'
 })
