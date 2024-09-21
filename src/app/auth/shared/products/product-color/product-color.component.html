@@ -7,6 +7,7 @@
                 <div class="image mb-3 text-center">
                     <img height="150px" [src]="color.image?.url_thumbnail" alt="">
                     <!-- <div> {{color.id}}</div> -->
+                     <h5 class="text-center"> {{ color.sku.quantity}}</h5>
                 </div>
             </div>
 
@@ -16,7 +17,9 @@
 
                     <div class="col-lg-6 col-12">
                         <div class="size mx-auto" style="width: 50%;">
-                            <app-product-color-size [size]="size" *ngFor="let size of color.sizes"></app-product-color-size>
+                            <!-- {{ color.sku | json }} -->
+                           
+                            <!-- <app-product-color-size [size]="size" *ngFor="let size of color.sizes"></app-product-color-size> -->
                         </div>
                     </div>
 

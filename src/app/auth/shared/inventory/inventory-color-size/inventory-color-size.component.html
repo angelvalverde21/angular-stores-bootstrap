@@ -1,5 +1,9 @@
 <!-- el componte padre este componenten es table-products-inventory.component -->
 <div class="card mb-3 mx-auto" style="width: 360px;">
+  
+  <div class="card-header text-bg-light">
+    {{ color.name }}
+  </div>
 
   <div class="d-flex justify-content-between content">
 
@@ -12,5 +16,7 @@
     <h3 class="text-center quantity" *ngIf="color.sizes.length > 1">{{ totalQuantityColor }}</h3>
 
   </div>
+
+  
 
 </div>

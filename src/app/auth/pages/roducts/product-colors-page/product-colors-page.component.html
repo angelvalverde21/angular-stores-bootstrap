@@ -4,8 +4,7 @@
 
 <div class="container" *ngIf="!loading">
 
-
-
+  <!-- breadcrumb -->
   <nav aria-label="breadcrumb mb-3">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="#">Products</a></li>
@@ -15,16 +14,32 @@
     </ol>
   </nav>
 
+  <!-- Dropdown de navegacion -->
   <div class="mb-3 d-flex justify-content-between">
     <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
     <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors>
   </div>
 
+  <!-- upload de color -->
   <app-upload-dropzone-color [productId]="product.id" />
 
+  <!-- caja de busqueda -->
+
+  {{ searchTerm }}
+  <div class="input-group mb-3">
+    <input 
+    [(ngModel)]="searchTerm" 
+    (input)="filterItems()" 
+    type="text" class="form-control" placeholder="Filtrar color" aria-label="filtrar color" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" (click)="deleteSearch()" type="button" id="button-addon2"><i class="fa-solid fa-x"></i></button>
+  </div>
+
+  <!-- muestra la cantidad de colores disponibles -->
   <div class="text-center">
     <h5>{{ product.colors.length }}</h5>
   </div>
 
-  <app-product-color [color]="color" *ngFor="let color of product.colors"></app-product-color>
+  <!-- Lista los colores Activos del producto -->
+  <app-product-color [color]="color" *ngFor="let color of colorsFilter"></app-product-color>
+
 </div>

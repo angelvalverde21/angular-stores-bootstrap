@@ -2,42 +2,51 @@ import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../../../../services/store.service';
 import { ProductService } from '../../../../services/product.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ProductColorComponent } from "../../../shared/products/product-color/product-color.component";
+import { ProductColorComponent } from '../../../shared/products/product-color/product-color.component';
 import { CommonModule } from '@angular/common';
-import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
-import { HeaderComponent } from "../../../../header/header.component";
-import { UploadDropzoneColorComponent } from "../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component";
+import { LoadingCenterComponent } from '../../../../components/loading-center/loading-center.component';
+import { HeaderComponent } from '../../../../header/header.component';
+import { UploadDropzoneColorComponent } from '../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component';
 import { Subscription } from 'rxjs';
 import { UploadService } from '../../../../services/upload.service';
-import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
-import { DropdownColorsComponent } from "../../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
+import { DropdownInventoryComponent } from '../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component';
+import { DropdownColorsComponent } from '../../../../components/bootstrap/dropdown-colors/dropdown-colors.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-colors-page',
   standalone: true,
-  imports: [ProductColorComponent, CommonModule, LoadingCenterComponent, HeaderComponent, RouterModule, UploadDropzoneColorComponent, DropdownInventoryComponent, DropdownColorsComponent],
+  imports: [
+    ProductColorComponent,
+    FormsModule,
+    CommonModule,
+    LoadingCenterComponent,
+    HeaderComponent,
+    RouterModule,
+    UploadDropzoneColorComponent,
+    DropdownInventoryComponent,
+    DropdownColorsComponent,
+  ],
   templateUrl: './product-colors-page.component.html',
-  styleUrl: './product-colors-page.component.css'
+  styleUrl: './product-colors-page.component.css',
 })
-export class ProductColorsPageComponent implements OnInit{
-
+export class ProductColorsPageComponent implements OnInit {
   id: number = 0;
   product: any;
   loading: boolean = true;
-  store: string = "";
+  store: string = '';
   private uploadSubscription!: Subscription;
+  colorsFilter: any;
+  searchTerm: string = '';
 
   constructor(
-    private _product: ProductService, 
-    private route: ActivatedRoute, 
+    private _product: ProductService,
+    private route: ActivatedRoute,
     private _store: StoreService,
-    private _upload: UploadService,
-  ){
-    
-  }
+    private _upload: UploadService
+  ) {}
 
   ngOnInit(): void {
-    
     this.id = Number(this.route.snapshot.paramMap.get('product_id'));
 
     this.loading = true;
@@ -47,16 +56,22 @@ export class ProductColorsPageComponent implements OnInit{
       // Actualiza el componente con la respuesta del servidor
       console.log('Imagen subida y notificada:', resp);
       // this.product.colors.push(resp.color) // Lo agrega al final
-      this.product.colors.unshift(resp.color) // Lo agrega al inicio
+      this.product.colors.unshift(resp.color); // Lo agrega al inicio
+
       // Actualiza tu UI o realiza otras acciones necesarias
     });
 
-    this._product.getColorsActive(this.id).subscribe((resp:any) => {
+    this._product.getColorsActive(this.id).subscribe((resp: any) => {
       this.loading = false;
       this.product = resp.data;
+
+      this.colorsFilter = this.product.colors.sort(
+        (a: any, b: any) => b.sku.quantity - a.sku.quantity
+      );
+
+      // this.colorsFilter = this.product.colors;
       console.log(resp.data.colors);
     });
-
   }
 
   ngOnDestroy(): void {
@@ -65,4 +80,19 @@ export class ProductColorsPageComponent implements OnInit{
     }
   }
 
+  deleteSearch() {
+    this.searchTerm = '';
+    this.colorsFilter = this.product.colors;
+  }
+
+  filterItems() {
+
+    this.colorsFilter = this.product.colors.filter((color:any) => 
+      color.name?.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+
+    // this.colorsFilter = this.colorsFilter.sort(
+    //   (a: any, b: any) => b.sku.quantity - a.sku.quantity
+    // );
+  }
 }

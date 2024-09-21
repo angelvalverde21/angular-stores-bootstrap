@@ -14,8 +14,17 @@
 
         <!-- <h5>{{ product.colors.length }}</h5> -->
 
+        <div class="input-group mb-3">
+            <input 
+            [(ngModel)]="searchTerm" 
+            (input)="filterItems()" 
+            type="text" class="form-control" placeholder="Filtrar color" aria-label="filtrar color" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" (click)="deleteSearch()" type="button" id="button-addon2"><i class="fa-solid fa-x"></i></button>
+          </div>
+
+          
         <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id" [color]="color"
-        *ngFor="let color of product.colors"></app-inventory-color-size>
+        *ngFor="let color of colorsFilter"></app-inventory-color-size>
     }
     @case ('Size') {
         Size

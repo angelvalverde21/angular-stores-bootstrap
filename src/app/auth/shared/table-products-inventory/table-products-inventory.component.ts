@@ -10,11 +10,12 @@ import { SkuWarehouseService } from '../../../services/api/sku-warehouse.service
 import { ButtonInventoryComponent } from "../../../components/buttons/button-inventory/button-inventory.component";
 import { DropdownInventoryComponent } from "../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
 import { DropdownColorsComponent } from "../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-table-products-inventory',
   standalone: true,
-  imports: [RouterModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent, DropdownInventoryComponent, DropdownColorsComponent],
+  imports: [RouterModule, FormsModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent, DropdownInventoryComponent, DropdownColorsComponent],
   templateUrl: './table-products-inventory.component.html',
   styleUrl: './table-products-inventory.component.css'
 })
@@ -25,6 +26,8 @@ export class TableProductsInventoryComponent implements OnInit {
   totalQuantityProduct: number = 0; 
   
   store: string = "";
+  colorsFilter: any;
+  searchTerm: string = '';
 
   constructor(private _store: StoreService, private _skuWarehouse : SkuWarehouseService){
     
@@ -33,9 +36,13 @@ export class TableProductsInventoryComponent implements OnInit {
   ngOnInit(): void {
 
     this.totalQuantityProduct = this.product.sku.warehouse.pivot.quantity;
-    this.product.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
+    // this.product.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
+    this.loadColors();
     this.store = this._store.leerSlugBase()!;
-    
+  }
+
+  loadColors(){
+    this.colorsFilter = this.product.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
   }
 
   updateProductColor(quantity: number){
@@ -52,6 +59,17 @@ export class TableProductsInventoryComponent implements OnInit {
       
     });
 
+  }
+
+  deleteSearch(){
+    this.searchTerm = "";
+    this.loadColors();
+  }
+
+  filterItems() {
+    this.colorsFilter = this.product.colors.filter((color:any) => 
+      color.name?.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
   
 }
