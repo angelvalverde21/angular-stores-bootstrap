@@ -66,7 +66,7 @@ export class SearchComponent {
 
         this.search = params['search']; //el parametro base es store
 
-        this._store.search(name, this.search).subscribe({
+        this._store.searchPublic(name, this.search).subscribe({
 
           next: (resp: any) => {
             // Manejo de la respuesta exitosa

@@ -11,11 +11,12 @@ import { ButtonOrdersComponent } from "../../components/buttons/button-orders/bu
 import { DropdownAuthHomeComponent } from "../../components/bootstrap/dropdown-auth-home/dropdown-auth-home.component";
 import { DropdownComponent } from "../../components/bootstrap/dropdown/dropdown.component";
 import { DropdownAuthUserComponent } from "../../components/bootstrap/dropdown-auth-user/dropdown-auth-user.component";
+import { ButtonOpenCanvasSearchComponent } from "../../components/buttons/button-open-canvas-search/button-open-canvas-search.component";
 
 @Component({
   selector: 'app-header-bottom',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonLoginComponent, FormSearchComponent, PipesModule, ButtonProductsComponent, ButtonOrdersComponent, DropdownAuthHomeComponent, DropdownComponent, DropdownAuthUserComponent],
+  imports: [CommonModule, RouterModule, ButtonLoginComponent, FormSearchComponent, PipesModule, ButtonProductsComponent, ButtonOrdersComponent, DropdownAuthHomeComponent, DropdownComponent, DropdownAuthUserComponent, ButtonOpenCanvasSearchComponent],
   templateUrl: './header-bottom.component.html',
   styleUrl: './header-bottom.component.css'
 })

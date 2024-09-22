@@ -28,7 +28,7 @@
 
     <div class="products" *ngFor="let product of products">
 
-        <section *ngIf="product.sku_quantity">
+        <section *ngIf="product.sku.quantity">
 
             <!-- {{ product.sku_quantity | json }} -->
 
@@ -41,9 +41,12 @@
 
             <hr>
 
-            <div class="color">
-                <app-card-color *ngFor="let color of product.colors_active" [color]="color"
+            <div class="colors">
+                <ng-container  *ngFor="let color of product.colors">
+                    <!-- {{ color.image.url_thumbnail | json}} -->
+                    <app-card-color *ngIf="color.sku?.quantity" [color]="color"
                     [precio]="product.price ? product.price.value : 0"></app-card-color>
+                </ng-container>
             </div>
             
         </section>

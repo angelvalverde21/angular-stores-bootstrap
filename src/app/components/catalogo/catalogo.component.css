@@ -1,4 +1,4 @@
-.color{
+.colors{
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(2, minmax(10rem, 1fr)); /* 1 fr quiere decir una fraccion */
@@ -22,7 +22,7 @@
 
 
 @media (min-width: 800px) and (max-width: 1367px) {
-    .color{
+    .colors{
         display: grid;
         gap: 1rem;
         grid-template-columns: repeat(3, minmax(10rem, 1fr)); /* 1 fr quiere decir una fraccion */
@@ -30,7 +30,7 @@
 }
 
 @media (min-width: 1368px){
-    .color{
+    .colors{
         display: grid;
         gap: 1rem;
         grid-template-columns: repeat(4, minmax(10rem, 1fr)); /* 1 fr quiere decir una fraccion */

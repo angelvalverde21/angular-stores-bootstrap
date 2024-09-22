@@ -144,6 +144,16 @@ export class StoreService {
     return this.http.get(url);
   }
 
+  
+  searchPublic(store: string, search: string): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.urlPublic}/${store}/products/search/${search}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+
   searchWarehouse(store: string, warehouse: number, search: string): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.urlPrivate}/${store}/products/warehouses/${warehouse}/search/${search}`;

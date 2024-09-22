@@ -1,0 +1,6 @@
+.fixed-offcanvas .offcanvas {
+    width: 400px !important;
+    height: 600px !important;
+    max-height: 600px !important; /* Evita que se expanda */
+    overflow-y: auto; /* Habilita el scroll si el contenido es más grande */
+  }
