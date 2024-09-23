@@ -17,3 +17,5 @@ export class FirstNamePipe implements PipeTransform {
   }
 
 }
+
+

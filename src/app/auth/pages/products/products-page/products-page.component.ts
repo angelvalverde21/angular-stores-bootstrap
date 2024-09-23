@@ -37,7 +37,7 @@ export class ProductsPageComponent {
     this.productsSubscription = this._product.getAll()
     
     .subscribe({
-
+     
       next: (resp: any) => {
       
         console.log('Empezo la suscripcion a products.component');

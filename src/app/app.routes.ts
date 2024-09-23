@@ -21,6 +21,7 @@ import { ProductsWarehousePageComponent } from './auth/pages/products/products-w
 import { ProductsSearchPageComponent } from './auth/pages/products/products-search-page/products-search-page.component';
 import { ProductColorsPageComponent } from './auth/pages/roducts/product-colors-page/product-colors-page.component';
 import { ProductColorsInactivePageComponent } from './auth/pages/roducts/product-colors-inactive-page/product-colors-inactive-page.component';
+import { ProductCreatePageComponent } from './auth/pages/products/product-create-page/product-create-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -38,6 +39,7 @@ export const routes: Routes = [
     children: [
 
       { path: '', component: HomeComponent },
+      { path: 'products', component: HomeComponent },
       { path: 'search/:search', component: SearchComponent },
       { path: 'tracking', component: TrackingComponent},
       { path: 'login', component: LoginComponent },
@@ -57,6 +59,7 @@ export const routes: Routes = [
           
           { path: 'products', component: ProductsComponent, children:[
               { path: '', component: ProductsPageComponent}, //(All Products of all Warehouses)
+              { path: 'create', component: ProductCreatePageComponent}, //(All Products of all Warehouses)
               { path: ':product_id', component: ProductPageComponent}, //(Single Product of all Warehouses)       
               { path: ':product_id/colors', component: ProductColorsPageComponent}, //(Single Product of all Warehouses)       
               { path: ':product_id/colors/inactive', component: ProductColorsInactivePageComponent}, //(Single Product of all Warehouses)       

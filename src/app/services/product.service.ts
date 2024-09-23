@@ -38,7 +38,7 @@ export class ProductService {
   load(id: number | null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     
-    const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/products/${id}`;
+    const url = `${this.urlPrivate}/${this._store.name()}/products/${id}`;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
@@ -48,7 +48,7 @@ export class ProductService {
   all(): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     
-    const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/products/warehouses/2`;
+    const url = `${this.urlPrivate}/${this._store.name()}/products/warehouses/2`;
 
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
@@ -60,7 +60,19 @@ export class ProductService {
   save(data:[], id: number | null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
 
-    const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/products/${id}`;
+    const url = `${this.urlPrivate}/${this._store.name()}/products/${id}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.post(url, data);
+  }
+
+  create(data:[]): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this._store.name()}/products/create`;
+    console.log(url);
+    
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
@@ -87,11 +99,11 @@ export class ProductService {
   */
 
   slugProducts(){
-    return `${this.urlPrivate}/${this._store.leerSlugBase()}/products`
+    return `${this.urlPrivate}/${this._store.name()}/products`
   }
 
   slugInventory(){
-    return `${this.urlPrivate}/${this._store.leerSlugBase()}/inventory`
+    return `${this.urlPrivate}/${this._store.name()}/inventory`
   }
 
   /***** peticiones GET */

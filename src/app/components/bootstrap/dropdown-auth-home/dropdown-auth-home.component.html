@@ -8,19 +8,16 @@
         
 
         <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products']"><i class="fa-regular fa-rectangle-list me-2"></i>Products</button>
-        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'config']"><i class="fa-solid fa-plus me-2"></i>Create Product</button>
+        <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'products', 'create']"><i class="fa-solid fa-plus me-2"></i>Create Product</button>
         
         <hr class="dropdown-divider">
         
         <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'orders']"><i class="fa-solid fa-clipboard-list me-2"></i>Orders</button>
         <button ngbDropdownItem [routerLink]="['/', store, 'auth', 'create-order']"><i class="fa-solid fa-plus me-2"></i>Create Order</button>
 
-
-        <!-- <ng-container *ngFor="let item of items">
-            
-        </ng-container> -->
+        <!-- <app-product-create-modal></app-product-create-modal> -->
 
     </div>
 
-    <!-- {{ items | json }} -->
+
 </div>

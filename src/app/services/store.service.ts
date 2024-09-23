@@ -176,6 +176,28 @@ export class StoreService {
     return this.http.get(url);
   }
 
+  categories(): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.url_private}/${this.leerSlugBase()}/products/categories`;
+    console.log(url);
+    
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+  
+  productSizes(): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.url_private}/${this.leerSlugBase()}/products/sizes`;
+    console.log(url);
+    
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+
 
 
   // verifyStore(storeName: string): Observable<boolean> {

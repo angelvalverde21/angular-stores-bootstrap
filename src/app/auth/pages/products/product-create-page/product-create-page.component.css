@@ -1,0 +1,43 @@
+.custom-select {
+    position: relative;
+    cursor: pointer; /* Cambia el cursor para simular un select */
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espacio entre el texto y el ícono */
+    padding: 10px; /* Añade padding para un mejor aspecto */
+}
+
+.selected i {
+    margin-left: 10px; /* Espaciado entre el texto y el ícono */
+    transition: transform 0.3s; /* Animación suave para la rotación */
+}
+
+.rotate {
+    transform: rotate(180deg); /* Rotar el ícono cuando el dropdown está abierto */
+}
+
+.options {
+    position: absolute;
+    width: 100%; /* Asegura que el dropdown tenga el mismo ancho que el select */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    background-color: white; /* Fondo blanco para el dropdown */
+    border: 1px solid #ced4da; /* Bordes similares a Bootstrap */
+    border-radius: 0.25rem; /* Bordes redondeados */
+    max-height: 200px; /* Altura máxima para el dropdown */
+    overflow-y: auto; /* Permitir desplazamiento si hay muchas opciones */
+    
+}
+
+.option {
+    padding: 10px; /* Espaciado interno para cada opción */
+    cursor: pointer; /* Cambia el cursor al pasar sobre la opción */
+}
+
+.option:hover {
+    background-color: #f8f9fa; /* Fondo claro al pasar el mouse */
+}

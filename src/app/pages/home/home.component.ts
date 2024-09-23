@@ -18,6 +18,8 @@ import { CatalogoComponent } from "../../components/catalogo/catalogo.component"
 export class HomeComponent {
   // private subscription: Subscription;
 
+  name: string = "";
+
   constructor(
     private _store: StoreService,
     private _product: ProductService,
@@ -33,23 +35,13 @@ export class HomeComponent {
     this._common.setCardPlaceHolder(true);
 
     // const slugBase = localStorage.getItem('slug_base')!;/
-    this.route.params.subscribe((params) => {
-      //recibe el parametro del mismo componente (que no es el padre)
+    this.name = this._store.name()!;
 
-      console.log(params);
-      console.log('empezando a solicitar la busqueda');
-      
-      const name = params[environment.parametroBase]; //el parametro base es store
-      console.log(name);
+    this._store.getHome(this.name).subscribe((resp: any) => {
 
+      //setea los productos para que se puedan mostrar
+      this._product.setProducts(resp.data);
 
-      this._store.getHome(name).subscribe((resp: any) => {
-
-        //setea los productos para que se puedan mostrar
-        this._product.setProducts(resp.data);
-
-      });
-      
     });
 
   }
