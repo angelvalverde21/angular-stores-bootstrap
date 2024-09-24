@@ -168,6 +168,7 @@ export class ProductPageComponent {
     this._product.save(this.form.value, this.id).subscribe({
       next: (resp: any) => {
         console.log(resp);
+        this.product = resp.data;
         this.success = true;
         this.btnSaveReady();
       },

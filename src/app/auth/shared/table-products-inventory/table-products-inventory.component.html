@@ -33,13 +33,10 @@
 
         <ng-container *ngIf="!loading">
 
-            <ng-container *ngIf="(colorsFilter.length > 0); else sinResultados">
+            @if (colorsFilter.length > 0) {
                 <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id" [color]="color"
-                    *ngFor="let color of colorsFilter"></app-inventory-color-size>
-            </ng-container>
-    
-            <ng-template #sinResultados>
-                <!-- Este bloque se muestra si 'condition' es falso -->
+                *ngFor="let color of colorsFilter"></app-inventory-color-size>
+            }@else {
                 <div class="text-center">
                     @if (colorsActive) {
                         Sin colores Activos que mostrar
@@ -47,7 +44,7 @@
                         No hay colores desactivados
                     }
                 </div>
-            </ng-template>
+            }
 
         </ng-container>
 
