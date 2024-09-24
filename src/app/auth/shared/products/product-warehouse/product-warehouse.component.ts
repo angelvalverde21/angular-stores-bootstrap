@@ -9,23 +9,25 @@ import { LoadingComponent } from "../../../../components/loading/loading.compone
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
 import { StoreService } from '../../../../services/store.service';
-import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
 
 @Component({
-  selector: 'app-product-warehouse-page',
+  selector: 'app-product-warehouse',
   standalone: true,
-  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, ButtonInventoryComponent, RouterModule, ProductWarehouseComponent],
-  templateUrl: './product-warehouse-page.component.html',
-  styleUrl: './product-warehouse-page.component.css'
+  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, ButtonInventoryComponent, RouterModule],
+  templateUrl: './product-warehouse.component.html',
+  styleUrl: './product-warehouse.component.css'
 })
-export class ProductWarehousePageComponent implements OnInit, OnDestroy {
+export class ProductWarehouseComponent {
   private InventorySubscription!: Subscription; 
 
   product: any;
   warehouse_id: any;
+  warehouses: any;
   product_id: any;
   loading: boolean = true;
   store: string = "";
+  // private productSubscription!: Subscription; 
+
   constructor(
     private _products: ProductService, 
     private _store: StoreService,
@@ -35,19 +37,23 @@ export class ProductWarehousePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   
     this.store = this._store.name()!;
-
+    this.warehouses = this._store.warehouses();
+    console.log(this.warehouses);
+    
     // Escuchar los parámetros del nivel actual de la ruta
     this._route.paramMap.subscribe(params => {
       this.loading = true;
       console.log('Parámetros en el primer hijo de la ruta actual:', params.keys); // Aquí debería obtener los parámetros de las rutas hijas
-      this.warehouse_id = params.get('warehouse_id');
+      this.warehouse_id = params.get('warehouse_id') != null ? params.get('warehouse_id') : this.warehouses[0].id ;
       this.product_id = params.get('product_id');
+      console.log(params.get('product_id'));
       console.log(this.warehouse_id);
+      
+      // console.log(this.warehouse_id);
       this.InventorySubscription = this._products.getByIdWarehouse(this.product_id, this.warehouse_id).subscribe((resp: any) => {
         this.loading = false;
         this.product = resp.data;
         console.log('imprimiendo productos ****************************');
-        
         console.log(this.product);
         
       });
@@ -56,7 +62,11 @@ export class ProductWarehousePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.InventorySubscription.unsubscribe();
+
+    if (this.InventorySubscription) {
+      this.InventorySubscription.unsubscribe();
+    }
+
   }
 
 }

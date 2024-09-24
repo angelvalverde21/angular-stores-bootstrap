@@ -41,6 +41,14 @@ export class StoreService {
     }
   }
 
+  warehouses() {
+    if (localStorage.getItem('store')) {
+      return JSON.parse(localStorage.getItem('store')!).warehouses; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
+
   isValid(name: string): Observable<boolean> { //name quiere decir el nombre del la primera (storeName) palabra del slug /storeName/login/etc
 
     console.log('Impresión desde la función setSlugBase: ' + name);

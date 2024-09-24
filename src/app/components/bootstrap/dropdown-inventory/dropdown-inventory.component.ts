@@ -41,8 +41,8 @@ export class DropdownInventoryComponent {
 
     this._route.paramMap.subscribe(params => {
 
-      this.warehouse_id = params.get('warehouse_id');
-      console.log('imprimiendo el warehouse_id desde el button inventory ' + params.get('warehouse_id'));
+      this.warehouse_id = params.get('warehouse_id') != null ? params.get('warehouse_id') : this.warehouse_id;
+      // console.log('imprimiendo el warehouse_id desde el button inventory ' + params.get('warehouse_id'));
       console.log(this.warehouse_id);
       
       this.warehouseName = this.setName();

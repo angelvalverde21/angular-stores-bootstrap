@@ -11,11 +11,12 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
 import { LoadingComponent } from '../../../../components/loading/loading.component';
 import { InventorySizeComponent } from '../inventory-size/inventory-size.component';
 import { SkuWarehouseService } from '../../../../services/api/sku-warehouse.service';
+import { ColorFieldsComponent } from "../../products/colors/color-fields/color-fields.component";
 
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
-  imports: [CommonModule, InventorySizeComponent],
+  imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css'
 })
@@ -105,6 +106,10 @@ export class InventoryColorSizeComponent {
       
     });
     
+  }
+
+  setColorTitle(title: string){
+    this.color.name = title;
   }
 
 }

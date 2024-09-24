@@ -33,6 +33,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
 
 @Component({
   selector: 'app-product-page',
@@ -57,7 +58,8 @@ import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstra
     DropdownComponent,
     DropdownInventoryComponent,
     DropdownColorsComponent,
-    NgbModule
+    NgbModule,
+    ProductWarehouseComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'

@@ -1,7 +1,16 @@
-<div class="controls d-flex justify-content-between mb-3">
+<div class="controls d-flex justify-content-between mb-3 align-items-center">
 
+    <!-- <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors> -->
+    <div class="form-check form-check-input-lg form-switch mb-3">
+        <input
+        type="checkbox"
+        class="form-check-input"
+        [checked]="colorsActive"
+        (change)="colorsActiveToggle($event)"
+        />
+        <label class="form-check-label">{{ colorsActive ? 'Activos' : 'Inactivos' }}</label>
+    </div>
     <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
-    <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors>
     <!-- <button type="button" class="btn btn-outline-dark"
         [routerLink]="['/', store, 'auth', 'products',product.id]"><i class="fa-solid fa-bars mx-1"></i></button> -->
 </div>
@@ -11,21 +20,39 @@
 @switch (product.have) {
     
     @case ('ColorSize') {
-
-        <!-- <h5>{{ product.colors.length }}</h5> -->
-
+        
         <div class="input-group mb-3">
             <input 
             [(ngModel)]="searchTerm" 
             (input)="filterItems()" 
             type="text" class="form-control" placeholder="Filtrar color" aria-label="filtrar color" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary" (click)="deleteSearch()" type="button" id="button-addon2"><i class="fa-solid fa-x"></i></button>
-          </div>
+        </div>
 
-          
-        <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id" [color]="color"
-        *ngFor="let color of colorsFilter"></app-inventory-color-size>
+        <app-loading-center *ngIf="loading"></app-loading-center>
+
+        <ng-container *ngIf="!loading">
+
+            <ng-container *ngIf="(colorsFilter.length > 0); else sinResultados">
+                <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id" [color]="color"
+                    *ngFor="let color of colorsFilter"></app-inventory-color-size>
+            </ng-container>
+    
+            <ng-template #sinResultados>
+                <!-- Este bloque se muestra si 'condition' es falso -->
+                <div class="text-center">
+                    @if (colorsActive) {
+                        Sin colores Activos que mostrar
+                    }@else {
+                        No hay colores desactivados
+                    }
+                </div>
+            </ng-template>
+
+        </ng-container>
+
     }
+
     @case ('Size') {
         Size
     }

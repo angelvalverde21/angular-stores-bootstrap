@@ -1,0 +1,3 @@
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<app-table-products-inventory *ngIf="!loading" [product]="product" [warehouse_id]="warehouse_id"></app-table-products-inventory>

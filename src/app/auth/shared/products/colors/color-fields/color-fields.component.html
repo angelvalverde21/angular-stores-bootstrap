@@ -1,0 +1,16 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+            
+    <!-- {{ form.value | json}} -->
+
+    <app-button-switch formControlName="status" [id]="'color-status-switch'" />
+
+    <div class="controls d-flex justify-content-between">
+        <app-input-group>
+            <input formControlName="name" type="text" class="form-control" placeholder="Name" aria-label="name"
+                aria-describedby="basic-name">
+        </app-input-group>
+    
+        <app-button-save [btnLoading]="loading" [btnActive]="form.valid" type="dark" text="Guardar"></app-button-save>
+    </div>
+
+</form>

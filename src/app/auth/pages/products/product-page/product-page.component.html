@@ -22,12 +22,7 @@
 
             <div class="mb-3 d-flex justify-content-between">
 
-                <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
-                <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors>
-                <!-- <app-button-inventory></app-button-inventory> -->
-                 <!-- <app-modal>
-                     <app-upload-dropzone-color [productId]="product.id" />
-                </app-modal> -->
+                <!-- <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors> -->
 
             </div>
 
@@ -36,24 +31,6 @@
             <form [formGroup]="form" (ngSubmit)="save()">
 
                 <app-alert *ngIf="success"></app-alert>
-
-                <!-- <h1>{{ totalQuantity }}</h1> -->
-
-                <!-- <div class="card mb-3" aria-hidden="true" *ngIf="loading">
-
-                    <div class="card-body">
-                        <h5 class="card-title placeholder-glow">
-                            <span class="placeholder col-6"></span>
-                        </h5>
-                        <p class="card-text placeholder-glow">
-                            <span class="placeholder col-7"></span>
-                            <span class="placeholder col-4"></span>
-                            <span class="placeholder col-4"></span>
-                            <span class="placeholder col-6"></span>
-                        </p>
-
-                    </div>
-                </div> -->
 
                 <div class="row mb-3">
                     <div class="col-lg-8 col-12">
@@ -78,33 +55,13 @@
 
                 <app-button-save [btnLoading]="loadingEdit" [btnActive]="form.valid"></app-button-save>
 
-                <!-- <button class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center" [disabled]="!form.valid || !buttonLoginActive" type="submit">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-        <i *ngIf="!loading" class="fa-solid fa-lock me-2" style="font-size: 0.9rem;"></i>
-        <span>Guardar cambios</span>
-    </button> -->
-
             </form>
         </div>
     </div>
 
+    <!-- <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory> -->
 
-
-
-    <!-- <div class="card mb-3" *ngIf="!loading">
-        <div class="card-header">Agregar Color</div>
-        <div class="body p-3">
-            
-        </div>
-    </div> -->
-
-    <!-- <ng-container>
-        <app-product-color [color]="color" *ngFor="let color of product.colors"></app-product-color>
-    </ng-container> -->
-
-    <!-- <app-modal [id]="'agregarColor'"> -->
-        
-    <!-- </app-modal> -->
+    <app-product-warehouse></app-product-warehouse>
 
 </div>
 

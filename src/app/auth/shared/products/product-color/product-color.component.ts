@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { InputGroupComponent } from "../../../../components/forms/input-group/input-group.component";
 import { ButtonSaveComponent } from "../../../../components/buttons/button-save/button-save.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,7 +15,7 @@ import { ProductColorSizeComponent } from "../product-color-size/product-color-s
   templateUrl: './product-color.component.html',
   styleUrl: './product-color.component.css'
 })
-export class ProductColorComponent{
+export class ProductColorComponent implements OnInit{
 
   @Input() color: any; 
   form!: FormGroup;
