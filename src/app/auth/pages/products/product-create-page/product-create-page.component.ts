@@ -14,7 +14,7 @@ import { PipesModule } from '../../../../shared/pipes.module';
 import { StoreService } from '../../../../services/store.service';
 import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { ProductService } from '../../../../services/product.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-create-page',
@@ -37,7 +37,7 @@ export class ProductCreatePageComponent {
   loadingSize: boolean = false;
   showSize: boolean = false;
 
-  constructor( private _fb: FormBuilder, private _store: StoreService, private _product: ProductService){
+  constructor( private _fb: FormBuilder, private _store: StoreService, private _product: ProductService, private router: Router){
 
   }
 
@@ -55,13 +55,11 @@ export class ProductCreatePageComponent {
     this.form = this._fb.group({
       name: ['', [Validators.required]],
       body: [''],
-      tags: ['', [Validators.required]],
+      tags: [''],
       category_id: ['', [Validators.required]],
       sizes: ['', [Validators.required]],
     });
   }
-
-
 
   toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
@@ -91,6 +89,10 @@ export class ProductCreatePageComponent {
         console.log(resp);
         this.success = true;
         this.btnSaveReady();
+        const url = ['/', this._store.name(), 'auth', 'products', resp.data.id];
+        console.log(url);
+        
+        this.router.navigate(url);
       },
       error: (error: any) => {
         console.error(error);

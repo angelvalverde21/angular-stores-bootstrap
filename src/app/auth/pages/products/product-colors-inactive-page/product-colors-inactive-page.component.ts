@@ -25,6 +25,8 @@ export class ProductColorsInactivePageComponent {
   loading: boolean = true;
   store: string = "";
   private uploadSubscription!: Subscription;
+  private getColorsSubscription!: Subscription;
+
 
   constructor(
     private _product: ProductService, 
@@ -50,7 +52,7 @@ export class ProductColorsInactivePageComponent {
       // Actualiza tu UI o realiza otras acciones necesarias
     });
 
-    this._product.getColorsInactive(this.id).subscribe((resp:any) => {
+    this.getColorsSubscription = this._product.getColorsInactive(this.id).subscribe((resp:any) => {
       this.loading = false;
       this.product = resp.data;
       console.log(resp.data.colors);
@@ -61,6 +63,10 @@ export class ProductColorsInactivePageComponent {
   ngOnDestroy(): void {
     if (this.uploadSubscription) {
       this.uploadSubscription.unsubscribe();
+    }
+
+    if (this.getColorsSubscription) {
+      this.getColorsSubscription.unsubscribe();
     }
   }
 }

@@ -28,7 +28,7 @@
     background-color: white; /* Fondo blanco para el dropdown */
     border: 1px solid #ced4da; /* Bordes similares a Bootstrap */
     border-radius: 0.25rem; /* Bordes redondeados */
-    max-height: 200px; /* Altura máxima para el dropdown */
+    max-height: 500px; /* Altura máxima para el dropdown */
     overflow-y: auto; /* Permitir desplazamiento si hay muchas opciones */
     
 }

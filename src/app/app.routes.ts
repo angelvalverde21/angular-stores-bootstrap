@@ -19,8 +19,8 @@ import { ProductWarehousePageComponent } from './auth/pages/products/product-war
 import { ProductsWarehouseSearchPageComponent } from './auth/pages/products/products-warehouse-search-page/products-warehouse-search-page.component';
 import { ProductsWarehousePageComponent } from './auth/pages/products/products-warehouse-page/products-warehouse-page.component';
 import { ProductsSearchPageComponent } from './auth/pages/products/products-search-page/products-search-page.component';
-import { ProductColorsPageComponent } from './auth/pages/roducts/product-colors-page/product-colors-page.component';
-import { ProductColorsInactivePageComponent } from './auth/pages/roducts/product-colors-inactive-page/product-colors-inactive-page.component';
+import { ProductColorsPageComponent } from './auth/pages/products/product-colors-page/product-colors-page.component';
+import { ProductColorsInactivePageComponent } from './auth/pages/products/product-colors-inactive-page/product-colors-inactive-page.component';
 import { ProductCreatePageComponent } from './auth/pages/products/product-create-page/product-create-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';

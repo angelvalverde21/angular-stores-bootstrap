@@ -36,6 +36,7 @@ export class ProductColorsPageComponent implements OnInit {
   loading: boolean = true;
   store: string = '';
   private uploadSubscription!: Subscription;
+  private getColorsSubscription!: Subscription;
   colorsFilter: any;
   searchTerm: string = '';
 
@@ -61,7 +62,7 @@ export class ProductColorsPageComponent implements OnInit {
       // Actualiza tu UI o realiza otras acciones necesarias
     });
 
-    this._product.getColorsActive(this.id).subscribe((resp: any) => {
+    this.getColorsSubscription = this._product.getColorsActive(this.id).subscribe((resp: any) => {
       this.loading = false;
       this.product = resp.data;
 
@@ -77,6 +78,9 @@ export class ProductColorsPageComponent implements OnInit {
   ngOnDestroy(): void {
     if (this.uploadSubscription) {
       this.uploadSubscription.unsubscribe();
+    }
+    if (this.getColorsSubscription) {
+      this.getColorsSubscription.unsubscribe();
     }
   }
 

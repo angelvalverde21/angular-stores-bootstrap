@@ -16,7 +16,7 @@ export class DropdownInventoryComponent {
 
   store: any;
   warehouses: any;
-  warehouseName: string = "Stock";
+  warehouseName: string = "Inventario";
   @Input() product_id: number = 0;
   @Input() warehouse_id: any;
   
