@@ -9,6 +9,7 @@ import { LoadingComponent } from '../loading/loading.component';
 import { CardPlaceHolderComponent } from "../card-place-holder/card-place-holder.component";
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -30,6 +31,8 @@ export class CatalogoComponent implements OnInit, OnDestroy{
 
   count: number = 0;
   products: any = [];
+  phone: number = 945101774;
+  store: any = [];
   loading: boolean = true;
   productsEncontrados: boolean =  false;
 
@@ -39,7 +42,8 @@ export class CatalogoComponent implements OnInit, OnDestroy{
   
   constructor(
     private _products: ProductService,
-    private _common: CommonService
+    private _common: CommonService,
+    private _store: StoreService //momentaneamente tenemos estevalor aqui
   ) {
 
   }
@@ -53,6 +57,8 @@ export class CatalogoComponent implements OnInit, OnDestroy{
     //   this.loading = false;
     //   this.products = resp;
     // });
+
+    this.phone = this._store.storeWarehouses().phone;
 
     this.commonSubscription = this._common.getCardPlaceHolderObservable().subscribe((value:boolean) => {
 

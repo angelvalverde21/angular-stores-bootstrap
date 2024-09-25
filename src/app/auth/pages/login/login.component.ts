@@ -79,7 +79,7 @@ export class LoginComponent {
 
     this._auth.login(this.form.value).subscribe({
       next: (resp: any) => {
-        // console.log(resp);
+        console.log(resp);
 
         this.loading = false;
         this.message = resp.message;
@@ -100,7 +100,7 @@ export class LoginComponent {
         this.loading = false;
         this.message = resp.error.message;
         this.buttonLoginActive = true;
-        // console.log(resp.error.message);
+        console.log(resp);
       },
       complete: () => {
         this.loading = false;

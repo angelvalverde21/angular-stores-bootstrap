@@ -66,6 +66,7 @@ import { ProductWarehouseComponent } from "../../../shared/products/product-ware
 })
 export class ProductPageComponent {
   form!: FormGroup;
+  formPrice!: FormGroup;
   loading: boolean = false;
   loadingEdit: boolean = false;
   btnActive: boolean = false;
@@ -121,12 +122,22 @@ export class ProductPageComponent {
       tags: [''],
       colors: this.fb.array([]),
     });
+
+    this.formPrice = this.fb.group({
+      pricex1: ['', [Validators.required]],
+      pricex3: [''],
+      pricex6: [''],
+    });
   }
 
   private loadForm() {
     this.loading = true;
 
     this.id = Number(this.route.snapshot.paramMap.get('product_id'));
+    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+    
+    console.log(this.id);
+    
 
     if (this.id) {
       this._product.getBydId(this.id).subscribe({
@@ -158,6 +169,28 @@ export class ProductPageComponent {
   }
 
   save() {
+    
+    this.btnSaveBusy();
+
+    console.log('form enviado');
+
+    this.success = false;
+
+    this._product.save(this.form.value, this.id).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        this.product = resp.data;
+        this.success = true;
+        this.btnSaveReady();
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.btnSaveReady();
+      },
+    });
+  }
+
+  savePrice() {
     
     this.btnSaveBusy();
 

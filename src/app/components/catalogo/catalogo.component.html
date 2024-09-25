@@ -44,7 +44,7 @@
             <div class="colors">
                 <ng-container  *ngFor="let color of product.colors">
                     <!-- {{ color.image.url_thumbnail | json}} -->
-                    <app-card-color *ngIf="color.sku?.quantity" [color]="color"
+                    <app-card-color *ngIf="color.sku?.quantity" [color]="color" [phone]="phone"
                     [precio]="product.price ? product.price.value : 0"></app-card-color>
                 </ng-container>
             </div>

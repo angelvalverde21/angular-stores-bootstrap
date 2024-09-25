@@ -26,6 +26,7 @@ export class StoreComponent{
 
     //* Primero llamamos para verificar si existe la tienda en la base de datos **/
     this._route.params.subscribe((params: any) => {
+      
       const slugBase = params[environment.parametroBase]; //el parametro base es store
       console.log('valor inicial ' + slugBase);
 
@@ -33,6 +34,7 @@ export class StoreComponent{
       this._store.isValid(slugBase).subscribe((isValid: boolean) => {
         this._store.setName(slugBase);
       });
+
     });
     
   }

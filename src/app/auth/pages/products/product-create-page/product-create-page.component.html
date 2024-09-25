@@ -48,7 +48,7 @@
                     <div class="options" *ngIf="isDropdownOpen">
                         <ng-container *ngFor="let category of categories">
                             <!-- Opción para la categoría principal en negrita -->
-                            <div *ngIf="category.children.length > 0" class="option" (click)="selectCategory(category)">
+                            <div class="option" (click)="selectCategory(category)">
                                 <strong>{{ category.name }}</strong>
                             </div>
                             <!-- Opciones para las subcategorías -->

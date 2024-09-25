@@ -47,6 +47,8 @@ export class ProductCreatePageComponent {
     this._store.categories().subscribe((resp:any) => {
       this.loading = false;
       this.categories = resp.data;
+      console.log(this.categories);
+      
     });
 
   }
@@ -116,6 +118,7 @@ export class ProductCreatePageComponent {
 
   @HostListener('document:click', ['$event'])
   closeDropdown(event: MouseEvent) {
+
       const target = event.target as HTMLElement;
       const clickedInside = target.closest('.custom-select');
       if (!clickedInside) {

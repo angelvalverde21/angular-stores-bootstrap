@@ -33,7 +33,6 @@ export class ProductsWarehouseSearchPageComponent  implements OnInit, OnDestroy{
 
   ngOnInit(): void {
   
-
     // Escuchar los parámetros del nivel actual de la ruta
     this._route.paramMap.subscribe(params => {
 
