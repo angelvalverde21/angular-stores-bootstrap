@@ -31,9 +31,9 @@ import { DropdownInventoryComponent } from "../../../../components/bootstrap/dro
 import { DropdownColorsComponent } from "../../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
 import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
+import { ProductPricesComponent } from "../../../shared/products/prices/product-prices/product-prices.component";
 
 @Component({
   selector: 'app-product-page',
@@ -59,7 +59,8 @@ import { ProductWarehouseComponent } from "../../../shared/products/product-ware
     DropdownInventoryComponent,
     DropdownColorsComponent,
     NgbModule,
-    ProductWarehouseComponent
+    ProductWarehouseComponent,
+    ProductPricesComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css'
@@ -122,12 +123,6 @@ export class ProductPageComponent {
       tags: [''],
       colors: this.fb.array([]),
     });
-
-    this.formPrice = this.fb.group({
-      pricex1: ['', [Validators.required]],
-      pricex3: [''],
-      pricex6: [''],
-    });
   }
 
   private loadForm() {
@@ -179,6 +174,8 @@ export class ProductPageComponent {
     this._product.save(this.form.value, this.id).subscribe({
       next: (resp: any) => {
         console.log(resp);
+        console.log('recibiendo el producto guardado');
+        
         this.product = resp.data;
         this.success = true;
         this.btnSaveReady();

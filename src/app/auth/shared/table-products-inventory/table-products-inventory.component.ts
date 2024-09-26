@@ -40,7 +40,7 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.totalQuantityProduct = this.product.sku.warehouse.pivot.quantity;
+    this.totalQuantityProduct = this.product.sku.warehouse.pivot?.quantity;
     // this.product.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
     this.loadColors();
     this.store = this._store.leerSlugBase()!;
