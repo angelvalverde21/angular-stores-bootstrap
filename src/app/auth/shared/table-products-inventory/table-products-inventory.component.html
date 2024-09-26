@@ -1,14 +1,17 @@
 <div class="controls d-flex justify-content-between mb-3 align-items-center">
 
     <!-- <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors> -->
-    <div class="form-check form-check-input-lg form-switch mb-3">
-        <input
-        type="checkbox"
-        class="form-check-input"
-        [checked]="colorsActive"
-        (change)="colorsActiveToggle($event)"
-        />
-        <label class="form-check-label">{{ colorsActive ? 'Activos' : 'Inactivos' }}</label>
+    <div class="filter d-flex justify-content-between align-items-center">
+        <button class="btn btn-outline-dark me-2"><i class="fa-solid fa-filter"></i></button>
+        <div class="form-check form-check-input-lg form-switch d-flex align-items-center">
+            <input
+            type="checkbox"
+            class="form-check-input"
+            [checked]="colorsActive"
+            (change)="colorsActiveToggle($event)"
+            />
+            <label class="form-check-label">{{ colorsActive ? 'Activos' : 'Inactivos' }}</label>
+        </div>
     </div>
     <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
     <!-- <button type="button" class="btn btn-outline-dark"
