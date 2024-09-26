@@ -6,11 +6,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ProductService } from '../../../../../services/product.service';
 import { Price } from '../../../../../interfaces/price.interface';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-price-create',
   standalone: true,
-  imports: [ButtonSaveComponent, InputGroupComponent, ReactiveFormsModule],
+  imports: [ButtonSaveComponent, InputGroupComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './product-price-create.component.html',
   styleUrl: './product-price-create.component.css',
   providers: [NgbModalConfig, NgbModal],
@@ -18,6 +19,7 @@ import Swal from 'sweetalert2';
 
 export class ProductPriceCreateComponent implements OnInit {
 
+  type: string = "";
   formPrice!: FormGroup;
   loadingEdit: boolean = false;
   btnActive: boolean = false;
@@ -25,6 +27,7 @@ export class ProductPriceCreateComponent implements OnInit {
   @Input() product_id: number = 0; 
   @Output() emitPrice = new EventEmitter<Price>();
   modalRef: NgbModalRef | undefined;
+  quantities: number[] = Array.from({ length: 10 }, (_, i) => i + 3);
 
 	constructor(
 		config: NgbModalConfig,
@@ -44,6 +47,46 @@ export class ProductPriceCreateComponent implements OnInit {
       icon: 'success',
       confirmButtonText: 'Aceptar',
     });
+  }
+  
+  private initForm(): void {
+    this.formPrice = this.fb.group({
+      type: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
+      value: ['', [Validators.required]],
+      value_total: ['', [Validators.required]],
+    });
+  }
+
+  setType(event:any){
+    console.log(event.target.value);
+    if (event.target.value == 'costo') {
+      this.formPrice.get('quantity')?.setValue(0);
+    }else{
+      if (event.target.value == 'normal') {
+        this.formPrice.get('quantity')?.setValue(1);
+      } else {
+        this.formPrice.get('quantity')?.setValue('');
+      }
+    }
+  }
+
+  calPriceMayor(event:any){
+
+    // console.log(event.target.value);
+    let price = event.target.value;
+    let quantity = this.formPrice.get('quantity')?.value;
+    this.formPrice.get('value_total')?.setValue(Number(quantity) * price)
+
+  }
+
+  calPriceUnit(event:any){
+
+    // console.log(event.target.value);
+    let priceMayor = event.target.value;
+    let quantity = this.formPrice.get('quantity')?.value;
+    this.formPrice.get('value')?.setValue(priceMayor/Number(quantity))
+
   }
 
   showErrorAlert() {
@@ -68,15 +111,7 @@ export class ProductPriceCreateComponent implements OnInit {
       this.modalRef.close(); // Cierra el modal
     }
   }
-  
-  private initForm(): void {
-    this.formPrice = this.fb.group({
-      type: ['', [Validators.required]],
-      quantity: [''],
-      value: [''],
-      value_total: [''],
-    });
-  }
+
 
   save() {
     
@@ -87,7 +122,7 @@ export class ProductPriceCreateComponent implements OnInit {
     this.success = false;
 
     this._product.savePrice(this.formPrice.value, this.product_id).subscribe({
-      
+
       next: (resp: any) => {
         console.log(resp);
         this.success = true;

@@ -1,6 +1,7 @@
 export interface Color {
     id?: number, //
     price?: [],
+    name?:string,
     sku?: {
       quantity?: number,
     } //
