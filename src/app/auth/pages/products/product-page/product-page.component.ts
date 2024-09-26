@@ -12,14 +12,12 @@ import { CommonModule } from '@angular/common';
 
 import { ProductService } from '../../../../services/product.service';
 import { ButtonSaveComponent } from '../../../../components/buttons/button-save/button-save.component';
-import { LoadingComponent } from '../../../../components/loading/loading.component';
 import { AlertComponent } from '../../../../components/alerts/alert/alert.component';
 import { PipesModule } from '../../../../shared/pipes.module';
 import { ColorComponent } from "../../../shared/color/color.component";
 import { ProductColorComponent } from "../../../shared/products/product-color/product-color.component";
 import { UploadDropzoneColorComponent } from "../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component";
 import { Subscription } from 'rxjs';
-import { UploadService } from '../../../../services/upload.service';
 import { StoreService } from '../../../../services/store.service';
 import { HeaderProductComponent } from "../header-product/header-product.component";
 import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
@@ -29,12 +27,11 @@ import { ModalComponent } from "../../../../components/modal/modal.component";
 import { DropdownComponent } from "../../../../components/bootstrap/dropdown/dropdown.component";
 import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
 import { DropdownColorsComponent } from "../../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {  } from '@ng-bootstrap/ng-bootstrap';
 
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
 import { ProductPricesComponent } from "../../../shared/products/prices/product-prices/product-prices.component";
-
 @Component({
   selector: 'app-product-page',
   standalone: true,
@@ -91,6 +88,7 @@ export class ProductPageComponent {
   private modalService = inject(NgbModal);
 	closeResult = '';
 
+  items = ['First', 'Second', 'Third'];
 
 	openModal(content: TemplateRef<any>) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
