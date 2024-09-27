@@ -18,6 +18,7 @@ import { LoadingCenterComponent } from "../../../components/loading-center/loadi
 import { NgbOffcanvas, NgbModal  } from '@ng-bootstrap/ng-bootstrap';
 import { UploadDropzoneColorComponent } from "../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component"; //Para el canvas y el modal
 import { UploadService } from '../../../services/upload.service';
+import { ColorService } from '../../../services/color.service';
 
 @Component({
   selector: 'app-table-products-inventory',
@@ -46,23 +47,34 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
     private _store: StoreService, 
     private _skuWarehouse : SkuWarehouseService, 
     private _product: ProductService,
-    private _upload: UploadService
+    private _upload: UploadService,
+    private _color: ColorService
   ){
     
   }
+
+  private modalService = inject(NgbModal);
 
   openTop(content: TemplateRef<any>) {
 		this.offcanvasService.open(content, { position: 'top' });
 	}
 
+  openVerticallyCentered(content: TemplateRef<any>) {
+		this.modalService.open(content, { centered: true });
+	}
+
   ngOnInit(): void {
 
-    this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
+    this.uploadSubscription = this._upload.fileUploaded.subscribe((receive) => {
       // Actualiza el componente con la respuesta del servidor
-      console.log('Imagen subida y notificada:', resp);
+      console.log('Imagen subida y notificada:', receive);
       // this.product.colors.push(resp.color) // Lo agrega al final
-      this.colorsFilter.unshift(resp.color); // Lo agrega al inicio
-
+       // Lo agrega al inicio
+      this._color.getByIdWarehouse(this.product.id, this.warehouse_id, receive.color.id).subscribe((resp:any) => {
+        console.log('Imagen recibida desde el servidor:', resp.data);
+        this.colorsFilter.unshift(resp.data);
+      });
+      // product_id: number, warehouse_id: number, color_id: number
       // Actualiza tu UI o realiza otras acciones necesarias
     });
 
@@ -70,6 +82,7 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
     // this.product.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
     this.loadColors();
     this.store = this._store.leerSlugBase()!;
+
   }
 
   loadColors(){
@@ -135,12 +148,6 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
       });
     }
   }
-
-  private modalService = inject(NgbModal);
-  
-  openVerticallyCentered(content: TemplateRef<any>) {
-		this.modalService.open(content, { centered: true });
-	}
 
 
   ngOnDestroy(): void {

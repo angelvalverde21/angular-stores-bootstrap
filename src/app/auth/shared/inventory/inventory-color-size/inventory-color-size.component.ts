@@ -68,6 +68,10 @@ export class InventoryColorSizeComponent {
   ngOnInit(): void {
     this.initForm(); //inicial el formulario
     if (this.color) {
+      console.log('color modelo');
+      
+      console.log(this.color);
+      
       this.colorForm.patchValue(this.color);
       this.totalQuantityColor = this.color.sku.warehouse.pivot.quantity;
       // this.updateSizes(this.color.sizes);

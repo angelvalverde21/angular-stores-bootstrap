@@ -45,9 +45,9 @@ export class ColorFieldsComponent implements OnInit{
 
   ngOnInit(): void {
 
-    console.log(this.color);
+    // console.log(this.color);
     this.id = this.color.id; //se coloca aqui porque se necesita que la estructura se inicialice antes
-    this.initForm(); //inicial el formulario
+    this.initForm(); //inicia el formulario
     this.loadForm();
   
   }

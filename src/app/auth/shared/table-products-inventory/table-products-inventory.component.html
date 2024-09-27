@@ -1,8 +1,8 @@
 <div class="controls d-flex justify-content-between mb-3 align-items-center">
 
     <div class="controls-left d-flex">
-        <button class="btn btn-outline-dark me-2" (click)="openTop(content)"><i class="fa-solid fa-filter"></i></button>
-        <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(content)">
+        <button class="btn btn-outline-dark me-2" (click)="openTop(contentFilters)"><i class="fa-solid fa-filter"></i></button>
+        <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentModal)">
             <i class="fa-solid fa-camera"></i>
         </button>
     </div>
@@ -14,7 +14,7 @@
 
 <!-- modal -->
 
-<ng-template #content let-modal>
+<ng-template #contentModal let-modal>
 	<div class="modal-header">
 		<h6 class="modal-title"><i class="fa-solid fa-camera me-2"></i> Subir colores</h6>
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -29,7 +29,7 @@
 
 <!-- canvas -->
 
-<ng-template #content let-offcanvas>
+<ng-template #contentFilters let-offcanvas>
 	<div class="offcanvas-header">
 		<h4 class="offcanvas-title"><i class="fa-solid fa-filter"></i></h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
