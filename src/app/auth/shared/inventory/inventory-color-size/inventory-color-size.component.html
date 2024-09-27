@@ -7,7 +7,11 @@
 
   <div class="d-flex justify-content-between content">
 
-    <img width="120px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
+    <a data-fancybox="gallery" [href]="color.image.url_large">
+      <img width="120px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
+    </a>
+
+    <!-- <img width="120px" [src]="colorForm.get('image.url_thumbnail')?.value" alt=""> -->
     <!-- <gallery [items]="[image]"></gallery> -->
 
     <div class="p-3">

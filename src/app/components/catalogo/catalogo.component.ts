@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ElementRef } from '@angular/core';
 import { CardProductComponent } from '../cards/card-product/card-product.component';
 import { CardColorComponent } from '../cards/card-color/card-color.component';
 import { ProductService } from '../../services/product.service';
@@ -10,6 +10,7 @@ import { CardPlaceHolderComponent } from "../card-place-holder/card-place-holder
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
 import { StoreService } from '../../services/store.service';
+import { Fancybox } from '@fancyapps/ui';
 
 @Component({
   selector: 'app-catalogo',
@@ -43,20 +44,18 @@ export class CatalogoComponent implements OnInit, OnDestroy{
   constructor(
     private _products: ProductService,
     private _common: CommonService,
-    private _store: StoreService //momentaneamente tenemos estevalor aqui
+    private _store: StoreService, //momentaneamente tenemos estevalor aqui
+    private elRef: ElementRef
   ) {
 
   }
 
   ngOnInit(): void {
-    // this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe(data => {
-    //   console.log('Data received', data);
-    // });
 
-    // this._product.getAll().subscribe((resp: any) => {
-    //   this.loading = false;
-    //   this.products = resp;
-    // });
+    //iniciamos fancybox
+    Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
+      // Custom options
+    });
 
     this.phone = this._store.storeWarehouses().phone;
 
@@ -112,8 +111,17 @@ export class CatalogoComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.productsSubscription.unsubscribe();
-    this.commonSubscription.unsubscribe;
+
+    if (this.productsSubscription) {
+      this.productsSubscription.unsubscribe();
+    }
+    if (this.commonSubscription) {
+      this.commonSubscription.unsubscribe();
+    }
+
+    Fancybox.unbind(this.elRef.nativeElement);
+    Fancybox.close();
+
   }
 
 }

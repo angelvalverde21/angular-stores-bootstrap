@@ -5,6 +5,8 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
+  OnInit,
   Output,
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,7 +14,7 @@ import { LoadingComponent } from '../../../../components/loading/loading.compone
 import { InventorySizeComponent } from '../inventory-size/inventory-size.component';
 import { SkuWarehouseService } from '../../../../services/api/sku-warehouse.service';
 import { ColorFieldsComponent } from "../../products/colors/color-fields/color-fields.component";
-
+import { Fancybox } from '@fancyapps/ui';
 
 
 @Component({
@@ -22,7 +24,7 @@ import { ColorFieldsComponent } from "../../products/colors/color-fields/color-f
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css'
 })
-export class InventoryColorSizeComponent {
+export class InventoryColorSizeComponent implements OnInit, OnDestroy {
 
   @Input() color: any; // Recibe el grupo de formulario de color
   @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
@@ -31,7 +33,7 @@ export class InventoryColorSizeComponent {
   totalQuantityColor: number = 0;
   image: any;
 
-  constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService) {}
+  constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService, private elRef: ElementRef) {}
 
   private initForm(): void {
 
@@ -69,7 +71,13 @@ export class InventoryColorSizeComponent {
   // }
 
   ngOnInit(): void {
+
+    Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
+      // Custom options
+    });
+
     this.initForm(); //inicial el formulario
+
     if (this.color) {
       console.log('color modelo');
       // this.image = { src: this.color.image.url_thumbnail, thumb: this.color.image.url_thumbnail };
@@ -79,6 +87,7 @@ export class InventoryColorSizeComponent {
       this.totalQuantityColor = this.color.sku.warehouse.pivot.quantity;
       // this.updateSizes(this.color.sizes);
     }
+    
   }
 
   save(){
@@ -117,6 +126,11 @@ export class InventoryColorSizeComponent {
 
   setColorTitle(title: string){
     this.color.name = title;
+  }
+
+  ngOnDestroy(): void {
+    Fancybox.unbind(this.elRef.nativeElement);
+    Fancybox.close();
   }
 
 }
