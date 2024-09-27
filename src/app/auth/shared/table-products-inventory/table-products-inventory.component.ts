@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject, TemplateRef, ViewEncapsulation } from '@angular/core';  //inject, TemplateRef, ViewEncapsulation son Para el canvas
 import { RouterModule } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
 import { ColorSizeComponent } from "../color-size/color-size.component";
@@ -15,14 +15,21 @@ import { ProductService } from '../../../services/product.service';
 import { Subscription } from 'rxjs';
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 
+import { NgbOffcanvas, NgbModal  } from '@ng-bootstrap/ng-bootstrap';
+import { UploadDropzoneColorComponent } from "../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component"; //Para el canvas y el modal
+import { UploadService } from '../../../services/upload.service';
+
 @Component({
   selector: 'app-table-products-inventory',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent, DropdownInventoryComponent, DropdownColorsComponent, LoadingCenterComponent],
+  imports: [RouterModule, FormsModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent, DropdownInventoryComponent, DropdownColorsComponent, LoadingCenterComponent, UploadDropzoneColorComponent],
   templateUrl: './table-products-inventory.component.html',
-  styleUrl: './table-products-inventory.component.css'
+  styleUrl: './table-products-inventory.component.css',
+  encapsulation: ViewEncapsulation.None, //Para el canvas y el modal
 })
 export class TableProductsInventoryComponent implements OnInit, OnDestroy {
+
+  private offcanvasService = inject(NgbOffcanvas); //Para el canvas
 
   @Input() product: any; 
   @Input() warehouse_id: number = 0; 
@@ -33,12 +40,31 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
   colorsFilter: any;
   searchTerm: string = '';
   private warehouseColorsInactiveSubscription!: Subscription; 
+  private uploadSubscription!: Subscription;
 
-  constructor(private _store: StoreService, private _skuWarehouse : SkuWarehouseService, private _product: ProductService){
+  constructor(
+    private _store: StoreService, 
+    private _skuWarehouse : SkuWarehouseService, 
+    private _product: ProductService,
+    private _upload: UploadService
+  ){
     
   }
 
+  openTop(content: TemplateRef<any>) {
+		this.offcanvasService.open(content, { position: 'top' });
+	}
+
   ngOnInit(): void {
+
+    this.uploadSubscription = this._upload.fileUploaded.subscribe((resp) => {
+      // Actualiza el componente con la respuesta del servidor
+      console.log('Imagen subida y notificada:', resp);
+      // this.product.colors.push(resp.color) // Lo agrega al final
+      this.colorsFilter.unshift(resp.color); // Lo agrega al inicio
+
+      // Actualiza tu UI o realiza otras acciones necesarias
+    });
 
     this.totalQuantityProduct = this.product.sku.warehouse.pivot?.quantity;
     // this.product.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
@@ -74,9 +100,14 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
   }
 
   filterItems() {
+    // console.log('ok');
+    
     this.colorsFilter = this.product.colors.filter((color:any) => 
       color.name?.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+
+    console.log(this.colorsFilter.length);
+    
   }
 
   colorsActiveToggle(event: any){
@@ -103,16 +134,22 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
         
       });
     }
-
-
-
   }
+
+  private modalService = inject(NgbModal);
+  
+  openVerticallyCentered(content: TemplateRef<any>) {
+		this.modalService.open(content, { centered: true });
+	}
+
 
   ngOnDestroy(): void {
     if (this.warehouseColorsInactiveSubscription) {
       this.warehouseColorsInactiveSubscription.unsubscribe();
     }
+    if (this.uploadSubscription) {
+      this.uploadSubscription.unsubscribe();
+    }
   }
-
   
 }

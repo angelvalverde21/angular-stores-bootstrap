@@ -40,7 +40,6 @@ export class UploadDropzoneColorComponent {
   }
   
   ngAfterViewInit(): void { 
-
     
     setTimeout(() => { //usamos setTimeOut solo para retrazar ligeramente el tiempo de carga, asi esperamos que el contenedor padre cargue primero, en este caso cuando este componente es llamado desde <app-card-config>
     const self = this; // Guardamos una referencia al componente
