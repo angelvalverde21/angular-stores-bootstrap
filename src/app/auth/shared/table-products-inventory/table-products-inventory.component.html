@@ -5,6 +5,9 @@
         <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentModal)">
             <i class="fa-solid fa-camera"></i>
         </button>
+        <button class="btn btn-outline-dark me-2" *ngIf="totalQuantityProduct">
+            {{ totalQuantityProduct }}
+        </button>
     </div>
 
     <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
