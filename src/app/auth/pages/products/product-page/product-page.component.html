@@ -17,7 +17,7 @@
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton class="bg bg-secondary text-white">
                     <i class="fa-solid fa-circle-info me-2"></i>
-                    <span>Informacion del producto</span>
+                    <span>{{ product.name }}</span>
                 </button>
             </h2>
             <div ngbAccordionCollapse>
@@ -27,8 +27,7 @@
                         <app-alert *ngIf="success"></app-alert>
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5>{{ product.name }}</h5>
-                            <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors>
+                            <!-- <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors> -->
                         </div>
             
                         <form [formGroup]="form" (ngSubmit)="save()">
