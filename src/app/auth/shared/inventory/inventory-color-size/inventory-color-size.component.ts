@@ -13,6 +13,8 @@ import { InventorySizeComponent } from '../inventory-size/inventory-size.compone
 import { SkuWarehouseService } from '../../../../services/api/sku-warehouse.service';
 import { ColorFieldsComponent } from "../../products/colors/color-fields/color-fields.component";
 
+
+
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
@@ -27,7 +29,8 @@ export class InventoryColorSizeComponent {
   @Output() quantityColorUpdated = new EventEmitter<number>(); // Notifica cambios en el color
   colorForm!: FormGroup;
   totalQuantityColor: number = 0;
-  
+  image: any;
+
   constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService) {}
 
   private initForm(): void {
@@ -69,7 +72,7 @@ export class InventoryColorSizeComponent {
     this.initForm(); //inicial el formulario
     if (this.color) {
       console.log('color modelo');
-      
+      // this.image = { src: this.color.image.url_thumbnail, thumb: this.color.image.url_thumbnail };
       console.log(this.color);
       
       this.colorForm.patchValue(this.color);

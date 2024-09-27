@@ -8,7 +8,8 @@
   <div class="d-flex justify-content-between content">
 
     <img width="120px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
-    
+    <!-- <gallery [items]="[image]"></gallery> -->
+
     <div class="p-3">
       <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
     </div>
