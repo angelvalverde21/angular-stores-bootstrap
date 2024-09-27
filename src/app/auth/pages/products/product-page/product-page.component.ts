@@ -32,6 +32,8 @@ import {  } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal, NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
 import { ProductPricesComponent } from "../../../shared/products/prices/product-prices/product-prices.component";
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-product-page',
   standalone: true,
@@ -173,7 +175,7 @@ export class ProductPageComponent {
       next: (resp: any) => {
         console.log(resp);
         console.log('recibiendo el producto guardado');
-        
+        Swal.fire('Guardado', 'El producto ha sido actualizado', 'success');
         this.product = resp.data;
         this.success = true;
         this.btnSaveReady();

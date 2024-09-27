@@ -19,6 +19,7 @@ import { NgbOffcanvas, NgbModal  } from '@ng-bootstrap/ng-bootstrap';
 import { UploadDropzoneColorComponent } from "../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component"; //Para el canvas y el modal
 import { UploadService } from '../../../services/upload.service';
 import { ColorService } from '../../../services/color.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-table-products-inventory',
@@ -63,6 +64,10 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
 		this.modalService.open(content, { centered: true });
 	}
 
+  closeModal() {
+    this.modalService.dismissAll();
+  }
+
   ngOnInit(): void {
 
     this.uploadSubscription = this._upload.fileUploaded.subscribe((receive) => {
@@ -73,6 +78,8 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
       this._color.getByIdWarehouse(this.product.id, this.warehouse_id, receive.color.id).subscribe((resp:any) => {
         console.log('Imagen recibida desde el servidor:', resp.data);
         this.colorsFilter.unshift(resp.data);
+        Swal.fire('Actualizado', 'El color ha sido agregado correctamente', 'success');
+        this.closeModal();
       });
       // product_id: number, warehouse_id: number, color_id: number
       // Actualiza tu UI o realiza otras acciones necesarias

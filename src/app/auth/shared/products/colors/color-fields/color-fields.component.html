@@ -1,8 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="save()">
             
     <!-- {{ form.value | json}} -->
-
-    <app-button-switch formControlName="status" [id]="'color-status-switch'" />
+    <!-- (statusChange)="save()"  -->
+     <!-- Activa el switch -->
+    <app-button-switch formControlName="status" (change)="save()"  [id]="'color-status-switch'"/>
 
     <div class="controls d-flex justify-content-between align-items-center">
         <app-input-group>

@@ -5,7 +5,7 @@ import { ButtonSaveComponent } from '../../../../../components/buttons/button-sa
 import { InputGroupComponent } from '../../../../../components/forms/input-group/input-group.component';
 import { ButtonSwitchComponent } from '../../../../../components/buttons/button-switch/button-switch.component';
 import { ColorService } from '../../../../../services/color.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-color-fields',
@@ -65,6 +65,7 @@ export class ColorFieldsComponent implements OnInit{
         console.log(resp);
         this.success = true;
         this.loading = false;
+        Swal.fire('Actualizado', 'Se ha guardado las opciones del color', 'success');
         this.titleToColor.emit(resp.data.name);
       },
       error: (error: any) => {
