@@ -21,11 +21,12 @@ import { UploadVariantsComponent } from "../../../../components/upload-dropzone/
 import Swal from 'sweetalert2';
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 import { Subscription } from 'rxjs';
+import { ImageColorComponent } from "./image-color/image-color.component";
 
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
-  imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent, UploadVariantsComponent, LoadingCenterComponent, LoadingComponent],
+  imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent, UploadVariantsComponent, LoadingCenterComponent, LoadingComponent, ImageColorComponent],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css',
   encapsulation: ViewEncapsulation.None
@@ -196,6 +197,9 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
     
   }
 
+  updateImages(image_id_delete: number){ //este metodo viene del emiter desde <app-imagen-color>
+    this.variants = this.variants.filter((image:any) => image.id !== image_id_delete);
+  }
     // ngOnDestroy(): void {
   //   if (this.uploadSubscription) {
   //     this.uploadSubscription.unsubscribe();

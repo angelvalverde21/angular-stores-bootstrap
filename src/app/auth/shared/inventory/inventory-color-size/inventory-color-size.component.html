@@ -2,7 +2,17 @@
 <div class="card mb-3 mx-auto">
 
   <div class="card-header text-bg-light">
-    {{ color.name }}
+    <div class="controls d-flex justify-content-between align-items-center">
+
+      <div class="title">
+        {{ color.name }}
+      </div>
+      <button class="btn btn-outline-dark" (click)="openVerticallyCentered(variantes)">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+    
   </div>
 
   <div class="d-flex justify-content-between content">
@@ -23,22 +33,22 @@
 
   </div>
 
-  <div class="controls d-flex justify-content-between ">
+  <!-- <div class="controls d-flex justify-content-between ">
 
     <button class="btn btn-outline-dark mx-3 mb-3" (click)="openVerticallyCentered(variantes)">
-      Variantes
+      <i class="fa-solid fa-image"></i>
     </button>
 
     <button class="btn btn-outline-dark mx-3 mb-3" (click)="openVerticallyCentered(content)">
-      Editar
+      <i class="fa-solid fa-bars"></i>
     </button>
 
-  </div>
+  </div> -->
 
 </div>
 
 <!-- Editar nombre del color -->
-<ng-template #content let-modal>
+<!-- <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Editar</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -49,36 +59,30 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
   </div>
-</ng-template>
+</ng-template> -->
 
 <!-- Agregar o quitar variantes del color -->
 <ng-template #variantes let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Variantes</h4>
+    <h4 class="modal-title">Variantes del color</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <!-- {{ variants | json }} -->
 
+    <app-color-fields (titleToColor)="setColorTitle($event)" [color]="color"></app-color-fields>
     <app-upload-variants (uploadReady)="uploadUpdate($event)" (completedUpload)="uploadComplete()" [color_id]="color.id" [product_id]="color.product_id"></app-upload-variants>
+
 
     <ul class="list-group">
 
       <!-- Empieza el bucle -->
       <app-loading-center *ngIf="loading"></app-loading-center>
+
       <ng-container *ngIf="!loading">
 
         <li class="list-group-item" *ngFor="let variant of variants">
-          <div class="controls d-flex justify-content-between align-items-center">
-
-            <img width="100px" [src]="variant.url_thumbnail" alt="">
-
-            <button class="btn btn-danger" (click)="deleleImage(variant.id)">
-              <i class="fa-solid fa-x" *ngIf="!loadingDelete"></i>
-              <app-loading *ngIf="loadingDelete" [size]="'sm'"></app-loading>
-            </button>
-            
-          </div>
+          <app-image-color [image]="variant" [color_id]="color.id" [product_id]="color.product_id" (statusDelete)="updateImages($event)"></app-image-color>
         </li>
 
       </ng-container>

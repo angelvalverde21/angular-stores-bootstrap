@@ -1,0 +1,10 @@
+<div class="controls d-flex justify-content-between align-items-center">
+
+    <img width="100px" [src]="image.url_thumbnail" alt="">
+
+    <button class="btn btn-danger" (click)="deleleImage(image.id)">
+      <i class="fa-solid fa-x" *ngIf="!loadingDelete"></i>
+      <app-loading *ngIf="loadingDelete" [size]="'sm'" [color]="'light'"></app-loading>
+    </button>
+    
+  </div>
