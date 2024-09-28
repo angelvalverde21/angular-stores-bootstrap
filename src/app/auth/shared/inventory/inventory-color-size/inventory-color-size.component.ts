@@ -17,11 +17,15 @@ import { ColorFieldsComponent } from "../../products/colors/color-fields/color-f
 import { Fancybox } from '@fancyapps/ui';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColorService } from '../../../../services/color.service';
+import { UploadVariantsComponent } from "../../../../components/upload-dropzone/upload-variants/upload-variants.component";
+import Swal from 'sweetalert2';
+import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
-  imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent],
+  imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent, UploadVariantsComponent, LoadingCenterComponent],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css',
   encapsulation: ViewEncapsulation.None
@@ -34,6 +38,9 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   colorForm!: FormGroup;
   totalQuantityColor: number = 0;
   image: any;
+  variants: any;
+  loading: boolean = true;
+  loadImagesFromColor!: Subscription;
 
   constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService, private elRef: ElementRef, private _color: ColorService) {}
 
@@ -59,16 +66,33 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
     return this.color.get('sizes') as FormArray;
   }
 
+  uploadUpdate(event:any){
+      console.log(event);
+      
+      this.variants.unshift(event);
+  } 
+
   openVerticallyCentered(content: TemplateRef<any>) {
 		this.modalService.open(content, { centered: true });
     this.loadVariants();
 	}
 
   loadVariants(){
-    this._color.getImagesByColorId(this.color.product_id, this.color.id).subscribe((resp:any) => {
+    this.loading = true;
+    this.loadImagesFromColor = this._color.getImagesByColorId(this.color.product_id, this.color.id).subscribe((resp:any) => {
       console.log(resp.data);
-      
+      this.loading = false;
+      this.variants = resp.data.images;
     });
+  }
+
+  closeModal() {
+    this.modalService.dismissAll();
+  }
+  
+  uploadComplete(){
+    // this.closeModal();
+    Swal.fire('Finalizado', 'Se ha terminado de subir las imagenes', 'success');
   }
 
   // Método para emitir el evento cuando haya cambios en el color
@@ -147,6 +171,23 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     Fancybox.unbind(this.elRef.nativeElement);
     Fancybox.close();
+
+    if (this.loadImagesFromColor) {
+      this.loadImagesFromColor.unsubscribe();
+    }
   }
+
+  deleleImage(image_id: number){
+    this._color.deleteImage(this.color.product_id, this.color.id, image_id).subscribe((resp:any) => {
+      console.log(resp);
+      
+    });
+  }
+
+    // ngOnDestroy(): void {
+  //   if (this.uploadSubscription) {
+  //     this.uploadSubscription.unsubscribe();
+  //   }
+  // }
 
 }

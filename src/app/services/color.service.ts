@@ -57,4 +57,14 @@ export class ColorService {
 
   }
 
+  deleteImage(product_id: number, color_id: number, image_id :number): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this._store.name()}/products/${product_id}/colors/${color_id}/images/${image_id}/destroy`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+  
+    return this.http.delete(url);;
+  }
+
 }

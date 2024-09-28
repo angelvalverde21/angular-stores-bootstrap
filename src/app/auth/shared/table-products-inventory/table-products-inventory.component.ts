@@ -65,9 +65,7 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
 		this.modalService.open(content, { centered: true });
 	}
 
-  closeModal() {
-    this.modalService.dismissAll();
-  }
+
 
   ngOnInit(): void {
 
@@ -91,6 +89,10 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
     this.loadColors();
     this.store = this._store.leerSlugBase()!;
 
+  }
+  
+  closeModal() {
+    this.modalService.dismissAll();
   }
 
   uploadFinish(){
