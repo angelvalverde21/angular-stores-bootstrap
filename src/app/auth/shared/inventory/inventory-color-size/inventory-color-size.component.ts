@@ -25,7 +25,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
-  imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent, UploadVariantsComponent, LoadingCenterComponent],
+  imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent, UploadVariantsComponent, LoadingCenterComponent, LoadingComponent],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css',
   encapsulation: ViewEncapsulation.None
@@ -40,6 +40,7 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   image: any;
   variants: any;
   loading: boolean = true;
+  loadingDelete: boolean = false;
   loadImagesFromColor!: Subscription;
 
   constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService, private elRef: ElementRef, private _color: ColorService) {}
@@ -178,10 +179,21 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   }
 
   deleleImage(image_id: number){
-    this._color.deleteImage(this.color.product_id, this.color.id, image_id).subscribe((resp:any) => {
-      console.log(resp);
-      
+
+    this.loadingDelete = true; 
+
+    this._color.deleteImage(this.color.product_id, this.color.id, image_id).subscribe({
+      next: (resp:any) => {
+        console.log(resp);
+        this.variants = this.variants.filter((image:any) => image.id !== image_id);
+        Swal.fire('Eliminado', 'El elemento ha sido eliminado.', 'success');
+        this.loadingDelete = false; 
+      },
+      error: (error:any) => {
+        console.log(error);
+      }
     });
+    
   }
 
     // ngOnDestroy(): void {
