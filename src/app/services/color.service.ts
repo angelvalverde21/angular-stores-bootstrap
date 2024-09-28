@@ -47,4 +47,14 @@ export class ColorService {
 
   }
 
+  getImagesByColorId(product_id: number, color_id: number){
+    // const url = `${this.urlPrivate}/${this._store.leerSlugBase()}/colors/${id}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    const url = `${this.urlPrivate}/${this._store.name()}/products/${product_id}/colors/${color_id}/images`
+    return this.http.get(url);
+
+  }
+
 }

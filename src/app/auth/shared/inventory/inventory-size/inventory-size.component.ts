@@ -20,7 +20,7 @@ import { LoadingComponent } from '../../../../components/loading/loading.compone
 import { InventoryService } from '../../../../services/api/inventory.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inventory-size',
@@ -139,7 +139,7 @@ export class InventorySizeComponent {
           .updateWarehouseColorSize(this.sizeForm.value, this.warehouse_id)
           .subscribe((resp: any) => {
             console.log(resp);
-            Swal.fire('Actualizado', 'El inventario ha sido actualizado.', 'success');
+            // Swal.fire('Actualizado', 'El inventario ha sido actualizado.', 'success');
             this.loading = false;
             this.cdr.detectChanges();
             this.quantitySizeUpdated.emit(this.sizeForm.value.quantity);

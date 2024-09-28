@@ -23,7 +23,7 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
-		<app-upload-dropzone-color [productId]="product.id" />
+		<app-upload-dropzone-color (completedUpload)="uploadFinish()" [productId]="product.id" />
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>

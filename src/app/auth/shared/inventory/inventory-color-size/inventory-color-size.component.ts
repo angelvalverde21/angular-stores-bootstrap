@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -8,6 +7,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  inject, TemplateRef, ViewEncapsulation 
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoadingComponent } from '../../../../components/loading/loading.component';
@@ -15,14 +15,16 @@ import { InventorySizeComponent } from '../inventory-size/inventory-size.compone
 import { SkuWarehouseService } from '../../../../services/api/sku-warehouse.service';
 import { ColorFieldsComponent } from "../../products/colors/color-fields/color-fields.component";
 import { Fancybox } from '@fancyapps/ui';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ColorService } from '../../../../services/color.service';
 
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
   imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent],
   templateUrl: './inventory-color-size.component.html',
-  styleUrl: './inventory-color-size.component.css'
+  styleUrl: './inventory-color-size.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class InventoryColorSizeComponent implements OnInit, OnDestroy {
 
@@ -33,7 +35,9 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   totalQuantityColor: number = 0;
   image: any;
 
-  constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService, private elRef: ElementRef) {}
+  constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService, private elRef: ElementRef, private _color: ColorService) {}
+
+	private modalService = inject(NgbModal);
 
   private initForm(): void {
 
@@ -53,6 +57,18 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
 
   get sizes(): FormArray {
     return this.color.get('sizes') as FormArray;
+  }
+
+  openVerticallyCentered(content: TemplateRef<any>) {
+		this.modalService.open(content, { centered: true });
+    this.loadVariants();
+	}
+
+  loadVariants(){
+    this._color.getImagesByColorId(this.color.product_id, this.color.id).subscribe((resp:any) => {
+      console.log(resp.data);
+      
+    });
   }
 
   // Método para emitir el evento cuando haya cambios en el color

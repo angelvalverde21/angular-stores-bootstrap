@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { StoreService } from '../../../services/store.service';
 import { environment } from '../../../../environments/environment';
 import Dropzone from 'dropzone';
@@ -16,7 +16,8 @@ export class UploadDropzoneColorComponent {
   store: string = "";
   url: string = "";
   dropzoneId: string = "";
- 
+  @Output() completedUpload = new EventEmitter<boolean>();
+  
   
   @Input() productId: number = 0;
   @Input() image: string = "";
@@ -81,7 +82,12 @@ export class UploadDropzoneColorComponent {
         this.on('complete', (file) => {
           this.removeFile(file);
         });
-
+        
+        this.on('queuecomplete', function() {
+          // Aquí disparas la alerta
+          self.completedUpload.emit(true);
+          // alert('¡Todas las fotos han sido subidas exitosamente!');
+        });
       },
     });
 

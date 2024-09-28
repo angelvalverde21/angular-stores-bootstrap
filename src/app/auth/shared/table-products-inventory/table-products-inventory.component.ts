@@ -43,6 +43,7 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
   private warehouseColorsInactiveSubscription!: Subscription; 
   private uploadSubscription!: Subscription;
+  private getByIdWarehouseSubscription!: Subscription;
 
   constructor(
     private _store: StoreService, 
@@ -75,11 +76,11 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
       console.log('Imagen subida y notificada:', receive);
       // this.product.colors.push(resp.color) // Lo agrega al final
        // Lo agrega al inicio
-      this._color.getByIdWarehouse(this.product.id, this.warehouse_id, receive.color.id).subscribe((resp:any) => {
+       this.getByIdWarehouseSubscription = this._color.getByIdWarehouse(this.product.id, this.warehouse_id, receive.color.id).subscribe((resp:any) => {
         console.log('Imagen recibida desde el servidor:', resp.data);
         this.colorsFilter.unshift(resp.data);
-        Swal.fire('Actualizado', 'El color ha sido agregado correctamente', 'success');
-        this.closeModal();
+        // Swal.fire('Actualizado', 'El color ha sido agregado correctamente', 'success');
+        // this.closeModal();
       });
       // product_id: number, warehouse_id: number, color_id: number
       // Actualiza tu UI o realiza otras acciones necesarias
@@ -90,6 +91,11 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
     this.loadColors();
     this.store = this._store.leerSlugBase()!;
 
+  }
+
+  uploadFinish(){
+    this.closeModal();
+    Swal.fire('Finalizado', 'Se ha terminado de subir las imagenes', 'success');
   }
 
   loadColors(){
@@ -163,6 +169,9 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
     }
     if (this.uploadSubscription) {
       this.uploadSubscription.unsubscribe();
+    }
+    if (this.getByIdWarehouseSubscription) {
+      this.getByIdWarehouseSubscription.unsubscribe();
     }
   }
   
