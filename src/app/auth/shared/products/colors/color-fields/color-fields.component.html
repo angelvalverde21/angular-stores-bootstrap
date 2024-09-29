@@ -7,23 +7,17 @@
 
         <div class="card-body">
             
-            <div class="row">
-
-                <div class="col-lg-6 col-12">
-                    <div class="mb-3">
-                        <label for="">Color</label>
-                    </div>
-                    <app-input-group>
-                        <input formControlName="name" type="text" class="form-control" placeholder="Nombre del color" aria-label="name"
-                            aria-describedby="basic-name">
-                    </app-input-group>
-                
-                    <app-button-save [btnLoading]="loading" [btnActive]="form.valid" type="dark" text="Guardar"></app-button-save>
-
-                    <app-button-switch formControlName="status" (change)="save()"  [id]="'color-status-switch'"/>
-                </div>
-
+            <div class="mb-3">
+                <label for="">Color</label>
             </div>
+            <app-input-group>
+                <input formControlName="name" type="text" class="form-control" placeholder="Nombre del color" aria-label="name"
+                    aria-describedby="basic-name">
+            </app-input-group>
+        
+            <app-button-save [btnLoading]="loading" [btnActive]="form.valid" type="dark" text="Guardar"></app-button-save>
+
+            <app-button-switch formControlName="status" (change)="save()"  [id]="'color-status-switch'"/>
             <!-- <div class="mb-3">
                 <label for="">Nombre del color</label>
             </div>

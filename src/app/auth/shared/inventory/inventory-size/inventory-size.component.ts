@@ -50,8 +50,6 @@ export class InventorySizeComponent {
 
   updateQuantitySubject: Subject<number> = new Subject();
 
-
-
   constructor(
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef,
@@ -110,12 +108,10 @@ export class InventorySizeComponent {
 
   updateKeyupStock($event: any){
 
-    
-    
     var quantityInput = $event.target.value;
     console.log(quantityInput);
     
-    if (quantityInput > 0) {
+    if (quantityInput >= 0) {
       this.updateQuantitySubject.next(quantityInput); // Emite el término de búsqueda
     }
   }
@@ -128,7 +124,7 @@ export class InventorySizeComponent {
       
       console.log('actualizando stock');
 
-      if (quantity > 0) {
+      if (quantity >= 0) {
 
         this.loading = true;
         //Aqui guardamos el nuevo valor del cantidad
