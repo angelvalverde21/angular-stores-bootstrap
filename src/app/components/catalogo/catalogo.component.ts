@@ -11,6 +11,7 @@ import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
 import { StoreService } from '../../services/store.service';
 import { Fancybox } from '@fancyapps/ui';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -36,6 +37,7 @@ export class CatalogoComponent implements OnInit, OnDestroy{
   store: any = [];
   loading: boolean = true;
   productsEncontrados: boolean =  false;
+  estaAutenticado: boolean =  false;
 
   private commonSubscription!: Subscription;
   private productsSubscription!: Subscription;
@@ -45,7 +47,8 @@ export class CatalogoComponent implements OnInit, OnDestroy{
     private _products: ProductService,
     private _common: CommonService,
     private _store: StoreService, //momentaneamente tenemos estevalor aqui
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private _auth: AuthService
   ) {
 
   }
@@ -56,6 +59,9 @@ export class CatalogoComponent implements OnInit, OnDestroy{
     Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
       // Custom options
     });
+
+    this.store = this._store.name();
+    this.estaAutenticado = this._auth.estaAutenticado();
 
     this.phone = this._store.storeWarehouses().phone;
 
