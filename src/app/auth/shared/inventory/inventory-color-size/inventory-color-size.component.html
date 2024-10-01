@@ -4,9 +4,11 @@
   <div class="card-header text-bg-light">
     <div class="controls d-flex justify-content-between align-items-center">
 
+      <!-- title del card -->
       <div class="title">
         {{ color.name }}
       </div>
+      <!-- button hamburguesa -->
       <button class="btn btn-outline-dark" (click)="openVerticallyCentered(variantes)">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -73,7 +75,7 @@
     <!-- {{ variants | json }} -->
 
     <app-color-fields (titleToColor)="setColorTitle($event)" [color]="color"></app-color-fields>
-    <app-upload-variants (uploadReady)="uploadUpdate($event)" (completedUpload)="uploadComplete()" [color_id]="color.id" [product_id]="color.product_id"></app-upload-variants>
+    <app-upload-variants (uploadReady)="uploadUpdate($event)" (completedUpload)="uploadComplete($event)" [color_id]="color.id" [product_id]="color.product_id"></app-upload-variants>
 
 
     <ul class="list-group">

@@ -20,7 +20,7 @@ import { ColorService } from '../../../../services/color.service';
 import { UploadVariantsComponent } from "../../../../components/upload-dropzone/upload-variants/upload-variants.component";
 import Swal from 'sweetalert2';
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
-import { Subscription } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { ImageColorComponent } from "./image-color/image-color.component";
 
 @Component({
@@ -92,7 +92,12 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
     this.modalService.dismissAll();
   }
   
-  uploadComplete(){
+  uploadComplete(event:any){
+    console.log('imprimiendo el ultimo archivo subido');
+    
+    console.log(event);
+    
+    this.color.image = event;
     // this.closeModal();
     Swal.fire('Finalizado', 'Se ha terminado de subir las imagenes', 'success');
   }
@@ -121,6 +126,7 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
     this.initForm(); //inicial el formulario
 
     if (this.color) {
+
       console.log('color modelo');
       // this.image = { src: this.color.image.url_thumbnail, thumb: this.color.image.url_thumbnail };
       console.log(this.color);
@@ -197,8 +203,21 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
     
   }
 
+  //Este metodo elimina de la lista la imagen borrada
   updateImages(image_id_delete: number){ //este metodo viene del emiter desde <app-imagen-color>
     this.variants = this.variants.filter((image:any) => image.id !== image_id_delete);
+
+    const firstImage = this.variants.length > 0 ? this.variants[0] : null;
+
+    if (firstImage) {
+      // Si hay una imagen, puedes trabajar con ella
+      this.color.image = firstImage;
+      console.log('Primera imagen:', firstImage);
+    } else {
+      // Si no hay ninguna imagen en la lista
+      console.log('No hay imágenes disponibles');
+    }
+
   }
     // ngOnDestroy(): void {
   //   if (this.uploadSubscription) {

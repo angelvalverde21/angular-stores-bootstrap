@@ -16,7 +16,7 @@ export class UploadVariantsComponent {
   store: string = "";
   url: string = "";
   dropzoneId: string = "";
-  @Output() completedUpload = new EventEmitter<boolean>();
+  @Output() completedUpload = new EventEmitter<any>();
   
   
   @Input() product_id: number = 0;
@@ -66,13 +66,17 @@ export class UploadVariantsComponent {
           console.log('Respuesta del servidor:', resp);
 
           if (resp.success) {
+            
             // Puedes mostrar un mensaje, actualizar la UI, etc.
             console.log('Archivo subido correctamente:', resp);
             self.image = resp.data;
             // self._upload.ready(self.image);
             self.uploadReady.emit(self.image);
+
           } else {
+
             console.error('Error al subir el archivo:', resp.message);
+
           }
         });
 
@@ -89,7 +93,7 @@ export class UploadVariantsComponent {
         
         this.on('queuecomplete', function() {
           // Aquí disparas la alerta
-          self.completedUpload.emit(true);
+          self.completedUpload.emit(self.image);
           // alert('¡Todas las fotos han sido subidas exitosamente!');
         });
       },

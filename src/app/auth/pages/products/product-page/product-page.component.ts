@@ -176,7 +176,7 @@ export class ProductPageComponent {
         console.log(resp);
         console.log('recibiendo el producto guardado');
         Swal.fire('Guardado', 'El producto ha sido actualizado', 'success');
-        this.product = resp.data;
+        // this.product = resp.data; //Momentaneamente se ha bloqueado la respuesta para que no colicione con 
         this.success = true;
         this.btnSaveReady();
       },
