@@ -2,3 +2,7 @@
     border: 2px solid #007bff; /* Cambia el color y el grosor según sea necesario */
     border-radius: 0.25rem; /* Cambia el radio según sea necesario */
   }
+
+.accordion {
+    --bs-accordion-border-color: #828282; /* Personalización del color del borde */
+}

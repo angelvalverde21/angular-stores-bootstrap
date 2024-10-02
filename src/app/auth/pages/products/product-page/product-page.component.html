@@ -22,12 +22,11 @@
 
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="card">
-
-                                    <img width="100%" class="mb-3" [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"  alt="">
-                                    
                                     <div class="card-body text-center">
+                                        <img width="50%" class="mx-auto mb-3" [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"  alt="">
+                                    
                                         <div>
-                                            {{ product.sku.quantity }}
+                                            Disponible: {{ product.sku.quantity }}
                                         </div>
                                     </div>
                                 </div>
