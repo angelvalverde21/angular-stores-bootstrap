@@ -11,11 +11,11 @@
                 <label for="">Color</label>
             </div>
             <app-input-group>
-                <input formControlName="name" type="text" class="form-control" placeholder="Nombre del color" aria-label="name"
+                <input formControlName="name" type="text" (input)="btnActiveToggle($event)" onclick="this.select()" class="form-control" placeholder="Nombre del color" aria-label="name"
                     aria-describedby="basic-name">
             </app-input-group>
         
-            <app-button-save [btnLoading]="loading" [btnActive]="form.valid" type="dark" text="Guardar"></app-button-save>
+            <app-button-save [btnLoading]="loading" [btnActive]="form.valid && btnActive" type="dark" text="Guardar"></app-button-save>
 
             <app-button-switch formControlName="status" (change)="save()"  [id]="'color-status-switch'"/>
             <!-- <div class="mb-3">

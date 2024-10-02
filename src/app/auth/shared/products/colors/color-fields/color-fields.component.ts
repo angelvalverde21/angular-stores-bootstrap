@@ -26,6 +26,7 @@ export class ColorFieldsComponent implements OnInit{
   loading: boolean = false;
   btnActive: boolean = false;
   success: boolean = false;
+  nameColor: string = "";
   
   constructor( 
     private fb: FormBuilder,
@@ -49,7 +50,8 @@ export class ColorFieldsComponent implements OnInit{
     this.id = this.color.id; //se coloca aqui porque se necesita que la estructura se inicialice antes
     this.initForm(); //inicia el formulario
     this.loadForm();
-  
+    this.nameColor = this.form.get('name')?.value
+
   }
 
   save() {
@@ -74,5 +76,11 @@ export class ColorFieldsComponent implements OnInit{
       },
     });
 
+  }
+
+  btnActiveToggle(event:any){
+    console.log(event.target.value);
+
+    this.btnActive = event.target.value != null || event.target.value != this.nameColor ? true : false;
   }
 }

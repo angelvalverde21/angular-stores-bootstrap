@@ -22,7 +22,7 @@ export class UploadVariantsComponent {
   @Input() product_id: number = 0;
   @Input() color_id: number = 0;
   @Input() image: string = "";
-  @Input() name: string = "AgregarVariantes"; 
+  @Input() name: string = "AgregarImagenes"; 
   
   @Output() uploadReady = new EventEmitter<any>();
 
