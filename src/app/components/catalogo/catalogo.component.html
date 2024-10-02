@@ -48,7 +48,7 @@
 
                     <div class="card"*ngIf="color.sku?.quantity">
 
-                        <a data-fancybox="gallery" [href]="color.image?.url_medium">
+                        <a data-fancybox="gallery" [attr.data-caption]="product.name" [href]="color.image?.url_medium">
                             <img class="card-img-top" [src]="color.image?.url_thumbnail" alt="">
                         </a>
                         <!-- <img class="card-img-top" [src]="[color.image?.url_thumbnail]" alt="Sample Image"> -->
