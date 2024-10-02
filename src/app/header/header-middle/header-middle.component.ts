@@ -17,4 +17,5 @@ export class HeaderMiddleComponent implements OnInit {
   ngOnInit(): void {
 
   }
+  
 }

@@ -79,8 +79,11 @@ export class ColorFieldsComponent implements OnInit{
   }
 
   btnActiveToggle(event:any){
+
+    console.log(this.nameColor);
+    
     console.log(event.target.value);
 
-    this.btnActive = event.target.value != null || event.target.value != this.nameColor ? true : false;
+    this.btnActive = (event.target.value != this.nameColor) ? true : false;
   }
 }

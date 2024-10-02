@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { LogoComponent } from '../components/logo/logo.component';
 import { RouterModule } from '@angular/router';
@@ -69,8 +69,8 @@ import { ButtonOrdersComponent } from "../components/buttons/button-orders/butto
     ]),
   ],
 })
-export class HeaderComponent implements OnInit{
 
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy{
 
   showSearch : boolean = false;
   store: string = '';
@@ -95,6 +95,7 @@ export class HeaderComponent implements OnInit{
     // this.store = this._store.getSlug();
 
     if(this._auth.estaAutenticado()){
+
       this.estaAutenticado = true;
       this.user = this._auth.user();
       console.log(this.user.name);
@@ -115,11 +116,15 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.store = this._store.leerSlugBase()!;
+    console.log('seteando el nombre');
+    
+    this.store = this._store.name()!;
   }
 
-
   ngAfterViewInit() {
+
+
+
     if (this.offcanvasElement) {
       // console.log('offcanvasElement cargado');
       this._cart.initializeOffcanvas(this.offcanvasElement);
@@ -139,5 +144,9 @@ export class HeaderComponent implements OnInit{
 
   changeShowSearch($event:any){
     this.showSearch = $event;
+  }
+
+  ngOnDestroy(): void {
+    // this.store = "";
   }
 }

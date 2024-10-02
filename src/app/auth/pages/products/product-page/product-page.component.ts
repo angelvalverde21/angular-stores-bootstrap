@@ -1,6 +1,6 @@
 import { Component, inject, TemplateRef } from '@angular/core';
 import { HeaderComponent } from '../../../../header/header.component';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { InputGroupComponent } from '../../../../components/forms/input-group/input-group.component';
 import {
   FormBuilder,
@@ -84,7 +84,8 @@ export class ProductPageComponent {
     private _product: ProductService,
     private route: ActivatedRoute,
     // private _upload: UploadService,
-    private _store: StoreService
+    private _store: StoreService,
+    private router: Router,
   ) {}
 
   private modalService = inject(NgbModal);
@@ -147,7 +148,20 @@ export class ProductPageComponent {
           this.form.patchValue(resp.data);
         },
         error: (error: any) => {
-          console.error('Error loading product:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se encontro el producto',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Aquí ejecutas el código cuando el usuario hace clic en "OK"
+              
+              this.router.navigate([this.store,'auth','products']);
+              // Por ejemplo, puedes redirigir o ejecutar alguna función
+              // this.router.navigate(['/otra-ruta']);
+            }
+          });
+          // console.error('Error loading product:', error);
         },
       });
     }

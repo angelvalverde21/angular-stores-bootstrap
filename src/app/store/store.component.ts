@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { StoreService } from '../services/store.service';
@@ -11,7 +11,7 @@ import { switchMap, of } from 'rxjs';
   templateUrl: './store.component.html',
   styleUrl: './store.component.css',
 })
-export class StoreComponent{
+export class StoreComponent implements OnInit{
   store: string = '';
   products: [] = [];
 
@@ -38,6 +38,12 @@ export class StoreComponent{
     });
     
   }
+
+  ngOnInit(): void {
+    
+  }
+
+
 
   /**************** para recibir el slugbase con el resolve *******************/
 
