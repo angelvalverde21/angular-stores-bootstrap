@@ -4,13 +4,8 @@
 
 <div class="container" *ngIf="!loading">
 
-    <nav aria-label="breadcrumb mb-3">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a [routerLink]="['/', store, 'auth', 'products']">Products</a></li>
-            <li class="breadcrumb-item active">{{ product.name }}</li>
-            <!-- <li class="breadcrumb-item active" aria-current="page">Colors</li> -->
-        </ol>
-    </nav>
+    <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
+
 
     <div ngbAccordion class="mb-3" [closeOthers]="true">
         <div ngbAccordionItem [collapsed]="false">
@@ -28,8 +23,9 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="card">
 
+                                    <img width="100%" class="mb-3" [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"  alt="">
+                                    
                                     <div class="card-body text-center">
-                                        <img width="120px" class="mb-3" [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"  alt="">
                                         <div>
                                             {{ product.sku.quantity }}
                                         </div>

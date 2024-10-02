@@ -6,7 +6,7 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -14,25 +14,30 @@ import { ProductService } from '../../../../services/product.service';
 import { ButtonSaveComponent } from '../../../../components/buttons/button-save/button-save.component';
 import { AlertComponent } from '../../../../components/alerts/alert/alert.component';
 import { PipesModule } from '../../../../shared/pipes.module';
-import { ColorComponent } from "../../../shared/color/color.component";
-import { ProductColorComponent } from "../../../shared/products/product-color/product-color.component";
-import { UploadDropzoneColorComponent } from "../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component";
+import { ColorComponent } from '../../../shared/color/color.component';
+import { ProductColorComponent } from '../../../shared/products/product-color/product-color.component';
+import { UploadDropzoneColorComponent } from '../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component';
 import { Subscription } from 'rxjs';
 import { StoreService } from '../../../../services/store.service';
-import { HeaderProductComponent } from "../header-product/header-product.component";
-import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
-import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
-import { ButtonColorsComponent } from "../../../../components/buttons/button-colors/button-colors.component";
-import { ModalComponent } from "../../../../components/modal/modal.component";
-import { DropdownComponent } from "../../../../components/bootstrap/dropdown/dropdown.component";
-import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
-import { DropdownColorsComponent } from "../../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
-import {  } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderProductComponent } from '../header-product/header-product.component';
+import { ButtonInventoryComponent } from '../../../../components/buttons/button-inventory/button-inventory.component';
+import { LoadingCenterComponent } from '../../../../components/loading-center/loading-center.component';
+import { ButtonColorsComponent } from '../../../../components/buttons/button-colors/button-colors.component';
+import { ModalComponent } from '../../../../components/modal/modal.component';
+import { DropdownComponent } from '../../../../components/bootstrap/dropdown/dropdown.component';
+import { DropdownInventoryComponent } from '../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component';
+import { DropdownColorsComponent } from '../../../../components/bootstrap/dropdown-colors/dropdown-colors.component';
+import {} from '@ng-bootstrap/ng-bootstrap';
 
-import { NgbModal, NgbModule, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
-import { ProductPricesComponent } from "../../../shared/products/prices/product-prices/product-prices.component";
+import {
+  NgbModal,
+  NgbModule,
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { ProductWarehouseComponent } from '../../../shared/products/product-warehouse/product-warehouse.component';
+import { ProductPricesComponent } from '../../../shared/products/prices/product-prices/product-prices.component';
 import Swal from 'sweetalert2';
+import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
 
 @Component({
   selector: 'app-product-page',
@@ -59,10 +64,11 @@ import Swal from 'sweetalert2';
     DropdownColorsComponent,
     NgbModule,
     ProductWarehouseComponent,
-    ProductPricesComponent
+    ProductPricesComponent,
+    BreadCrumbComponent
 ],
   templateUrl: './product-page.component.html',
-  styleUrl: './product-page.component.css'
+  styleUrl: './product-page.component.css',
 })
 export class ProductPageComponent {
   form!: FormGroup;
@@ -76,7 +82,8 @@ export class ProductPageComponent {
   product: any;
   colors: any;
   warehouses: any;
-  store: string = "";
+  store: string = '';
+  breadCrumbs: any[] = [];
   // private uploadSubscription!: Subscription;
 
   constructor(
@@ -85,36 +92,34 @@ export class ProductPageComponent {
     private route: ActivatedRoute,
     // private _upload: UploadService,
     private _store: StoreService,
-    private router: Router,
+    private router: Router
   ) {}
 
   private modalService = inject(NgbModal);
-	closeResult = '';
+  closeResult = '';
 
   items = ['First', 'Second', 'Third'];
 
-	openModal(content: TemplateRef<any>) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-			(result:any) => {
-				this.closeResult = `Closed with: ${result}`;
-        console.log(this.closeResult);
-        
-			},
-			(reason:any) => {
-        this.closeResult = `Dismissed ${reason}`;
-        console.log(this.closeResult);
-			},
-		);
-	}
+  openModal(content: TemplateRef<any>) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result: any) => {
+          this.closeResult = `Closed with: ${result}`;
+          console.log(this.closeResult);
+        },
+        (reason: any) => {
+          this.closeResult = `Dismissed ${reason}`;
+          console.log(this.closeResult);
+        }
+      );
+  }
 
   ngOnInit(): void {
-
     this.initForm(); //inicial el formulario
     this.loadForm(); //carga el formulario
 
     this.store = this._store.name()!;
-
-
   }
 
   private initForm(): void {
@@ -131,9 +136,8 @@ export class ProductPageComponent {
 
     this.id = Number(this.route.snapshot.paramMap.get('product_id'));
     console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-    
+
     console.log(this.id);
-    
 
     if (this.id) {
       this._product.getBydId(this.id).subscribe({
@@ -141,6 +145,17 @@ export class ProductPageComponent {
           console.log(resp);
 
           this.product = resp.data;
+
+          this.breadCrumbs = [
+            {
+              name: 'Products',
+              link: ['/', this.store, 'auth', 'products'],
+            },
+            {
+              name: this.product.name,
+              link: '',
+            },
+          ];
           // this.product.colors.sort((a:any, b: any) => b.id - a.id);
 
           this.warehouses = resp.data.store;
@@ -155,8 +170,8 @@ export class ProductPageComponent {
           }).then((result) => {
             if (result.isConfirmed) {
               // Aquí ejecutas el código cuando el usuario hace clic en "OK"
-              
-              this.router.navigate([this.store,'auth','products']);
+
+              this.router.navigate([this.store, 'auth', 'products']);
               // Por ejemplo, puedes redirigir o ejecutar alguna función
               // this.router.navigate(['/otra-ruta']);
             }
@@ -178,7 +193,6 @@ export class ProductPageComponent {
   }
 
   save() {
-    
     this.btnSaveBusy();
 
     console.log('form enviado');
@@ -190,7 +204,7 @@ export class ProductPageComponent {
         console.log(resp);
         console.log('recibiendo el producto guardado');
         Swal.fire('Guardado', 'El producto ha sido actualizado', 'success');
-        // this.product = resp.data; //Momentaneamente se ha bloqueado la respuesta para que no colicione con 
+        // this.product = resp.data; //Momentaneamente se ha bloqueado la respuesta para que no colicione con
         this.success = true;
         this.btnSaveReady();
       },
@@ -199,11 +213,9 @@ export class ProductPageComponent {
         this.btnSaveReady();
       },
     });
-    
   }
 
   savePrice() {
-    
     this.btnSaveBusy();
 
     console.log('form enviado');
@@ -228,7 +240,7 @@ export class ProductPageComponent {
     return sizes.reduce((acc, size) => acc + size.pivot.quantity, 0);
   }
 
-  updateQuantity(color_size_id: number, $event: any){
+  updateQuantity(color_size_id: number, $event: any) {
     console.log($event);
     console.log(color_size_id);
   }
@@ -237,7 +249,6 @@ export class ProductPageComponent {
     // Actualiza el totalQuantity con el valor recibido
     this.totalQuantity = quantity;
     console.log('Quantity updated:', quantity);
-
   }
 
   // ngOnDestroy(): void {
@@ -245,5 +256,4 @@ export class ProductPageComponent {
   //     this.uploadSubscription.unsubscribe();
   //   }
   // }
-
 }

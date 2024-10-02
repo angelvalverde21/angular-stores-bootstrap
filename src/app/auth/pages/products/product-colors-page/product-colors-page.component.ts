@@ -12,6 +12,7 @@ import { UploadService } from '../../../../services/upload.service';
 import { DropdownInventoryComponent } from '../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component';
 import { DropdownColorsComponent } from '../../../../components/bootstrap/dropdown-colors/dropdown-colors.component';
 import { FormsModule } from '@angular/forms';
+import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
 
 @Component({
   selector: 'app-product-colors-page',
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     UploadDropzoneColorComponent,
     DropdownInventoryComponent,
     DropdownColorsComponent,
-  ],
+    BreadCrumbComponent
+],
   templateUrl: './product-colors-page.component.html',
   styleUrl: './product-colors-page.component.css',
 })
@@ -39,6 +41,7 @@ export class ProductColorsPageComponent implements OnInit {
   private getColorsSubscription!: Subscription;
   colorsFilter: any;
   searchTerm: string = '';
+  breadCrumbs: any[] = [];
 
   constructor(
     private _product: ProductService,
@@ -48,6 +51,7 @@ export class ProductColorsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.id = Number(this.route.snapshot.paramMap.get('product_id'));
 
     this.loading = true;
@@ -66,6 +70,22 @@ export class ProductColorsPageComponent implements OnInit {
       this.loading = false;
       this.product = resp.data;
 
+      
+      this.breadCrumbs = [
+        {
+          name: 'Products',
+          link: ['/', this.store, 'auth', 'products'],
+        },
+        {
+          name: this.product.name,
+          link: ['/', this.store, 'auth', 'products',this.product.id],
+        },
+        {
+          name: 'Colors',
+          link: '',
+        },
+      ];
+      
       this.colorsFilter = this.product.colors.sort(
         (a: any, b: any) => b.sku.quantity - a.sku.quantity
       );

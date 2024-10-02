@@ -10,11 +10,12 @@ import { LoadingCenterComponent } from "../../../../components/loading-center/lo
 import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
 import { StoreService } from '../../../../services/store.service';
 import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
+import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
 
 @Component({
   selector: 'app-product-warehouse-page',
   standalone: true,
-  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, ButtonInventoryComponent, RouterModule, ProductWarehouseComponent],
+  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, ButtonInventoryComponent, RouterModule, ProductWarehouseComponent, BreadCrumbComponent],
   templateUrl: './product-warehouse-page.component.html',
   styleUrl: './product-warehouse-page.component.css'
 })
@@ -26,6 +27,8 @@ export class ProductWarehousePageComponent implements OnInit, OnDestroy {
   product_id: any;
   loading: boolean = true;
   store: string = "";
+  breadCrumbs: any[] = [];
+
   constructor(
     private _products: ProductService, 
     private _store: StoreService,
@@ -38,6 +41,7 @@ export class ProductWarehousePageComponent implements OnInit, OnDestroy {
 
     // Escuchar los parámetros del nivel actual de la ruta
     this._route.paramMap.subscribe(params => {
+
       this.loading = true;
       console.log('Parámetros en el primer hijo de la ruta actual:', params.keys); // Aquí debería obtener los parámetros de las rutas hijas
       this.warehouse_id = params.get('warehouse_id');
@@ -46,6 +50,22 @@ export class ProductWarehousePageComponent implements OnInit, OnDestroy {
       this.InventorySubscription = this._products.getByIdWarehouse(this.product_id, this.warehouse_id).subscribe((resp: any) => {
         this.loading = false;
         this.product = resp.data;
+
+        this.breadCrumbs = [
+          {
+            name: 'Products',
+            link: ['/', this.store, 'auth', 'products'],
+          },
+          {
+            name: this.product.name,
+            link: ['/', this.store, 'auth', 'products',this.product.id],
+          },
+          {
+            name: 'Stock',
+            link: '',
+          },
+        ];
+
         console.log('imprimiendo productos ****************************');
         
         console.log(this.product);
