@@ -72,6 +72,12 @@
                                     <app-button-save [btnLoading]="loadingEdit"
                                         [btnActive]="form.valid"></app-button-save>
 
+                                        <div class="times d-flex justify-content-between">
+                                            <span>{{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}</span>
+                                            <span><strong>{{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}</strong></span>
+                                        </div>
+                                
+
                                 </form>
                             </div>
 
