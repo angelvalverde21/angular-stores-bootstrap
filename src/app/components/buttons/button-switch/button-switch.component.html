@@ -13,5 +13,5 @@
       (change)="onInputChange($event)"
       [disabled]="isDisabled"
     />
-    <label class="form-check-label ms-2" [for]="id">{{ value ? 'Activo' : 'Desactivado' }}</label>
+    <label class="form-check-label ms-2" [for]="id">{{ value ? textActive : textDesactive }}</label>
 </div>

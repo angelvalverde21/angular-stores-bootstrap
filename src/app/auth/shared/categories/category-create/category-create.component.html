@@ -1,0 +1,52 @@
+<button class="btn btn-outline-dark" (click)="openVerticallyCentered(content)">Crear</button>
+
+<ng-template #content let-modal>
+
+	<form [formGroup]="form" (ngSubmit)="save()">
+
+
+		<div class="modal-header">
+			<h5 class="modal-title">Crear categoria</h5>
+			<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+		</div>
+
+		<div class="modal-body">
+
+			<!-- {{ form.value | json }} -->
+
+			<app-input-group>
+				<input formControlName="name" type="text" class="form-control" placeholder="Name" aria-label="tiktok"
+					aria-describedby="basic-tiktok">
+			</app-input-group>
+
+			<div class="mb-3">
+				<app-category-select (emitCategorySelected)="selectCategory($event)"></app-category-select>
+			</div>
+
+
+			<div class="card mb-3">
+				<div class="card-body">
+					<label for="has_color" class="mb-3">Tiene Color</label>
+					<app-button-switch textActive="Si" textDesactive="No" formControlName="has_color" (change)="changeColor()" [id]="'has_color'" />
+				</div>
+			</div>
+
+			<div class="card mb-3">
+				<div class="card-body">
+					<label for="has_size" class="mb-3">Tiene Tallas</label>
+					<app-button-switch textActive="Si" textDesactive="No" formControlName="has_size" (change)="changeSize()" [id]="'has_size'" />
+				</div>
+			</div>
+
+		</div>
+
+		<div class="modal-footer d-flex align-items-center">
+			<!-- <button type="button" class="btn btn-secondary mb-3 py-1" (click)="modal.close('Close click')">Close</button> -->
+			<app-button-save [btnLoading]="loadingEdit" [btnActive]="form.valid"></app-button-save>
+		</div>
+
+	</form>
+
+
+
+</ng-template>

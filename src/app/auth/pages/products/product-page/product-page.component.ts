@@ -199,6 +199,7 @@ export class ProductPageComponent {
         this.btnSaveReady();
       },
     });
+    
   }
 
   savePrice() {

@@ -1,0 +1,25 @@
+<div class="custom-select">
+
+    <div class="selected" (click)="toggleDropdown()">
+        {{ selectedCategory ? selectedCategory.name : 'Selecciona una categoría' }}
+        <i class="fas fa-chevron-down" [class.rotate]="isDropdownOpen"></i>
+    </div>
+    <div class="options" *ngIf="isDropdownOpen">
+
+        <ng-container *ngFor="let category of categories">
+            <!-- Opción para la categoría principal en negrita -->
+            <div class="option" (click)="selectCategory(category)">
+                <strong>{{ category.name }}</strong>
+            </div>
+            <!-- Opciones para las subcategorías -->
+            <ng-container *ngFor="let child of category.children">
+                <div class="option" (click)="selectCategory(child)">-- {{ child.name }}</div>
+                <!-- Opciones para subcategorías de subcategorías -->
+                <ng-container *ngFor="let grandChild of child.children">
+                    <div class="option" (click)="selectCategory(grandChild)">---- {{ grandChild.name }}</div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+    
+</div>
