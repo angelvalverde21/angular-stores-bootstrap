@@ -27,8 +27,8 @@ export class ProductPriceCreateComponent implements OnInit {
   @Input() product_id: number = 0; 
   @Output() emitPrice = new EventEmitter<Price>();
   modalRef: NgbModalRef | undefined;
-  quantities: number[] = Array.from({ length: 10 }, (_, i) => i + 3);
-
+  quantities: number[] = Array.from({ length: 10 }, (_, i) => i);
+  message : string = "";
 	constructor(
 		config: NgbModalConfig,
 		private modalService: NgbModal,
@@ -51,10 +51,10 @@ export class ProductPriceCreateComponent implements OnInit {
   
   private initForm(): void {
     this.formPrice = this.fb.group({
-      type: ['', [Validators.required]],
+      type: [''],
       quantity: ['', [Validators.required]],
-      value: ['', [Validators.required]],
-      value_total: ['', [Validators.required]],
+      value: [{ value: '', disabled: true }, [Validators.required]],
+      value_total: [{ value: '', disabled: true }, [Validators.required]],
     });
   }
 
@@ -76,8 +76,15 @@ export class ProductPriceCreateComponent implements OnInit {
     // console.log(event.target.value);
     let price = event.target.value;
     let quantity = this.formPrice.get('quantity')?.value;
-    this.formPrice.get('value_total')?.setValue(Number(quantity) * price)
+    let price_mayor = Number(quantity) * price;
+    this.formPrice.get('value_total')?.setValue(price_mayor);
 
+    this.message = this.loadMessage(quantity,price,price_mayor);
+
+  }
+
+  loadMessage(quantity: number, price: number, price_mayor: number){
+    return `Resumen: ${quantity} x ${price}, el precio final del paquete: S/.${price_mayor}`;
   }
 
   calPriceUnit(event:any){
@@ -86,6 +93,31 @@ export class ProductPriceCreateComponent implements OnInit {
     let priceMayor = event.target.value;
     let quantity = this.formPrice.get('quantity')?.value;
     this.formPrice.get('value')?.setValue(priceMayor/Number(quantity))
+
+  }
+
+  selectQuantity(event:any){
+
+    console.log(event.target.value);
+    
+
+    if (event.target.value != '') {
+      this.formPrice.get('value')?.enable();
+      this.formPrice.get('value_total')?.enable();
+
+      let quantity = event.target.value;
+      let price =    this.formPrice.get('value')?.value
+      // let price_mayor = this.formPrice.get('value_total')?.value;
+      let price_mayor = Number(quantity) * price;
+      this.formPrice.get('value_total')?.setValue(price_mayor);
+
+      this.message = this.loadMessage(quantity,price,price_mayor);
+
+    } else {
+
+      this.formPrice.get('value')?.disable();
+      this.formPrice.get('value_total')?.disable();
+    }
 
   }
 
