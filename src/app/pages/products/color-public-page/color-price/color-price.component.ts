@@ -10,14 +10,14 @@ import { PipesModule } from '../../../../shared/pipes.module';
 })
 export class ColorPriceComponent {
 
-  @Input() price: number = 0; 
+  @Input() price: any; 
   @Input() prices: any[] = []; 
   @Input() priceNormal: number = 0; 
   
 
   getPrice(){
-    const price =  this.prices.find((price:any) => price.quantity == 1);
-    return price.value;
+    this.price =  this.prices.find((price:any) => price.quantity == 1);
+    return this.price.value;
   }
 
 }

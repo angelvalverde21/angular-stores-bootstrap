@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../../header/header.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { ColorPublicService } from '../../../services/color-public.service';
@@ -16,6 +16,7 @@ import { ColorPriceComponent } from "./color-price/color-price.component";
 import { ActivatedRoute } from '@angular/router';
 import { ProductPublicService } from '../../../services/product-public.service';
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-color-public-page',
@@ -37,7 +38,7 @@ import { LoadingCenterComponent } from "../../../components/loading-center/loadi
   styleUrl: './color-public-page.component.css'
 })
 
-export class ColorPublicPageComponent implements OnInit{
+export class ColorPublicPageComponent implements OnInit, OnDestroy{
 
   colorTitle: string = 'Nombre del color';
   colorDescription: string = 'Descripción del color';
@@ -56,7 +57,8 @@ export class ColorPublicPageComponent implements OnInit{
   // product_id: number = 0;
   loadingColor: boolean = true;
   loading: boolean = true;
-  
+  productPublicSubscription!: Subscription;
+
   constructor(
     private meta: Meta, 
     private titleService: Title, 
@@ -66,13 +68,19 @@ export class ColorPublicPageComponent implements OnInit{
     private _productPublic: ProductPublicService
   ) { }
 
+  ngOnDestroy(): void {
+    if (this.productPublicSubscription) {
+      this.productPublicSubscription.unsubscribe();
+    }
+  }
+
   ngOnInit(): void {
 
 
     // console.log(this.color_id);
     // console.log(this.product_id);
 
-    this._productPublic.getById(this.product_id).subscribe((resp:any) => {
+    this.productPublicSubscription = this._productPublic.getById(this.product_id).subscribe((resp:any) => {
       console.log(resp);
       this.product = resp.data;
       this.colors = this.product.colors;
@@ -89,7 +97,7 @@ export class ColorPublicPageComponent implements OnInit{
         this.images = this.color.images;
   
       });
-      
+
     });
 
 
