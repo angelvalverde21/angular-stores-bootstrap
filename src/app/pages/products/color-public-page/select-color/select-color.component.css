@@ -1,0 +1,38 @@
+.gallery{
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(7, minmax(3rem, 1fr)); /* 1 fr quiere decir una fraccion */
+}
+
+
+@media (min-width: 0) and (max-width: 576px) {
+    .gallery{
+        grid-template-columns: repeat(4, minmax(3rem, 1fr)); /* 1 fr quiere decir una fraccion */
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .gallery{
+        grid-template-columns: repeat(5, minmax(3rem, 1fr)); /* 1 fr quiere decir una fraccion */
+    }
+}
+
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .gallery{
+        grid-template-columns: repeat(4, minmax(3rem, 1fr)); /* 1 fr quiere decir una fraccion */
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+    .gallery{
+        grid-template-columns: repeat(5, minmax(3rem, 1fr)); /* 1 fr quiere decir una fraccion */
+    }
+}
+
+@media (min-width: 1201px){
+    .gallery{
+        grid-template-columns: repeat(7, minmax(3rem, 1fr)); /* 1 fr quiere decir una fraccion */
+    }
+}
+

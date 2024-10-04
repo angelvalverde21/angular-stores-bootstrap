@@ -1,1 +1,38 @@
 <app-header></app-header>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-12">
+            <!-- {{ color.images | json }} -->
+            <app-color-images *ngIf="color.images" [images]="color.images"></app-color-images>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-12">
+            
+            <app-color-extract-description></app-color-extract-description>
+
+            <app-select-color [colors]="colors"></app-select-color>
+
+            <div class="row mb-3">
+
+                <div class="col-lg-12 col-12">
+                    <app-select-size></app-select-size>
+                </div>
+
+                <div class="col-lg-6">
+                    <app-select-quantity></app-select-quantity>
+                </div>
+                <div class="col-lg-6">
+                    <app-button-add-cart></app-button-add-cart>
+                </div>
+            </div>
+
+            <app-info-shipping></app-info-shipping>
+
+        </div>
+
+    </div>
+
+</div>
