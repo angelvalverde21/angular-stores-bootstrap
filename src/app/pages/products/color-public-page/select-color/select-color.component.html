@@ -1,7 +1,6 @@
 <div class="gallery mb-3">
     <div class="card" *ngFor="let color of colors">
         <div class="card-body text-center p-2">
-            
             <a [routerLink]="['/', store,'products', color.product_id,'colors',color.id]" routerLinkActive="['activez']" [routerLinkActiveOptions]="{ exact: true }"><img height="75px" width="50px" [src]="color.image?.url_thumbnail" alt="..."></a>
         </div>
     </div>
