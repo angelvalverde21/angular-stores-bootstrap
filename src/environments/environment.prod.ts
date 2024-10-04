@@ -9,4 +9,7 @@ export const environment = {
 
     izipay_endpoint: 'https://static.micuentaweb.pe/',
     izipay_public_key: '54188994:publickey_gNReMa8TgxyGSWjJ3GUy6xAUTBXVKVMdxIi7sZCzQSX24',
+
+    imageMediumPlaceHolder: 'https://placehold.co/400x800',
+    imageThumbnailPlaceHolder: 'https://placehold.co/100x200',
 };

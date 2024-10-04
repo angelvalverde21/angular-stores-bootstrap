@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-color-extract-description',
@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './color-extract-description.component.css'
 })
 export class ColorExtractDescriptionComponent {
+
+  @Input() name: string = "Nombre del producto"; 
+  
 
 }

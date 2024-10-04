@@ -32,3 +32,14 @@
   .thumbnail:hover img {
     border: 2px solid #007bff; /* Resalta la miniatura al pasar el mouse */
   }
+
+  /* carga suave */
+
+  .image {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .image.loaded {
+    opacity: 1;
+  }

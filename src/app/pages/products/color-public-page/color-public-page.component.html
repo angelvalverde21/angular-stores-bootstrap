@@ -6,19 +6,41 @@
 
         <div class="col-lg-6 col-md-6 col-12">
             <!-- {{ color.images | json }} -->
-            <app-color-images *ngIf="color.images" [images]="color.images"></app-color-images>
+            <ng-container>
+                <app-loading-center *ngIf="loading"></app-loading-center>
+                <app-color-images *ngIf="!loading" [images]="images"></app-color-images>
+            </ng-container>
+
         </div>
 
         <div class="col-lg-6 col-md-6 col-12">
+
+            <div class="card" *ngIf="loading" aria-hidden="true">
+                <div class="card-body">
+                    <h5 class="card-title placeholder-glow">
+                        <span class="placeholder col-6"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
+                    </p>
+
+                </div>
+            </div>
             
-            <app-color-extract-description></app-color-extract-description>
+            <app-color-extract-description *ngIf="!loading" [name]="product.name"></app-color-extract-description>
+
+            <app-color-price *ngIf="!loading" [prices]="product.prices"></app-color-price>
 
             <app-select-color [colors]="colors"></app-select-color>
 
             <div class="row mb-3">
 
                 <div class="col-lg-12 col-12">
-                    <app-select-size></app-select-size>
+                    <app-select-size [sizes]="color.sizes"></app-select-size>
                 </div>
 
                 <div class="col-lg-6">
