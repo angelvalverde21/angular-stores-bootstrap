@@ -46,14 +46,14 @@ export class ColorPublicPageComponent implements OnInit{
 
   /* ojo estos parametros vienen de la ruta https://dominio.com/ara/products/510/colors/3714 */ 
   //@Input() color_id = 0;  //Obtenemos el parametro de ruta asi porque hemos activado en app.config.ts esto: provideRouter routes, withComponentInputBinding()), pero hay un incoveniente no detecta cambios en los parametros, por lo que en este caso es mejor usar un this.route.params.suscribe
-  //@Input() product_id = 0;  //Obtenemos el parametro de ruta asi porque hemos activado en app.config.ts esto: provideRouter routes, withComponentInputBinding())
+  @Input() product_id = 0;  //Obtenemos el parametro de ruta asi porque hemos activado en app.config.ts esto: provideRouter routes, withComponentInputBinding())
 
   product : any;
   images : any;
   colors: any = [];
   color: any = [];
   color_id: number = 0;
-  product_id: number = 0;
+  // product_id: number = 0;
   loadingColor: boolean = true;
   loading: boolean = true;
   
@@ -72,39 +72,27 @@ export class ColorPublicPageComponent implements OnInit{
     // console.log(this.color_id);
     // console.log(this.product_id);
 
-    this.route.params.subscribe((params) => {
+    this._productPublic.getById(this.product_id).subscribe((resp:any) => {
+      console.log(resp);
+      this.product = resp.data;
+      this.colors = this.product.colors;
 
-      this.product_id = params['product_id']; // Asegúrate que coincide con la ruta
-      this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
+      this.route.params.subscribe((params) => {
 
-      // this.loading = true;
-      this._productPublic.getById(this.product_id).subscribe((resp:any) => {
-        console.log(resp);
-        this.product = resp.data;
-        this.colors = this.product.colors;
+        this.product_id = params['product_id']; // Asegúrate que coincide con la ruta
+        this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
+  
+        // this.loading = true;
+  
         this.color = this.getColorById(this.color_id);
         this.loading = false;
         this.images = this.color.images;
-      });
-
-      // console.log(this.color_id);
-      
-      // this.loadingColor = true;
-      
-      // this._colorPublic.getById(this.product_id,this.color_id).subscribe((resp:any) => {
-
-      //   console.log(resp);
-
-      //   this.images = this.color.images;
-      //   console.log("el color seleccionado es");
-      //   console.log(this.color);
-      //   this.loadingColor = false;
-
-      //   // this.setMetaTags();
   
-      // });
-
+      });
+      
     });
+
+
 
   }
 
