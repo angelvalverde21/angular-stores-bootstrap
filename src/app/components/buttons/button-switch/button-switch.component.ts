@@ -15,6 +15,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
+
 export class ButtonSwitchComponent implements ControlValueAccessor {
 
   @Input() label: string = 'Status';

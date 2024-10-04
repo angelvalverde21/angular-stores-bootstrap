@@ -1,8 +1,9 @@
 export const environment = {
     production: false,
     parametroBase: 'store', //este parametro sera usado como variable base
-    apiUrl: 'http://super.test/api/v1/public',
 
+    urlBase:'http://localhost:4200',
+    apiUrl: 'http://super.test/api/v1/public',
     apiPublic: 'http://super.test/api/v1/public',
     apiPrivate: 'http://super.test/api/v1/private',
     
