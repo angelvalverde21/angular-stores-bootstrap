@@ -35,14 +35,20 @@ export class HomeComponent {
     this._common.setCardPlaceHolder(true);
 
     // const slugBase = localStorage.getItem('slug_base')!;/
-    this.name = this._store.name()!;
+    // this.name = this._store.name()!;
 
-    this._store.getHome(this.name).subscribe((resp: any) => {
+    this.route.parent?.params.subscribe((params) => {
+      // console.log(params['store']);
+      this._store.getHome(params['store']).subscribe((resp: any) => {
 
-      //setea los productos para que se puedan mostrar
-      this._product.setProducts(resp.data);
-
+        //setea los productos para que se puedan mostrar
+        this._product.setProducts(resp.data);
+  
+      });
     });
+
+
+
 
   }
 }

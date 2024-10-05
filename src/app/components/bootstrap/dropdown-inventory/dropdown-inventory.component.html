@@ -1,4 +1,4 @@
-<div ngbDropdown class="d-inline-block">
+<div ngbDropdown class="d-inline-block" *ngIf="store.warehouses.length > 1 ;else templateName">
 
     <button class="btn btn-outline-dark dropdown-toggle" ngbDropdownToggle>
         <i class="fa-solid fa-warehouse me-2"></i><span>{{ warehouseName  | firstName }}</span>
@@ -10,3 +10,11 @@
     </ul>
     
 </div>
+
+<ng-template #templateName>
+
+    <button [routerLink]="['/', store.slug, 'auth', 'products', product_id ,'warehouse', store.warehouses[0].id]" class="btn btn-outline-dark">
+        <i class="fa-solid fa-warehouse me-2"></i><span>Inventario</span>
+    </button>
+
+</ng-template>

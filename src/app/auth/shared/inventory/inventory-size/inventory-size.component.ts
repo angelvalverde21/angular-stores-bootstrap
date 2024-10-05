@@ -20,6 +20,7 @@ import { LoadingComponent } from '../../../../components/loading/loading.compone
 import { InventoryService } from '../../../../services/api/inventory.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inventory-size',
@@ -48,8 +49,6 @@ export class InventorySizeComponent {
   stockWarehouse: any;
 
   updateQuantitySubject: Subject<number> = new Subject();
-
-
 
   constructor(
     private fb: FormBuilder,
@@ -109,12 +108,10 @@ export class InventorySizeComponent {
 
   updateKeyupStock($event: any){
 
-    
-    
     var quantityInput = $event.target.value;
     console.log(quantityInput);
     
-    if (quantityInput > 0) {
+    if (quantityInput >= 0) {
       this.updateQuantitySubject.next(quantityInput); // Emite el término de búsqueda
     }
   }
@@ -127,7 +124,7 @@ export class InventorySizeComponent {
       
       console.log('actualizando stock');
 
-      if (quantity > 0) {
+      if (quantity >= 0) {
 
         this.loading = true;
         //Aqui guardamos el nuevo valor del cantidad
@@ -138,6 +135,7 @@ export class InventorySizeComponent {
           .updateWarehouseColorSize(this.sizeForm.value, this.warehouse_id)
           .subscribe((resp: any) => {
             console.log(resp);
+            // Swal.fire('Actualizado', 'El inventario ha sido actualizado.', 'success');
             this.loading = false;
             this.cdr.detectChanges();
             this.quantitySizeUpdated.emit(this.sizeForm.value.quantity);

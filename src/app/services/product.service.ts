@@ -79,6 +79,27 @@ export class ProductService {
     return this.http.post(url, data);
   }
 
+  savePrice(data:[], id: number | null): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this._store.name()}/products/${id}/price/create`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.post(url, data);
+  }
+
+  deletePrice(product_id: number | null, price_id: number | null): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this._store.name()}/products/${product_id}/price/${price_id}/destroy`;
+
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.delete(url);
+  }
+
   /* Analogos en laravel
 
     getProducts (Angular: getAll)

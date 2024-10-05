@@ -1,0 +1,11 @@
+a{
+    color: #555555;
+    font-family: 'Inter', sans-serif;
+    font-weight: 550;
+    font-size: 1rem;
+    transition: color .2s ease-in-out, background-color .2s ease-in-out, border-color .2s ease-in-out;
+}
+
+a:hover{
+    color: #303030; 
+}

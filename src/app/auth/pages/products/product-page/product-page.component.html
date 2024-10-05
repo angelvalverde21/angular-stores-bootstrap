@@ -4,63 +4,126 @@
 
 <div class="container" *ngIf="!loading">
 
-    <nav aria-label="breadcrumb mb-3">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="['/', store, 'auth', 'products']">Products</a></li>
-          <li class="breadcrumb-item active">{{ product.name }}</li>
-          <!-- <li class="breadcrumb-item active" aria-current="page">Colors</li> -->
-        </ol>
-    </nav>
-
-    <div class="card mb-3">
+    <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
 
 
-        
-        <div class="card-body">
+    <div ngbAccordion class="mb-3" [closeOthers]="true">
+        <div ngbAccordionItem [collapsed]="false">
+            <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                    <i class="fa-solid fa-circle-info me-2"></i>
+                    <span>{{ product.name }}</span>
+                </button>
+            </h2>
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                    <ng-template>
+                        <div class="row">
 
-            <!-- {{ form.value | json}} -->
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <img width="50%" class="mx-auto mb-3" [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"  alt="">
+                                    
+                                        <div>
+                                            Disponible: {{ product.sku.quantity }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <app-alert *ngIf="success"></app-alert>
+                            <div class="col-lg-8 col-md-6 col-12">
 
-            <div class="card-title d-flex justify-content-between align-items-center">
-                <h5>{{ product.name }}</h5>
-                <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors>
-            </div>
+                                <!-- <app-alert *ngIf="success"></app-alert> -->
 
-            <form [formGroup]="form" (ngSubmit)="save()">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <!-- <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors> -->
+                                </div>
 
-                <div class="row mb-3">
-                    <div class="col-lg-8 col-12">
-                        <app-input-group>
-                            <input formControlName="name" type="text" class="form-control" placeholder="Name"
-                                aria-label="tiktok" aria-describedby="basic-tiktok">
-                        </app-input-group>
-                    </div>
+                                <form [formGroup]="form" (ngSubmit)="save()">
 
-                    <div class="col-lg-4 col-12">
-                        <app-input-group>
-                            <input formControlName="tags" type="text" class="form-control" placeholder="tags"
-                                aria-label="tags" aria-describedby="basic-tags">
-                        </app-input-group>
-                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-lg-8 col-12">
+                                            <app-input-group>
+                                                <input formControlName="name" type="text" class="form-control"
+                                                    placeholder="Name" aria-label="tiktok"
+                                                    aria-describedby="basic-tiktok">
+                                            </app-input-group>
+                                        </div>
 
-                    <div class="col-lg-12 col-12">
-                        <textarea id="" formControlName="body" class="form-control"
-                            placeholder="Descripcion"></textarea>
-                    </div>
+                                        <div class="col-lg-4 col-12">
+                                            <app-input-group>
+                                                <input formControlName="tags" type="text" class="form-control"
+                                                    placeholder="tags" aria-label="tags" aria-describedby="basic-tags">
+                                            </app-input-group>
+                                        </div>
+
+                                        <div class="col-lg-12 col-12">
+                                            <textarea id="" formControlName="body" class="form-control"
+                                                placeholder="Descripcion"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <app-button-save [btnLoading]="loadingEdit"
+                                        [btnActive]="form.valid"></app-button-save>
+
+                                        <div class="times d-flex justify-content-between">
+                                            <span>{{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}</span>
+                                            <span><strong>{{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}</strong></span>
+                                        </div>
+                                
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </ng-template>
                 </div>
-
-                <app-button-save [btnLoading]="loadingEdit" [btnActive]="form.valid"></app-button-save>
-
-            </form>
+            </div>
+        </div>
+        <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                    <i class="fa-solid fa-dollar-sign me-2"></i>
+                    <span>Precios</span>
+                </button>
+            </h2>
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                    <ng-template>
+                        <app-product-prices [prices]="product.prices" [product_id]="product.id"></app-product-prices>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                    <i class="fa-solid fa-warehouse me-2"></i>
+                    <span>Inventario</span>
+                </button>
+            </h2>
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                    <ng-template>
+                        <app-product-warehouse></app-product-warehouse>
+                    </ng-template>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- <div class="card mb-3 custom-card">
+
+        <div class="card-body">
+
+
+        </div>
+    </div> -->
+
+
     <!-- <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory> -->
 
-    <app-product-warehouse></app-product-warehouse>
+
 
 </div>
-
-
-

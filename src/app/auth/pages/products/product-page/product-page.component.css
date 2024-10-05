@@ -1,0 +1,8 @@
+.custom-card {
+    border: 2px solid #007bff; /* Cambia el color y el grosor según sea necesario */
+    border-radius: 0.25rem; /* Cambia el radio según sea necesario */
+  }
+
+.accordion {
+    --bs-accordion-border-color: #a8a8a8; /* Personalización del color del borde */
+}

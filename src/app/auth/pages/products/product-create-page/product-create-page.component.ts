@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { HeaderComponent } from "../../../../header/header.component";
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 import { CommonModule } from '@angular/common';
@@ -15,40 +15,41 @@ import { StoreService } from '../../../../services/store.service';
 import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { ProductService } from '../../../../services/product.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CategorySelectComponent } from "../../../shared/categories/category-select/category-select.component";
+import { CategoryCreateComponent } from "../../../shared/categories/category-create/category-create.component";
 
 @Component({
   selector: 'app-product-create-page',
   standalone: true,
-  imports: [HeaderComponent, LoadingCenterComponent, CommonModule, InputGroupComponent, ButtonSaveComponent, ReactiveFormsModule, PipesModule, LoadingComponent],
+  imports: [HeaderComponent, LoadingCenterComponent, CommonModule, InputGroupComponent, ButtonSaveComponent, ReactiveFormsModule, PipesModule, LoadingComponent, CategorySelectComponent, CategoryCreateComponent],
   templateUrl: './product-create-page.component.html',
-  styleUrl: './product-create-page.component.css'
+  styleUrl: './product-create-page.component.css',
+
 })
 
-export class ProductCreatePageComponent {
+export class ProductCreatePageComponent implements OnInit, OnDestroy {
 
-  loading: boolean = true;
+
   form!: FormGroup;
   loadingEdit: boolean = false;
   categories: any;
   sizes: any;
-  isDropdownOpen = false;
+
   selectedCategory: any = null;
   breadcrumb: string[] = [];
   loadingSize: boolean = false;
   showSize: boolean = false;
+  categoriesSubscribe!: Subscription;
 
   constructor( private _fb: FormBuilder, private _store: StoreService, private _product: ProductService, private router: Router){
 
   }
 
+  // private _modal = inject(NgbModal);
+
   ngOnInit(): void {
     this.initForm(); //inicial el formulario
-
-    this._store.categories().subscribe((resp:any) => {
-      this.loading = false;
-      this.categories = resp.data;
-    });
-
   }
 
   private initForm(): void {
@@ -61,19 +62,27 @@ export class ProductCreatePageComponent {
     });
   }
 
-  toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen;
+  selectCategory(category: any) { //este select es el que recibe desde el emit
+    console.log(category);
+    
+    this.selectedCategory = category;
+    // this.isDropdownOpen = false;
+    // this.breadcrumb = this.getBreadcrumb(category);
+    this.form.get('category_id')?.setValue(category.id); 
+    this.loadSizes();
   }
 
-  selectCategory(category: any) {
-      this.selectedCategory = category;
-      this.isDropdownOpen = false;
-      this.breadcrumb = this.getBreadcrumb(category);
-      this.form.get('category_id')?.setValue(category.id); 
-      this.loadSizes();
-  }
   selectSize(sizes_values: any) {
     this.form.get('sizes')?.setValue(sizes_values.target.value); 
+  }
+
+  loadSizes() {
+    this.loadingSize = true;
+    this._store.productSizes().subscribe((resp: any) => {
+      this.showSize = true;
+      this.loadingSize = false;
+      this.sizes = resp.data;
+    });
   }
 
   save() {
@@ -114,49 +123,34 @@ export class ProductCreatePageComponent {
     this.loadingEdit = true;
   }
 
-  @HostListener('document:click', ['$event'])
-  closeDropdown(event: MouseEvent) {
-      const target = event.target as HTMLElement;
-      const clickedInside = target.closest('.custom-select');
-      if (!clickedInside) {
-          this.isDropdownOpen = false; // Cerrar dropdown si se hace clic fuera
-      }
-  }
 
-  getBreadcrumb(category: any): string[] {
-    const names = [];
-    let current = category;
+  // getBreadcrumb(category: any): string[] {
+  //   const names = [];
+  //   let current = category;
 
-    while (current) {
-      names.unshift(current.name); // Añade el nombre de la categoría al inicio
-      current = this.findParent(current); // Busca el padre
-      console.log(current);
+  //   while (current) {
+  //     names.unshift(current.name); // Añade el nombre de la categoría al inicio
+  //     current = this.findParent(current); // Busca el padre
+  //     console.log(current);
       
-    }
+  //   }
 
-    return names;
-  }
+  //   return names;
+  // }
 
-  findParent(category : any): any {
-    console.log(category);
+  // findParent(category : any): any {
+  //   console.log(category);
     
-    // Aquí debes implementar la lógica para encontrar el padre de la categoría
-    // Por ejemplo, puedes recorrer `this.categories` para encontrar la categoría que tenga como `id` el `parent_id`
-    return this.categories.find((cat:any) => {console.log(cat.id); console.log(category.id)}) || null;
-  }
-
-  loadSizes(){
-
-    this.loadingSize = true;
-    this._store.productSizes().subscribe((resp:any) => {
-      this.showSize = true;
-      this.loadingSize = false;
-      this.sizes = resp.data;
-    });
-  }
+  //   // Aquí debes implementar la lógica para encontrar el padre de la categoría
+  //   // Por ejemplo, puedes recorrer `this.categories` para encontrar la categoría que tenga como `id` el `parent_id`
+  //   return this.categories.find((cat:any) => {console.log(cat.id); console.log(category.id)}) || null;
+  // }
 
   ngOnDestroy() {
     // Aquí podrías limpiar cualquier suscripción si fuera necesario
+    if(this.categoriesSubscribe){
+      this.categoriesSubscribe.unsubscribe();
+    }
 }
 
 }

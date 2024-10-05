@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { StoreService } from '../services/store.service';
@@ -11,7 +11,7 @@ import { switchMap, of } from 'rxjs';
   templateUrl: './store.component.html',
   styleUrl: './store.component.css',
 })
-export class StoreComponent{
+export class StoreComponent implements OnInit{
   store: string = '';
   products: [] = [];
 
@@ -26,6 +26,7 @@ export class StoreComponent{
 
     //* Primero llamamos para verificar si existe la tienda en la base de datos **/
     this._route.params.subscribe((params: any) => {
+      
       const slugBase = params[environment.parametroBase]; //el parametro base es store
       console.log('valor inicial ' + slugBase);
 
@@ -33,9 +34,16 @@ export class StoreComponent{
       this._store.isValid(slugBase).subscribe((isValid: boolean) => {
         this._store.setName(slugBase);
       });
+
     });
     
   }
+
+  ngOnInit(): void {
+    
+  }
+
+
 
   /**************** para recibir el slugbase con el resolve *******************/
 

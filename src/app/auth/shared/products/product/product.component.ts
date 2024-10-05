@@ -27,8 +27,6 @@ export class ProductComponent implements OnInit{
   ngOnInit(): void {
 
     console.log(this.product);
-    
-
     this.quantityGlobalProduct = this.product.sku? this.product.sku.quantity : "";
     this.store = this._store.name()!;
   }

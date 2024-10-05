@@ -1,24 +1,102 @@
 <!-- el componte padre este componenten es table-products-inventory.component -->
-<div class="card mb-3 mx-auto" style="width: 360px;">
-  
+<div class="card mb-3 mx-auto">
+
   <div class="card-header text-bg-light">
-    {{ color.name }}
+    <div class="controls d-flex justify-content-between align-items-center">
+
+      <!-- title del card -->
+      <div class="title">
+        {{ color.name }}
+      </div>
+      <!-- button hamburguesa -->
+      <button class="btn btn-outline-dark" (click)="openVerticallyCentered(variantes)">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </div>
+    
   </div>
 
   <div class="d-flex justify-content-between content">
 
-    <img width="150px" [src]="colorForm.get('image.url_thumbnail')?.value" alt="">
-    
+    <a data-fancybox="gallery" [href]="color.image?.url_medium" class="mt-3 mb-3">
+      <img width="120px" [src]="color.image?.url_medium" alt="">
+    </a>
+
+    <!-- <img width="120px" [src]="colorForm.get('image.url_thumbnail')?.value" alt=""> -->
+    <!-- <gallery [items]="[image]"></gallery> -->
+
     <div class="p-3">
-      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [warehouse_id]="warehouse_id" [size]="size" *ngFor="let size of color.sizes"></app-inventory-size>
+      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [warehouse_id]="warehouse_id" [size]="size"
+        *ngFor="let size of color.sizes"></app-inventory-size>
     </div>
 
     <h3 class="text-center quantity" *ngIf="color.sizes.length > 1">{{ totalQuantityColor }}</h3>
 
   </div>
 
-  <div class="card-body">
-    <app-color-fields (titleToColor)="setColorTitle($event)" [color]="color"></app-color-fields>
-  </div>
+  <!-- <div class="controls d-flex justify-content-between ">
+
+    <button class="btn btn-outline-dark mx-3 mb-3" (click)="openVerticallyCentered(variantes)">
+      <i class="fa-solid fa-image"></i>
+    </button>
+
+    <button class="btn btn-outline-dark mx-3 mb-3" (click)="openVerticallyCentered(content)">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+  </div> -->
 
 </div>
+
+<!-- Editar nombre del color -->
+<!-- <ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Editar</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-color-fields (titleToColor)="setColorTitle($event)" [color]="color"></app-color-fields>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template> -->
+
+<!-- Agregar o quitar variantes del color -->
+<ng-template #variantes let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title">Variantes del color</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  
+  <div class="modal-body">
+    
+    <!-- {{ variants | json }} -->
+
+    <app-color-fields (titleToColor)="setColorTitle($event)" [color]="color"></app-color-fields>
+    <app-upload-variants (uploadReady)="uploadUpdate($event)" (completedUpload)="uploadComplete($event)" [color_id]="color.id" [product_id]="color.product_id"></app-upload-variants>
+
+
+    <ul class="list-group">
+
+      <!-- Empieza el bucle -->
+      <app-loading-center *ngIf="loading"></app-loading-center>
+
+      <ng-container *ngIf="!loading">
+
+        <li class="list-group-item" *ngFor="let variant of variants">
+          <app-image-color [image]="variant" [color_id]="color.id" [product_id]="color.product_id" (statusDelete)="updateImages($event)"></app-image-color>
+        </li>
+
+      </ng-container>
+      <!-- fin del bucle --> 
+
+    </ul>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

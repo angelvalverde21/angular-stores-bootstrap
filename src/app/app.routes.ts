@@ -22,6 +22,7 @@ import { ProductsSearchPageComponent } from './auth/pages/products/products-sear
 import { ProductColorsPageComponent } from './auth/pages/products/product-colors-page/product-colors-page.component';
 import { ProductColorsInactivePageComponent } from './auth/pages/products/product-colors-inactive-page/product-colors-inactive-page.component';
 import { ProductCreatePageComponent } from './auth/pages/products/product-create-page/product-create-page.component';
+import { ColorPublicPageComponent } from './pages/products/color-public-page/color-public-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -40,6 +41,7 @@ export const routes: Routes = [
 
       { path: '', component: HomeComponent },
       { path: 'products', component: HomeComponent },
+      { path: 'products/:product_id/colors/:color_id', component: ColorPublicPageComponent },
       { path: 'search/:search', component: SearchComponent },
       { path: 'tracking', component: TrackingComponent},
       { path: 'login', component: LoginComponent },

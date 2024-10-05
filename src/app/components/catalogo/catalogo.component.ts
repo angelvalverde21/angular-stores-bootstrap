@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ElementRef } from '@angular/core';
 import { CardProductComponent } from '../cards/card-product/card-product.component';
 import { CardColorComponent } from '../cards/card-color/card-color.component';
 import { ProductService } from '../../services/product.service';
@@ -9,6 +9,9 @@ import { LoadingComponent } from '../loading/loading.component';
 import { CardPlaceHolderComponent } from "../card-place-holder/card-place-holder.component";
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
+import { StoreService } from '../../services/store.service';
+import { Fancybox } from '@fancyapps/ui';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -30,8 +33,11 @@ export class CatalogoComponent implements OnInit, OnDestroy{
 
   count: number = 0;
   products: any = [];
+  phone: number = 945101774;
+  store: any = [];
   loading: boolean = true;
   productsEncontrados: boolean =  false;
+  estaAutenticado: boolean =  false;
 
   private commonSubscription!: Subscription;
   private productsSubscription!: Subscription;
@@ -39,20 +45,25 @@ export class CatalogoComponent implements OnInit, OnDestroy{
   
   constructor(
     private _products: ProductService,
-    private _common: CommonService
+    private _common: CommonService,
+    private _store: StoreService, //momentaneamente tenemos estevalor aqui
+    private elRef: ElementRef,
+    private _auth: AuthService
   ) {
 
   }
 
   ngOnInit(): void {
-    // this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe(data => {
-    //   console.log('Data received', data);
-    // });
 
-    // this._product.getAll().subscribe((resp: any) => {
-    //   this.loading = false;
-    //   this.products = resp;
-    // });
+    //iniciamos fancybox
+    Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
+      // Custom options
+    });
+
+    this.store = this._store.name();
+    this.estaAutenticado = this._auth.estaAutenticado();
+
+    this.phone = this._store.storeWarehouses().phone;
 
     this.commonSubscription = this._common.getCardPlaceHolderObservable().subscribe((value:boolean) => {
 
@@ -106,8 +117,17 @@ export class CatalogoComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.productsSubscription.unsubscribe();
-    this.commonSubscription.unsubscribe;
+
+    if (this.productsSubscription) {
+      this.productsSubscription.unsubscribe();
+    }
+    if (this.commonSubscription) {
+      this.commonSubscription.unsubscribe();
+    }
+
+    Fancybox.unbind(this.elRef.nativeElement);
+    Fancybox.close();
+
   }
 
 }

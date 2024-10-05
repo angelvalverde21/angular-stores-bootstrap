@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { StoreService } from '../../../services/store.service';
 import { environment } from '../../../../environments/environment';
 import Dropzone from 'dropzone';
@@ -16,7 +16,8 @@ export class UploadDropzoneColorComponent {
   store: string = "";
   url: string = "";
   dropzoneId: string = "";
- 
+  @Output() completedUpload = new EventEmitter<boolean>();
+  
   
   @Input() productId: number = 0;
   @Input() image: string = "";
@@ -40,7 +41,6 @@ export class UploadDropzoneColorComponent {
   }
   
   ngAfterViewInit(): void { 
-
     
     setTimeout(() => { //usamos setTimeOut solo para retrazar ligeramente el tiempo de carga, asi esperamos que el contenedor padre cargue primero, en este caso cuando este componente es llamado desde <app-card-config>
     const self = this; // Guardamos una referencia al componente
@@ -82,7 +82,12 @@ export class UploadDropzoneColorComponent {
         this.on('complete', (file) => {
           this.removeFile(file);
         });
-
+        
+        this.on('queuecomplete', function() {
+          // Aquí disparas la alerta
+          self.completedUpload.emit(true);
+          // alert('¡Todas las fotos han sido subidas exitosamente!');
+        });
       },
     });
 

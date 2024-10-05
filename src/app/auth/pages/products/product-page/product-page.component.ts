@@ -1,39 +1,43 @@
 import { Component, inject, TemplateRef } from '@angular/core';
 import { HeaderComponent } from '../../../../header/header.component';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { InputGroupComponent } from '../../../../components/forms/input-group/input-group.component';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { ProductService } from '../../../../services/product.service';
 import { ButtonSaveComponent } from '../../../../components/buttons/button-save/button-save.component';
-import { LoadingComponent } from '../../../../components/loading/loading.component';
 import { AlertComponent } from '../../../../components/alerts/alert/alert.component';
 import { PipesModule } from '../../../../shared/pipes.module';
-import { ColorComponent } from "../../../shared/color/color.component";
-import { ProductColorComponent } from "../../../shared/products/product-color/product-color.component";
-import { UploadDropzoneColorComponent } from "../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component";
+import { ColorComponent } from '../../../shared/color/color.component';
+import { ProductColorComponent } from '../../../shared/products/product-color/product-color.component';
+import { UploadDropzoneColorComponent } from '../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component';
 import { Subscription } from 'rxjs';
-import { UploadService } from '../../../../services/upload.service';
 import { StoreService } from '../../../../services/store.service';
-import { HeaderProductComponent } from "../header-product/header-product.component";
-import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
-import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
-import { ButtonColorsComponent } from "../../../../components/buttons/button-colors/button-colors.component";
-import { ModalComponent } from "../../../../components/modal/modal.component";
-import { DropdownComponent } from "../../../../components/bootstrap/dropdown/dropdown.component";
-import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
-import { DropdownColorsComponent } from "../../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderProductComponent } from '../header-product/header-product.component';
+import { ButtonInventoryComponent } from '../../../../components/buttons/button-inventory/button-inventory.component';
+import { LoadingCenterComponent } from '../../../../components/loading-center/loading-center.component';
+import { ButtonColorsComponent } from '../../../../components/buttons/button-colors/button-colors.component';
+import { ModalComponent } from '../../../../components/modal/modal.component';
+import { DropdownComponent } from '../../../../components/bootstrap/dropdown/dropdown.component';
+import { DropdownInventoryComponent } from '../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component';
+import { DropdownColorsComponent } from '../../../../components/bootstrap/dropdown-colors/dropdown-colors.component';
+import {} from '@ng-bootstrap/ng-bootstrap';
 
-
-import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
+import {
+  NgbModal,
+  NgbModule,
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { ProductWarehouseComponent } from '../../../shared/products/product-warehouse/product-warehouse.component';
+import { ProductPricesComponent } from '../../../shared/products/prices/product-prices/product-prices.component';
+import Swal from 'sweetalert2';
+import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
 
 @Component({
   selector: 'app-product-page',
@@ -59,13 +63,16 @@ import { ProductWarehouseComponent } from "../../../shared/products/product-ware
     DropdownInventoryComponent,
     DropdownColorsComponent,
     NgbModule,
-    ProductWarehouseComponent
+    ProductWarehouseComponent,
+    ProductPricesComponent,
+    BreadCrumbComponent
 ],
   templateUrl: './product-page.component.html',
-  styleUrl: './product-page.component.css'
+  styleUrl: './product-page.component.css',
 })
 export class ProductPageComponent {
   form!: FormGroup;
+  formPrice!: FormGroup;
   loading: boolean = false;
   loadingEdit: boolean = false;
   btnActive: boolean = false;
@@ -75,7 +82,8 @@ export class ProductPageComponent {
   product: any;
   colors: any;
   warehouses: any;
-  store: string = "";
+  store: string = '';
+  breadCrumbs: any[] = [];
   // private uploadSubscription!: Subscription;
 
   constructor(
@@ -83,35 +91,35 @@ export class ProductPageComponent {
     private _product: ProductService,
     private route: ActivatedRoute,
     // private _upload: UploadService,
-    private _store: StoreService
+    private _store: StoreService,
+    private router: Router
   ) {}
 
   private modalService = inject(NgbModal);
-	closeResult = '';
+  closeResult = '';
 
+  items = ['First', 'Second', 'Third'];
 
-	openModal(content: TemplateRef<any>) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-			(result:any) => {
-				this.closeResult = `Closed with: ${result}`;
-        console.log(this.closeResult);
-        
-			},
-			(reason:any) => {
-        this.closeResult = `Dismissed ${reason}`;
-        console.log(this.closeResult);
-			},
-		);
-	}
+  openModal(content: TemplateRef<any>) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result: any) => {
+          this.closeResult = `Closed with: ${result}`;
+          console.log(this.closeResult);
+        },
+        (reason: any) => {
+          this.closeResult = `Dismissed ${reason}`;
+          console.log(this.closeResult);
+        }
+      );
+  }
 
   ngOnInit(): void {
-
     this.initForm(); //inicial el formulario
     this.loadForm(); //carga el formulario
 
     this.store = this._store.name()!;
-
-
   }
 
   private initForm(): void {
@@ -127,6 +135,9 @@ export class ProductPageComponent {
     this.loading = true;
 
     this.id = Number(this.route.snapshot.paramMap.get('product_id'));
+    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+
+    console.log(this.id);
 
     if (this.id) {
       this._product.getBydId(this.id).subscribe({
@@ -134,6 +145,17 @@ export class ProductPageComponent {
           console.log(resp);
 
           this.product = resp.data;
+
+          this.breadCrumbs = [
+            {
+              name: 'Products',
+              link: ['/', this.store, 'auth', 'products'],
+            },
+            {
+              name: this.product.name,
+              link: '',
+            },
+          ];
           // this.product.colors.sort((a:any, b: any) => b.id - a.id);
 
           this.warehouses = resp.data.store;
@@ -141,7 +163,20 @@ export class ProductPageComponent {
           this.form.patchValue(resp.data);
         },
         error: (error: any) => {
-          console.error('Error loading product:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se encontro el producto',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Aquí ejecutas el código cuando el usuario hace clic en "OK"
+
+              this.router.navigate([this.store, 'auth', 'products']);
+              // Por ejemplo, puedes redirigir o ejecutar alguna función
+              // this.router.navigate(['/otra-ruta']);
+            }
+          });
+          // console.error('Error loading product:', error);
         },
       });
     }
@@ -158,7 +193,29 @@ export class ProductPageComponent {
   }
 
   save() {
-    
+    this.btnSaveBusy();
+
+    console.log('form enviado');
+
+    this.success = false;
+
+    this._product.save(this.form.value, this.id).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        console.log('recibiendo el producto guardado');
+        Swal.fire('Guardado', 'El producto ha sido actualizado', 'success');
+        // this.product = resp.data; //Momentaneamente se ha bloqueado la respuesta para que no colicione con
+        this.success = true;
+        this.btnSaveReady();
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.btnSaveReady();
+      },
+    });
+  }
+
+  savePrice() {
     this.btnSaveBusy();
 
     console.log('form enviado');
@@ -183,7 +240,7 @@ export class ProductPageComponent {
     return sizes.reduce((acc, size) => acc + size.pivot.quantity, 0);
   }
 
-  updateQuantity(color_size_id: number, $event: any){
+  updateQuantity(color_size_id: number, $event: any) {
     console.log($event);
     console.log(color_size_id);
   }
@@ -192,7 +249,6 @@ export class ProductPageComponent {
     // Actualiza el totalQuantity con el valor recibido
     this.totalQuantity = quantity;
     console.log('Quantity updated:', quantity);
-
   }
 
   // ngOnDestroy(): void {
@@ -200,5 +256,4 @@ export class ProductPageComponent {
   //     this.uploadSubscription.unsubscribe();
   //   }
   // }
-
 }

@@ -1,0 +1,38 @@
+@if(prices.length>0) {
+
+    <div class="table-responsive">
+        <!-- {{ prices | json }} -->
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!-- <th class="text-center">Codigo</th> -->
+                    <th class="text-center">Qty</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Total</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let price of prices">
+                    <!-- <th class="text-center">{{ price.id }}</th> -->
+                    <th class="text-center">{{ price.quantity }}</th>
+                    <td class="text-center">{{ price.value | pen }}</td>
+                    <td class="text-center">{{ price.quantity > 0 ? ( price.quantity * price.value | pen ) : price.value | pen }}</td>
+                    <td class="text-center">{{ price.type }}</td>
+                    <td class="text-center">
+                        <button type="button" (click)="confirmDelete(price.id)" class="btn btn-danger"><i class="fa-solid fa-x"></i></button>
+                        <!-- <a href="#" class="btn btn-outline-danger"><i class="fa-solid fa-x"></i></a> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+} @else {
+    <p>Los precios no estan definidos</p>
+
+}
+
+<app-product-price-create [product_id]="product_id" (emitPrice)="updatePrice($event)"></app-product-price-create>

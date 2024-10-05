@@ -79,7 +79,7 @@ export class LoginComponent {
 
     this._auth.login(this.form.value).subscribe({
       next: (resp: any) => {
-        // console.log(resp);
+        console.log(resp);
 
         this.loading = false;
         this.message = resp.message;

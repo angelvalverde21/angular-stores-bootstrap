@@ -1,0 +1,45 @@
+.gallery-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .selected-image {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .selected-image img {
+    width: 100%; /* Ajusta el tamaño según sea necesario */
+  }
+  
+  .thumbnail-container {
+    display: flex;
+    overflow-x: auto; /* Permite desplazamiento horizontal */
+  }
+  
+  .thumbnail {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .thumbnail img {
+    width: 100px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+  }
+  
+  .thumbnail:hover img {
+    border: 2px solid #007bff; /* Resalta la miniatura al pasar el mouse */
+  }
+
+  /* carga suave */
+
+  .image {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .image.loaded {
+    opacity: 1;
+  }

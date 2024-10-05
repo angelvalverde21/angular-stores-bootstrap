@@ -5,7 +5,7 @@ import { ButtonSaveComponent } from '../../../../../components/buttons/button-sa
 import { InputGroupComponent } from '../../../../../components/forms/input-group/input-group.component';
 import { ButtonSwitchComponent } from '../../../../../components/buttons/button-switch/button-switch.component';
 import { ColorService } from '../../../../../services/color.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-color-fields',
@@ -26,6 +26,7 @@ export class ColorFieldsComponent implements OnInit{
   loading: boolean = false;
   btnActive: boolean = false;
   success: boolean = false;
+  nameColor: string = "";
   
   constructor( 
     private fb: FormBuilder,
@@ -45,11 +46,12 @@ export class ColorFieldsComponent implements OnInit{
 
   ngOnInit(): void {
 
-    console.log(this.color);
+    // console.log(this.color);
     this.id = this.color.id; //se coloca aqui porque se necesita que la estructura se inicialice antes
-    this.initForm(); //inicial el formulario
+    this.initForm(); //inicia el formulario
     this.loadForm();
-  
+    this.nameColor = this.form.get('name')?.value
+
   }
 
   save() {
@@ -65,6 +67,7 @@ export class ColorFieldsComponent implements OnInit{
         console.log(resp);
         this.success = true;
         this.loading = false;
+        Swal.fire('Actualizado', 'Se ha guardado las opciones del color', 'success');
         this.titleToColor.emit(resp.data.name);
       },
       error: (error: any) => {
@@ -73,5 +76,14 @@ export class ColorFieldsComponent implements OnInit{
       },
     });
 
+  }
+
+  btnActiveToggle(event:any){
+
+    console.log(this.nameColor);
+    
+    console.log(event.target.value);
+
+    this.btnActive = (event.target.value != this.nameColor) ? true : false;
   }
 }

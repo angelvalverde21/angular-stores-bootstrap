@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class LoadingComponent {
   @Input() size: string = ""; 
+  @Input() color: string = "secondary"; 
   
 }
 

@@ -1,5 +1,5 @@
 <app-button-login *ngIf="!estaAutenticado"></app-button-login>
-<ng-container *ngIf="estaAutenticado">
+<ng-container>
 
     <!-- Example single danger button -->
     <!-- <button (click)="openSearch()" type="button" [ngClass]="showSearch ? 'btn-secondary' : 'btn-outline-secondary'"
@@ -8,11 +8,12 @@
     <app-button-open-canvas-search></app-button-open-canvas-search>
 
 
-    <app-dropdown-auth-home [store]="store"></app-dropdown-auth-home>
+    <ng-container  *ngIf="estaAutenticado">
+        <app-dropdown-auth-home [store]="store"></app-dropdown-auth-home>
 
-    <app-dropdown-auth-user [store]="store" [name]="user.name"></app-dropdown-auth-user>
+        <app-dropdown-auth-user [store]="store" [name]="user.name"></app-dropdown-auth-user>
+    </ng-container>
 
- 
 
     <!-- <app-button-products></app-button-products>
     <app-button-orders></app-button-orders> -->
