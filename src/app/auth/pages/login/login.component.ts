@@ -100,7 +100,7 @@ export class LoginComponent {
         this.loading = false;
         this.message = resp.error.message;
         this.buttonLoginActive = true;
-        // console.log(resp.error.message);
+        console.log(resp);
       },
       complete: () => {
         this.loading = false;
