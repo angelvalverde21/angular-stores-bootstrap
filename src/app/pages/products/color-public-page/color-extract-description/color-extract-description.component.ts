@@ -10,6 +10,7 @@ import { Component, Input } from '@angular/core';
 export class ColorExtractDescriptionComponent {
 
   @Input() name: string = "Nombre del producto"; 
+  @Input() body: string = ""; 
   
 
 }

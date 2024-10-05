@@ -38,6 +38,7 @@ import { ProductWarehouseComponent } from '../../../shared/products/product-ware
 import { ProductPricesComponent } from '../../../shared/products/prices/product-prices/product-prices.component';
 import Swal from 'sweetalert2';
 import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
+import { ButtonSwitchComponent } from "../../../../components/buttons/button-switch/button-switch.component";
 
 @Component({
   selector: 'app-product-page',
@@ -65,7 +66,8 @@ import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.com
     NgbModule,
     ProductWarehouseComponent,
     ProductPricesComponent,
-    BreadCrumbComponent
+    BreadCrumbComponent,
+    ButtonSwitchComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css',
@@ -127,6 +129,8 @@ export class ProductPageComponent {
       name: ['', [Validators.required]],
       body: [''],
       tags: [''],
+      over_sale: [''],
+      sell_size_unique: [''],
       colors: this.fb.array([]),
     });
   }
