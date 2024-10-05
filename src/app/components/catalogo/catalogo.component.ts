@@ -44,6 +44,7 @@ export class CatalogoComponent implements OnInit, OnDestroy{
 
   
   constructor(
+    
     private _products: ProductService,
     private _common: CommonService,
     private _store: StoreService, //momentaneamente tenemos estevalor aqui

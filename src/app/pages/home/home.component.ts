@@ -41,6 +41,8 @@ export class HomeComponent {
       // console.log(params['store']);
       this._store.getHome(params['store']).subscribe((resp: any) => {
 
+        console.log(resp.message);
+        
         //setea los productos para que se puedan mostrar
         this._product.setProducts(resp.data);
   

@@ -136,7 +136,7 @@ export class StoreService {
     console.log(store);
     
     // Construye la URL con el parámetro 'nombre'
-    const url = `${this.url_base}/${store}`;
+    const url = `${this.urlPublic}/${store}`;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
