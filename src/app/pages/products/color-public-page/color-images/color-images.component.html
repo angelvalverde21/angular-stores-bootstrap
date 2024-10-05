@@ -3,7 +3,7 @@
     <div class="selected-image">
         <div class="card">
 
-            <img *ngIf="!imageLoaded" [src]="imageMediumPlaceHolder" class="card-img-top" alt="Placeholder" />
+            <img height="" *ngIf="!imageLoaded" [src]="imageMediumPlaceHolder" class="card-img-top" alt="Placeholder" />
             <a data-fancybox="gallery" [href]="selectedImage">
                 <img [src]="selectedImage" alt="Imagen del producto" class="image card-img-top" (load)="onImageLoad($event)" [class.loaded]="imageLoaded"/>
             </a>
