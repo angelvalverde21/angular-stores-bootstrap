@@ -17,8 +17,18 @@ export class ColorPriceComponent implements OnInit{
   ngOnInit(): void {
 
     //ojo esto no funcioan en el constructor, por lo que se tuvo que pasar al oninit
+ 
+
+  }
+
+  getPrice(){
     this.price =  this.prices.find((price:any) => price.quantity == 1);
-    console.log(this.price);
+    if (this.price != null) {
+      return this.price.value;
+    } else {
+      return 0;
+    }
+    // console.log(this.price);
   }
 
 }

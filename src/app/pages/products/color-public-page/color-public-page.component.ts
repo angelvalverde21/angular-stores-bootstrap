@@ -13,7 +13,7 @@ import { InfoShippingComponent } from "./info-shipping/info-shipping.component";
 import { CommonModule } from '@angular/common';
 import { SelectQuantityComponent } from "./select-quantity/select-quantity.component";
 import { ColorPriceComponent } from "./color-price/color-price.component";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductPublicService } from '../../../services/product-public.service';
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 import { Subscription } from 'rxjs';
@@ -65,6 +65,7 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     private _colorPublic: ColorPublicService, 
     private _store: StoreService, 
     private route: ActivatedRoute,
+    private router: Router,
     private _productPublic: ProductPublicService
   ) { }
 
@@ -80,27 +81,29 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     // console.log(this.color_id);
     // console.log(this.product_id);
 
-    this.productPublicSubscription = this._productPublic.getById(this.product_id).subscribe((resp:any) => {
-      console.log(resp);
-      this.product = resp.data;
-      this.colors = this.product.colors;
-
-      this.route.params.subscribe((params) => {
-
-        this.product_id = params['product_id']; // Asegúrate que coincide con la ruta
-        this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
+    this.productPublicSubscription = this._productPublic.getById(this.product_id).subscribe({
+      next: (resp:any) =>  {
+        console.log(resp);
+        this.product = resp.data;
+        this.colors = this.product.colors;
   
-        // this.loading = true;
+        this.route.params.subscribe((params) => {
   
-        this.color = this.getColorById(this.color_id);
-        this.loading = false;
-        this.images = this.color.images;
-  
-      });
-
+          this.product_id = params['product_id']; // Asegúrate que coincide con la ruta
+          this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
+    
+          // this.loading = true;
+    
+          this.color = this.getColorById(this.color_id);
+          this.loading = false;
+          this.images = this.color.images;
+    
+        });
+      },
+      error: (error:Error) => {
+        this.router.navigate(['/','error-404']);
+      }
     });
-
-
 
   }
 

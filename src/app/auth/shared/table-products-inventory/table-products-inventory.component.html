@@ -2,13 +2,15 @@
 
     <div class="controls-left d-flex">
         <!-- boton de filtro -->
-        <button class="btn btn-outline-dark me-2" (click)="openTop(contentFilters)"><i class="fa-solid fa-filter"></i></button>
+        <button class="btn btn-outline-dark me-2" (click)="openTop(contentFilters)"><i
+                class="fa-solid fa-filter"></i></button>
         <!-- boton para subir colores -->
         <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentModal)">
             <i class="fa-solid fa-palette"></i>
         </button>
-        <button class="btn btn-outline-dark me-2" *ngIf="totalQuantityProduct">
-            {{ totalQuantityProduct }}
+        <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentReport)"
+            *ngIf="totalQuantityProduct">
+            <i class="fa-solid fa-chart-column me-2"></i> {{ totalQuantityProduct }}
         </button>
     </div>
 
@@ -20,76 +22,111 @@
 <!-- modal -->
 
 <ng-template #contentModal let-modal>
-	<div class="modal-header">
-		<h6 class="modal-title"><i class="fa-solid fa-camera me-2"></i> Subir colores</h6>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-		<app-upload-dropzone-color (completedUpload)="uploadFinish()" [productId]="product.id" />
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-	</div>
+    <div class="modal-header">
+        <h6 class="modal-title"><i class="fa-solid fa-camera me-2"></i> Subir colores</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <app-upload-dropzone-color (completedUpload)="uploadFinish()" [productId]="product.id" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
 </ng-template>
 
 <!-- canvas -->
 
 <ng-template #contentFilters let-offcanvas>
-	<div class="offcanvas-header">
-		<h4 class="offcanvas-title"><i class="fa-solid fa-filter"></i></h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
-	</div>
-	<div class="offcanvas-body">
+    <div class="offcanvas-header">
+        <h4 class="offcanvas-title"><i class="fa-solid fa-filter"></i></h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <div class="offcanvas-body">
 
         <div class="form-check form-switch d-flex align-items-center mb-3">
-            <input
-            type="checkbox"
-            class="form-check-input"
-            [checked]="colorsActive"
-            (change)="colorsActiveToggle($event)"
-            />
+            <input type="checkbox" class="form-check-input" [checked]="colorsActive"
+                (change)="colorsActiveToggle($event)" />
             <label class="form-check-label ms-2">{{ colorsActive ? 'Colores Activos' : 'Colores Inactivos' }}</label>
         </div>
 
         <div class="input-group mb-3">
-            <input 
-            [(ngModel)]="searchTerm" 
-            (input)="filterItems()" 
-            type="text" class="form-control" placeholder="Filtrar color" aria-label="filtrar color" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" (click)="deleteSearch()" type="button" id="button-addon2"><i class="fa-solid fa-x"></i></button>
+            <input [(ngModel)]="searchTerm" (input)="filterItems()" type="text" class="form-control"
+                placeholder="Filtrar color" aria-label="filtrar color" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" (click)="deleteSearch()" type="button" id="button-addon2"><i
+                    class="fa-solid fa-x"></i></button>
         </div>
 
         <p *ngIf="colorsFilter.length>0">{{ colorsFilter.length }} color(es) encontrado(s)</p>
 
-	</div>
+    </div>
+</ng-template>
+
+<!-- canvas report -->
+
+<ng-template #contentReport let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title"><i class="fa-solid fa-chart-column me-2"></i> Reportes</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card text-bg-primary mb-3" style="min-height: 150px;">
+                    <div class="card-header text-center">Total Productos</div>
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <div class="text-center">
+                            <h1>{{ totalQuantityProduct }}</h1>
+                            <small>Unidad(es)</small>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <app-card-total-amount type="success" title="Total Precio Normal" [amount]="totalPriceNormal"></app-card-total-amount>
+            </div>
+            <div class="col-lg-6">
+                <app-card-total-amount type="warning" title="Total Precio Mayor" [amount]="totalPriceMayor"></app-card-total-amount>
+            </div>
+            <div class="col-lg-6">
+                <app-card-total-amount type="danger" title="Total Precio Costo" [amount]="totalPriceCosto"></app-card-total-amount>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
 </ng-template>
 
 <!-- <h5 class="mb-3 title">{{ product.name }} - {{ totalQuantityProduct }}</h5> -->
 
 @switch (product.have) {
-    
+
     @case ('ColorSize') {
-        
-        <app-loading-center *ngIf="loading"></app-loading-center>
 
-        <ng-container *ngIf="!loading">
+    <app-loading-center *ngIf="loading"></app-loading-center>
 
-            @if (colorsFilter.length > 0) {
+    <ng-container *ngIf="!loading">
 
-                <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id" [color]="color"
-                *ngFor="let color of colorsFilter"></app-inventory-color-size>
-                
+        @if (colorsFilter.length > 0) {
+
+        <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id"
+            [color]="color" *ngFor="let color of colorsFilter"></app-inventory-color-size>
+
+        }@else {
+        <div class="text-center">
+            @if (colorsActive) {
+            Sin colores Activos que mostrar
             }@else {
-                <div class="text-center">
-                    @if (colorsActive) {
-                        Sin colores Activos que mostrar
-                    }@else {
-                        No hay colores desactivados
-                    }
-                </div>
+            No hay colores desactivados
             }
+        </div>
+        }
 
-        </ng-container>
+    </ng-container>
 
     }
 
@@ -104,6 +141,6 @@
     }
 
     @default {
-        <p>No se ha podido cargr la relacion del producto have_color o have_size</p>
+    <p>No se ha podido cargr la relacion del producto have_color o have_size</p>
     }
 }

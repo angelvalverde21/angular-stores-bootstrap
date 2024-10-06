@@ -3,18 +3,20 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { StoreService } from '../services/store.service';
 import { switchMap, of } from 'rxjs';
+import { LoadingCenterComponent } from "../components/loading-center/loading-center.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-store',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, LoadingCenterComponent, CommonModule],
   templateUrl: './store.component.html',
   styleUrl: './store.component.css',
 })
 export class StoreComponent implements OnInit{
   store: string = '';
   products: [] = [];
-
+  loadingVerification: boolean = true;
   constructor(
     // private _productService: ProductService,
     private router: Router,
@@ -33,6 +35,7 @@ export class StoreComponent implements OnInit{
       //usamos un suscribe porque para determinar que es slugBase es correcto, tomara un poco de tiempo por eso usamos un suscribe, la respuesta es verdadero o falso
       this._store.isValid(slugBase).subscribe((isValid: boolean) => {
         this._store.setName(slugBase);
+        this.loadingVerification = false;
       });
 
     });

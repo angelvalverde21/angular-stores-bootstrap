@@ -125,6 +125,11 @@ export class StoreService {
     this.slugName.next(value)
   }
 
+  // Método para obtener el valor actual sin necesidad de suscripción
+  getNameValue() {
+    return this.slugName.getValue();  // Obtiene el valor actual directamente
+  }
+
   /****************************************************************************************** */
 
   // getSlug(): string {
