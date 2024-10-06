@@ -13,6 +13,7 @@ export class CardTotalAmountComponent {
   @Input() title: string = "Especifique el titulo"; 
   @Input() type: string = "success"; 
   @Input() amount: number = 0; 
+  @Input() totalAmount: number = 0; 
   
 
 }

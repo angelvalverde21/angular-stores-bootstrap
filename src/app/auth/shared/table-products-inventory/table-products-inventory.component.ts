@@ -45,6 +45,9 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
   totalPriceCosto: number = 0;
   totalPriceMayor: number = 0;
   totalPriceNormal: number = 0;
+  priceCosto: number = 0;
+  priceMayor: number = 0;
+  priceNormal: number = 0;
   private warehouseColorsInactiveSubscription!: Subscription; 
   private uploadSubscription!: Subscription;
   private getByIdWarehouseSubscription!: Subscription;
@@ -78,9 +81,13 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
     /* calculo de precios temporal */
     this.totalQuantityProduct = this.product.sku.warehouse.pivot?.quantity;
 
-    this.totalPriceCosto = this.totalQuantityProduct * this.product.prices.find((price:any) => price.quantity == 0).value;
-    this.totalPriceNormal = this.totalQuantityProduct * this.product.prices.find((price:any) => price.quantity == 1).value;
-    this.totalPriceMayor = this.totalQuantityProduct * this.product.prices.find((price:any) => price.quantity == 3).value;
+    this.priceCosto = this.product.prices.find((price:any) => price.quantity == 0).value;
+    this.priceNormal = this.product.prices.find((price:any) => price.quantity == 1).value;
+    this.priceMayor = this.product.prices.find((price:any) => price.quantity == 3).value;
+
+    this.totalPriceCosto = this.totalQuantityProduct * this.priceCosto;
+    this.totalPriceNormal = this.totalQuantityProduct * this.priceNormal;
+    this.totalPriceMayor = this.totalQuantityProduct * this.priceNormal;
   
     this.uploadSubscription = this._upload.fileUploaded.subscribe((receive) => {
       // Actualiza el componente con la respuesta del servidor
