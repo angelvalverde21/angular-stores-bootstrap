@@ -87,7 +87,7 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
 
     this.totalPriceCosto = this.totalQuantityProduct * this.priceCosto;
     this.totalPriceNormal = this.totalQuantityProduct * this.priceNormal;
-    this.totalPriceMayor = this.totalQuantityProduct * this.priceNormal;
+    this.totalPriceMayor = this.totalQuantityProduct * this.priceMayor;
   
     this.uploadSubscription = this._upload.fileUploaded.subscribe((receive) => {
       // Actualiza el componente con la respuesta del servidor
