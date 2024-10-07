@@ -36,6 +36,7 @@
     }
 }
 
-.activez{
-    border: 2px solid #000 !important;
+.active{
+    border: 2px solid #222222 !important;
+    box-sizing: border-box;
 }

@@ -23,8 +23,10 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="card">
                                     <div class="card-body text-center">
-                                        <img width="50%" class="mx-auto mb-3" [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"  alt="">
-                                    
+                                        <img width="50%" class="mx-auto mb-3"
+                                            [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"
+                                            alt="">
+
                                         <div>
                                             Disponible: {{ product.sku.quantity }}
                                         </div>
@@ -44,7 +46,7 @@
 
                                     <div class="row mb-3">
                                         <div class="col-lg-8 col-12">
-                                            <app-input-group>
+                                            <app-input-group icon="fa-regular fa-pen-to-square">
                                                 <input formControlName="name" type="text" class="form-control"
                                                     placeholder="Name" aria-label="tiktok"
                                                     aria-describedby="basic-tiktok">
@@ -52,7 +54,7 @@
                                         </div>
 
                                         <div class="col-lg-4 col-12">
-                                            <app-input-group>
+                                            <app-input-group icon="fa-regular fa-pen-to-square">
                                                 <input formControlName="tags" type="text" class="form-control"
                                                     placeholder="tags" aria-label="tags" aria-describedby="basic-tags">
                                             </app-input-group>
@@ -64,14 +66,78 @@
                                         </div>
                                     </div>
 
-                                    <app-button-save [btnLoading]="loadingEdit"
-                                        [btnActive]="form.valid"></app-button-save>
 
-                                        <div class="times d-flex justify-content-between">
-                                            <span>{{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}</span>
-                                            <span><strong>{{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}</strong></span>
+                                    <ul class="list-group mb-3">
+
+                                        <li class="list-group-item">
+                                            <p class="mt-3">
+                                                Disponible: <span *ngFor="let size of product.sizes; last as last">{{
+                                                    size.name }} <i *ngIf="!last">,</i></span>
+                                            </p>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input me-2" formControlName="over_sale"
+                                                    type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label pt-1" for="flexCheckDefault">
+                                                    Pre-venta
+                                                </label>
+                                            </div>
+                                        </li>
+
+                                        <li class="list-group-item">
+                                            <div class="form-check mb-3">
+
+                                                @if (product.sizes.length > 1){
+
+                                                <input class="form-check-input me-2" formControlName="sell_size_unique"
+                                                    type="checkbox" value="" id="flexCheckChecked" checked>
+                                                <label class="form-check-label pt-1" for="flexCheckChecked">
+                                                    Vender como ESTANDAR
+                                                </label>
+
+                                                }@else{
+
+                                                <input class="form-check-input me-2" formControlName="sell_size_unique"
+                                                    type="checkbox" value="" id="flexCheckChecked" checked>
+                                                <label class="form-check-label pt-1" for="flexCheckChecked">
+                                                    Vender como S,M,L
+                                                </label>
+                                                }
+
+                                            </div>
+                                        </li>
+
+                                    </ul>
+
+                                    <app-button-save [btnLoading]="loadingEdit"
+                                    [btnActive]="form.valid"></app-button-save>
+
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="times d-flex justify-content-between">
+                                                <div class="created">
+                                                    <p>Creado:</p>
+                                                    <time
+                                                        [attr.datetime]="product.created_at | date: 'yyyy-MM-ddTHH:mm:ss'">
+                                                        {{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}
+                                                    </time>
+                                                </div>
+                                                <div class="updated">
+                                                    <p>Actualizado:</p>
+                                                    <strong>
+                                                        <time
+                                                            [attr.datetime]="product.updated_at | date: 'yyyy-MM-ddTHH:mm:ss'">
+                                                            {{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}
+                                                        </time>
+                                                    </strong>
+                                                </div>
+                                            </div>
                                         </div>
-                                
+                                    </div>
+
+
 
                                 </form>
                             </div>

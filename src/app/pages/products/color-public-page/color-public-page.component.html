@@ -34,7 +34,7 @@
                 </div>
             </div>
             
-            <app-color-extract-description *ngIf="!loading" [name]="product.name"></app-color-extract-description>
+            <app-color-extract-description *ngIf="!loading" [name]="product.name" [body]="product.body"></app-color-extract-description>
 
             <app-color-price *ngIf="!loading" [prices]="product.prices"></app-color-price>
 

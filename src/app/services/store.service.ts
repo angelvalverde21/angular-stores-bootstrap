@@ -125,6 +125,11 @@ export class StoreService {
     this.slugName.next(value)
   }
 
+  // Método para obtener el valor actual sin necesidad de suscripción
+  getNameValue() {
+    return this.slugName.getValue();  // Obtiene el valor actual directamente
+  }
+
   /****************************************************************************************** */
 
   // getSlug(): string {
@@ -136,7 +141,7 @@ export class StoreService {
     console.log(store);
     
     // Construye la URL con el parámetro 'nombre'
-    const url = `${this.url_base}/${store}`;
+    const url = `${this.urlPublic}/${store}`;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 

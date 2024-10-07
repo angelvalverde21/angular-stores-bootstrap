@@ -6,3 +6,12 @@
 .accordion {
     --bs-accordion-border-color: #a8a8a8; /* Personalización del color del borde */
 }
+
+.times{
+  font-size: 0.75rem;
+}
+
+.form-check-input {
+  width: 1.5rem; /* Ajusta el ancho */
+  height: 1.5rem; /* Ajusta la altura */
+}

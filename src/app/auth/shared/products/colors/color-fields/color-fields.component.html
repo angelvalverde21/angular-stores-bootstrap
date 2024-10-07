@@ -3,19 +3,21 @@
     <!-- {{ form.value | json}} -->
     <!-- (statusChange)="save()"  -->
      <!-- Activa el switch -->
-    <div class="card mb-3">
+    <div class="card text-dark bg-light border-dark mb-3">
+
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <span>Editar Nombre</span>
+            <span><li class="fa-regular fa-pen-to-square"></li></span>
+        </div>
 
         <div class="card-body">
-            
-            <div class="mb-3">
-                <label for="">Color</label>
-            </div>
-            <app-input-group>
+
+            <app-input-group [icon]="'fa-regular fa-pen-to-square'">
                 <input formControlName="name" type="text" (input)="btnActiveToggle($event)" onclick="this.select()" class="form-control" placeholder="Nombre del color" aria-label="name"
                     aria-describedby="basic-name">
             </app-input-group>
         
-            <app-button-save [btnLoading]="loading" [btnActive]="form.valid && btnActive" type="dark" text="Guardar"></app-button-save>
+            <app-button-save [btnLoading]="loading" [btnActive]="form.valid && btnActive" [type]="form.valid && btnActive ? 'dark' : 'secondary'" text="Guardar"></app-button-save>
 
             <app-button-switch formControlName="status" (change)="save()"  [id]="'color-status-switch'"/>
             <!-- <div class="mb-3">

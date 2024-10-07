@@ -20,11 +20,12 @@ import { UploadDropzoneColorComponent } from "../../../components/upload-dropzon
 import { UploadService } from '../../../services/upload.service';
 import { ColorService } from '../../../services/color.service';
 import Swal from 'sweetalert2';
+import { CardTotalAmountComponent } from "../card-total-amount/card-total-amount.component";
 
 @Component({
   selector: 'app-table-products-inventory',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent, DropdownInventoryComponent, DropdownColorsComponent, LoadingCenterComponent, UploadDropzoneColorComponent],
+  imports: [RouterModule, FormsModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent, DropdownInventoryComponent, DropdownColorsComponent, LoadingCenterComponent, UploadDropzoneColorComponent, CardTotalAmountComponent],
   templateUrl: './table-products-inventory.component.html',
   styleUrl: './table-products-inventory.component.css',
   encapsulation: ViewEncapsulation.None, //Para el canvas y el modal
@@ -41,6 +42,12 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
   store: string = "";
   colorsFilter: any;
   searchTerm: string = '';
+  totalPriceCosto: number = 0;
+  totalPriceMayor: number = 0;
+  totalPriceNormal: number = 0;
+  priceCosto: number = 0;
+  priceMayor: number = 0;
+  priceNormal: number = 0;
   private warehouseColorsInactiveSubscription!: Subscription; 
   private uploadSubscription!: Subscription;
   private getByIdWarehouseSubscription!: Subscription;
@@ -69,6 +76,19 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    console.log(this.product.prices);
+
+    /* calculo de precios temporal */
+    this.totalQuantityProduct = this.product.sku.warehouse.pivot?.quantity;
+
+    this.priceCosto = this.product.prices.find((price:any) => price.quantity == 0).value;
+    this.priceNormal = this.product.prices.find((price:any) => price.quantity == 1).value;
+    this.priceMayor = this.product.prices.find((price:any) => price.quantity == 3).value;
+
+    this.totalPriceCosto = this.totalQuantityProduct * this.priceCosto;
+    this.totalPriceNormal = this.totalQuantityProduct * this.priceNormal;
+    this.totalPriceMayor = this.totalQuantityProduct * this.priceMayor;
+  
     this.uploadSubscription = this._upload.fileUploaded.subscribe((receive) => {
       // Actualiza el componente con la respuesta del servidor
       console.log('Imagen subida y notificada:', receive);
@@ -84,7 +104,7 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
       // Actualiza tu UI o realiza otras acciones necesarias
     });
 
-    this.totalQuantityProduct = this.product.sku.warehouse.pivot?.quantity;
+
     // this.product.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
     this.loadColors();
     this.store = this._store.leerSlugBase()!;

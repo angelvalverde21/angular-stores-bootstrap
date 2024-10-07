@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ElementRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { CardProductComponent } from '../cards/card-product/card-product.component';
 import { CardColorComponent } from '../cards/card-color/card-color.component';
 import { ProductService } from '../../services/product.service';
@@ -29,7 +29,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './catalogo.component.css'
 })
 
-export class CatalogoComponent implements OnInit, OnDestroy{
+export class CatalogoComponent implements OnInit, OnDestroy, AfterViewInit{
 
   count: number = 0;
   products: any = [];
@@ -42,8 +42,8 @@ export class CatalogoComponent implements OnInit, OnDestroy{
   private commonSubscription!: Subscription;
   private productsSubscription!: Subscription;
 
-  
   constructor(
+    
     private _products: ProductService,
     private _common: CommonService,
     private _store: StoreService, //momentaneamente tenemos estevalor aqui
@@ -53,6 +53,10 @@ export class CatalogoComponent implements OnInit, OnDestroy{
 
   }
 
+  ngAfterViewInit(): void {
+    this.store = this._store.getNameValue();
+  }
+
   ngOnInit(): void {
 
     //iniciamos fancybox
@@ -60,7 +64,6 @@ export class CatalogoComponent implements OnInit, OnDestroy{
       // Custom options
     });
 
-    this.store = this._store.name();
     this.estaAutenticado = this._auth.estaAutenticado();
 
     this.phone = this._store.storeWarehouses().phone;
@@ -68,6 +71,7 @@ export class CatalogoComponent implements OnInit, OnDestroy{
     this.commonSubscription = this._common.getCardPlaceHolderObservable().subscribe((value:boolean) => {
 
       this.count  = this.count + 1;
+
       console.log('contador');
       
       console.log(this.count);
