@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button-add-cart',
@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './button-add-cart.component.css'
 })
 export class ButtonAddCartComponent {
+
+  @Input() isValid: boolean = false; 
+  
 
 }

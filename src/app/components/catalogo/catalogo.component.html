@@ -60,7 +60,8 @@
                                 class="btn btn-success"><i class="fa-brands fa-whatsapp"></i></a>
                     
                             <div style="font-size: 0.75rem;">{{ (product.price ? product.price.value : 0 ) | pen }}</div>
-                            <button class="btn btn-outline-success" [routerLink]="['/', store,'products',product.id,'colors',color.id]"><i class="fa-solid fa-check"></i></button>
+
+                            <button class="btn btn-outline-success" *ngIf="estaAutenticado" [routerLink]="['/', store,'products',product.id,'colors',color.id]"><i class="fa-solid fa-check"></i></button>
                             <!-- <div>{{ color.name }}</div> -->
                     
                         </div>

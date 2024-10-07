@@ -40,20 +40,26 @@
 
             <app-select-color [colors]="colors"></app-select-color>
 
-            <div class="row mb-3">
+            <form [formGroup]="form" (ngSubmit)="save()">
 
-                <div class="col-lg-12 col-12">
-                    <app-select-size [sizes]="color.sizes"></app-select-size>
+                <!-- {{ form.valid }} -->
+
+                <div class="row mb-3">
+
+                    <div class="col-lg-12 col-12">
+                        <app-select-size formControlName="size" [sizes]="color.sizes"></app-select-size>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <app-select-quantity formControlName="quantity" [quantityMax]="5"></app-select-quantity>
+                    </div>
+                    <div class="col-lg-6">
+                        <app-button-add-cart [isValid]="form.valid"></app-button-add-cart>
+                    </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <app-select-quantity></app-select-quantity>
-                </div>
-                <div class="col-lg-6">
-                    <app-button-add-cart></app-button-add-cart>
-                </div>
-            </div>
-
+            </form>
+        
             <app-info-shipping></app-info-shipping>
 
         </div>

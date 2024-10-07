@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductPublicService } from '../../../services/product-public.service';
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 import { Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-color-public-page',
@@ -32,7 +33,8 @@ import { Subscription } from 'rxjs';
     CommonModule,
     SelectQuantityComponent,
     ColorPriceComponent,
-    LoadingCenterComponent
+    LoadingCenterComponent,
+    ReactiveFormsModule
 ],
   templateUrl: './color-public-page.component.html',
   styleUrl: './color-public-page.component.css'
@@ -57,6 +59,8 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
   // product_id: number = 0;
   loadingColor: boolean = true;
   loading: boolean = true;
+  isFormInit: boolean = false;
+
   productPublicSubscription!: Subscription;
 
   constructor(
@@ -66,7 +70,8 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     private _store: StoreService, 
     private route: ActivatedRoute,
     private router: Router,
-    private _productPublic: ProductPublicService
+    private _productPublic: ProductPublicService,
+    private fb: FormBuilder
   ) { }
 
   ngOnDestroy(): void {
@@ -75,20 +80,61 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     }
   }
 
+  form!: FormGroup;
+
+  private initForm(): void {
+    // Verificar si el formulario ya fue inicializado
+
+      this.form = this.fb.group({
+        size: ['', [Validators.required]],
+        quantity: ['1', [Validators.required]]
+      });
+    
+  }
+
+  // private initForm(): void {
+  //   this.form = this.fb.group({
+  //     color_id: ['', [Validators.required]],
+  //     size: [''],
+  //     quantity: ['', [Validators.required]]
+  //     // colors: this.fb.array([]),
+  //   });
+  // }
+
+  save(){
+    
+  }
+
   ngOnInit(): void {
 
-
+    
     // console.log(this.color_id);
     // console.log(this.product_id);
 
+    // console.log('inico');
+    this.initForm();
+    
+    //Esto solo se llama una vez
     this.productPublicSubscription = this._productPublic.getById(this.product_id).subscribe({
+
       next: (resp:any) =>  {
         console.log(resp);
         this.product = resp.data;
         this.colors = this.product.colors;
   
+        //Esta susbscripcion va cambiando conforme se va moviendo la url, pero la subscripcion de arriba no cambia
         this.route.params.subscribe((params) => {
   
+          //En caso los parametros cambien, se vuelve a reinicializar el formulario
+          if (this.isFormInit) {
+            this.initForm();
+          }
+
+          this.isFormInit = true;
+
+          console.log(this.isFormInit);
+          
+
           this.product_id = params['product_id']; // Asegúrate que coincide con la ruta
           this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
     
@@ -100,9 +146,11 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     
         });
       },
+
       error: (error:Error) => {
         this.router.navigate(['/','error-404']);
       }
+
     });
 
   }
