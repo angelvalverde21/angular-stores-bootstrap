@@ -10,4 +10,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AuthComponent {
 
+  constructor(){
+    console.log('se paso por el authcomponent');
+    
+  }
+
 }
