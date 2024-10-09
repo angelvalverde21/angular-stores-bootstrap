@@ -11,15 +11,16 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
 	</div>
 	<div class="offcanvas-body">
-		<form>
-			<div class="mb-3">
-				<label for="dateOfBirth">Date of birth</label>
-				<div class="input-group">
 
-				</div>
-			</div>
-		</form>
-		<div class="text-end">
+		<ul class="list-group mb-3">
+			<li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of items; index as position">
+				<img height="75px" [src]="item.color.image.url_thumbnail" alt="">
+				<button class="btn btn-danger" (click)="deleteItem(position)">X</button>
+			</li>
+		  </ul>
+
+		<!-- {{ items | json }} -->
+		<div class="text-end mb-3">
 			<!-- <button type="button" class="btn btn-outline-secondary" (click)="offcanvas.close('Save click')">Save</button> -->
 			<button type="button" (click)="realizarPedido()" routerLinkActive="router-link-active"  class="btn btn-dark"><i class="fa-solid fa-credit-card me-2"></i> Realizar pedido</button>
 		</div>

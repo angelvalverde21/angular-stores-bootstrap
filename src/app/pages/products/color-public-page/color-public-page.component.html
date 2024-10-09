@@ -42,7 +42,7 @@
 
             <form [formGroup]="form" (ngSubmit)="save()">
 
-                {{ form.value }}
+                <!-- {{ form.value | json }} -->
 
                 <div class="row mb-3">
 
@@ -57,7 +57,7 @@
                     <div class="col-lg-6">
                         <app-button-add-cart [isValid]="form.valid"></app-button-add-cart>
                     </div>
-                    
+
                 </div>
 
             </form>

@@ -31,6 +31,18 @@ export class CartService {
     localStorage.setItem('cartItems', JSON.stringify(this.items));
   }
 
+
+  getItems(){
+    if (localStorage.getItem('cartItems') != null) {
+       return JSON.parse(localStorage.getItem('cartItems')!);
+    } else {
+      return [];
+    }
+  }
+
+  setItems(items:any){
+    localStorage.setItem('cartItems', JSON.stringify(items));
+  }
   // private cartVisibility = new Subject<boolean>();
   // cartVisibility$ = this.cartVisibility.asObservable();
 

@@ -89,7 +89,7 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     // Verificar si el formulario ya fue inicializado
 
       this.form = this.fb.group({
-        color_id: [this.color_id, [Validators.required]],
+        color: [this.color, [Validators.required]],
         size: ['', [Validators.required]],
         quantity: ['1', [Validators.required]]
       });
@@ -135,7 +135,6 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
           this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
           
           //En caso los parametros cambien, se vuelve a reinicializar el formulario
-          this.initForm();
 
           this.isFormInit = true;
 
@@ -147,6 +146,8 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
           this.loading = false;
           this.images = this.color.images;
     
+          this.initForm();
+          
         });
       },
 

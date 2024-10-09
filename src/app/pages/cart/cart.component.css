@@ -1,0 +1,9 @@
+
+/* Opcional: ajustar el ancho en pantallas más pequeñas */
+.list-group-item {
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .list-group-item.fade-out {
+    opacity: 0; /* Cambia la opacidad a 0 para el efecto de desvanecimiento */
+  }
