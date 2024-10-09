@@ -1,0 +1,29 @@
+<!-- <a class="btn btn-primary" (click)="openOffcanvas()" role="button" aria-controls="offcanvasExample">
+    Angular
+</a>
+<button class="btn btn-primary" type="button" (click)="openOffcanvas()" aria-controls="offcanvasExample">
+    Button with data-bs-target
+</button> -->
+
+<ng-template #content let-offcanvas>
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title" id="offcanvas-basic-title"><i class="fa-solid fa-bag-shopping me-2"></i>Mi bolso</h5>
+		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+	</div>
+	<div class="offcanvas-body">
+		<form>
+			<div class="mb-3">
+				<label for="dateOfBirth">Date of birth</label>
+				<div class="input-group">
+
+				</div>
+			</div>
+		</form>
+		<div class="text-end">
+			<!-- <button type="button" class="btn btn-outline-secondary" (click)="offcanvas.close('Save click')">Save</button> -->
+			<button type="button" (click)="realizarPedido()" routerLinkActive="router-link-active"  class="btn btn-dark"><i class="fa-solid fa-credit-card me-2"></i> Realizar pedido</button>
+		</div>
+	</div>
+</ng-template>
+
+<button class="btn btn-outline-dark me-2" (click)="openCanvas(content)"><i class="fa-solid fa-bag-shopping"></i></button>

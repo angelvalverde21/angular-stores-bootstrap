@@ -42,7 +42,7 @@
 
             <form [formGroup]="form" (ngSubmit)="save()">
 
-                <!-- {{ form.valid }} -->
+                {{ form.value }}
 
                 <div class="row mb-3">
 
@@ -53,9 +53,11 @@
                     <div class="col-lg-6">
                         <app-select-quantity formControlName="quantity" [quantityMax]="5"></app-select-quantity>
                     </div>
+
                     <div class="col-lg-6">
                         <app-button-add-cart [isValid]="form.valid"></app-button-add-cart>
                     </div>
+                    
                 </div>
 
             </form>

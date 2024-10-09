@@ -11,5 +11,4 @@ export class ButtonAddCartComponent {
 
   @Input() isValid: boolean = false; 
   
-
 }

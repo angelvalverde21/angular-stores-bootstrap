@@ -9,8 +9,8 @@
 
 
     <ng-container  *ngIf="estaAutenticado">
+        <app-cart></app-cart>
         <app-dropdown-auth-home [store]="store"></app-dropdown-auth-home>
-
         <app-dropdown-auth-user [store]="store" [name]="user.name"></app-dropdown-auth-user>
     </ng-container>
 

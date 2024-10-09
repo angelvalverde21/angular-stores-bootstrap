@@ -1,55 +1,58 @@
-import { Injectable, ElementRef } from '@angular/core';
-declare var bootstrap: any;
-
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
 
-
-  private offcanvas: any;
-
   constructor() {
     // console.log('servicio cargado');
   }
 
-  initializeOffcanvas(offcanvasElement: ElementRef | undefined) {
+  items: any[] = [];
 
-    if (offcanvasElement && typeof bootstrap !== 'undefined') {
-      const element = offcanvasElement.nativeElement;
-      if (element) {
-        this.offcanvas = new bootstrap.Offcanvas(element);
-        (window as any).offcanvas = this.offcanvas; // Hacer offcanvas accesible globalmente para demostración
-
-        element.addEventListener('shown.bs.offcanvas', () => {
-          console.log('Offcanvas mostrado');
-        });
-
-        element.addEventListener('hide.bs.offcanvas', () => {
-          console.log('Offcanvas oculto');
-        });
-
-        element.addEventListener('hidden.bs.offcanvas', () => {
-          console.log('Offcanvas oculto completamente');
-        });
-        
-      }
+  addItem(item: any) {
+    // Verifica si ya hay elementos en 'cartItems'
+    const cartItemsString = localStorage.getItem('cartItems');
+    
+    if (cartItemsString != null) {
+      // Convierte la cadena a un array de objetos JSON
+      this.items = JSON.parse(cartItemsString); 
+    } else {
+      // Inicializa 'this.items' como un array vacío si no hay datos
+      this.items = [];
     }
-
+  
+    // Agrega el nuevo item
+    this.items.push(item);
+    
+    // Vuelve a setear los elementos del carrito en localStorage
+    localStorage.setItem('cartItems', JSON.stringify(this.items));
   }
 
-  openCart() {
-    if (this.offcanvas) {
-      console.log('clickc--');
-      this.offcanvas.show(); // Mostrar el offcanvas
-    }
+  // private cartVisibility = new Subject<boolean>();
+  // cartVisibility$ = this.cartVisibility.asObservable();
+
+  // openCart() {
+  //   this.cartVisibility.next(true);
+  // }
+
+  // closeCart() {
+  //   this.cartVisibility.next(false);
+  // }
+
+  private cartVisibility: Subject<boolean> = new Subject<boolean>();
+
+  /** CREANDO LOS SETTER Y GETTER */
+
+  setOpenCart(value: boolean) {
+    this.cartVisibility.next(value);
+    // this.cartVisibility.complete(); //termina la suscripcion, util cuando solo se requiere usar una sola vez
   }
 
-  closeCart() {
-    if (this.offcanvas) {
-      this.offcanvas.hide();
-    }
+  getOpenCartObservable() {
+    return this.cartVisibility.asObservable();
   }
 
 }

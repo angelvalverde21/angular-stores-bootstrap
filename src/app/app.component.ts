@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
-import { CartComponent } from "./cart/cart.component";
+import { CartComponent } from "./pages/cart/cart.component";
 import { StoreService } from './services/store.service';
 
 declare var $: any;

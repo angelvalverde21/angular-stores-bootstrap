@@ -18,6 +18,7 @@ import { ProductPublicService } from '../../../services/product-public.service';
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-color-public-page',
@@ -62,6 +63,7 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
   isFormInit: boolean = false;
 
   productPublicSubscription!: Subscription;
+  cartSubscription!: Subscription;
 
   constructor(
     private meta: Meta, 
@@ -71,7 +73,8 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     private route: ActivatedRoute,
     private router: Router,
     private _productPublic: ProductPublicService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _cart: CartService
   ) { }
 
   ngOnDestroy(): void {
@@ -86,6 +89,7 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     // Verificar si el formulario ya fue inicializado
 
       this.form = this.fb.group({
+        color_id: [this.color_id, [Validators.required]],
         size: ['', [Validators.required]],
         quantity: ['1', [Validators.required]]
       });
@@ -102,7 +106,9 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
   // }
 
   save(){
-    
+    console.log(this.form.value);
+    this._cart.addItem(this.form.value);
+    this._cart.setOpenCart(true);
   }
 
   ngOnInit(): void {
@@ -125,19 +131,16 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
         //Esta susbscripcion va cambiando conforme se va moviendo la url, pero la subscripcion de arriba no cambia
         this.route.params.subscribe((params) => {
   
+          this.product_id = params['product_id']; // Asegúrate que coincide con la ruta
+          this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
+          
           //En caso los parametros cambien, se vuelve a reinicializar el formulario
-          if (this.isFormInit) {
-            this.initForm();
-          }
+          this.initForm();
 
           this.isFormInit = true;
 
           console.log(this.isFormInit);
           
-
-          this.product_id = params['product_id']; // Asegúrate que coincide con la ruta
-          this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
-    
           // this.loading = true;
     
           this.color = this.getColorById(this.color_id);

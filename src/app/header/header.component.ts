@@ -20,7 +20,7 @@ import { AuthService } from '../services/auth.service';
 import { ButtonLogoutComponent } from "../components/buttons/button-logout/button-logout.component";
 import { User } from '../interfaces/user.interface';
 import { PipesModule } from '../shared/pipes.module';
-import { CartComponent } from "../cart/cart.component";
+import { CartComponent } from "../pages/cart/cart.component";
 import { HeaderMiddleComponent } from "./header-middle/header-middle.component";
 import { HeaderBottomComponent } from "./header-bottom/header-bottom.component";
 import { ButtonProductsComponent } from "../components/buttons/button-products/button-products.component";
@@ -70,7 +70,7 @@ import { ButtonOrdersComponent } from "../components/buttons/button-orders/butto
   ],
 })
 
-export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy{
+export class HeaderComponent implements OnInit, OnDestroy{
 
   showSearch : boolean = false;
   store: string = '';
@@ -119,27 +119,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy{
     console.log('seteando el nombre');
     
     this.store = this._store.name()!;
-  }
-
-  ngAfterViewInit() {
-
-
-
-    if (this.offcanvasElement) {
-      // console.log('offcanvasElement cargado');
-      this._cart.initializeOffcanvas(this.offcanvasElement);
-    } else {
-      // console.log('offcanvasElement noooooooo cargado');
-    }
-  }
-
-  openCart() {
-    console.log('click');
-    this._cart.openCart();
-  }
-
-  closeCart() {
-    this._cart.closeCart();
   }
 
   changeShowSearch($event:any){
