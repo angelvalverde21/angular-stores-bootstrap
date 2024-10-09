@@ -26,7 +26,7 @@ export class SelectQuantityComponent implements ControlValueAccessor{
 
     this.selectQuantity = quantity;
 
-    this.onChangeCb?.(this.selectQuantity);
+    this.onChangeCb?.(this.selectQuantity); //Esto envia los cambios al componente padre ya que este valor se le pasara a registerOnChange
   }
   
   sumQuantity(quantity: number){
