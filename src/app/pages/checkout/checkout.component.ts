@@ -84,4 +84,11 @@ export class CheckoutComponent implements OnInit{
 
   }
 
+  save(){
+    console.log(this.form.value);
+    console.log(this._cart.getItems());
+    
+    
+  }
+
 }

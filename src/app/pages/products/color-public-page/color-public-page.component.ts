@@ -106,9 +106,56 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
   // }
 
   save(){
+
+    /*
+    {
+      "color_id": 3955,
+      "type": "color_size_id",
+      "talla": "M",
+      "size_id": "537",
+      "quantity": 1,
+      "image": "http://super.test/storage/images/products/colors/3649d901ae78601e318deb4e7f04645f.jpg",
+      "product_id": 510,
+      "prices": [
+          {
+              "id": 486,
+              "type": "normal",
+              "quantity": 1,
+              "value": 109.95,
+              "value_total": 109.95
+          }
+      ],
+      "name": "Vestido Gitana Floreados",
+      "price": 109.95,
+      "subtotal": 109.95
+    },
+    */
+
+    const color = this.form.get('color')?.value;
+    const size = this.form.get('size')?.value;
+    const quantity = this.form.get('quantity')?.value;
+
+    const price = this.product.price || this.product.prices[0];
+    const item =     {
+      "color_id": color.id,
+      "type": "color_size_id",
+      'size_id': size.id,
+      "quantity": quantity,
+      "image": color.image.url_medium,
+      "product_id": this.product.id,
+      "prices": this.product.prices,
+      "name": this.product.name,
+      "price": price.value,
+      "subtotal": quantity * price.value
+    }
+
+    console.log(item);
+    
+
     console.log(this.form.value);
-    this._cart.addItem(this.form.value);
+    this._cart.addItem(item);
     this._cart.setOpenCart(true);
+
   }
 
   ngOnInit(): void {

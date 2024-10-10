@@ -65,7 +65,7 @@ export class SelectQuantityComponent implements ControlValueAccessor{
     // throw new Error('registerOnTouched Method not implemented.');
   }
   setDisabledState?(isDisabled: boolean): void {
-    console.log('setDisabledState Method not implemented.');
+    // console.log('setDisabledState Method not implemented.');
   }
 
 }

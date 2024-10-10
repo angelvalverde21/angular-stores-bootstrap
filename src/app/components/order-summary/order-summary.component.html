@@ -3,10 +3,10 @@
     <li class="list-group-item d-flex justify-content-between align-items-center"
         *ngFor="let item of items; index as position">
         <div class="item d-flex align-items-center">
-            <img height="75px" [src]="item.color.image.url_thumbnail" alt="">
+            <img height="75px" [src]="item.image" alt="">
             <div class="item-details ms-3">
                 <h6>{{ item.quantity }} x S/. 29.95</h6>
-                <span class="me-3">({{ item.size }})</span>
+                <span class="me-3">({{ item.size.name }})</span>
             </div>
         </div>
 

@@ -30,6 +30,7 @@ export class SelectSizeComponent implements ControlValueAccessor, AfterViewInit 
 
 
   selectSize(sizeReceive: any){
+
     this.sizeNameSelected = sizeReceive.target.value;
 
     //buscamos el nombre de la talla
@@ -38,7 +39,7 @@ export class SelectSizeComponent implements ControlValueAccessor, AfterViewInit 
     });
 
     // this.onChangeCb && this.onChangeCb(sizeName);
-    this.onChangeCb?.(size.name);
+    this.onChangeCb?.(size);
   }
 
   writeValue(sizeName: string): void {
