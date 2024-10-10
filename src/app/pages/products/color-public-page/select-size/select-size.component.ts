@@ -29,10 +29,16 @@ export class SelectSizeComponent implements ControlValueAccessor, AfterViewInit 
   }
 
 
-  selectSize(size: any){
-    this.sizeNameSelected = size.target.value;
+  selectSize(sizeReceive: any){
+    this.sizeNameSelected = sizeReceive.target.value;
+
+    //buscamos el nombre de la talla
+    const size = this.sizes.find((size:any) => {
+      return size.id == sizeReceive.target.value
+    });
+
     // this.onChangeCb && this.onChangeCb(sizeName);
-    this.onChangeCb?.(size.target.value);
+    this.onChangeCb?.(size.name);
   }
 
   writeValue(sizeName: string): void {

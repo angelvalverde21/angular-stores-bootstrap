@@ -1,10 +1,3 @@
-<!-- <a class="btn btn-primary" (click)="openOffcanvas()" role="button" aria-controls="offcanvasExample">
-    Angular
-</a>
-<button class="btn btn-primary" type="button" (click)="openOffcanvas()" aria-controls="offcanvasExample">
-    Button with data-bs-target
-</button> -->
-
 <ng-template #content let-offcanvas>
 	<div class="offcanvas-header">
 		<h5 class="offcanvas-title" id="offcanvas-basic-title"><i class="fa-solid fa-bag-shopping me-2"></i>Mi bolso</h5>
@@ -12,12 +5,7 @@
 	</div>
 	<div class="offcanvas-body">
 
-		<ul class="list-group mb-3">
-			<li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of items; index as position">
-				<img height="75px" [src]="item.color.image.url_thumbnail" alt="">
-				<button class="btn btn-danger" (click)="deleteItem(position)">X</button>
-			</li>
-		  </ul>
+		<app-order-summary></app-order-summary>
 
 		<!-- {{ items | json }} -->
 		<div class="text-end mb-3">
@@ -27,4 +15,4 @@
 	</div>
 </ng-template>
 
-<button class="btn btn-outline-dark me-2" (click)="openCanvas(content)"><i class="fa-solid fa-bag-shopping"></i></button>
+<button class="btn btn-outline-dark me-2" (click)="openCanvas(content)"><i class="fa-solid fa-bag-shopping me-2"></i>5</button>

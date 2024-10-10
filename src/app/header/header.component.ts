@@ -20,7 +20,6 @@ import { AuthService } from '../services/auth.service';
 import { ButtonLogoutComponent } from "../components/buttons/button-logout/button-logout.component";
 import { User } from '../interfaces/user.interface';
 import { PipesModule } from '../shared/pipes.module';
-import { CartComponent } from "../pages/cart/cart.component";
 import { HeaderMiddleComponent } from "./header-middle/header-middle.component";
 import { HeaderBottomComponent } from "./header-bottom/header-bottom.component";
 import { ButtonProductsComponent } from "../components/buttons/button-products/button-products.component";
@@ -39,7 +38,6 @@ import { ButtonOrdersComponent } from "../components/buttons/button-orders/butto
     CommonModule,
     ButtonLogoutComponent,
     PipesModule,
-    CartComponent,
     HeaderMiddleComponent,
     HeaderBottomComponent,
     ButtonProductsComponent,
