@@ -26,7 +26,7 @@ export class CheckoutComponent implements OnInit{
   
   ngOnInit(): void {
 
-    
+    window.scrollTo(0, 0);
     // console.log(this.color_id);
     // console.log(this.product_id);
 
