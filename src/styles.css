@@ -33,4 +33,35 @@ a {
   height: auto; /* Ajusta la altura al contenido automáticamente */
 }
 
-/* dropzone */
+/* Canvas Cart */
+@media (min-width: 0px) and (max-width: 576px) {
+  .custom-offcanvas {
+    width: 75% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .custom-offcanvas {
+    width: 60% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .custom-offcanvas {
+    width: 45% !important; /* Establecer ancho al 75% */
+  }
+}
+
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .custom-offcanvas {
+    width: 30% !important; /* Establecer ancho al 75% */
+  }
+}
+
+
+@media (min-width: 1201px){
+  .custom-offcanvas {
+    width: 25% !important; /* Establecer ancho al 75% */
+  }
+}

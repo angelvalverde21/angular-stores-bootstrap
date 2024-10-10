@@ -1,16 +1,63 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-select-size',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './select-size.component.html',
-  styleUrl: './select-size.component.css'
+  styleUrl: './select-size.component.css',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef( () => SelectSizeComponent),
+      multi: true,
+    }
+  ]
 })
-export class SelectSizeComponent {
+export class SelectSizeComponent implements ControlValueAccessor, AfterViewInit {
 
-  @Input() sizes: any[] = []; 
+
+  @Input() sizes: any[] = [];
+
+  sizeNameSelected: string | null = null;
+  onChangeCb?: (sizeName:any) => void;
+
+  ngAfterViewInit(): void {
+    console.log(this.sizes);
+  }
+
+
+  selectSize(sizeReceive: any){
+
+    this.sizeNameSelected = sizeReceive.target.value;
+
+    //buscamos el nombre de la talla
+    const size = this.sizes.find((size:any) => {
+      return size.id == sizeReceive.target.value
+    });
+
+    // this.onChangeCb && this.onChangeCb(sizeName);
+    this.onChangeCb?.(size);
+  }
+
+  writeValue(sizeName: string): void {
+    // throw new Error('Method not implemented.');
+    this.sizeNameSelected = sizeName;
+    
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChangeCb = fn;
+  }
+  registerOnTouched(fn: any): void {
+    // throw new Error('Method not implemented.');
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    // throw new Error('Method not implemented.');
+  }
+
   
 
 }

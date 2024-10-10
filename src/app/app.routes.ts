@@ -23,6 +23,7 @@ import { ProductColorsPageComponent } from './auth/pages/products/product-colors
 import { ProductColorsInactivePageComponent } from './auth/pages/products/product-colors-inactive-page/product-colors-inactive-page.component';
 import { ProductCreatePageComponent } from './auth/pages/products/product-create-page/product-create-page.component';
 import { ColorPublicPageComponent } from './pages/products/color-public-page/color-public-page.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -44,6 +45,7 @@ export const routes: Routes = [
       { path: 'products/:product_id/colors/:color_id', component: ColorPublicPageComponent },
       { path: 'search/:search', component: SearchComponent },
       { path: 'tracking', component: TrackingComponent},
+      { path: 'checkout', component: CheckoutComponent},
       { path: 'login', component: LoginComponent },
       {
         /*

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectQuantityComponent } from './select-quantity.component';
+import { InputDniComponent } from './input-dni.component';
 
-describe('SelectQuantityComponent', () => {
-  let component: SelectQuantityComponent;
-  let fixture: ComponentFixture<SelectQuantityComponent>;
+describe('InputDniComponent', () => {
+  let component: InputDniComponent;
+  let fixture: ComponentFixture<InputDniComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SelectQuantityComponent]
+      imports: [InputDniComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SelectQuantityComponent);
+    fixture = TestBed.createComponent(InputDniComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

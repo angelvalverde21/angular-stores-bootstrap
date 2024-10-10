@@ -89,14 +89,14 @@ export class FormSearchComponent implements OnInit {
     console.log('¿Contiene el segmento "auth"?', this.hasAuthSearch);
   }
 
-keyUpSearch($event: any) {
-  this.btnActive = true;
-  const searchTerm = $event.target.value;
+  keyUpSearch($event: any) {
+    this.btnActive = true;
+    const searchTerm = $event.target.value;
 
-  if (searchTerm.length > 3) {
-    this.searchSubject.next(searchTerm); // Emite el término de búsqueda
+    if (searchTerm.length > 3) {
+      this.searchSubject.next(searchTerm); // Emite el término de búsqueda
+    }
   }
-}
 
   keyEnter($event: any){
     console.log('click en keyup');

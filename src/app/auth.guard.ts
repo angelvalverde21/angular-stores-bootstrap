@@ -41,7 +41,9 @@ export class authGuard implements CanActivate, CanActivateChild {
     // Verifica si el slug es válido
     // Primero verifica si el slugBase es válido
     return this._store.isValid(slugBase).pipe(
+
       switchMap((isValid:boolean) => {
+        
         if (!isValid) {
           // Redirige a error-404 si el slug no es válido
           this._router.navigate(['/error-404']);
@@ -50,7 +52,9 @@ export class authGuard implements CanActivate, CanActivateChild {
         
         // Si el slug es válido, verifica si el usuario está autenticado
         return of(this._auth.estaAutenticado()).pipe(
+
           map(isAuthenticated => {
+
             if (isAuthenticated) {
               console.log('esta autenticado desde el guard');
               

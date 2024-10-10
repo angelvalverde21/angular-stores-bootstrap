@@ -11,6 +11,7 @@ import { ProductComponent } from '../../../shared/products/product/product.compo
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 import { ButtonProductsComponent } from "../../../../components/buttons/button-products/button-products.component";
 import { ButtonOrdersComponent } from "../../../../components/buttons/button-orders/button-orders.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products-page',
@@ -55,6 +56,12 @@ export class ProductsPageComponent {
       error: (err: any) => {
         // Manejo del error
         this.products = [];
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se encontro el listado de productos',
+        });
+      
         console.error('Error al obtener la información:', err);
       },
 

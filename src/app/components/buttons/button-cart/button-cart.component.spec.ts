@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectSizeComponent } from './select-size.component';
+import { ButtonCartComponent } from './button-cart.component';
 
-describe('SelectSizeComponent', () => {
-  let component: SelectSizeComponent;
-  let fixture: ComponentFixture<SelectSizeComponent>;
+describe('ButtonCartComponent', () => {
+  let component: ButtonCartComponent;
+  let fixture: ComponentFixture<ButtonCartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SelectSizeComponent]
+      imports: [ButtonCartComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SelectSizeComponent);
+    fixture = TestBed.createComponent(ButtonCartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

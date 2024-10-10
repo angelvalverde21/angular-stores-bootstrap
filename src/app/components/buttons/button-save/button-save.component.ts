@@ -11,6 +11,7 @@ import { Component, Input } from '@angular/core';
 export class ButtonSaveComponent {
   @Input() btnLoading: boolean = false; 
   @Input() type: string = "primary"; 
+  @Input() icon: string = "fa-regular fa-floppy-disk"; 
   @Input() btnActive: boolean = false; 
   @Input() text: string = "Guardar cambios"; 
   

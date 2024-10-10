@@ -169,7 +169,7 @@ export class ProductPageComponent {
         error: (error: any) => {
           Swal.fire({
             icon: 'error',
-            title: 'Oops...',
+            title: 'Error',
             text: 'No se encontro el producto',
           }).then((result) => {
             if (result.isConfirmed) {

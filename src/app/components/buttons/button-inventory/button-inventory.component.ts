@@ -27,7 +27,7 @@ export class ButtonInventoryComponent implements OnInit, AfterViewInit{
     this.warehouse_id = warehouse_id;
     this.warehouseName = this.setName();
   }
-
+  
   setName() : string{
 
     return this.warehouse_id > 0 ? this.store.warehouses.find((warehouse:any) => warehouse.id == this.warehouse_id).name : "Almacenes";

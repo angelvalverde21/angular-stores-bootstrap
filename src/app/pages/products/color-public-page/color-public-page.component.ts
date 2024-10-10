@@ -17,6 +17,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductPublicService } from '../../../services/product-public.service';
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 import { Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-color-public-page',
@@ -32,7 +34,8 @@ import { Subscription } from 'rxjs';
     CommonModule,
     SelectQuantityComponent,
     ColorPriceComponent,
-    LoadingCenterComponent
+    LoadingCenterComponent,
+    ReactiveFormsModule
 ],
   templateUrl: './color-public-page.component.html',
   styleUrl: './color-public-page.component.css'
@@ -57,7 +60,10 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
   // product_id: number = 0;
   loadingColor: boolean = true;
   loading: boolean = true;
+  isFormInit: boolean = false;
+
   productPublicSubscription!: Subscription;
+  cartSubscription!: Subscription;
 
   constructor(
     private meta: Meta, 
@@ -66,7 +72,9 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     private _store: StoreService, 
     private route: ActivatedRoute,
     private router: Router,
-    private _productPublic: ProductPublicService
+    private _productPublic: ProductPublicService,
+    private fb: FormBuilder,
+    private _cart: CartService
   ) { }
 
   ngOnDestroy(): void {
@@ -75,34 +83,126 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     }
   }
 
+  form!: FormGroup;
+
+  private initForm(): void {
+    // Verificar si el formulario ya fue inicializado
+
+      this.form = this.fb.group({
+        color: [this.color, [Validators.required]],
+        size: ['', [Validators.required]],
+        quantity: ['1', [Validators.required]]
+      });
+    
+  }
+
+  // private initForm(): void {
+  //   this.form = this.fb.group({
+  //     color_id: ['', [Validators.required]],
+  //     size: [''],
+  //     quantity: ['', [Validators.required]]
+  //     // colors: this.fb.array([]),
+  //   });
+  // }
+
+  save(){
+
+    /*
+    {
+      "color_id": 3955,
+      "type": "color_size_id",
+      "talla": "M",
+      "size_id": "537",
+      "quantity": 1,
+      "image": "http://super.test/storage/images/products/colors/3649d901ae78601e318deb4e7f04645f.jpg",
+      "product_id": 510,
+      "prices": [
+          {
+              "id": 486,
+              "type": "normal",
+              "quantity": 1,
+              "value": 109.95,
+              "value_total": 109.95
+          }
+      ],
+      "name": "Vestido Gitana Floreados",
+      "price": 109.95,
+      "subtotal": 109.95
+    },
+    */
+
+    const color = this.form.get('color')?.value;
+    const size = this.form.get('size')?.value;
+    const quantity = this.form.get('quantity')?.value;
+
+    const price = this.product.price || this.product.prices[0];
+    const item =     {
+      "color_id": color.id,
+      "type": "color_size_id",
+      'size': size,
+      'size_id': size.id,
+      "quantity": quantity,
+      "image": color.image.url_medium,
+      "product_id": this.product.id,
+      "prices": this.product.prices,
+      "name": this.product.name,
+      "price": price.value,
+      "subtotal": quantity * price.value
+    }
+
+    console.log(item);
+    
+
+    console.log(this.form.value);
+    this._cart.addItem(item);
+    this._cart.setOpenCart(true);
+
+  }
+
   ngOnInit(): void {
 
-
+    
     // console.log(this.color_id);
     // console.log(this.product_id);
 
+    // console.log('inico');
+    this.initForm();
+    
+    //Esto solo se llama una vez
     this.productPublicSubscription = this._productPublic.getById(this.product_id).subscribe({
+
       next: (resp:any) =>  {
         console.log(resp);
         this.product = resp.data;
         this.colors = this.product.colors;
   
+        //Esta susbscripcion va cambiando conforme se va moviendo la url, pero la subscripcion de arriba no cambia
         this.route.params.subscribe((params) => {
   
           this.product_id = params['product_id']; // Asegúrate que coincide con la ruta
           this.color_id = params['color_id']; // Asegúrate que coincide con la ruta
-    
+          
+          //En caso los parametros cambien, se vuelve a reinicializar el formulario
+
+          this.isFormInit = true;
+
+          console.log(this.isFormInit);
+          
           // this.loading = true;
     
           this.color = this.getColorById(this.color_id);
           this.loading = false;
           this.images = this.color.images;
     
+          this.initForm();
+          
         });
       },
+
       error: (error:Error) => {
         this.router.navigate(['/','error-404']);
       }
+
     });
 
   }
