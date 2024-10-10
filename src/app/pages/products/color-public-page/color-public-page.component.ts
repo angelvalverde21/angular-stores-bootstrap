@@ -139,6 +139,7 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     const item =     {
       "color_id": color.id,
       "type": "color_size_id",
+      'size': size,
       'size_id': size.id,
       "quantity": quantity,
       "image": color.image.url_medium,

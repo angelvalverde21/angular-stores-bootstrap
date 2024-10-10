@@ -31,10 +31,12 @@ export class ButtonCartComponent {
 
   closeResult = '';
   @ViewChild('content', { static: true }) content: any;
+  cartOpenSubscription!: Subscription;
   cartSubscription!: Subscription;
   store: string = '';
   items: any;
   loading: boolean = true;
+  count: number = 0;
 
   constructor(
     private _store: StoreService,
@@ -49,8 +51,8 @@ export class ButtonCartComponent {
 
   }
   ngOnDestroy(): void {
-    if (this.cartSubscription) {
-      this.cartSubscription.unsubscribe();
+    if (this.cartOpenSubscription) {
+      this.cartOpenSubscription.unsubscribe();
     }
   }
 
@@ -58,9 +60,14 @@ export class ButtonCartComponent {
 
   ngOnInit() {
     this.store = this._store.name()!;
-    this.cartSubscription = this._cart.getOpenCartObservable()
+    this.cartOpenSubscription = this._cart.getOpenCartObservable()
       .subscribe((visible: boolean) => {
         this.openCanvas(this.content);
+      });
+
+      this.cartSubscription = this._cart.getItemsObservable()
+      .subscribe((resp: any) => {
+        this.count = resp.length;
       });
   }
 
