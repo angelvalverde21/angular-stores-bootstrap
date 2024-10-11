@@ -163,4 +163,19 @@ export class CartService {
       );
 
   };
+
+  private summarySubject: Subject<void> = new Subject<void>();
+
+  /** CREANDO LOS SETTER Y GETTER */
+
+  setSummary() {
+    this.summarySubject.next();
+    // this.cartVisibility.complete(); //termina la suscripcion, util cuando solo se requiere usar una sola vez
+  }
+
+  getSummaryObservable() {
+    return this.summarySubject.asObservable();
+  }
+
+
 }

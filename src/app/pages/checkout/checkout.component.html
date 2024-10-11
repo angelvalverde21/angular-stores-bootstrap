@@ -4,12 +4,18 @@
 
     <div class="row">
         <div class="col-lg-7 col-md-12 col-l2">
+
             <div class="card border-dark mb-3">
+
+                <app-overlay *ngIf="saving"></app-overlay>
+
                 <div class="card-header bg bg-dark text-white py-3 d-flex justify-content-between align-items-center">
                     <span>Checkout</span>
                     <i class="fa-regular fa-address-card"></i>
                 </div>
+                
                 <div class="card-body">
+
         
                     <form [formGroup]="form" (ngSubmit)="save()">
         
@@ -89,7 +95,7 @@
         
         </div>
         <div class="col-lg-5 col-md-12 col-l2">
-            <app-order-summary></app-order-summary>
+            <app-cart></app-cart>
         </div>
     </div>
 

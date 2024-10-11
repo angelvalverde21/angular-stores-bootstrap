@@ -1,0 +1,23 @@
+.overlay-loading{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.capa-gris{
+
+    position: absolute;
+    background-color: #000000;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    opacity: 0.4;
+}
+
+.capa-loading{
+
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}

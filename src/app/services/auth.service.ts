@@ -62,7 +62,7 @@ export class AuthService {
         const obj = resp.data
 
         this.setLogin(obj.access_token, obj.user, obj.store);
-        this.guardarToken(resp.data.access_token);
+        // this.guardarToken(resp.data.access_token);
       
         return resp;
 
@@ -75,7 +75,7 @@ export class AuthService {
     this.guardarToken(token);
     localStorage.setItem('user',JSON.stringify(user));
     localStorage.setItem('store', JSON.stringify(store))
-    localStorage.setItem('slug_base', store.name);
+    localStorage.setItem('slug_base', store.slug);
 
   }
   // user() {

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ButtonCartComponent } from './button-cart.component';
+import { OverlayComponent } from './overlay.component';
 
-describe('ButtonCartComponent', () => {
-  let component: ButtonCartComponent;
-  let fixture: ComponentFixture<ButtonCartComponent>;
+describe('OverlayComponent', () => {
+  let component: OverlayComponent;
+  let fixture: ComponentFixture<OverlayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ButtonCartComponent]
+      imports: [OverlayComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ButtonCartComponent);
+    fixture = TestBed.createComponent(OverlayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
