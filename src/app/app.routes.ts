@@ -24,6 +24,8 @@ import { ProductColorsInactivePageComponent } from './auth/pages/products/produc
 import { ProductCreatePageComponent } from './auth/pages/products/product-create-page/product-create-page.component';
 import { ColorPublicPageComponent } from './pages/products/color-public-page/color-public-page.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { OrderPageComponent } from './auth/pages/order-page/order-page.component';
+import { OrdersPageComponent } from './auth/pages/orders-page/orders-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -59,7 +61,11 @@ export const routes: Routes = [
 
         children: [
           { path: '', component: DashboardComponent},
-          { path: 'orders', component: OrderComponent},
+          { path: 'orders', component: OrderComponent, children: [
+              { path: '', component: OrdersPageComponent}, //plural
+              { path: ':order_id', component: OrderPageComponent}, //singular
+            ]
+          },
           
           { path: 'products', component: ProductsComponent, children:[
               { path: '', component: ProductsPageComponent}, //(All Products of all Warehouses)

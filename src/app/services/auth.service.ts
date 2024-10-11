@@ -59,17 +59,25 @@ export class AuthService {
 
         console.log(resp);
       
-        this.guardarToken(resp.data.access_token);
-        
-        localStorage.setItem('user',JSON.stringify(resp.data.user));
-        localStorage.setItem('roles',JSON.stringify(resp.data.user.roles));
-        localStorage.setItem('store', JSON.stringify(resp.data.store))
+        const obj = resp.data
 
+        this.setLogin(obj.access_token, obj.user, obj.store);
+        this.guardarToken(resp.data.access_token);
+      
         return resp;
+
       })
     );
   }
 
+  setLogin(token: string, user: {}, store: any){
+
+    this.guardarToken(token);
+    localStorage.setItem('user',JSON.stringify(user));
+    localStorage.setItem('store', JSON.stringify(store))
+    localStorage.setItem('slug_base', store.name);
+
+  }
   // user() {
   //   return this.http.get(this.url + '/user', this.opciones);
   // }

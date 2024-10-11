@@ -16,7 +16,7 @@
 
 <ul class="list-group" *ngIf="!showDistricts">
     <li class="list-group-item" *ngFor="let district of districts">
-        <button class="btn w-100" (click)="setName(district)">{{district.name}} - {{district.province.name}} - {{district.province.department.name}}</button>
+        <a class="btn w-100" (click)="setName(district)">{{district.name}} - {{district.province.name}} - {{district.province.department.name}}</a>
     </li>
 </ul>
 

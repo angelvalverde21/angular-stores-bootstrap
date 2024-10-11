@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { CardComponent } from "../../components/card/card.component";
-import { HeaderComponent } from "../../header/header.component";
-import { StepperComponent } from "../../components/stepper/stepper.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [CardComponent, HeaderComponent, StepperComponent],
+  imports: [RouterOutlet],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css'
 })

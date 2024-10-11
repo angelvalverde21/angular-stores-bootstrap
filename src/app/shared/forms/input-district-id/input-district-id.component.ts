@@ -24,7 +24,7 @@ import { LoadingComponent } from "../../../components/loading/loading.component"
 export class InputDistrictIdComponent implements ControlValueAccessor, OnInit {
 
 
-  @Input() isValid: boolean = true; 
+  @Input() isValid: boolean = false; 
   @Input() isInvalid: boolean = false; 
   
   isDisabled: boolean = false;

@@ -74,10 +74,12 @@ export class LoginComponent {
   }
 
   iniciarSesion() {
+
     this.loading = true;
     this.buttonLoginActive = false;
 
     this._auth.login(this.form.value).subscribe({
+      
       next: (resp: any) => {
         console.log(resp);
 
