@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SummaryComponent } from "../summary/summary.component";
+import { PipesModule } from '../../shared/pipes.module';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [RouterModule, CommonModule, SummaryComponent],
+  imports: [RouterModule, CommonModule, SummaryComponent, PipesModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })

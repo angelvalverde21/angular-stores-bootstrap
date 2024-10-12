@@ -5,8 +5,8 @@
         <div class="item d-flex align-items-center">
             <img height="75px" [src]="item.image" alt="">
             <div class="item-details ms-3">
-                <h6>{{ item.quantity }} x S/. 29.95</h6>
-                <span class="me-3">({{ item.size.name }})</span>
+                <h6>{{ item.quantity }} x {{ item.price | pen }}</h6>
+                <span class="me-3">Talla: ({{ item.size.name }})</span>
             </div>
         </div>
 

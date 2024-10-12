@@ -1,1 +1,7 @@
-<p>orders-page works!</p>
+<app-header></app-header>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="container" *ngIf="!loading">
+    {{ orders | json }}
+</div>
