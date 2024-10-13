@@ -26,4 +26,16 @@ export class OrderService {
     
   }
 
+  
+  getById(order_id: number): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this._store.name()}/orders/${order_id}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+    
+  }
+
 }
