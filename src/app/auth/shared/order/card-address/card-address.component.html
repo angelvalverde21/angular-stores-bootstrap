@@ -1,17 +1,17 @@
 <div class="card">
-    <div class="card-header bg bg-dark text-white  d-flex align-items-center">
+    <div class="card-header bg bg-dark text-white  d-flex align-items-center" *ngIf="title">
         <i class="fa-solid fa-map-pin me-2"></i>
         <span>Direccion de envio</span>
     </div>
     <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item"><h6>{{ address.name | uppercase }}</h6></li>
-            <li class="list-group-item">{{ address.primary }}</li>
-            <li class="list-group-item" *ngIf="address.secondary">{{ address.secondary }}</li>
-            <li class="list-group-item" *ngIf="address.references">{{ address.references }}</li>
-            <li class="list-group-item"><i class="fa-solid fa-phone me-2"></i> {{ address.phone }}</li>
-            <li class="list-group-item">DNI: {{ address.dni }}</li>
-            <li class="list-group-item"><strong>{{ address.district.name }} - {{  address.district.province.name }} - {{ address.district.province.department.name }}</strong></li>
+        <ul class="p-0">
+            <li class="list-group-item mb-2"><h5>{{ address.name | uppercase }}</h5></li>
+            <li class="list-group-item mb-2">{{ address.primary }}</li>
+            <li class="list-group-item mb-2" *ngIf="address.secondary">{{ address.secondary }}</li>
+            <li class="list-group-item mb-2" *ngIf="address.references">{{ address.references }}</li>
+            <li class="list-group-item mb-2"><i class="fa-solid fa-phone me-2"></i> {{ address.phone }}</li>
+            <li class="list-group-item mb-2"><i class="fa-solid fa-id-badge me-2"></i>{{ address.dni }}</li>
+            <li class="list-group-item mb-2"><strong>{{ address.district.name }} - {{  address.district.province.name }} - {{ address.district.province.department.name }}</strong></li>
           </ul>
     </div>
 </div>

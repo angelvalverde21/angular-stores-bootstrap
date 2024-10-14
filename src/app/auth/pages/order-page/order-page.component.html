@@ -4,20 +4,33 @@
 
 
 <div class="container" *ngIf="!loading">
-
+    
+    <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
+    
     <app-stepper></app-stepper>
     <!-- {{ order | json }} -->
 
     <div class="row">
-        <div class="col-lg-6">
-            <app-card-address [address]="order.address"></app-card-address>
-        </div>
-        <div class="col-lg-6">
-            <app-card-courier [courier_address]="order.courier_address"></app-card-courier>
-        </div>
 
-        <div class="col-lg-12 col-12">
-            <app-table-items></app-table-items>
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-lg-6">
+                    <app-card-address [address]="order.address" title="Direccion de envio"></app-card-address>
+                </div>
+                <div class="col-lg-6">
+                    <app-card-courier [courier_address]="order.courier_address"></app-card-courier>
+                </div>
+        
+                <div class="col-lg-12 col-12">
+                    <app-table-items [items]="order.items"></app-table-items>
+                </div>
+
+        
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <app-izipay></app-izipay>
+            <app-card-summary></app-card-summary>
         </div>
     </div>
     

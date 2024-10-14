@@ -5,14 +5,16 @@
     </div>
     <div class="card-body">
 
-        <!-- {{ courier_address | json}} -->
-
-        <ul class="list-group">
-            <li class="list-group-item"><h6>{{ courier_address.name | uppercase }}</h6></li>
+        <ul class="p-0">
+            <li class="list-group-item">
+                <h6>{{ courier_address.name | uppercase }}</h6>
+            </li>
             <li class="list-group-item">{{ courier_address.primary }}</li>
             <li class="list-group-item"><i class="fa-solid fa-phone me-2"></i> {{ courier_address.phone }}</li>
             <!-- <li class="list-group-item"><strong>{{ courier_address.district.name }} - {{  courier_address.district.province.name }} - {{ courier_address.district.province.department.name }}</strong></li> -->
-            <li class="list-group-item text-center"><img height="100px" [src]="courier_address.courier.profile_photo_url" alt=""></li>
-          </ul>
+        </ul>
+
+        <img class="logo-courier" height="100px" [src]="courier_address.courier.profile_photo_url" alt="">
+
     </div>
 </div>
