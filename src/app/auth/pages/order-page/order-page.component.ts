@@ -50,7 +50,7 @@ export class OrderPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
   }
 
 }
