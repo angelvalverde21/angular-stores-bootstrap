@@ -5,11 +5,12 @@ import { InputGroupComponent } from "../forms/input-group/input-group.component"
 import { InputDistrictIdComponent } from "../../shared/forms/input-district-id/input-district-id.component";
 import { CartService } from '../../services/cart.service';
 import { mergeMap, of, startWith, switchMap } from 'rxjs';
+import { OverlayComponent } from "../overlay/overlay.component";
 
 @Component({
   selector: 'app-address-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputGroupComponent, InputDistrictIdComponent],  // Importar módulos necesarios
+  imports: [CommonModule, ReactiveFormsModule, InputGroupComponent, InputDistrictIdComponent, OverlayComponent],  // Importar módulos necesarios
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.css',
   providers: [
@@ -26,7 +27,7 @@ export class AddressFormComponent implements ControlValueAccessor {
   // @Input() isInvalid!: (controlName: string) => boolean;
   @Input() addressData: any[] = [];
   @Output() formValidity = new EventEmitter<boolean>(); // Emisor para la validez del formulario
-
+  saving: boolean = false;
   addressForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private _cart: CartService) { }

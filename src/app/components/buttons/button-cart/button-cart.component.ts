@@ -19,11 +19,13 @@ import { Router, RouterModule } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
 import { CartService } from '../../../services/cart.service';
 import { CartComponent } from "../../cart/cart.component";
+import { SummaryComponent } from "../../summary/summary.component";
+
 
 @Component({
   selector: 'app-button-cart',
   standalone: true,
-  imports: [RouterModule, CommonModule, OrderSummaryComponent, CartComponent],
+  imports: [RouterModule, CommonModule, OrderSummaryComponent, CartComponent, SummaryComponent],
   providers: [NgbOffcanvasConfig, NgbOffcanvas],
   templateUrl: './button-cart.component.html',
   styleUrl: './button-cart.component.css'

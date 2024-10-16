@@ -8,11 +8,14 @@ import { CheckoutComponent } from "../../components/checkout/checkout.component"
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { CheckoutAuthComponent } from '../../components/checkout-auth/checkout-auth.component';
+import { SummaryComponent } from "../../components/summary/summary.component";
+import { AddressFormComponent } from "../../components/address-form/address-form.component";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-page-checkout',
   standalone: true,
-  imports: [HeaderComponent, StepperComponent, CartComponent, CheckoutComponent, CommonModule, CheckoutAuthComponent],
+  imports: [HeaderComponent, StepperComponent, CartComponent, CheckoutComponent, CommonModule, CheckoutAuthComponent, SummaryComponent, AddressFormComponent, ReactiveFormsModule],
   templateUrl: './page-checkout.component.html',
   styleUrl: './page-checkout.component.css'
 })
@@ -22,10 +25,12 @@ export class PageCheckoutComponent {
   store: string = "";
   saving: boolean = false;
   is_auth: boolean = false;
+  formChildrenIsValid: boolean = false;
 
   constructor(
     private _auth: AuthService,
     private _store: StoreService,
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +44,22 @@ export class PageCheckoutComponent {
 
     // console.log('inico');
 
+    this.store = this._store.name()!;
+
+    this.form = this.fb.group({
+      address: []
+    });
+
+  }
+  
+  form!: FormGroup;
+
+  formValid(value: boolean){
+    this.formChildrenIsValid = value;
   }
 
+
+  save(){
+
+  }
 }

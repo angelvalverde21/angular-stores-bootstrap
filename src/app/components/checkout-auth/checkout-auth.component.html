@@ -2,7 +2,7 @@
 <div class="mb-3">
     <small>Seleccione una direccion de envio</small>
 </div>
-<div ngbAccordion [closeOthers]="true">
+<div ngbAccordion [closeOthers]="true"  class="mb-3">
     <ng-container *ngFor="let address of addresses; let i = index">
         <div ngbAccordionItem [collapsed]="i !== 0"> <!-- Abre el primer elemento -->
             <h2 ngbAccordionHeader>
@@ -22,4 +22,4 @@
 </div>
 
 
-<i class="fa-solid fa-truck me-2"></i> 
+<!-- <i class="fa-solid fa-truck me-2"></i>  -->
