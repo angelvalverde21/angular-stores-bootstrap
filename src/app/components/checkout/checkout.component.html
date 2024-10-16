@@ -1,0 +1,31 @@
+<div class="card border-dark mb-3">
+
+    <app-overlay *ngIf="saving"></app-overlay>
+
+    <div class="card-header bg bg-dark text-white py-3 d-flex justify-content-between align-items-center">
+        <span>Checkout</span>
+        <i class="fa-regular fa-address-card"></i>
+    </div>
+    
+    <div class="card-body px-4">
+
+        <form [formGroup]="form" (ngSubmit)="save()" >
+
+            <div class="text-center mb-3">
+                <!-- {{ form.valid }} -->
+            </div>
+
+            <div class="text-center mb-3">
+                <!-- {{ form.value | json }} -->
+            </div>
+
+            {{ formChildrenIsValid }}
+
+            <app-address-form formControlName="address" (formValidity)="formValid($event)"></app-address-form>
+
+            <app-button-save type="dark" text="Realizar Pedido" icon="fa-solid fa-bag-shopping" [btnActive]="formChildrenIsValid"></app-button-save>
+
+        </form>
+
+    </div>
+</div>

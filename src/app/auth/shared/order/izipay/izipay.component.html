@@ -1,17 +1,39 @@
-<div class="card mb-3">
-    <div class="card-header">Payment</div>
-    <div class="card-body text-center">
-        <button class="btn btn-primary w-100"><i class="fa-solid fa-credit-card me-2"></i> Pagar Ahora</button>
+<ng-template #content let-modal>
+    <div class="modal-header" style="background-color: #FF2725 !important; color: #fff !important;">
+        <h6 class="modal-title" id="">
+            <img src="images/izipay/logo.png" height="25px" alt="Logo">
+        </h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body py-5">
 
-        <button style="font-size: 1rem;" (click)="loadFormPay(postData)" *ngIf="!order.pagado && order.items.length > 0"
-            data-bs-toggle="modal" data-bs-target="#myModal"
-            class="btn btn-success mb-3 me-2 corner-square p-3 w-100"><i class="fa-solid fa-credit-card me-1"></i>
-            Pagar</button>
+        <!-- Aqui se carga el formulario de Izipay -->
+        <div class="container d-flex justify-content-center">
+            <div id="myPaymentForm" [hidden]="!showFormIzipay"></div>
+        </div>
 
-        <button style="font-size: 1rem; background-color: #5F0673;" *ngIf="!order.pagado && order.items.length > 0"
-            data-bs-toggle="modal" data-bs-target="#myModalYape" class="text-white mb-3 corner-square px-3 w-100"><img
-                src="assets/images/logo_yape.png" height="50px" alt="">
-        </button>
+        <div class="loading text-center" [hidden]="showFormIzipay">
+            <div class="py-3">Cargando formulario de pago</div>
+            <app-loading></app-loading>
+        </div>
+
+        <div class="loading text-center" [hidden]="messageRegisterPayment">
+            <div class="py-3">Procesando su pago, espere...</div>
+            <app-loading></app-loading>
+        </div>
+        <!-- Aqui se carga el formulario de Izipay -->
 
     </div>
-</div>
+    <!-- <div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+	</div> -->
+
+    <div class="modal-footer d-flex justify-content-between" style="font-size: 0.7rem;">
+        <i class="fa-solid fa-lock me-1"></i>Este es un ambiente seguro
+    </div>
+</ng-template>
+
+<!-- {{ order | json }} -->
+
+<button class="btn w-100 mb-3" [ngClass]="order.is_pay? 'btn-secondary' : 'btn-primary'" [disabled]="order.is_pay" (click)="openVerticallyCentered(content)"><i
+        class="fa-solid fa-credit-card me-2"></i> Pagar Ahora</button>

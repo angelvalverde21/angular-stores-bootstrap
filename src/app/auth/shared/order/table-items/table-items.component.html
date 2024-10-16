@@ -1,5 +1,5 @@
 <div class="card my-3">
-    <div class="card-header bg bg-dark text-white">Items</div>
+    <div class="card-header bg bg-{{ bg }} text-white">Items</div>
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -18,21 +18,25 @@
                         <th scope="row" class="text-center">#{{ item.id }}</th>
                         <td class="text-center">{{ item.quantity }}</td>
                         <td>
-                            <!-- {{ item | json}} -->
+                            <!-- {{ item.content | json}} -->
 
                         </td>
                         <td>
-                            <div>
-                                <img [src]="item.image.url_thumbnail" class="me-2" style="height: 100px;" alt="">
-                                <span>{{ item.content.size_name_virtual }}</span>
+                            <div *ngFor="let i of [].constructor(item.quantity); let index = index">
+                                <div>
+                                    <img [src]="item.image.url_thumbnail" class="me-2" style="height: 100px;" alt="">
+                                    <span>{{ item.content.size_name_virtual }}</span>
+                                </div>
                             </div>
+
                         </td>
                         <td>{{ item.product.name }}</td>
-                        <td>mdo</td>
+                        <td><h5>{{ item.price | pen }}</h5><span class="text-decoration-line-through ms-2 mb-2">{{ converToNumber(item.content.price) | pen }}</span></td>
+                        
                     </tr>
                 </tbody>
             </table>
         </div>
-        
+
     </div>
 </div>

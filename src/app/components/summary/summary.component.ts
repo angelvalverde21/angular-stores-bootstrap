@@ -14,9 +14,8 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
   summarySubscription! : Subscription;
   summary: any[] = [];
-  items: any;
-  subAmount: number = 0;
-  totalAmount: number = 0;
+  items: any; 
+  costos: any; 
   igv: number = 0;
 
   constructor(private _cart: CartService){
@@ -25,35 +24,26 @@ export class SummaryComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
 
-    this.calculate();
+    console.log("costos");
+    
+    this.costos = this._cart.costos();
 
     this.summarySubscription =  this._cart.getSummaryObservable().subscribe((resp:any) => {
+      
       console.log("se escucho la subscripcion calculate");
       
-      this.calculate();
+      this.costos = this._cart.costos() ;
+       
     });
 
   }
 
-  calculate(){
-
-    this.subAmount = 0;
-    this.totalAmount = 0;
-
-    console.log("se ejecuto calculate");
-    
-
-    this.items = this._cart.getItems();
-
-    this.items.forEach((item:any) => {
-      this.subAmount += item.price ? item.prices[0].value : 0;
-
-    });
-
-    this.totalAmount = this.subAmount;
-  }
 
   ngOnDestroy(): void {
+
+    if (this.summarySubscription) {
+      this.summarySubscription.unsubscribe();
+    }
     // throw new Error('Method not implemented.');
   }
 

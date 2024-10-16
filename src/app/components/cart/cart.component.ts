@@ -37,9 +37,10 @@ export class CartComponent implements OnInit, OnDestroy{
     this.itemsSubscription = this._cart.getItemsObservable().subscribe((resp:any) => {
       
       this.items = resp;
-      console.log("se ejecuto la subscripcion");
+      console.log("se ejecuto la subscripcion en cart");
 
     });
+
   }
 
   deleteItem(index: any) {

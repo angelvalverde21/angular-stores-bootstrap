@@ -15,7 +15,6 @@ export class ProductPublicService {
 
   }
 
-  
   getById(id: number | null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     
@@ -25,4 +24,5 @@ export class ProductPublicService {
 
     return this.http.get(url);
   }
+
 }

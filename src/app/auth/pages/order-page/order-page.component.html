@@ -15,7 +15,7 @@
         <div class="col-lg-8">
             <div class="row">
                 <div class="col-lg-6">
-                    <app-card-address [address]="order.address" title="Direccion de envio"></app-card-address>
+                    <app-card-address [address]="order.address" show="card" title="Direccion de envio"></app-card-address>
                 </div>
                 <div class="col-lg-6">
                     <app-card-courier [courier_address]="order.courier_address"></app-card-courier>
@@ -25,12 +25,11 @@
                     <app-table-items [items]="order.items"></app-table-items>
                 </div>
 
-        
             </div>
         </div>
         <div class="col-lg-4">
-            <app-izipay></app-izipay>
-            <app-card-summary></app-card-summary>
+            <app-card-summary [totalAmount]="totalAmount" [is_pay]="order.is_pay"></app-card-summary>
+            <app-izipay [order]="order"></app-izipay>
         </div>
     </div>
     

@@ -39,6 +39,8 @@ export class ButtonCartComponent {
   loading: boolean = true;
   count: number = 0;
 
+  offCanvasRef: any;
+
   constructor(
     private _store: StoreService,
     config: NgbOffcanvasConfig,
@@ -60,6 +62,7 @@ export class ButtonCartComponent {
   isVisible = false;
 
   ngOnInit() {
+    
     this.store = this._store.name()!;
     this.cartOpenSubscription = this._cart.getOpenCartObservable()
       .subscribe((visible: boolean) => {
@@ -72,12 +75,14 @@ export class ButtonCartComponent {
       });
   }
 
-  // closeCanvas() {
-  //   this._cart.closeCart();
-  // }
+  closeCanvas() {
+    if (this.offCanvasRef) {
+      this.offCanvasRef.close();
+    }
+  }
 
   openCanvas(content: TemplateRef<any>) {
-    this.offcanvasService
+    this.offCanvasRef = this.offcanvasService
       .open(content, {
         ariaLabelledBy: 'offcanvas-basic-title',
         panelClass: 'custom-offcanvas',

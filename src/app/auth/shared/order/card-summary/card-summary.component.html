@@ -1,8 +1,13 @@
 
 <ul class="list-group mb-3">
 
-    <li class="list-group-item d-flex justify-content-between">
-        <h5>Resumen de pago</h5>
+    <li class="list-group-item d-flex justify-content-between bg text-white" [ngClass]="is_pay ? 'bg-success' : 'bg-dark'">
+        <h5 *ngIf="is_pay">
+            Pagado
+        </h5>
+        <h5 *ngIf="!is_pay">
+            Resumen de pago
+        </h5>
     </li>
     <li class="list-group-item d-flex justify-content-between">
         <span class="label">Sub Total</span><span class="amount">{{ subAmount | pen }}</span>

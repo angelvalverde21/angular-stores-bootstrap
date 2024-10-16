@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-7 col-md-12 col-l2">
+
+            <app-checkout *ngIf="!is_auth"></app-checkout>
+            <!-- <app-checkout *ngIf="!is_auth"></app-checkout> -->
+             <app-checkout-auth *ngIf="is_auth"></app-checkout-auth>
+        
+        </div>
+        <div class="col-lg-5 col-md-12 col-l2">
+            <app-cart></app-cart>
+        </div>
+    </div>
+
+</div>

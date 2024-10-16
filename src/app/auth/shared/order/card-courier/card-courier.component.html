@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header bg bg-secondary text-white d-flex align-items-center">
+    <div class="card-header bg bg-{{ bg }} text-white d-flex align-items-center">
         <i class="fa-solid fa-truck-fast me-2"></i>
         <span>Transporte</span>
     </div>
@@ -14,7 +14,7 @@
             <!-- <li class="list-group-item"><strong>{{ courier_address.district.name }} - {{  courier_address.district.province.name }} - {{ courier_address.district.province.department.name }}</strong></li> -->
         </ul>
 
-        <img class="logo-courier" height="100px" [src]="courier_address.courier.profile_photo_url" alt="">
+        <img class="logo-courier" width="150px" [src]="courier_address.courier.profile_photo_url" alt="">
 
     </div>
 </div>

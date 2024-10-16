@@ -135,7 +135,8 @@ export class ColorPublicPageComponent implements OnInit, OnDestroy{
     const size = this.form.get('size')?.value;
     const quantity = this.form.get('quantity')?.value;
 
-    const price = this.product.price || this.product.prices[0];
+    const price = this.product.prices.find((price:any) => price.quantity == 1 );
+
     const item =     {
       "color_id": color.id,
       "type": "color_size_id",

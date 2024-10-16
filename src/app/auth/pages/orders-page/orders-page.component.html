@@ -14,24 +14,30 @@
         <table class="table table-striped table-bordered">
             <thead class="table-dark">
                 <tr>
-                  <th class="text-center">Id</th>
-                  <th>Direccion Envio</th>
-                  <th class="text-center">Items</th>
-                  <th class="text-center">Monto</th>
-                  <!-- <th scope="col">Autor</th> -->
-                  <th class="text-center">Creado</th>
-                  <th class="text-center">Actualizado</th>
+                    <th class="text-center">Id</th>
+                    <th>Direccion Envio</th>
+                    <th class="text-center">Items</th>
+                    <th class="text-center">Monto</th>
+                    <!-- <th scope="col">Autor</th> -->
+                    <th class="text-center">Creado</th>
+                    <th class="text-center">Actualizado</th>
                 </tr>
-              </thead>
+            </thead>
             <tbody>
                 <tr *ngFor="let order of orders">
-                    <td class="text-center"><button class="btn btn-dark" [routerLink]="['/', store, 'auth', 'orders', order.id]" routerLinkActive="router-link-active" >#{{ order.id }}</button></td>
+                    <td class="text-center"><button class="btn btn-dark"
+                            [routerLink]="['/', store, 'auth', 'orders', order.id]"
+                            routerLinkActive="router-link-active">#{{ order.id }}</button>
+                            <div class="status" *ngIf="order.is_pay">
+                                PAGADO
+                            </div>
+                        
+                        </td>
                     <td style="width: 360px;">
 
                         <!-- {{ order.address | json }} -->
-
                         <app-card-address [address]="order.address" [title]=""></app-card-address>
-                        
+
                     </td>
                     <td class="text-center">
                         <div *ngFor="let item of order.items">

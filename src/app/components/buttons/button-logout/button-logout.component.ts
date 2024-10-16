@@ -21,6 +21,6 @@ export class ButtonLogoutComponent {
   }
   
   logout(){
-    this._auth.logout(this.store);
+    this._auth.logout();
   }
 }
