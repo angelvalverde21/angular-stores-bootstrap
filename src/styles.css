@@ -65,3 +65,52 @@ a {
     width: 25% !important; /* Establecer ancho al 75% */
   }
 }
+
+
+/**** sidebar *****/
+
+
+/* Canvas Cart */
+@media (min-width: 0px) and (max-width: 400px) {
+  .custom-sidebar-offcanvas {
+    width: 60% !important; /* Establecer ancho al 75% */
+  }
+}
+
+/* Canvas Cart */
+@media (min-width: 401px) and (max-width: 576px) {
+  .custom-sidebar-offcanvas {
+    width: 50% !important; /* Establecer ancho al 75% */
+  }
+}
+
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .custom-sidebar-offcanvas {
+    width: 40% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .custom-sidebar-offcanvas {
+    width: 35% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .custom-sidebar-offcanvas {
+    width: 25% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1600px) {
+  .custom-sidebar-offcanvas {
+    width: 20% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 1601px){
+  .custom-sidebar-offcanvas {
+    width: 15% !important; /* Establecer ancho al 75% */
+  }
+}

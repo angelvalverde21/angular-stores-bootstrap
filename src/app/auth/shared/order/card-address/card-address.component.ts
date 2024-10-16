@@ -11,6 +11,9 @@ import { Component, Input } from '@angular/core';
 export class CardAddressComponent {
 
   @Input() address: any; 
+  @Input() title: any; 
+  @Input() bg: string  = "secondary"; 
+  @Input() show: string | false = false; 
   
 
 }

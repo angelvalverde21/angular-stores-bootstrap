@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -157,6 +157,15 @@ export class StoreService {
     return this.http.get(url);
   }
 
+  show(store: string): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.urlPrivate}/${store}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+
   
   searchPublic(store: string, search: string): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
@@ -212,6 +221,30 @@ export class StoreService {
   }
 
 
+  save(data:[]): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this.name()}/update`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.post(url, data);
+  }
+
+
+
+  private sidebarVisibility: Subject<boolean> = new Subject<boolean>();
+
+  /** CREANDO LOS SETTER Y GETTER */
+
+  setOpenSidebar(value: boolean) {
+    this.sidebarVisibility.next(value);
+    // this.cartVisibility.complete(); //termina la suscripcion, util cuando solo se requiere usar una sola vez
+  }
+
+  getOpenSidebarObservable() {
+    return this.sidebarVisibility.asObservable();
+  }
 
   // verifyStore(storeName: string): Observable<boolean> {
   //   return this.http.get<{status: number, success: boolean, message: string, error?: any}>(`${this.url_base}/${storeName}`).pipe(

@@ -6,7 +6,7 @@
         aria-describedby="Distrito"
         [disabled]="isDisabled"
         (blur)="onTouchedCb?.()"
-        [ngClass]="isValid ? 'is-valid': (isInvalid ? 'is-invalid' : '' )"
+        [ngClass]="isInvalid ? 'is-invalid' : '' "
     />
 
     <div class="loading" *ngIf="loading">

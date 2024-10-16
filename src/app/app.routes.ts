@@ -23,9 +23,10 @@ import { ProductColorsPageComponent } from './auth/pages/products/product-colors
 import { ProductColorsInactivePageComponent } from './auth/pages/products/product-colors-inactive-page/product-colors-inactive-page.component';
 import { ProductCreatePageComponent } from './auth/pages/products/product-create-page/product-create-page.component';
 import { ColorPublicPageComponent } from './pages/products/color-public-page/color-public-page.component';
-import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { OrderPageComponent } from './auth/pages/order-page/order-page.component';
 import { OrdersPageComponent } from './auth/pages/orders-page/orders-page.component';
+import { StoreSettingsComponent } from './auth/pages/store-settings/store-settings.component';
+import { PageCheckoutComponent } from './pages/page-checkout/page-checkout.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -47,40 +48,35 @@ export const routes: Routes = [
       { path: 'products/:product_id/colors/:color_id', component: ColorPublicPageComponent },
       { path: 'search/:search', component: SearchComponent },
       { path: 'tracking', component: TrackingComponent},
-      { path: 'checkout', component: CheckoutComponent},
+      { path: 'checkout', component: PageCheckoutComponent},
       { path: 'login', component: LoginComponent },
-      {
-        /*
-          store
-          store/auth/products (All Warehouses)
-          store/auth/products/{product_id} (All Warehouses)
-          store/auth/products/warehouse/{warehouse_id} (Single Warehouse)
-          store/auth/products/{product_id}/warehouse/{warehouse_id} (Single Warehouse)
-        */
-        path: 'auth', component: AuthComponent,canActivate: [authGuard],
+      { path: 'auth', component: AuthComponent,canActivate: [authGuard],
 
-        children: [
-          { path: '', component: DashboardComponent},
-          { path: 'orders', component: OrderComponent, children: [
-              { path: '', component: OrdersPageComponent}, //plural
-              { path: ':order_id', component: OrderPageComponent}, //singular
-            ]
-          },
-          
-          { path: 'products', component: ProductsComponent, children:[
-              { path: '', component: ProductsPageComponent}, //(All Products of all Warehouses)
-              { path: 'create', component: ProductCreatePageComponent}, //(All Products of all Warehouses)
-              { path: ':product_id', component: ProductPageComponent}, //(Single Product of all Warehouses)       
-              { path: ':product_id/colors', component: ProductColorsPageComponent}, //(Single Product of all Warehouses)       
-              { path: ':product_id/colors/inactive', component: ProductColorsInactivePageComponent}, //(Single Product of all Warehouses)       
-              { path: 'search/:search', component: ProductsSearchPageComponent}, //(Single Product of all Warehouses)             
-              { path: 'warehouse/:warehouse_id', component: ProductsWarehousePageComponent}, //(All Products of single Warehouse)           
-              { path: ':product_id/warehouse/:warehouse_id', component: ProductWarehousePageComponent}, //(Single Product of single Warehouse)   
-              { path: 'warehouse/:warehouse_id/search/:search', component: ProductsWarehouseSearchPageComponent},  //(Single Product of single Warehouse for search)          
-          ]}, //(All Products of all Warehouses)
+          children: [
+            { path: '', component: DashboardComponent},
+            { path: 'orders', component: OrderComponent, children: [
+                { path: '', component: OrdersPageComponent}, //plural
+                { path: ':order_id', component: OrderPageComponent}, //singular
+              ]
+            },
+            { path: 'products', component: ProductsComponent, children:[
+                { path: '', component: ProductsPageComponent}, //(All Products of all Warehouses)
+                { path: 'create', component: ProductCreatePageComponent}, //(All Products of all Warehouses)
+                { path: ':product_id', component: ProductPageComponent}, //(Single Product of all Warehouses)       
+                { path: ':product_id/colors', component: ProductColorsPageComponent}, //(Single Product of all Warehouses)       
+                { path: ':product_id/colors/inactive', component: ProductColorsInactivePageComponent}, //(Single Product of all Warehouses)       
+                { path: 'search/:search', component: ProductsSearchPageComponent}, //(Single Product of all Warehouses)             
+                { path: 'warehouse/:warehouse_id', component: ProductsWarehousePageComponent}, //(All Products of single Warehouse)           
+                { path: ':product_id/warehouse/:warehouse_id', component: ProductWarehousePageComponent}, //(Single Product of single Warehouse)   
+                { path: 'warehouse/:warehouse_id/search/:search', component: ProductsWarehouseSearchPageComponent},  //(Single Product of single Warehouse for search)          
+            ]}, //(All Products of all Warehouses)
 
           { path: 'config', component: ConfigComponent },
           { path: 'dashboard', component: DashboardComponent },
+          { path: 'store', component: StoreSettingsComponent, children: [
+            { path: 'settings', component: StoreSettingsComponent},
+          ] },
+          // { path: 'store', component: DashboardComponent },
         ],
 
       },

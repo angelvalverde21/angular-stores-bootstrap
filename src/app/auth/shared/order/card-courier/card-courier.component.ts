@@ -11,5 +11,5 @@ import { Component, Input } from '@angular/core';
 export class CardCourierComponent {
 
   @Input() courier_address: any; 
-
+  @Input() bg: string  = "secondary"; 
 }
