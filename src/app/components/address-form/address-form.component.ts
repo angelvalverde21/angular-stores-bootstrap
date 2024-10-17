@@ -57,7 +57,7 @@ export class AddressFormComponent implements ControlValueAccessor {
       district_id: ['', [Validators.required]],
     });
 
-    //... pero esto es cuando tambien se quiere escuchar a los validadores cuando luego de teclear actuan los validadores y esto pipe escucha a travez de rxjs
+    //... pero esto es cuando tambien se quiere escuchar a los validadores cuando luego de teclear actuan: osea los validadores travez de rxjs
     this.addressForm.valueChanges.pipe(
       startWith(this.addressForm.value), // Emitir el valor inicial del formulario
       switchMap(() => {

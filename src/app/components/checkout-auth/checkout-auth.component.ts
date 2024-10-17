@@ -15,6 +15,7 @@ export class CheckoutAuthComponent implements OnInit, OnDestroy {
 
   user: any;
   addresses: any[] = [];
+  seleccionado: number = 0;
 
   constructor(private _auth: AuthService){
 
@@ -31,4 +32,7 @@ export class CheckoutAuthComponent implements OnInit, OnDestroy {
     // throw new Error('Method not implemented.');
   }
 
+  selected(value:number){
+    this.seleccionado = value;
+  }
 }
