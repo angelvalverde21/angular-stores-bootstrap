@@ -5,11 +5,12 @@ import { InputGroupComponent } from "../forms/input-group/input-group.component"
 import { InputDistrictIdComponent } from "../../shared/forms/input-district-id/input-district-id.component";
 import { CartService } from '../../services/cart.service';
 import { mergeMap, of, startWith, switchMap } from 'rxjs';
+import { OverlayComponent } from "../overlay/overlay.component";
 
 @Component({
   selector: 'app-address-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputGroupComponent, InputDistrictIdComponent],  // Importar módulos necesarios
+  imports: [CommonModule, ReactiveFormsModule, InputGroupComponent, InputDistrictIdComponent, OverlayComponent],  // Importar módulos necesarios
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.css',
   providers: [
@@ -26,7 +27,7 @@ export class AddressFormComponent implements ControlValueAccessor {
   // @Input() isInvalid!: (controlName: string) => boolean;
   @Input() addressData: any[] = [];
   @Output() formValidity = new EventEmitter<boolean>(); // Emisor para la validez del formulario
-
+  saving: boolean = false;
   addressForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private _cart: CartService) { }
@@ -56,7 +57,7 @@ export class AddressFormComponent implements ControlValueAccessor {
       district_id: ['', [Validators.required]],
     });
 
-    //... pero esto es cuando tambien se quiere escuchar a los validadores cuando luego de teclear actuan los validadores y esto pipe escucha a travez de rxjs
+    //... pero esto es cuando tambien se quiere escuchar a los validadores cuando luego de teclear actuan: osea los validadores travez de rxjs
     this.addressForm.valueChanges.pipe(
       startWith(this.addressForm.value), // Emitir el valor inicial del formulario
       switchMap(() => {

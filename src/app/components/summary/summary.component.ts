@@ -38,7 +38,6 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
   }
 
-
   ngOnDestroy(): void {
 
     if (this.summarySubscription) {

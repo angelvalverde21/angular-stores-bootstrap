@@ -2,17 +2,33 @@
 
 <div class="container">
 
-    <div class="row">
-        <div class="col-lg-7 col-md-12 col-l2">
+    <form [formGroup]="form" (ngSubmit)="save()">
 
-            <app-checkout *ngIf="!is_auth"></app-checkout>
-            <!-- <app-checkout *ngIf="!is_auth"></app-checkout> -->
-             <app-checkout-auth *ngIf="is_auth"></app-checkout-auth>
-        
+        <div class="row">
+            
+            <div class="col-lg-7 col-md-12 col-l2">
+
+                @if (is_auth) {
+                    <app-accordion-address [addresses]="user.addresses"></app-accordion-address>
+
+                } @else {
+                    <app-address-form formControlName="address" (formValidity)="formValid($event)"></app-address-form>
+
+                }
+            
+            </div>
+
+            <div class="col-lg-5 col-md-12 col-l2">
+
+                <app-cart></app-cart>
+
+                <app-summary></app-summary>
+
+                <button class="btn btn-dark w-100" [disabled]="!formChildrenIsValid">Realizar Pedido</button>
+
+            </div>
         </div>
-        <div class="col-lg-5 col-md-12 col-l2">
-            <app-cart></app-cart>
-        </div>
-    </div>
+
+    </form>
 
 </div>

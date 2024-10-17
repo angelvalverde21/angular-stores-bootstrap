@@ -38,4 +38,16 @@ export class OrderService {
     
   }
 
+  generateOrder(data:[]): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this._store.name()}/orders/create-with-login`;
+    // const url = `${this.url_base}?store=${store}`;
+    console.log(url);
+
+    return this.http.post(url, data);
+    
+  }
+
+
 }
