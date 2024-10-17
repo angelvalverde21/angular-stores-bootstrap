@@ -21,7 +21,7 @@
                         <div class="row">
 
                             <div class="col-lg-4 col-md-6 col-12">
-                                <div class="card">
+                                <div class="card mt-3">
                                     <div class="card-body text-center">
                                         <img width="50%" class="mx-auto mb-3"
                                             [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"
@@ -114,31 +114,6 @@
                                     <app-button-save [btnLoading]="loadingEdit"
                                     [btnActive]="form.valid"></app-button-save>
 
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="times d-flex justify-content-between">
-                                                <div class="created">
-                                                    <p>Creado:</p>
-                                                    <time
-                                                        [attr.datetime]="product.created_at | date: 'yyyy-MM-ddTHH:mm:ss'">
-                                                        {{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}
-                                                    </time>
-                                                </div>
-                                                <div class="updated">
-                                                    <p>Actualizado:</p>
-                                                    <strong>
-                                                        <time
-                                                            [attr.datetime]="product.updated_at | date: 'yyyy-MM-ddTHH:mm:ss'">
-                                                            {{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}
-                                                        </time>
-                                                    </strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
                                 </form>
                             </div>
 
@@ -178,6 +153,31 @@
             </div>
         </div>
     </div>
+
+    
+    <div class="card">
+        <div class="card-body">
+            <div class="times d-flex justify-content-between">
+                <div class="created">
+                    <p>Creado:</p>
+                    <time
+                        [attr.datetime]="product.created_at | date: 'yyyy-MM-ddTHH:mm:ss'">
+                        {{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}
+                    </time>
+                </div>
+                <div class="updated">
+                    <p>Actualizado:</p>
+                    <strong>
+                        <time
+                            [attr.datetime]="product.updated_at | date: 'yyyy-MM-ddTHH:mm:ss'">
+                            {{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}
+                        </time>
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- <div class="card mb-3 custom-card">
 
