@@ -80,6 +80,7 @@ export class ProductPageComponent {
   btnActive: boolean = false;
   success: boolean = false;
   id: number = 0;
+  accordionItem: number = 1;
   totalQuantity: number = 0;
   product: any;
   colors: any;
@@ -124,6 +125,11 @@ export class ProductPageComponent {
     this.store = this._store.name()!;
   }
 
+  selected(value: number){
+    console.log(value);
+    
+    this.accordionItem = value;
+  }
   private initForm(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],

@@ -6,11 +6,11 @@
         </div>
     </div>
     <div>
-        <app-address-create-modal (addressNew)="newAddress($event)"></app-address-create-modal>
+        <app-address-create-modal (emitAddress)="receiveAddress($event)"></app-address-create-modal>
     </div>
 </div>
 
-<div ngbAccordion [closeOthers]="true" class="mb-3">
+<div ngbAccordion [closeOthers]="true" class="mb-3" *ngIf="showAddressIndex">
     <ng-container *ngFor="let address of addresses; let i = index">
         <div ngbAccordionItem [collapsed]="i !== 0"> <!-- Abre el primer elemento -->
             <h2 ngbAccordionHeader>
@@ -37,5 +37,14 @@
     </ng-container>
 </div>
 
-<!-- <i class="fa-regular fa-circle-check"></i> -->
-<!-- <i class="fa-solid fa-truck me-2"></i>  -->
+<div class="card mb-3" *ngIf="!showAddressIndex">
+
+    <div class="card-body pb-0 d-flex justify-content-between mb-3">
+        <h5>Cargando Direcciones...</h5>
+        <app-loading></app-loading>
+
+    </div>
+
+</div>
+
+

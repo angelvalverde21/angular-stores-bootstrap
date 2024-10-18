@@ -6,15 +6,23 @@
 
     <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
 
-
     <div ngbAccordion class="mb-3" [closeOthers]="true">
-        <div ngbAccordionItem [collapsed]="false">
+
+        <div ngbAccordionItem [collapsed]="false" (click)="selected(1)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
-                    <i class="fa-solid fa-circle-info me-2"></i>
-                    <span>{{ product.name }}</span>
+                    @if(this.accordionItem == 1){
+                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
+                            <i class="fa-solid fa-circle-info me-2"></i>
+                            <span>{{ product.name }}</span>
+                        </div>
+                    }@else {
+                        <i class="fa-solid fa-circle-info me-2"></i>
+                        <span>{{ product.name }}</span>
+                    }
                 </button>
             </h2>
+
             <div ngbAccordionCollapse>
                 <div ngbAccordionBody>
                     <ng-template>
@@ -69,8 +77,8 @@
 
                                     <ul class="list-group mb-3">
 
-                                        <li class="list-group-item">
-                                            <p class="mt-3">
+                                        <li class="list-group-item py-0 bg bg-secondary text-white">
+                                            <p class="my-2">
                                                 Disponible: <span *ngFor="let size of product.sizes; last as last">{{
                                                     size.name }} <i *ngIf="!last">,</i></span>
                                             </p>
@@ -87,6 +95,7 @@
                                         </li>
 
                                         <li class="list-group-item">
+
                                             <div class="form-check mb-3">
 
                                                 @if (product.sizes.length > 1){
@@ -107,11 +116,12 @@
                                                 }
 
                                             </div>
+
                                         </li>
 
                                     </ul>
 
-                                    <app-button-save [btnLoading]="loadingEdit"
+                                    <app-button-save type="dark" [btnLoading]="loadingEdit"
                                     [btnActive]="form.valid"></app-button-save>
 
                                 </form>
@@ -122,11 +132,18 @@
                 </div>
             </div>
         </div>
-        <div ngbAccordionItem>
+        <div ngbAccordionItem (click)="selected(2)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
-                    <i class="fa-solid fa-dollar-sign me-2"></i>
-                    <span>Precios</span>
+                    @if(this.accordionItem == 2){
+                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
+                            <i class="fa-solid fa-sack-dollar me-2"></i>
+                            <span>Precios</span>
+                        </div>
+                    }@else {
+                        <i class="fa-solid fa-sack-dollar me-2"></i>
+                        <span>Precios</span>
+                    }
                 </button>
             </h2>
             <div ngbAccordionCollapse>
@@ -137,12 +154,20 @@
                 </div>
             </div>
         </div>
-        <div ngbAccordionItem>
+        <div ngbAccordionItem (click)="selected(3)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
-                    <i class="fa-solid fa-warehouse me-2"></i>
-                    <span>Inventario</span>
+                    @if(this.accordionItem == 3){
+                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
+                            <i class="fa-solid fa-warehouse me-2"></i>
+                            <span>Inventario</span>
+                        </div>
+                    }@else {
+                        <i class="fa-solid fa-warehouse me-2"></i>
+                        <span>Inventario</span>
+                    }
                 </button>
+
             </h2>
             <div ngbAccordionCollapse>
                 <div ngbAccordionBody>

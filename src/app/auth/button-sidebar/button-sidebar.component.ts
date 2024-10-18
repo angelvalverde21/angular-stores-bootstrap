@@ -39,6 +39,7 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
   menus: any[] = [];
   @Input() name : string = "User"; 
   offCanvasRef: any;
+  estaAutenticado: boolean = false;
 
   constructor(
     config: NgbOffcanvasConfig,
@@ -52,9 +53,74 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
     config.keyboard = false;
 
     this.menus = [
+
       {
-        "name":"MENU",
+        "name":"CATALOGO",
+        "protected" : false,
         "childrens": [
+          {
+            "name":"Buscar",
+            "icon":"fa-solid fa-magnifying-glass",
+            "url":['/', this._store.name(), '/', 'profile']
+          },
+          {
+            "name":"Home",
+            "icon":"fa-solid fa-house",
+            "url":['/', this._store.name()]
+          },
+          {
+            "name":"Categorias",
+            "icon":"fa-solid fa-user",
+            "url":['/', this._store.name(), 'auth', 'profile']
+          },
+        ]
+      },
+
+      {
+        "name":"MI CUENTA",
+        "protected" : true,
+        "childrens": [
+          {
+            "name":"Dashboard",
+            "icon":"fa-solid fa-house",
+            "url":['/', this._store.name(), 'auth', 'dashboard']
+          },
+          {
+            "name":"Mis pedidos",
+            "icon":"fa-solid fa-file-lines",
+            "url":['/', this._store.name(), 'auth', 'orders']
+          },
+          {
+            "name":"Mis Direcciones",
+            "icon":"fa-solid fa-file-lines",
+            "url":['/', this._store.name(), 'auth', 'orders']
+          },
+          {
+            "name":"Notificaciones",
+            "icon":"fa-solid fa-bell",
+            "url":['/', this._store.name(), 'auth', 'notifications']
+          },
+          {
+            "name":"Mi Perfil",
+            "icon":"fa-solid fa-user",
+            "url":['/', this._store.name(), 'auth', 'profile']
+          },
+          {
+            "name":"Soporte",
+            "icon":"fa-solid fa-gear",
+            "url":['/', this._store.name(), 'auth', 'support']
+          },
+        ]
+      },
+      {
+        "name":"MI STORE",
+        "protected" : true,
+        "childrens": [
+          {
+            "name":"Settings",
+            "icon":"fa-solid fa-store",
+            "url":['/', this._store.name(), 'auth', 'store', 'settings']
+          },
           {
             "name":"Dashboard",
             "icon":"fa-solid fa-house",
@@ -66,6 +132,11 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
             "url":['/', this._store.name(), 'auth', 'products']
           },
           {
+            "name":"Categorias",
+            "icon":"fa-solid fa-box-open",
+            "url":['/', this._store.name(), 'auth', 'products']
+          },
+          {
             "name":"Orders",
             "icon":"fa-solid fa-file-lines",
             "url":['/', this._store.name(), 'auth', 'orders']
@@ -73,28 +144,15 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
         ]
       },
       {
-        "name":"SETTINGS",
+        "name":"MI CUENTA",
+        "protected" : true,
         "childrens": [
-          {
-            "name":"Settings Store",
-            "icon":"fa-solid fa-store",
-            "url":['/', this._store.name(), 'auth', 'store', 'settings']
-          },
           {
             "name":"Mi Perfil",
             "icon":"fa-solid fa-user",
             "url":['/', this._store.name(), 'auth', 'profile']
           },
-          {
-            "name":"Notificaciones",
-            "icon":"fa-solid fa-bell",
-            "url":['/', this._store.name(), 'auth', 'notifications']
-          },
-          {
-            "name":"Soporte",
-            "icon":"fa-solid fa-gear",
-            "url":['/', this._store.name(), 'auth', 'support']
-          },
+
         ]
       },
     ]
@@ -107,8 +165,7 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
   isVisible = false;
 
   ngOnInit() {
-
-
+    this.estaAutenticado = this._auth.estaAutenticado();
   }
 
   redirect(url:[]){

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { StepperComponent } from '../../components/stepper/stepper.component';
 import { Subscription } from 'rxjs';
@@ -8,14 +8,14 @@ import { CheckoutComponent } from '../../components/checkout/checkout.component'
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { SummaryComponent } from '../../components/summary/summary.component';
-import { AddressFormComponent } from '../../components/address-form/address-form.component';
+import { AddressFormComponent } from '../../components/address/address-form/address-form.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AccordionAddressComponent } from '../../components/accordion/accordion-address/accordion-address.component';
 import Swal from 'sweetalert2';
 import { OrderPublicService } from '../../services/order-public.service';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service';
+import { AddressIndexComponent } from "../../components/address/address-index/address-index.component";
 
 @Component({
   selector: 'app-page-checkout',
@@ -29,12 +29,12 @@ import { OrderService } from '../../services/order.service';
     SummaryComponent,
     AddressFormComponent,
     ReactiveFormsModule,
-    AccordionAddressComponent,
-  ],
+    AddressIndexComponent
+],
   templateUrl: './page-checkout.component.html',
   styleUrl: './page-checkout.component.css',
 })
-export class PageCheckoutComponent implements OnInit, OnDestroy {
+export class PageCheckoutComponent implements OnInit, OnDestroy, AfterViewInit {
   generateOrderSubscription!: Subscription;
   store: string = '';
   user: any;
@@ -42,6 +42,9 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
   is_auth: boolean = false;
   formChildrenIsValid: boolean = false;
   data: any = {};
+  address_id: number | null = null;
+  isButtonValid: boolean = false;
+  isFormValid: boolean = false;
 
   constructor(
     private _auth: AuthService,
@@ -52,6 +55,9 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
     private _cart: CartService,
     private router: Router
   ) {}
+  ngAfterViewInit(): void {
+    
+  }
 
   ngOnDestroy(): void {
     if (this.generateOrderSubscription) {
@@ -60,37 +66,84 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    //recupero los items
+
+    // this.items = this._cart.getItems();
     this.store = this._store.name()!;
     this.is_auth = this._auth.estaAutenticado();
 
     if (this.is_auth) {
       this.user = this._auth.user();
-      if (this.user.addresses.length > 0) {
-        this.formValid(true);
-      }
+      // this.formValid();
     } else {
+      //sino esta autenticado no es necesario usar el formGroup
+      this.saving = false;
+      this.form = this.fb.group({
+        address: [],
+      });
+
     }
 
     window.scrollTo(0, 0);
-    // console.log(this.color_id);
-    // console.log(this.product_id);
 
-    // console.log('inico');
+    //siempre debemos comprobar que hay algo en el carrito
 
-    this.store = this._store.name()!;
-
-    this.form = this.fb.group({
-      address: [],
+    this._cart.getItemsObservable().subscribe((resp:any) => {
+      console.log("se modifico el carrito de compras");
+      
+      this.checkIsButtonValid();
     });
+
   }
 
   form!: FormGroup;
 
-  formValid(value: boolean) {
-    this.formChildrenIsValid = value;
+  /******************** RECEPTORES DESDE OTROS COMPONENTES QUE EMITEN *************************/
+
+  //Recibo desde el listado de direcciones UNA SOLA DIRECCION desde <app-address-index> esta funcion se usa cuando el usuario esta logueado
+  authAddressIndex(address: any){
+    console.log(address);
+    this.address_id = address.id;
+    this.checkIsButtonValid();
+  }
+
+  //Recibo el status del formulario (<app-address-form>), esta funciona se usara cuando no este logueado en angular 
+  formValid(value: boolean){
+    this.isFormValid = value;
+    this.checkIsButtonValid();
+  }
+
+  /******************** RECEPTORES DESDE OTROS COMPONENTES QUE EMITEN *************************/
+
+  selectAddressId(value: number){
+    this.address_id = value;
+  }
+
+  checkIsButtonValid(){
+
+    this.isButtonValid = false;
+
+    // console.log(this.items.length);
+    if (this._cart.getItems().length > 0) {
+      if(this.is_auth){
+        // console.log(this.address_id);
+        
+        if(this.address_id != null){
+          this.isButtonValid = true;
+        }
+      }else{
+        if(this.isFormValid){
+          this.isButtonValid = true;
+        }
+      }
+    }
+
+    // console.log(this.isButtonValid);
+    
   }
 
   save() {
+
     this.saving = true;
 
     Swal.fire({
@@ -106,7 +159,7 @@ export class PageCheckoutComponent implements OnInit, OnDestroy {
 
     if (this.is_auth) {
 
-      this.data.district_id = 1;
+      this.data.address_id = this.address_id;
 
       console.log(this.data);
       

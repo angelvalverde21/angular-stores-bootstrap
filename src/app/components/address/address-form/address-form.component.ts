@@ -1,11 +1,11 @@
 import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { InputGroupComponent } from "../forms/input-group/input-group.component";
-import { InputDistrictIdComponent } from "../../shared/forms/input-district-id/input-district-id.component";
-import { CartService } from '../../services/cart.service';
+import { InputGroupComponent } from "../../forms/input-group/input-group.component";
+import { InputDistrictIdComponent } from "../../../shared/forms/input-district-id/input-district-id.component";
+import { CartService } from '../../../services/cart.service';
 import { mergeMap, of, startWith, switchMap } from 'rxjs';
-import { OverlayComponent } from "../overlay/overlay.component";
+import { OverlayComponent } from "../../overlay/overlay.component";
 
 @Component({
   selector: 'app-address-form',
@@ -21,13 +21,16 @@ import { OverlayComponent } from "../overlay/overlay.component";
     }
   ]
 })
+
 export class AddressFormComponent implements ControlValueAccessor {
 
   // @Input() isValid!: (controlName: string) => boolean;
   // @Input() isInvalid!: (controlName: string) => boolean;
   @Input() addressData: any[] = [];
   @Output() formValidity = new EventEmitter<boolean>(); // Emisor para la validez del formulario
-  saving: boolean = false;
+  @Input() header: boolean = true; 
+  
+  @Input() saving: boolean = true; //este valor se maneja desde los componentes padres
   addressForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private _cart: CartService) { }
@@ -81,7 +84,6 @@ export class AddressFormComponent implements ControlValueAccessor {
     }
     
   }
-
 
   // isValid(value: string):boolean{
   //   if (this.addressForm.get(value)?.valid && this.addressForm.get(value)?.touched) {

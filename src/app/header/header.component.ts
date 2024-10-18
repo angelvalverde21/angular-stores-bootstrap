@@ -24,6 +24,8 @@ import { HeaderMiddleComponent } from "./header-middle/header-middle.component";
 import { HeaderBottomComponent } from "./header-bottom/header-bottom.component";
 import { ButtonProductsComponent } from "../components/buttons/button-products/button-products.component";
 import { ButtonOrdersComponent } from "../components/buttons/button-orders/button-orders.component";
+import { ButtonOpenCanvasSearchComponent } from "../components/buttons/button-open-canvas-search/button-open-canvas-search.component";
+import { ButtonSidebarComponent } from "../auth/button-sidebar/button-sidebar.component";
 
 @Component({
   selector: 'app-header',
@@ -41,7 +43,9 @@ import { ButtonOrdersComponent } from "../components/buttons/button-orders/butto
     HeaderMiddleComponent,
     HeaderBottomComponent,
     ButtonProductsComponent,
-    ButtonOrdersComponent
+    ButtonOrdersComponent,
+    ButtonOpenCanvasSearchComponent,
+    ButtonSidebarComponent
 ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',

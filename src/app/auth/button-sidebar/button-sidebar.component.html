@@ -6,13 +6,15 @@
 	<div class="offcanvas-body">
 
         <div class="menu" *ngFor="let menu of menus">
-            <div class="name p-3">{{ menu.name }}</div>
-            <div class="submenu" *ngFor="let children of menu.childrens">
-                <a class="p-3 d-block" (click)="redirect(children.url)"><i class="{{ children.icon }} me-2"></i> {{ children.name }}</a>
-            </div>
+            <ng-container *ngIf="!menu.protected || estaAutenticado">
+                <div class="name p-3">{{ menu.name }}</div>
+                <div class="submenu" *ngFor="let children of menu.childrens">
+                    <a class="p-3 d-block" (click)="redirect(children.url)"><i class="{{ children.icon }} me-2"></i> {{ children.name }}</a>
+                </div>
+            </ng-container>
         </div>
 
-        <div class="menu logout">
+        <div class="menu logout" *ngIf="estaAutenticado">
             <hr>
             <a class="p-3 d-block" (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i> Salir</a>
         </div>
@@ -20,4 +22,4 @@
 	</div>
 </ng-template>
 
-<button class="btn btn-outline-dark me-2" (click)="openCanvas(content)"><i class="fa-solid fa-bars mx-2"></i></button>
+<button class="btn btn-outline-dark me-2" (click)="openCanvas(content)"><i class="fa-solid fa-bars mx-1"></i></button>

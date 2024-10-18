@@ -1,17 +1,20 @@
 <div class="controls d-flex justify-content-between mb-3 align-items-center">
 
     <div class="controls-left d-flex">
+
         <!-- boton de filtro -->
         <button class="btn btn-outline-dark me-2" (click)="openTop(contentFilters)"><i
                 class="fa-solid fa-filter"></i></button>
         <!-- boton para subir colores -->
         <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentModal)">
-            <i class="fa-solid fa-palette"></i>
+            <i class="fa-solid fa-camera"></i>
         </button>
+        
         <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentReport)"
             *ngIf="totalQuantityProduct">
             <i class="fa-solid fa-chart-column me-2"></i> {{ totalQuantityProduct }}
         </button>
+
     </div>
 
     <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>

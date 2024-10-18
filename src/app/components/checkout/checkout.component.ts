@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
 import { LoadingCenterComponent } from "../loading-center/loading-center.component";
 import { OverlayComponent } from "../overlay/overlay.component";
 import { CartComponent } from "../cart/cart.component";
-import { AddressFormComponent } from "../address-form/address-form.component";
+import { AddressFormComponent } from "../address/address-form/address-form.component";
 
 @Component({
   selector: 'app-checkout',

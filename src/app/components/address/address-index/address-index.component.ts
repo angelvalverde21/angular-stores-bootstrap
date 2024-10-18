@@ -6,23 +6,23 @@ import { AuthService } from '../../../services/auth.service';
 import { AddressCreateModalComponent } from "../../address/address-create-modal/address-create-modal.component";
 import { Subscription } from 'rxjs';
 import { AddressService } from '../../../services/address.service';
-
+import { LoadingComponent } from "../../loading/loading.component";
 @Component({
-  selector: 'app-accordion-address',
+  selector: 'app-address-index',
   standalone: true,
-	imports: [NgbAccordionModule, CommonModule, CardAddressComponent, AddressCreateModalComponent],
-  templateUrl: './accordion-address.component.html',
-  styleUrl: './accordion-address.component.css'
+	imports: [NgbAccordionModule, CommonModule, CardAddressComponent, AddressCreateModalComponent, LoadingComponent],
+  templateUrl: './address-index.component.html',
+  styleUrl: './address-index.component.css'
 })
-export class AccordionAddressComponent {
+export class AddressIndexComponent {
 
   user: any;
   // addresses: any[] = [];
   seleccionado: number = 0;
   addresesSubscription!: Subscription;
+  showAddressIndex: boolean = false;
 
-  @Output() addressSelected = new EventEmitter<number>();
-  
+  @Output() addressSelected = new EventEmitter<{}>();
 
   @Input() addresses: any[] = []; 
   
@@ -34,9 +34,16 @@ export class AccordionAddressComponent {
 
     if(!this.addresses.length){
       console.log("No hay direcciones en el localhost");
+      this.showAddressIndex = false;
       this.addresesSubscription = this._address.all().subscribe((resp:any) => {
         this.addresses = resp.data;
+        this.showAddressIndex = true;
+        console.log(this.addresses[0].id);
+        
+        this.addressSelected.emit(this.addresses[0])
       });
+    }else{
+      this.showAddressIndex = true;
     }
     
     // throw new Error('Method not implemented.');
@@ -49,8 +56,9 @@ export class AccordionAddressComponent {
     this.seleccionado = value;
   }
 
-  newAddress(address: any){
+  //Este recibe desde address-create-modal
+  receiveAddress(address: any){
     this.addresses.unshift(address);
-    this.addressSelected.emit(address.id);
+    this.addressSelected.emit(address.id); //SE EMITE AL COMPONENTE PADRE, ejemplo 
   }
 }

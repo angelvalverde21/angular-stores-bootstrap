@@ -6,7 +6,8 @@
 
         <div class="">
 
-            <app-logo></app-logo>
+            <app-button-sidebar [name]="user?.name"></app-button-sidebar>
+            <app-button-open-canvas-search></app-button-open-canvas-search>
 
         </div>
 
@@ -14,38 +15,31 @@
 
             <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a> -->
 
-            <ng-container *ngIf="estaAutenticado">
-
-                <!-- botones primary -->
-                <app-header-middle [store]="store"></app-header-middle>
-
-            </ng-container>
+            <app-header-middle [store]="store"></app-header-middle>
 
 
         </div>
 
-        <div class="">
-
-            <app-header-bottom [store]="store" [estaAutenticado]="estaAutenticado" (statusShowSearch)="changeShowSearch($event)" [user]="user"></app-header-bottom>
-
+        <div class="">  
+            <app-header-bottom class="mb-1 d-block" [store]="store" [estaAutenticado]="estaAutenticado" (statusShowSearch)="changeShowSearch($event)" [user]="user"></app-header-bottom>
         </div>
-
+        
         <!-- d-sm-none mx-auto -->
         <div class="d-block d-none"> 
-
+            
             <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a> -->
             <hr>
-
+            
             <div class="px-auto" *ngIf="estaAutenticado">
-                                
+                
                 <app-header-middle [store]="store"></app-header-middle>
             </div>
-
-
+            
+            
         </div>
-
+        
     </div>
-
+    
 </header>
 
 
