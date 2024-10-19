@@ -35,7 +35,7 @@ export class AddressIndexComponent {
     if(!this.addresses.length){
       console.log("No hay direcciones en el localhost");
       this.showAddressIndex = false;
-      this.addresesSubscription = this._address.all().subscribe((resp:any) => {
+      this.addresesSubscription = this._address.getAll().subscribe((resp:any) => {
         this.addresses = resp.data;
         this.showAddressIndex = true;
         console.log(this.addresses[0].id);
@@ -59,6 +59,6 @@ export class AddressIndexComponent {
   //Este recibe desde address-create-modal
   receiveAddress(address: any){
     this.addresses.unshift(address);
-    this.addressSelected.emit(address.id); //SE EMITE AL COMPONENTE PADRE, ejemplo 
+    this.addressSelected.emit(address); //SE EMITE AL COMPONENTE PADRE, ejemplo 
   }
 }

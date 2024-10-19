@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { StoreService } from './store.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { StoreService } from './store.service';
 
 export class AddressService {
 
-  constructor( private http: HttpClient, private _store: StoreService) {
+  constructor( private http: HttpClient, private _store: StoreService, private _auth: AuthService) {
 
   }
 
@@ -29,7 +30,7 @@ export class AddressService {
   }
 
   
-  all(user_id: number | null = null): Observable<any> {
+  getAll(user_id: number | null = null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     
     const url = `${this.url}/${this._store.name()}/user/${user_id}/address/index`;

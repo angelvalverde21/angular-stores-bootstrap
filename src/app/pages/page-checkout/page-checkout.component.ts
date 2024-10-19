@@ -157,9 +157,11 @@ export class PageCheckoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.data.items = this._cart.getItems();
 
+    this.data.address_id = this.address_id;
+    console.log(this.data);
+    
     if (this.is_auth) {
 
-      this.data.address_id = this.address_id;
 
       console.log(this.data);
       
@@ -171,14 +173,6 @@ export class PageCheckoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
           const arrayResp = resp.data;
 
-          Swal.fire({
-            icon: 'success',
-            title: 'Correcto',
-            text: 'Su orden ha sido generada',
-            confirmButtonText: 'OK',
-            // showConfirmButton: false
-          });
-
           this.router.navigate([
             '/',
             this.store,
@@ -188,6 +182,16 @@ export class PageCheckoutComponent implements OnInit, OnDestroy, AfterViewInit {
           ]);
 
           this.saving = false;
+          
+          Swal.fire({
+            icon: 'success',
+            title: 'Correcto',
+            text: 'Su orden ha sido generada',
+            confirmButtonText: 'OK',
+            // showConfirmButton: false
+          });
+
+
         },
         error: (error: any) => {
           Swal.fire({
