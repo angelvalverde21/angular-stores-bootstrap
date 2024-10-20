@@ -28,9 +28,10 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <app-card-summary [totalAmount]="totalAmount" [is_pay]="order.is_pay"></app-card-summary>
+            <app-card-summary [items]="order.items" [is_pay]="order.is_pay"></app-card-summary>
             <app-izipay [order]="order"></app-izipay>
         </div>
+
     </div>
     
 

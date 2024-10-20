@@ -135,7 +135,7 @@ export class IzipayComponent implements OnInit, OnDestroy {
       currency: 'PEN',
       orderId: this.order.id,
       customer: {
-        reference: '456',
+        reference: `#${this.order.id}`,
         email: 'vanesahg@gmail.com',
         billingDetails: {
           firstName: this.nameComplete[0],

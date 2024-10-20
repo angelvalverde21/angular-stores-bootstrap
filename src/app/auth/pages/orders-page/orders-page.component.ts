@@ -46,7 +46,7 @@ export class OrdersPageComponent implements OnInit, OnDestroy {
 
     console.log("empieza la subscripcion");
     
-    this.ordersSubcription = this._order.all().subscribe((resp:any) => {
+    this.ordersSubcription = this._order.getAll().subscribe((resp:any) => {
       this.orders = resp.data;
       console.log(resp);
       

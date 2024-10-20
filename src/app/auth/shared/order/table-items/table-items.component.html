@@ -7,9 +7,9 @@
                     <tr>
                         <th scope="col" class="text-center">Id</th>
                         <th scope="col" class="text-center">Qty</th>
-                        <th scope="col">Almacen</th>
-                        <th scope="col">Imagen</th>
-                        <th scope="col">Nombre</th>
+                        <!-- <th scope="col">Almacen</th> -->
+                        <th scope="col" style="width: 100px;">Imagen</th>
+                        <th scope="col" style="width: 225px;">Nombre</th>
                         <th scope="col">Precio</th>
                     </tr>
                 </thead>
@@ -17,10 +17,10 @@
                     <tr *ngFor="let item of items">
                         <th scope="row" class="text-center">#{{ item.id }}</th>
                         <td class="text-center">{{ item.quantity }}</td>
-                        <td>
+                        <!-- <td> -->
                             <!-- {{ item.content | json}} -->
 
-                        </td>
+                        <!-- </td> -->
                         <td>
                             <div *ngFor="let i of [].constructor(item.quantity); let index = index">
                                 <div>
@@ -31,7 +31,7 @@
 
                         </td>
                         <td>{{ item.product.name }}</td>
-                        <td><h5>{{ item.price | pen }}</h5><span class="text-decoration-line-through ms-2 mb-2">{{ converToNumber(item.content.price) | pen }}</span></td>
+                        <td><h5>{{ item.content.price | pen }}</h5><small class="text-decoration-line-through ms-2 mb-2">{{ item.price | pen }}</small></td>
                         
                     </tr>
                 </tbody>

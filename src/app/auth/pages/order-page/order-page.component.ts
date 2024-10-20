@@ -26,10 +26,11 @@ export class OrderPageComponent implements OnInit, OnDestroy{
 
   order: any;
   breadCrumbs: any;
+  summary: any;
   loading: boolean = true;
   store: string = "";
   totalAmount: number = 0;
-
+  costos : any;
   @Input() order_id: number = 0;
 
   constructor(
@@ -49,7 +50,6 @@ export class OrderPageComponent implements OnInit, OnDestroy{
       this.order = resp.data;
       console.log(resp);
 
-      this.totalAmount = Number(this.order.total_amount);
       this.loading = false;
 
       this.breadCrumbs = [

@@ -9,16 +9,21 @@ import { StoreService } from './store.service';
 })
 export class OrderService {
 
-  private urlPrivate = environment.apiPrivate;
-
+  name: string | null = null;
+  url: string = "";
+  urlPrivate: string = environment.apiPrivate;
+  
   constructor( private http: HttpClient, private _store: StoreService) {
-
+    this.name = this._store.name();
+    this.url = `${this.urlPrivate}/${this.name}/manage/orders`;
+    console.log(this.url);
+  
   }
-
-  all(): Observable<any> {
+  
+  getAll(): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
 
-    const url = `${this.urlPrivate}/${this._store.name()}/orders`;
+    const url = this.url;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
@@ -30,7 +35,7 @@ export class OrderService {
   getById(order_id: number): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
 
-    const url = `${this.urlPrivate}/${this._store.name()}/orders/${order_id}`;
+    const url = `${this.url}/${order_id}`;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
@@ -41,7 +46,7 @@ export class OrderService {
   generateOrder(data:[]): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
 
-    const url = `${this.urlPrivate}/${this._store.name()}/orders/create-with-login`;
+    const url = `${this.url}/create-with-login`;
     // const url = `${this.url_base}?store=${store}`;
     console.log(url);
 
