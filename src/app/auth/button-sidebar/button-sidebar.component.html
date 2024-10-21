@@ -10,6 +10,9 @@
                 <div class="name p-3">{{ menu.name }}</div>
                 <div class="submenu" *ngFor="let children of menu.childrens">
                     <a class="p-3 d-block" (click)="redirect(children.url)"><i class="{{ children.icon }} me-2"></i> {{ children.name }}</a>
+                    <div class="warehouses" *ngFor="let warehouse of children?.warehouses">
+                        <a class="ms-3 p-3 d-block" [routerLink]="['/', store, 'stores', 'warehouses', warehouse.id]"><i class="fa-solid fa-warehouse me-2"></i> {{ warehouse.slug | uppercase}}</a>
+                    </div>
                 </div>
             </ng-container>
         </div>

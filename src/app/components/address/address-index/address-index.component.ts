@@ -21,6 +21,7 @@ export class AddressIndexComponent {
   seleccionado: number = 0;
   addresesSubscription!: Subscription;
   showAddressIndex: boolean = false;
+  showHeaderCard: boolean = false;
 
   @Output() addressSelected = new EventEmitter<{}>();
 

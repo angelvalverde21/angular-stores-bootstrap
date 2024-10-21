@@ -27,6 +27,10 @@ import { OrderPageComponent } from './auth/pages/order-page/order-page.component
 import { OrdersPageComponent } from './auth/pages/orders-page/orders-page.component';
 import { StoreSettingsComponent } from './auth/pages/store-settings/store-settings.component';
 import { PageCheckoutComponent } from './pages/page-checkout/page-checkout.component';
+import { AccountComponent } from './pages/account/account.component';
+import { AddressIndexPageComponent } from './pages/account/addresses/address-index-page/address-index-page.component';
+import { AddressShowPageComponent } from './pages/account/addresses/address-show-page/address-show-page.component';
+import { AddressCreatePageComponent } from './pages/account/addresses/address-create-page/address-create-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -80,6 +84,32 @@ export const routes: Routes = [
         ],
 
       },
+      {
+        path: 'store', component: AccountComponent, children: [
+          { path: 'addresses', component: AddressIndexPageComponent, children: [
+            { path: ':address_id', component: AddressShowPageComponent},
+            { path: 'create', component: AddressCreatePageComponent},
+          ]},
+
+        ]
+      },
+      {
+        path: 'warehouses', component: AccountComponent, children: [
+          { path: 'addresses', component: AddressIndexPageComponent, children: [
+            { path: ':address_id', component: AddressShowPageComponent},
+            { path: 'create', component: AddressCreatePageComponent},
+          ]},
+
+        ]
+      },
+      {
+        path: 'account', component: AccountComponent, children: [
+          { path: 'addresses', component: AddressIndexPageComponent, children: [
+            { path: ':address_id', component: AddressShowPageComponent},
+            { path: 'create', component: AddressCreatePageComponent},
+          ]},
+        ]
+      }
         
     ],
   },

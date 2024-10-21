@@ -52,6 +52,9 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
     config.position = 'start';
     config.keyboard = false;
 
+    const store = this._store.name();
+    const warehouses = this._store.warehouses();
+
     this.menus = [
 
       {
@@ -61,100 +64,85 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
           {
             "name":"Buscar",
             "icon":"fa-solid fa-magnifying-glass",
-            "url":['/', this._store.name(), '/', 'profile']
+            "url":['/', store, '/', 'profile']
           },
           {
             "name":"Home",
             "icon":"fa-solid fa-house",
-            "url":['/', this._store.name()]
+            "url":['/', store]
           },
           {
-            "name":"Categorias",
-            "icon":"fa-solid fa-user",
-            "url":['/', this._store.name(), 'auth', 'profile']
+            "name":"Categorias Web",
+            "icon":"fa-solid fa-layer-group",
+            "url":['/', store, 'auth', 'profile']
           },
         ]
       },
 
-      {
-        "name":"MI CUENTA",
-        "protected" : true,
-        "childrens": [
-          {
-            "name":"Dashboard",
-            "icon":"fa-solid fa-house",
-            "url":['/', this._store.name(), 'auth', 'dashboard']
-          },
-          {
-            "name":"Mis pedidos",
-            "icon":"fa-solid fa-file-lines",
-            "url":['/', this._store.name(), 'auth', 'orders']
-          },
-          {
-            "name":"Mis Direcciones",
-            "icon":"fa-solid fa-file-lines",
-            "url":['/', this._store.name(), 'auth', 'orders']
-          },
-          {
-            "name":"Notificaciones",
-            "icon":"fa-solid fa-bell",
-            "url":['/', this._store.name(), 'auth', 'notifications']
-          },
-          {
-            "name":"Mi Perfil",
-            "icon":"fa-solid fa-user",
-            "url":['/', this._store.name(), 'auth', 'profile']
-          },
-          {
-            "name":"Soporte",
-            "icon":"fa-solid fa-gear",
-            "url":['/', this._store.name(), 'auth', 'support']
-          },
-        ]
-      },
+      // {
+      //   "name":"MI CUENTA",
+      //   "protected" : true,
+      //   "childrens": [
+      //     {
+      //       "name":"Dashboard",
+      //       "icon":"fa-solid fa-house",
+      //       "url":['/', store, 'auth', 'dashboard']
+      //     },
+      //     {
+      //       "name":"Mis pedidos",
+      //       "icon":"fa-solid fa-file-lines",
+      //       "url":['/', store, 'auth', 'orders']
+      //     },
+      //     {
+      //       "name":"Mis Direcciones",
+      //       "icon":"fa-solid fa-location-pin",
+      //       "url":['/', store, 'account', 'addresses']
+      //     },
+      //     {
+      //       "name":"Notificaciones",
+      //       "icon":"fa-solid fa-bell",
+      //       "url":['/', store, 'auth', 'notifications']
+      //     },
+      //     {
+      //       "name":"Mi Perfil",
+      //       "icon":"fa-solid fa-user",
+      //       "url":['/', store, 'auth', 'profile']
+      //     },
+      //   ]
+      // },
       {
         "name":"MI STORE",
         "protected" : true,
         "childrens": [
           {
-            "name":"Settings",
-            "icon":"fa-solid fa-store",
-            "url":['/', this._store.name(), 'auth', 'store', 'settings']
+            "name":"Reportes",
+            "icon":"fa-solid fa-chart-column",
+            "url":['/', store, 'auth', 'dashboard']
           },
           {
-            "name":"Dashboard",
-            "icon":"fa-solid fa-house",
-            "url":['/', this._store.name(), 'auth', 'dashboard']
+            "name":"Mis Ventas",
+            "icon":"fa-solid fa-sack-dollar",
+            "url":['/', store, 'auth', 'orders'],
+            "warehouses": warehouses
           },
           {
             "name":"Products",
             "icon":"fa-solid fa-box-open",
-            "url":['/', this._store.name(), 'auth', 'products']
+            "url":['/', store, 'auth', 'products']
           },
           {
             "name":"Categorias",
-            "icon":"fa-solid fa-box-open",
-            "url":['/', this._store.name(), 'auth', 'products']
+            "icon":"fa-solid fa-layer-group",
+            "url":['/', store, 'auth', 'products']
           },
           {
-            "name":"Orders",
-            "icon":"fa-solid fa-file-lines",
-            "url":['/', this._store.name(), 'auth', 'orders']
-          },
-        ]
-      },
-      {
-        "name":"MI CUENTA",
-        "protected" : true,
-        "childrens": [
-          {
-            "name":"Mi Perfil",
-            "icon":"fa-solid fa-user",
-            "url":['/', this._store.name(), 'auth', 'profile']
+            "name":"Settings",
+            "icon":"fa-solid fa-gear",
+            "url":['/', store, 'auth', 'store', 'settings']
           },
 
         ]
-      },
+      }
     ]
 
   }
