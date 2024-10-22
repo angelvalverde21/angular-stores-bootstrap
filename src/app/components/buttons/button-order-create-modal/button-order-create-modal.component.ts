@@ -1,5 +1,5 @@
 import { Component, inject, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddressFormComponent } from "../../address/address-form/address-form.component";
 import { OrderItemSearchComponent } from "../../Order/item/order-item-search/order-item-search.component";
 @Component({
@@ -13,8 +13,16 @@ import { OrderItemSearchComponent } from "../../Order/item/order-item-search/ord
 export class ButtonOrderCreateModalComponent {
   //Esto va en la parte superior, en los imports
   
-  private modalService = inject(NgbModal);
+	constructor(
+		config: NgbModalConfig,
+		private modalService: NgbModal,
+	) {
+		// customize default values of modals used by this component tree
+		config.backdrop = 'static';
+		config.keyboard = false;
+	}
+
   openVerticallyCentered(content: TemplateRef<any>) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { centered: true, size: 'lg' }, );
   }
 }
