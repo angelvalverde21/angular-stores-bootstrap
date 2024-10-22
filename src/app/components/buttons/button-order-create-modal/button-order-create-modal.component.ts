@@ -1,10 +1,11 @@
 import { Component, inject, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddressFormComponent } from "../../address/address-form/address-form.component";
+import { OrderItemSearchComponent } from "../../Order/item/order-item-search/order-item-search.component";
 @Component({
   selector: 'app-button-order-create-modal',
   standalone: true,
-  imports: [AddressFormComponent],
+  imports: [AddressFormComponent, OrderItemSearchComponent],
   templateUrl: './button-order-create-modal.component.html',
   styleUrl: './button-order-create-modal.component.css',
   encapsulation: ViewEncapsulation.None
