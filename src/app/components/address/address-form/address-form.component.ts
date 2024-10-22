@@ -57,6 +57,8 @@ export class AddressFormComponent implements ControlValueAccessor {
     // Inicializa el formulario vacío o con validadores
 
     switch (this.formType) {
+
+      //Para los formularios de venta rapida no se pide mayor verificacion
       case 'quick':
         this.addressForm = this.fb.group({
           phone: [''],
