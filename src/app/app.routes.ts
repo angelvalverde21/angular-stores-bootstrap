@@ -31,6 +31,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { AddressIndexPageComponent } from './pages/account/addresses/address-index-page/address-index-page.component';
 import { AddressShowPageComponent } from './pages/account/addresses/address-show-page/address-show-page.component';
 import { AddressCreatePageComponent } from './pages/account/addresses/address-create-page/address-create-page.component';
+import path from 'node:path';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -95,12 +96,14 @@ export const routes: Routes = [
       },
       {
         path: 'warehouses', component: AccountComponent, children: [
+          { path: ':warehouse_id', component: AddressCreatePageComponent, children: [
+            { path: 'orders', component: OrderPageComponent }
+          ]},
           { path: 'addresses', component: AddressIndexPageComponent, children: [
             { path: ':address_id', component: AddressShowPageComponent},
             { path: 'create', component: AddressCreatePageComponent},
           ]},
-
-        ]
+        ] 
       },
       {
         path: 'account', component: AccountComponent, children: [

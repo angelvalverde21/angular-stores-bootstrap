@@ -36,6 +36,7 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
 
   // sidebarOpenSubscription!: Subscription;
   store: string = '';
+  warehouses: any[] = [];
   menus: any[] = [];
   @Input() name : string = "User"; 
   offCanvasRef: any;
@@ -52,8 +53,8 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
     config.position = 'start';
     config.keyboard = false;
 
-    const store = this._store.name();
-    const warehouses = this._store.warehouses();
+    this.store = this._store.name()!;
+    this.warehouses = this._store.warehouses();
 
     this.menus = [
 
@@ -64,17 +65,17 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
           {
             "name":"Buscar",
             "icon":"fa-solid fa-magnifying-glass",
-            "url":['/', store, '/', 'profile']
+            "url":['/', this.store, '/', 'profile']
           },
           {
             "name":"Home",
             "icon":"fa-solid fa-house",
-            "url":['/', store]
+            "url":['/', this.store]
           },
           {
             "name":"Categorias Web",
             "icon":"fa-solid fa-layer-group",
-            "url":['/', store, 'auth', 'profile']
+            "url":['/', this.store, 'auth', 'profile']
           },
         ]
       },
@@ -86,27 +87,27 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
       //     {
       //       "name":"Dashboard",
       //       "icon":"fa-solid fa-house",
-      //       "url":['/', store, 'auth', 'dashboard']
+      //       "url":['/', this.store, 'auth', 'dashboard']
       //     },
       //     {
       //       "name":"Mis pedidos",
       //       "icon":"fa-solid fa-file-lines",
-      //       "url":['/', store, 'auth', 'orders']
+      //       "url":['/', this.store, 'auth', 'orders']
       //     },
       //     {
       //       "name":"Mis Direcciones",
       //       "icon":"fa-solid fa-location-pin",
-      //       "url":['/', store, 'account', 'addresses']
+      //       "url":['/', this.store, 'account', 'addresses']
       //     },
       //     {
       //       "name":"Notificaciones",
       //       "icon":"fa-solid fa-bell",
-      //       "url":['/', store, 'auth', 'notifications']
+      //       "url":['/', this.store, 'auth', 'notifications']
       //     },
       //     {
       //       "name":"Mi Perfil",
       //       "icon":"fa-solid fa-user",
-      //       "url":['/', store, 'auth', 'profile']
+      //       "url":['/', this.store, 'auth', 'profile']
       //     },
       //   ]
       // },
@@ -117,28 +118,28 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
           {
             "name":"Reportes",
             "icon":"fa-solid fa-chart-column",
-            "url":['/', store, 'auth', 'dashboard']
+            "url":['/', this.store, 'auth', 'dashboard']
           },
           {
             "name":"Mis Ventas",
             "icon":"fa-solid fa-sack-dollar",
-            "url":['/', store, 'auth', 'orders'],
-            "warehouses": warehouses
+            "url": this.warehouses.length > 1 ? ['/', this.store, 'auth', 'orders'] : ['/', this.store, 'warehouses', this.warehouses[0].id, 'orders'],
+            "warehouses": this.warehouses.length > 1 ? this.warehouses : []
           },
           {
             "name":"Products",
             "icon":"fa-solid fa-box-open",
-            "url":['/', store, 'auth', 'products']
+            "url":['/', this.store, 'auth', 'products']
           },
           {
             "name":"Categorias",
             "icon":"fa-solid fa-layer-group",
-            "url":['/', store, 'auth', 'products']
+            "url":['/', this.store, 'auth', 'products']
           },
           {
             "name":"Settings",
             "icon":"fa-solid fa-gear",
-            "url":['/', store, 'auth', 'store', 'settings']
+            "url":['/', this.store, 'auth', 'store', 'settings']
           },
 
         ]
