@@ -32,10 +32,10 @@ export class OrderItemSearchComponent implements OnInit, OnDestroy{
     });
   }
 
-  search(event : any){
+  search(search : any){
 
     this.loading = true;
-    this.productsSubscription = this._product.getAllSearch(event.target.value).subscribe((resp:any) => {
+    this.productsSubscription = this._product.getAllSearch(search).subscribe((resp:any) => {
       this.products = resp.data;
       this.loading = false;
     });
