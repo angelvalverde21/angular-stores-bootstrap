@@ -1,0 +1,23 @@
+<div class="card mb-3">
+
+    <div class="card-body d-flex justify-content-between">
+
+        <div *ngFor="let i of [].constructor(item.quantity); let index = index">
+            <div class="me-3">
+                <img [src]="item.image.url_thumbnail" class="me-2" style="height: 100px;" alt="">
+            </div>
+        </div>
+
+        <div class="w-100">
+            <h6>{{ item.product.name }}</h6>
+            <div>#{{ item.id }}</div>
+            <div>Talla: <strong>{{ item.content.size_name_virtual }}</strong></div>
+            <div>Cantidad: {{ item.quantity }}</div>
+        
+        </div>
+        <div style="width: 125px;">
+            <h5>{{ item.content.price | pen }}</h5><small class="text-decoration-line-through ms-2 mb-2">{{ item.price | pen }}</small>
+        </div>
+    </div>
+
+</div>

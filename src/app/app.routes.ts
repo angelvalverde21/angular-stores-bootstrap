@@ -31,7 +31,11 @@ import { AccountComponent } from './pages/account/account.component';
 import { AddressIndexPageComponent } from './pages/account/addresses/address-index-page/address-index-page.component';
 import { AddressShowPageComponent } from './pages/account/addresses/address-show-page/address-show-page.component';
 import { AddressCreatePageComponent } from './pages/account/addresses/address-create-page/address-create-page.component';
-import path from 'node:path';
+
+import { WarehousesComponent } from './pages/warehouses/warehouses.component';
+import { WarehouseOrderIndexPageComponent } from './pages/warehouses/warehouse-order-index-page/warehouse-order-index-page.component';
+import { WarehouseShowPageComponent } from './pages/warehouses/warehouse-show-page/warehouse-show-page.component';
+import { WarehouseOrderShowPageComponent } from './pages/warehouses/warehouse-order-show-page/warehouse-order-show-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -85,28 +89,17 @@ export const routes: Routes = [
         ],
 
       },
-      {
-        path: 'store', component: AccountComponent, children: [
-          { path: 'addresses', component: AddressIndexPageComponent, children: [
-            { path: ':address_id', component: AddressShowPageComponent},
-            { path: 'create', component: AddressCreatePageComponent},
-          ]},
-
+      { path: 'store', component: AccountComponent, children: [
         ]
       },
-      {
-        path: 'warehouses', component: AccountComponent, children: [
-          { path: ':warehouse_id', component: AddressCreatePageComponent, children: [
-            { path: 'orders', component: OrderPageComponent }
-          ]},
-          { path: 'addresses', component: AddressIndexPageComponent, children: [
-            { path: ':address_id', component: AddressShowPageComponent},
-            { path: 'create', component: AddressCreatePageComponent},
+      { path: 'warehouses', component: WarehousesComponent, children: [
+          { path: ':warehouse_id', component: WarehouseShowPageComponent, children: [
+            { path: 'orders', component: WarehouseOrderIndexPageComponent },
+            { path: 'orders/:order_id', component: WarehouseOrderShowPageComponent },
           ]},
         ] 
       },
-      {
-        path: 'account', component: AccountComponent, children: [
+      { path: 'account', component: AccountComponent, children: [
           { path: 'addresses', component: AddressIndexPageComponent, children: [
             { path: ':address_id', component: AddressShowPageComponent},
             { path: 'create', component: AddressCreatePageComponent},

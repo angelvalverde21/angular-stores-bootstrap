@@ -1,20 +1,20 @@
-<div class="card">
-    <div class="card-header bg bg-{{ bg }} text-white d-flex align-items-center">
+<div class="card mb-3">
+    <div class="card-header bg bg-{{ bg }} d-flex align-items-center">
         <i class="fa-solid fa-truck-fast me-2"></i>
-        <span>Transporte</span>
+        <span>Transportar por: </span>
     </div>
     <div class="card-body">
 
         <ul class="p-0">
             <li class="list-group-item">
-                <h6>{{ courier_address.name | uppercase }}</h6>
+                <h6>{{ courier_address?.name | uppercase }}</h6>
             </li>
-            <li class="list-group-item">{{ courier_address.primary }}</li>
-            <li class="list-group-item"><i class="fa-solid fa-phone me-2"></i> {{ courier_address.phone }}</li>
+            <li class="list-group-item">{{ courier_address?.primary }}</li>
+            <li class="list-group-item"><i class="fa-solid fa-phone me-2"></i> {{ courier_address?.phone }}</li>
             <!-- <li class="list-group-item"><strong>{{ courier_address.district.name }} - {{  courier_address.district.province.name }} - {{ courier_address.district.province.department.name }}</strong></li> -->
         </ul>
 
-        <img class="logo-courier" width="150px" [src]="courier_address.courier.profile_photo_url" alt="">
+        <img class="logo-courier" width="150px" [src]="courier_address?.courier.profile_photo_url" alt="">
 
     </div>
 </div>

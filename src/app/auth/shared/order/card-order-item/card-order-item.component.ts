@@ -3,21 +3,15 @@ import { Component, Input } from '@angular/core';
 import { PipesModule } from '../../../../shared/pipes.module';
 
 @Component({
-  selector: 'app-table-items',
+  selector: 'app-card-order-item',
   standalone: true,
   imports: [CommonModule, PipesModule],
-  templateUrl: './table-items.component.html',
-  styleUrl: './table-items.component.css'
+  templateUrl: './card-order-item.component.html',
+  styleUrl: './card-order-item.component.css'
 })
-export class TableItemsComponent {
+export class CardOrderItemComponent {
 
-  @Input() items: any[] = []; 
+  @Input() item: any; 
   @Input() bg: string  = "secondary"; 
 
-  converToNumber(value: number){
-    return Number(value);
-  }
-
 }
-
-

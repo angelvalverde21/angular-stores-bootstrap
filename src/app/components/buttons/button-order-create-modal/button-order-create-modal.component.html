@@ -1,0 +1,15 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title">Crear nuevo pedido</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<app-address-form [header]="false" [saving]="false" formType="quick"></app-address-form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+	</div>
+</ng-template>
+<button class="btn btn-outline-primary mb-2 me-2" aria-hidden="innerit" (click)="openVerticallyCentered(content)">
+	Registrar Pedido
+</button>

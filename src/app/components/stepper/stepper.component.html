@@ -2,10 +2,9 @@
 
     <div class="bs-stepper-header" role="tablist">
 
-        <div class="step  active ">
+        <div class="step" [ngClass]="order?.is_pay ? 'active' : ''">
 
-            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" data-toggle="modal"
-                data-target="#agregarPago-12457" aria-selected="true">
+            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1"  aria-selected="true">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i
                         class="fas fa-dollar-sign"></i></span>
                 <span class="bs-stepper-label  label-azul  d-none d-sm-block">
@@ -16,10 +15,9 @@
         </div>
         <div class="bs-stepper-line"></div>
 
-        <div class="step  active ">
+        <div class="step" [ngClass]="order?.is_package ? 'active' : ''">
 
-            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" data-toggle="modal"
-                data-target="#agregar-package-12457" aria-selected="true">
+            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-box-open"></i></span>
                 <span class="bs-stepper-label  label-azul  d-none d-sm-block">
                     Package
@@ -29,10 +27,9 @@
         </div>
         <div class="bs-stepper-line"></div>
 
-        <div class="step ">
+        <div class="step" [ngClass]="order?.is_shippment ? 'active' : ''">
 
-            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" data-toggle="modal"
-                data-target="#agregar-shipment-12457" aria-selected="true">
+            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i
                         class="fas fa-shipping-fast"></i></span>
                 <span class="bs-stepper-label  label-gris  d-none d-sm-block">
@@ -43,10 +40,9 @@
         </div>
         <div class="bs-stepper-line"></div>
 
-        <div class="step  active ">
+        <div class="step" [ngClass]="order?.is_delivery ? 'active' : ''">
 
-            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" data-toggle="modal"
-                data-target="#agregar-delivery-12457" aria-selected="true">
+            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i
                         class="fas fa-check-circle"></i></span>
                 <span class="bs-stepper-label  label-azul  d-none d-sm-block">

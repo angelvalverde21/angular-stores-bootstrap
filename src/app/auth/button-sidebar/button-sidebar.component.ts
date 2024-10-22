@@ -162,6 +162,10 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
     this.closeMenu();
   }
 
+  closeSidebar(){
+    this.closeMenu();
+  }
+
   // closeCanvas() {
   //   this._cart.closeCart();
   // }
@@ -206,6 +210,7 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
 
   logout(){
     this._auth.logout();
+    this.closeMenu();
   }
 
 

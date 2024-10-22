@@ -1,0 +1,73 @@
+<app-header></app-header>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+
+<div class="container" *ngIf="!loading">
+
+    <!-- <app-stepper></app-stepper> -->
+    <!-- {{ orders | json }} -->
+    <div class="d-flex justify-content-between">
+        <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
+        <app-button-order-create-modal></app-button-order-create-modal>
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th>Direccion Envio</th>
+                    <th class="text-center">Items</th>
+                    <!-- <th class="text-center">Courier</th> -->
+                    <!-- <th scope="col">Autor</th> -->
+                    <th class="text-center">Creado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders">
+                    <td class="text-center">
+                            <button class="btn btn-outline-dark mb-3 d-block w-100" [routerLink]="['/', store, 'warehouses', warehouse_id , 'orders', order.id]" routerLinkActive="router-link-active">
+                            #{{ order.id }}
+                            </button>
+                            
+                            <button class="btn mb-3 d-block w-100" [ngClass]="order.is_pay? 'btn-success' : 'btn-outline-success'">
+                                {{ order.total_amount | pen }}
+                            </button>
+                            
+                            <img style="max-width: 75px; max-height: 75px;" [src]="order.courier_address?.courier.profile_photo_url" alt="">
+                        
+                        </td>
+                    <td style="width: 360px;">
+
+                        <!-- {{ order.address | json }} -->
+                        <app-card-address [address]="order.address" [title]=""></app-card-address>
+
+                    </td>
+                    <td class="text-center">
+                        <div *ngFor="let item of order.items">
+
+                            <!-- {{ item | json }} -->
+                            <div><img height="100px" [src]="item.image.url_thumbnail" alt=""></div>
+                            <div>({{ item.content.talla_impresa }})</div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        
+                    </td>
+                    <!-- <td>{{ order.seller.name }}</td> -->
+                    <td class="text-center">
+                        <div class="created">
+                            {{ order.created_at | dateCustom }}
+                        </div>
+                        <div class="created">
+                            * {{ order.updated_at | dateCustom }}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
