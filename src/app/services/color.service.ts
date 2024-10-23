@@ -11,11 +11,25 @@ export class ColorService {
 
   private urlPublic = environment.apiPublic;
   private urlPrivate = environment.apiPrivate;
+  name: string | null = null;
+  url: string = "";
 
   constructor( private http: HttpClient, private _store: StoreService) {
+    this.name = this._store.name();
+    this.url = `${this.urlPrivate}/${this.name}/products`;
+  }
+
+  getAll(product_id: number | null): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    
+    const url = `${this.url}/${product_id}/colors`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
 
   }
-  
+
   load(id: number | null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     

@@ -1,0 +1,23 @@
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<ul class="list-group" *ngIf="!loading">
+    <li class="list-group-item d-flex justify-content-between" *ngFor="let color of colors">
+
+        <div class="image text-center" style="width: 150px;">
+            <img class="mb-3" height="100px" [src]="color.image.url_thumbnail" alt="">
+            <p>{{ color.name }}</p>
+        </div>
+        
+        <div class="sizes" style="width: 150px;">
+            <table class="table table-striped table-bordered">
+                <tbody>
+                    <tr *ngFor="let size of color.sizes">
+                        <td class="text-center">{{ size.name }}</td>
+                        <td class="text-center"><button class="btn btn-success">+</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </li>
+</ul>
