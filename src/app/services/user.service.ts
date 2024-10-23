@@ -28,4 +28,12 @@ export class UserService {
 
   }
 
+  info(){
+    if (localStorage.getItem('user')) {
+      return JSON.parse(localStorage.getItem('user')!); //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
+
 }

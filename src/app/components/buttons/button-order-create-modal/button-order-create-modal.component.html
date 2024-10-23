@@ -1,37 +1,43 @@
 <ng-template #content let-modal>
-	<div class="modal-header">
-		<h5 class="modal-title"><i class="fa-solid fa-cash-register me-2"></i>Tienda: ARA</h5>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
+    <div class="modal-header">
+        <h5 class="modal-title"><i class="fa-solid fa-cash-register me-2"></i>Tienda: ARA</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
 
-		<div class="row">
-			<div class="col-lg-6">
-				<app-input-group icon="fa-solid fa-warehouse">
-					<select class="form-select" [disabled]="true" aria-label="Default select example">
-						<option value="1">Tienda: ARA</option>
-					  </select>
-				</app-input-group>
-			</div>
-			<div class="col-lg-6">
-				<app-input-group icon="fa-solid fa-user">
-					<select class="form-select" [disabled]="true" aria-label="Default select example">
-						<option value="1">Vendedor: ANGEL VALVERDE</option>
-					  </select>
-				</app-input-group>
-			</div>
-		</div>
-		<div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <app-input-group icon="fa-solid fa-warehouse">
+                    <select class="form-select" [disabled]="true" aria-label="Default select example">
+                        <option value="1">Tienda: {{ warehouseName | uppercase}}</option>
+                    </select>
+                </app-input-group>
+            </div>
+            <div class="col-lg-6">
+                <app-input-group icon="fa-solid fa-user">
+                    <select class="form-select" [disabled]="true" aria-label="Default select example">
+                        <option value="1">Vendedor: {{ userName | uppercase }}</option>
+                    </select>
+                </app-input-group>
+            </div>
+        </div>
+        <div class="col-lg-12">
+
+            <ul class="list-group mb-3">
+                <app-item-order-create *ngFor="let item of items"></app-item-order-create>
+            </ul>
+
             <app-input-search-product></app-input-search-product>
 
-		</div>
+        </div>
 
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-	</div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" [disabled]="true">Generar Pedido</button>
+    </div>
 </ng-template>
 
 <button class="btn btn-outline-primary mb-2 me-2" aria-hidden="innerit" (click)="openVerticallyCentered(content)">
-	<i class="fa-solid fa-cash-register me-2"></i>Registrar Pedido
+    <i class="fa-solid fa-cash-register me-2"></i>Registrar Pedido
 </button>

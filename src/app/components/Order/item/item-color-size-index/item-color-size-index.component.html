@@ -14,7 +14,7 @@
                     <tr *ngFor="let size of color.sizes">
                         <td class="text-center">{{ size.name }}</td>
                         <td class="text-center">{{ size.color_size.sku.warehouse.pivot.quantity }}</td>
-                        <td class="text-center"><button class="btn btn-success">+</button></td>
+                        <td class="text-center"><button class="btn btn-success" (click)="addCart(color, size.color_size.sku.warehouse.pivot)">+</button></td>
                     </tr>
                 </tbody>
             </table>

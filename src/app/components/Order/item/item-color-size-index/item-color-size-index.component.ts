@@ -50,6 +50,12 @@ export class ItemColorSizeIndexComponent implements OnInit, OnDestroy{
     });
   }
 
+  addCart(color: {} , value: {}){
+    console.log(color);
+    console.log(value);
+    
+  }
+
   ngOnDestroy(): void {
 
   }
