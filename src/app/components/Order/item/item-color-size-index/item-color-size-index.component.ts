@@ -43,7 +43,8 @@ export class ItemColorSizeIndexComponent implements OnInit, OnDestroy{
     this.colorIndexSubscription = this._warehouseProductColor.getAll(this.warehouse_id, this.product_id).subscribe((resp:any) => {
 
       this.loading = false;
-      this.colors = resp.data.colors
+      // this.colors = resp.data.colors
+      this.colors = resp.data.colors.sort((a:any, b: any) => b.sku.warehouse.pivot.quantity - a.sku.warehouse.pivot.quantity);
       console.log(resp);
       
     });

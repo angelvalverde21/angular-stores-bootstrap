@@ -17,7 +17,7 @@ import { PipesModule } from '../../../../shared/pipes.module';
 import { ColorComponent } from '../../../shared/color/color.component';
 import { ProductColorComponent } from '../../../shared/products/product-color/product-color.component';
 import { UploadDropzoneColorComponent } from '../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component';
-import { Subscription } from 'rxjs';
+
 import { StoreService } from '../../../../services/store.service';
 import { HeaderProductComponent } from '../header-product/header-product.component';
 import { ButtonInventoryComponent } from '../../../../components/buttons/button-inventory/button-inventory.component';
@@ -32,7 +32,6 @@ import {} from '@ng-bootstrap/ng-bootstrap';
 import {
   NgbModal,
   NgbModule,
-  NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { ProductWarehouseComponent } from '../../../shared/products/product-warehouse/product-warehouse.component';
 import { ProductPricesComponent } from '../../../shared/products/prices/product-prices/product-prices.component';
