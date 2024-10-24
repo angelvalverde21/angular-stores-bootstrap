@@ -4,3 +4,19 @@
     right: 10px;
     z-index: 1000;
 }
+
+.input-search{
+    position: relative;
+}
+
+
+.btn-delete{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    z-index: 100;
+}
+
+a{
+    color: #000;
+}

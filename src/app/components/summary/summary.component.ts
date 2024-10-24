@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { PipesModule } from '../../shared/pipes.module';
@@ -17,7 +17,9 @@ export class SummaryComponent implements OnInit, OnDestroy {
   items: any; 
   costos: any; 
   igv: number = 0;
-
+  
+  @Input() cartContent: string = "cartItems";
+  
   constructor(private _cart: CartService){
 
   }
@@ -26,13 +28,13 @@ export class SummaryComponent implements OnInit, OnDestroy {
 
     console.log("costos");
     
-    this.costos = this._cart.costos();
+    this.costos = this._cart.costos(this.cartContent);
 
     this.summarySubscription =  this._cart.getSummaryObservable().subscribe((resp:any) => {
       
       console.log("se escucho la subscripcion calculate");
       
-      this.costos = this._cart.costos() ;
+      this.costos = this._cart.costos(this.cartContent) ;
        
     });
 

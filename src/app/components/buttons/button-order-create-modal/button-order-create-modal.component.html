@@ -1,19 +1,20 @@
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h5 class="modal-title"><i class="fa-solid fa-cash-register me-2"></i>Tienda: ARA</h5>
+        <h5 class="modal-title"><i class="fa-solid fa-cash-register me-2"></i>Tienda: {{ warehouseName | uppercase}}
+        </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 d-none d-lg-block">
                 <app-input-group icon="fa-solid fa-warehouse">
                     <select class="form-select" [disabled]="true" aria-label="Default select example">
                         <option value="1">Tienda: {{ warehouseName | uppercase}}</option>
                     </select>
                 </app-input-group>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 col-12">
                 <app-input-group icon="fa-solid fa-user">
                     <select class="form-select" [disabled]="true" aria-label="Default select example">
                         <option value="1">Vendedor: {{ userName | uppercase }}</option>
@@ -23,9 +24,38 @@
         </div>
         <div class="col-lg-12">
 
-            <ul class="list-group mb-3">
-                <app-item-order-create *ngFor="let item of items"></app-item-order-create>
-            </ul>
+
+            <div class="card mb-3 border-secondary" *ngIf="cartItems != null">
+
+                <div class="card-header">
+                    <h6>Pedido</h6>
+                </div>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let item of cartItems; index as index">
+                        <div class="w-100 d-flex">
+                            <figure class="image me-3 mb-0">
+                                <img height="75px" [src]="item.image" alt="">
+
+                            </figure>
+                            <div class="description">
+                                <div>Cantidad {{ item.quantity }}</div>
+                                <div>Talla {{ item.size.name }}</div>
+                            </div>
+                        </div>
+                        <div class="control ms-3">
+                            <button class="btn btn-danger" (click)="eliminarItem(index)"
+                                aria-label="Eliminar producto">X</button>
+                            <!-- Texto más accesible -->
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+            <app-summary cartContent="ItemsCartWarehouse"></app-summary>
 
             <app-input-search-product></app-input-search-product>
 
@@ -34,10 +64,12 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="true">Generar Pedido</button>
+        <button type="button" class="btn btn-primary" [disabled]="!btnActive" (click)="generarVentaTienda()">Generar
+            Pedido</button>
     </div>
 </ng-template>
 
-<button class="btn btn-outline-primary mb-2 me-2" aria-hidden="innerit" (click)="openVerticallyCentered(content)">
-    <i class="fa-solid fa-cash-register me-2"></i>Registrar Pedido
+<button class="btn btn-outline-dark mb-2 me-2 d-flex align-items-center" aria-hidden="innerit"
+    (click)="openVerticallyCentered(content)">
+    <i class="fa-solid fa-cash-register"></i><span class="d-none d-lg-block ms-2">Registrar Pedido</span>
 </button>

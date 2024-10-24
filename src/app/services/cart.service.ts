@@ -11,21 +11,30 @@ import { StoreService } from './store.service';
 })
 export class CartService {
   private url = environment.apiUrl;
-  private cartItemsSubject: BehaviorSubject<any[]>;
+  private cartItemsSubject!: BehaviorSubject<any[]>; //para las ventas en web
+  private warehouseItems!: BehaviorSubject<any[]>; //para las ventas en tienda
 
   constructor(private http: HttpClient, private _store: StoreService) {
-    const storedItems = localStorage.getItem('cartItems');
+
+    const storeItems = localStorage.getItem('cartItems');
 
     this.cartItemsSubject = new BehaviorSubject<any[]>(
-      storedItems ? JSON.parse(storedItems) : []
+      storeItems ? JSON.parse(storeItems) : []
     );
+
+    const warehouseItems = localStorage.getItem('warehouseItems');
+
+    this.warehouseItems = new BehaviorSubject<any[]>(
+      warehouseItems ? JSON.parse(warehouseItems) : []
+    );
+    
   }
 
   items: any[] = [];
 
-  addItem(item: any) {
-    // Verifica si ya hay elementos en 'cartItems'
-    const cartItemsString = localStorage.getItem('cartItems');
+  addItem(item: any, cartContent="cartItems") {
+    // Verifica si ya hay elementos en cartContent
+    const cartItemsString = localStorage.getItem(cartContent);
 
     let items;
 
@@ -42,19 +51,19 @@ export class CartService {
 
     // Vuelve a setear los elementos del carrito en localStorage
     this.setItems(items);
-    // localStorage.setItem('cartItems', JSON.stringify(this.items));
+    // localStorage.setItem(cartContent, JSON.stringify(this.items));
   }
 
-  getItems() {
-    if (localStorage.getItem('cartItems') != null) {
-      return JSON.parse(localStorage.getItem('cartItems')!);
+  getItems(cartContent="cartItems") {
+    if (localStorage.getItem(cartContent) != null) {
+      return JSON.parse(localStorage.getItem(cartContent)!);
     } else {
       return [];
     }
   }
 
-  setItems(items: any) {
-    localStorage.setItem('cartItems', JSON.stringify(items));
+  setItems(items: any, cartContent="cartItems") {
+    localStorage.setItem(cartContent, JSON.stringify(items));
     this.cartItemsSubject.next(items);
   }
 
@@ -370,9 +379,9 @@ export class CartService {
 
   }
 
-  costos() {
+  costos(cartContent="cartItems") {
 
-    let itemCart = this.getItems();
+    let itemCart = this.getItems(cartContent);
 
     if (itemCart) {
 
@@ -443,5 +452,50 @@ export class CartService {
       };
 
     }
+  }
+
+
+  // warehouseItems: any[] = [];
+
+  addItemCartWarehouse(item: any) {
+    // Verifica si ya hay elementos en cartContent
+    const itemsString = localStorage.getItem('ItemsCartWarehouse');
+
+    let items;
+
+    if (itemsString != null) {
+      // Convierte la cadena a un array de objetos JSON
+      items = JSON.parse(itemsString);
+    } else {
+      // Inicializa 'this.items' como un array vacío si no hay datos
+      items = [];
+    }
+
+    // Agrega el nuevo item
+    items.unshift(item);
+
+    // Vuelve a setear los elementos del carrito en localStorage
+    this.setCartWarehouse(items);
+    // localStorage.setItem(cartContent, JSON.stringify(this.items));
+  }
+
+  getItemsCartWarehouse() {
+    if (localStorage.getItem('ItemsCartWarehouse') != null) {
+      return JSON.parse(localStorage.getItem('ItemsCartWarehouse')!);
+    } else {
+      return [];
+    }
+  }
+
+  setCartWarehouse(items: any) {
+    localStorage.setItem('ItemsCartWarehouse', JSON.stringify(items));
+    this.warehouseItems.next(items);
+  }
+
+  /***************** observables ******************/
+
+  //Observa los items que se agregan al cartWarehouse
+  getCartWarehouseObservable(): Observable<any[]> {
+    return this.warehouseItems.asObservable();
   }
 }

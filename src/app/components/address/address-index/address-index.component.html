@@ -1,10 +1,5 @@
-<div class="header d-flex justify-content-between">
-    <div>
-        <h4>Direcciones de envio</h4>
-        <div class="mb-3">
-            <small>Seleccione una direccion de envio</small>
-        </div>
-    </div>
+<div class="d-flex justify-content-between align-items-center mb-3" *ngIf="showAddressIndex">
+    <h5>Direcciones de envio</h5>
     <div>
         <app-address-create-modal (emitAddress)="receiveAddress($event)"></app-address-create-modal>
     </div>
@@ -37,13 +32,10 @@
     </ng-container>
 </div>
 
-<div class="card mb-3" *ngIf="!showAddressIndex">
+<div class="mb-3 d-flex justify-content-between align-items-center" *ngIf="!showAddressIndex">
 
-    <div class="card-body pb-0 d-flex justify-content-between mb-3">
-        <h5>Cargando Direcciones...</h5>
-        <app-loading></app-loading>
-
-    </div>
+    <h5>Cargando Direcciones...</h5>
+    <app-loading></app-loading>
 
 </div>
 

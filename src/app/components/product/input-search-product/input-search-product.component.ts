@@ -8,6 +8,7 @@ import { LoadingComponent } from '../../loading/loading.component';
 import { InputGroupComponent } from '../../forms/input-group/input-group.component';
 import { ProductService } from '../../../services/product.service';
 import { ItemColorSizeIndexComponent } from "../../Order/item/item-color-size-index/item-color-size-index.component";
+import { trigger, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-input-search-product',
@@ -15,11 +16,23 @@ import { ItemColorSizeIndexComponent } from "../../Order/item/item-color-size-in
   imports: [InputGroupComponent, LoadingComponent, CommonModule, ItemColorSizeIndexComponent],
   templateUrl: './input-search-product.component.html',
   styleUrl: './input-search-product.component.css',
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-in', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('300ms ease-out', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 
 export class InputSearchProductComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   products: any[] = [];
+  product: any;
   product_id: number = 0;
   productsSubscription!: Subscription;
   searchSubject: Subject<string> = new Subject();
@@ -47,7 +60,7 @@ export class InputSearchProductComponent implements OnInit, OnDestroy {
 
   keyUpSearch($event: any) {
     // this.loading = true;
-    this.product_id = 0;
+    this.product = null;
     const searchTerm = $event.target.value;
 
     if (searchTerm.length > 3) {
@@ -57,8 +70,12 @@ export class InputSearchProductComponent implements OnInit, OnDestroy {
 
   selectProduct(product_id: number){
     // this.eventProduct.emit(product_id);
-    this.product_id = product_id;
+    this.product = this.products.find((product:any) => product.id == product_id) || null;
     this.products = [];
+  }
+
+  clearColors(){
+    this.product = null;
   }
 
   ngOnDestroy(): void {}

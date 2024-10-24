@@ -1,25 +1,25 @@
 
-<ul class="list-group mb-3">
-
-    <li class="list-group-item d-flex justify-content-between bg bg-light">
+<div class="card mb-3 border-secondary">
+    <div class="card-header py-3">
         <h5>Resumen de pago</h5>
-    </li>
-    <li class="list-group-item d-flex justify-content-between">
-        <span class="label">Sub Total</span><span class="amount">{{ costos.sub_total | pen }}</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between">
-        <span class="label">Descuentos</span><span class="amount"><strong>-{{ costos.descuentos | pen }}</strong></span>
-    </li>
-
-    <li class="list-group-item d-flex justify-content-between">
-        <span class="label">IGV</span><span class="amount">S/. 0.00</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between">
-        <span class="label">Envio</span><span class="amount">GRATIS</span>
-    </li>
-    <li class="list-group-item">
-        <h4 class="d-flex justify-content-between"><span class="label">Total</span><span class="amount">{{ costos.total_promo | pen }}</span>
-        </h4>
-    </li>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between">
+            <span class="label">Sub Total</span><span class="amount">{{ costos.sub_total | pen }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span class="label">Descuentos</span><span class="amount"><strong>-{{ costos.descuentos | pen }}</strong></span>
+        </li>
     
-</ul>
+        <li class="list-group-item d-flex justify-content-between">
+            <span class="label">IGV</span><span class="amount">S/. 0.00</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span class="label">Envio</span><span class="amount">GRATIS</span>
+        </li>
+        <li class="list-group-item">
+            <h4 class="d-flex justify-content-between"><span class="label">Total</span><span class="amount">{{ costos.total_promo | pen }}</span>
+            </h4>
+        </li>
+    </ul>
+  </div>

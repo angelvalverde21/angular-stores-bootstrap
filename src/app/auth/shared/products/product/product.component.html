@@ -1,7 +1,7 @@
 <div class="card mb-3">
     <div class="card-header bg bg-dark text-white">
         <div class="d-flex justify-content-between">
-            <p class="my-0">{{ product.name }}</p>
+            <a  [routerLink]="['/', store, 'auth', 'products',product.id]">{{ product.name }}</a>
             <span>{{ quantityGlobalProduct }}</span>
         </div>
     </div>

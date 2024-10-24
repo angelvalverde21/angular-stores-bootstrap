@@ -1,0 +1,15 @@
+/* Canvas Cart */
+@media (min-width: 0px) and (max-width: 400px) {
+    .card {
+        font-size: 0.8rem;
+    }
+  }
+  
+  /* Canvas Cart */
+  @media (min-width: 401px) and (max-width: 576px) {
+    .card {
+        font-size: 0.8rem;/
+    }
+  }
+  
+  

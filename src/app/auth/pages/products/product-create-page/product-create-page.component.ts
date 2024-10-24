@@ -57,6 +57,7 @@ export class ProductCreatePageComponent implements OnInit, OnDestroy {
       name: ['', [Validators.required]],
       body: [''],
       tags: [''],
+      price: ['', [Validators.required]],
       category_id: ['', [Validators.required]],
       sizes: ['', [Validators.required]],
     });

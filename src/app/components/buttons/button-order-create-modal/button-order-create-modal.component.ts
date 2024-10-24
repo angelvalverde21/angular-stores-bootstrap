@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AddressFormComponent } from "../../address/address-form/address-form.component";
 import { InputGroupComponent } from "../../forms/input-group/input-group.component";
@@ -8,21 +8,30 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
 import { UserService } from '../../../services/user.service';
+import { ItemOrderCreateComponent } from "../../Order/item-order-create/item-order-create.component";
+import { Subscription } from 'rxjs';
+import { CartService } from '../../../services/cart.service';
+import Swal from 'sweetalert2';
+import { CardSummaryComponent } from "../../../auth/shared/order/card-summary/card-summary.component";
+import { SummaryComponent } from "../../summary/summary.component";
 @Component({
   selector: 'app-button-order-create-modal',
   standalone: true,
-  imports: [AddressFormComponent, InputGroupComponent, ItemColorSizeIndexComponent, InputSearchProductComponent, CommonModule],
+  imports: [AddressFormComponent, InputGroupComponent, ItemColorSizeIndexComponent, InputSearchProductComponent, CommonModule, ItemOrderCreateComponent, SummaryComponent],
   templateUrl: './button-order-create-modal.component.html',
   styleUrl: './button-order-create-modal.component.css',
   encapsulation: ViewEncapsulation.None
 })
-export class ButtonOrderCreateModalComponent {
+export class ButtonOrderCreateModalComponent implements OnInit, OnDestroy{
   //Esto va en la parte superior, en los imports
   
   product_id: number = 0;
   warehouse_id: number = 0;
   warehouseName: string = "";
   userName: string = "";
+  cartItems: any = null;
+  btnActive: boolean = false;
+  warehouseCartSubscription! : Subscription;
 
 	constructor(
 		config: NgbModalConfig,
@@ -30,6 +39,7 @@ export class ButtonOrderCreateModalComponent {
     private route: ActivatedRoute,
     private _store: StoreService,
     private _user: UserService,
+    private _cart: CartService,
 
 	) {
 		// customize default values of modals used by this component tree
@@ -44,8 +54,34 @@ export class ButtonOrderCreateModalComponent {
 
 	}
 
+  ngOnInit(): void {
+    
+    this.cartItems = this._cart.getItemsCartWarehouse();
+
+    // this.loadWarehouseCart();
+    this.warehouseCartSubscription = this._cart.getCartWarehouseObservable().subscribe ((resp:any) => {
+      //Escucho si se agrego o no elementos al warehouseCartItems
+      console.log(resp);
+      
+      this.cartItems = this._cart.getItemsCartWarehouse()!;
+
+      if(this.cartItems.length>0){
+        this.btnActive = true;
+      }else{
+        this.btnActive = false;
+        this.cartItems = null;
+      }
+
+    });
+
+  }
+
+  ngOnDestroy(): void {
+
+  } 
+
   openVerticallyCentered(content: TemplateRef<any>) {
-    this.modalService.open(content, { centered: true, size: 'xl' }, );
+    this.modalService.open(content, { centered: true, size: 'lg' }, );
   }
 
   showColor(event:any){
@@ -53,5 +89,39 @@ export class ButtonOrderCreateModalComponent {
     this.product_id = event;
     
   } 
+
+  eliminarItem(index: any) {
+
+    console.log(index);
+
+    // this.items = this._cart.getItems();
+
+    if (index > -1) {
+      // Verifica si el índice es válido
+      console.log('item eliminado');
+      // console.log(index);
+
+      this.cartItems.splice(index, 1); // Elimina 1 elemento en la posición 'index'
+
+      this._cart.setCartWarehouse(this.cartItems);
+
+      this._cart.setSummary();
+    }
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Eliminado',
+      text: 'Item Eliminado correctamente',
+      confirmButtonText: 'OK',
+      showConfirmButton: true
+    })
+    
+    // this.items = this._cart.getItems();
+  }
+
+  generarVentaTienda(){
+
+  }
+
 
 }

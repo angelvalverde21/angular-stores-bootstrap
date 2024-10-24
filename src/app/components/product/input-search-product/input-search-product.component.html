@@ -1,9 +1,9 @@
-<app-input-group icon="fa-solid fa-magnifying-glass">
-    <input type="text" name="search" (keyup)="keyUpSearch($event)" class="form-control" placeholder="Buscar Producto">
+<app-input-group class="input-search">
+    <input type="text" name="search" (keyup)="keyUpSearch($event)" class="form-control py-2" style="font-size: 1rem;" placeholder="Agregar Producto">
     <div class="loading" *ngIf="loading">
         <app-loading size="sm"></app-loading>
     </div>
-
+    <span class="input-group-text" *ngIf="product"><button class="btn" (click)="clearColors()"><i class="fa-solid fa-x"></i></button></span>
 </app-input-group>
 
 <ul class="list-group" *ngIf="products.length>0">
@@ -12,6 +12,6 @@
     </li>
 </ul>
 
-<ng-container *ngIf="product_id">
-    <app-item-color-size-index [product_id]="product_id"></app-item-color-size-index>
+<ng-container *ngIf="product">
+    <app-item-color-size-index [product]="product"></app-item-color-size-index>
 </ng-container>
