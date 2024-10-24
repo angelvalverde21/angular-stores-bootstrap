@@ -12,13 +12,15 @@ import { CardAddressComponent } from '../../../auth/shared/order/card-address/ca
 import { BreadCrumbComponent } from '../../../auth/shared/bread-crumb/bread-crumb.component';
 import { WarehouseOrderService } from '../../../services/warehouse-order.service';
 import { ButtonOrderCreateModalComponent } from "../../../components/buttons/button-order-create-modal/button-order-create-modal.component";
+import { NgbAlertConfig, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-warehouse-order-index-page',
   standalone: true,
-  imports: [HeaderComponent, LoadingCenterComponent, CommonModule, StepperComponent, PipesModule, RouterModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent],
+  imports: [HeaderComponent, LoadingCenterComponent, CommonModule, StepperComponent, PipesModule, RouterModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent,NgbAlertModule],
   templateUrl: './warehouse-order-index-page.component.html',
-  styleUrl: './warehouse-order-index-page.component.css'
+  styleUrl: './warehouse-order-index-page.component.css',
+  providers: [NgbAlertConfig],
 })
 export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
 
@@ -33,14 +35,14 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
   
 
   constructor(
-    private _order: OrderService,
+
     private _store: StoreService,
     private route: ActivatedRoute,
-    private _warehouseOrder: WarehouseOrderService
+    private _warehouseOrder: WarehouseOrderService,
+    alertConfig: NgbAlertConfig
   ){
-
-
-
+    alertConfig.type = 'success';
+    alertConfig.dismissible = false;
   }
 
   ngOnInit(): void {
@@ -73,7 +75,14 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
       /* ojo metemos al warehouse_id en una variable para poder usar esta sintaxios {warehouse_id} que es totalmente equivalnete a { warehouse_id: this.warehouse_id } */
       
       this.ordersSubcription = this._warehouseOrder.getAll(this.warehouse_id).subscribe((resp:any) => {
-        this.orders = resp.data;
+
+        if (resp.data.length > 0) {
+          this.orders = resp.data;
+        }else{
+          this.orders = null;
+        }
+
+
         console.log(resp);
         
         this.loading = false;
