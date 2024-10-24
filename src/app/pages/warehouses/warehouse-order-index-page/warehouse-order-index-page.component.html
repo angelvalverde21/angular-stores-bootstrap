@@ -12,12 +12,9 @@
         <app-button-order-create-modal></app-button-order-create-modal>
     </div>
 
-    <p class="my-3">No hay ordenes de compra</p>
-    <ngb-alert> This alert's type is success and it's not dismissible because the config has been customized </ngb-alert>
-
     @if (orders != null) {
 
-        <div class="table-responsive">
+        <div class="table-responsive mb-3">
 
             <table class="table table-striped table-bordered">
                 
@@ -77,8 +74,7 @@
             </table>
         </div>
     }@else {
-        <p class="my-3">No hay ordenes de compra</p>
-        <ngb-alert> This alert's type is success and it's not dismissible because the config has been customized </ngb-alert>
+        <ngb-alert class="mb-3"> No hay ordenes de compra </ngb-alert>
     }
     
 

@@ -41,7 +41,7 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
     private _warehouseOrder: WarehouseOrderService,
     alertConfig: NgbAlertConfig
   ){
-    alertConfig.type = 'success';
+    alertConfig.type = 'warning';
     alertConfig.dismissible = false;
   }
 
