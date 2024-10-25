@@ -12,15 +12,15 @@ import { CardAddressComponent } from '../../../auth/shared/order/card-address/ca
 import { BreadCrumbComponent } from '../../../auth/shared/bread-crumb/bread-crumb.component';
 import { WarehouseOrderService } from '../../../services/warehouse-order.service';
 import { ButtonOrderCreateModalComponent } from "../../../components/buttons/button-order-create-modal/button-order-create-modal.component";
-import { NgbAlertConfig, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbAlertConfig, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderOrderStatusComponent } from "./header-order-status/header-order-status.component";
 import { CardRowOrderComponent } from "./card-row-order/card-row-order.component";
-import { OrderIndexAccordionComponent } from "./order-index-accordion/order-index-accordion.component";
+import { TableOrderIndexComponent } from "./table-order-index/table-order-index.component";
 
 @Component({
   selector: 'app-warehouse-order-index-page',
   standalone: true,
-  imports: [HeaderComponent, LoadingCenterComponent, CommonModule, StepperComponent, PipesModule, RouterModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, OrderIndexAccordionComponent],
+  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, StepperComponent, PipesModule, RouterModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, TableOrderIndexComponent],
   templateUrl: './warehouse-order-index-page.component.html',
   styleUrl: './warehouse-order-index-page.component.css',
   providers: [NgbAlertConfig],
@@ -96,6 +96,14 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
 
 
   }
+
+  seleccionado: number = 1;
+  
+  
+  selected(value:number){
+    this.seleccionado = value;
+  }
+
 
   ngOnDestroy(): void {
 

@@ -14,7 +14,58 @@
 
     @if (orders != null) {
 
-        <app-order-index-accordion></app-order-index-accordion>
+        <div ngbAccordion>
+
+            <div ngbAccordionItem [collapsed]="seleccionado != 1">
+                <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton class="bg bg-primary text-white" (click)="selected(1)"><i class="fa-solid fa-bars me-2"></i>Entregas Hoy</button>
+                </h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <app-table-order-index [orders]="orders"></app-table-order-index>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        
+            <div ngbAccordionItem [collapsed]="seleccionado != 2">
+                <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton class="bg bg-success text-white" (click)="selected(2)"><i class="fa-solid fa-bars me-2"></i>Pagados</button>
+                </h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <app-table-order-index></app-table-order-index>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div ngbAccordionItem [collapsed]="seleccionado != 3">
+                <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton class="bg bg-dark text-white" (click)="selected(3)"><i class="fa-solid fa-bars me-2"></i>Pendientes de Pago</button>
+                </h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <app-table-order-index></app-table-order-index>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div ngbAccordionItem [collapsed]="seleccionado != 4">
+                <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton class="bg bg-warning text-white" (click)="selected(4)"><i class="fa-solid fa-bars me-2"></i>Pendientes de entrega (Pagados)</button>
+                </h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <app-table-order-index></app-table-order-index>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- <app-order-index-accordion bg="success" title="Pagados" [collapsed]="collpase != 'second'"></app-order-index-accordion>
 
