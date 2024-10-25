@@ -162,3 +162,18 @@ a {
 .fadeOut {
   animation-name: fadeOut;
 }
+
+.centrar{
+  text-align: center; 
+  white-space: nowrap; /* Evita que el texto se divida */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.centrar-v{
+  vertical-align: middle;
+  white-space: nowrap; /* Evita que el texto se divida */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

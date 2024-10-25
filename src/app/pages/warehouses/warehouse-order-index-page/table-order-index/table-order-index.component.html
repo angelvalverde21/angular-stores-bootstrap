@@ -1,5 +1,105 @@
 <div class="table-responsive mb-3">
 
+    <table class="table table-striped table-bordered" style="table-layout: fixed;">
+
+        <tbody>
+
+            <ng-container *ngFor="let order of orders">
+
+                <tr>
+
+                    <!-- id -->
+
+
+                    <td class="centrar centrar-v {{ status(order).case }}" style="width: 125px !important;">
+                        
+                        <div class="mb-2">
+
+                            <!-- Editar -->
+                            <button class="btn btn-outline-dark"
+                                [routerLink]="['/', store, 'warehouses', warehouse_id , 'orders', order.id]">
+                                #{{ order.id }}
+                            </button>
+
+                        </div>
+
+                    </td>
+
+
+
+                    <!-- Consignatario -->
+
+                    <td style="width: 275px !important;" class="centrar-v">
+                        @if (order.address != null) {
+                        <div>{{ order.address?.name | uppercase }}</div>
+                        <div><small class="text-secondary">- {{ order.address?.district.name | uppercase }}</small>
+                        </div>
+
+                        }@else {
+                        <div>TIENDA</div>
+                        <div><small class="text-secondary">{{ warehouseName() | uppercase }}</small></div>
+                        }
+
+                    </td>
+
+                    <!-- icon estatus -->
+
+                    <td class="centrar centrar-v" style="width: 75px !important;">
+
+                        <i class="{{ status(order).icon }}"></i>
+                    </td>
+
+                    <!-- estatus -->
+
+                    <td style="width: 150px;" class="centrar centrar-v">
+                        <div class="mb-2">{{ status(order).message | uppercase }}</div>
+                        <!-- <div><i class="{{ status(order).icon }}"></i></div> -->
+                    </td>
+
+                    <!-- Fecha de actualizacion -->
+
+                    <td class="centrar centrar-v" style="width: 175px;">{{ order.updated_at | dateCustom }}</td>
+
+
+                    <!-- <td class="text-center td-init" style="width: 250px"> -->
+
+                    <!-- imagenes -->
+                    <!-- <div class="d-flex flex-column align-items-center" style="width: 250px">
+                            <div *ngFor="let item of order.items">
+                                <div><img height="100px" [src]="item.image.url_thumbnail" alt=""></div>
+                                <div>({{ item.content.talla_impresa }})</div>
+                            </div>
+                        </div> -->
+
+
+                    <!-- </td> -->
+
+                    <!-- Total a pagar -->
+
+                    <td class="centrar centrar-v" style="width: 105px;">
+                        {{ order.total_amount | pen }}
+                    </td>
+
+                    <!-- Courier -->
+
+                    <td class="centrar centrar-v">
+
+                        <img style="max-width: 75px; max-height: 75px;"
+                            [src]="order.courier_address?.courier.profile_photo_url" alt="">
+
+                    </td>
+
+                </tr>
+            </ng-container>
+
+
+        </tbody>
+    </table>
+</div>
+
+<!-- 
+<div class="table-responsive mb-3">
+
     <table class="table table-striped table-bordered">
 
         <tbody>
@@ -57,4 +157,4 @@
 
         </tbody>
     </table>
-</div>
+</div> -->

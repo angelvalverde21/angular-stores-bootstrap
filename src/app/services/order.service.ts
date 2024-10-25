@@ -54,8 +54,66 @@ export class OrderService {
     
   }
 
-  
 
+  orderStatus: any;
+  
+  status(order: any){
+
+    if (order.is_delivery) {
+
+      this.orderStatus =  {
+        "message":"Entregado",
+        "icon":"bs-stepper-circle",
+        "case":"is_delivery",
+        "color":"is_delivery",
+      }
+
+    } else {
+
+      if (order.is_shipment) {
+
+        this.orderStatus =  {
+          "message":"Enviado",
+          "icon":"fas fa-shipping-fast",
+          "case":"is_shipment"
+        }
+
+        
+      } else {
+
+        if (order.is_package) {
+
+          this.orderStatus =  {
+            "message":"Listo para Envio",
+            "icon":"fas fa-box-open",
+            "case":"is_package"
+          }
+
+        } else {
+
+          if (order.is_pay) {
+
+            this.orderStatus =  {
+              "message":"Pagado",
+              "icon":"fas fa-dollar-sign",
+              "case":"is_pay"
+            }
+
+          } else {
+
+            this.orderStatus =  {
+              "message":"Solicitado",
+              "icon":"",
+              "case":""
+            }
+
+          }
+        }
+      }
+    }
+
+    return this.orderStatus;
+  }
 
 
 

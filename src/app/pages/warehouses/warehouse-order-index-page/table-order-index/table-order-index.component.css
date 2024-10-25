@@ -1,0 +1,33 @@
+.custom-success{
+    background-color: #E2FBDF;
+}
+
+a{
+    color: #000;
+    text-decoration: none;
+}
+
+
+/* colores del status */
+
+/* entregado */
+
+.is_delivery{
+    background-color: #b4ff6e !important;
+    color: #000;
+}
+
+.is_shipment{
+    background-color: #b4ff6e !important;
+    color: #000;
+}
+
+.is_package{
+    background-color: #fff8bd !important;
+    color: #000;
+}
+
+.is_pay{
+    background-color: #E2FEE2 !important;
+    color: #000;
+}

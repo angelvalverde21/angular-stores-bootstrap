@@ -16,22 +16,22 @@
 
         <div ngbAccordion>
 
-            <div ngbAccordionItem [collapsed]="seleccionado != 1">
+            <div ngbAccordionItem [collapsed]="seleccionado != 'hoy'">
                 <h2 ngbAccordionHeader>
-                    <button ngbAccordionButton class="bg bg-primary text-white" (click)="selected(1)"><i class="fa-solid fa-bars me-2"></i>Entregas Hoy</button>
+                    <button ngbAccordionButton class="bg bg-primary text-white" (click)="selected('hoy')"><i class="fa-solid fa-bars me-2"></i>Entregas Hoy</button>
                 </h2>
                 <div ngbAccordionCollapse>
                     <div ngbAccordionBody>
                         <ng-template>
-                            <app-table-order-index [orders]="orders"></app-table-order-index>
+                            <app-table-order-index [orders]="orders" [store]="store" [warehouse_id]="warehouse_id"></app-table-order-index>
                         </ng-template>
                     </div>
                 </div>
             </div>
         
-            <div ngbAccordionItem [collapsed]="seleccionado != 2">
+            <div ngbAccordionItem [collapsed]="seleccionado != 'pagados'">
                 <h2 ngbAccordionHeader>
-                    <button ngbAccordionButton class="bg bg-success text-white" (click)="selected(2)"><i class="fa-solid fa-bars me-2"></i>Pagados</button>
+                    <button ngbAccordionButton class="bg bg-success text-white" (click)="selected('pagados')"><i class="fa-solid fa-bars me-2"></i>Pagados</button>
                 </h2>
                 <div ngbAccordionCollapse>
                     <div ngbAccordionBody>
@@ -41,9 +41,9 @@
                     </div>
                 </div>
             </div>
-            <div ngbAccordionItem [collapsed]="seleccionado != 3">
+            <div ngbAccordionItem [collapsed]="seleccionado != 'pendiente_pago'">
                 <h2 ngbAccordionHeader>
-                    <button ngbAccordionButton class="bg bg-dark text-white" (click)="selected(3)"><i class="fa-solid fa-bars me-2"></i>Pendientes de Pago</button>
+                    <button ngbAccordionButton class="bg bg-dark text-white" (click)="selected('pendiente_pago')"><i class="fa-solid fa-bars me-2"></i>Pendientes de Pago</button>
                 </h2>
                 <div ngbAccordionCollapse>
                     <div ngbAccordionBody>
@@ -53,9 +53,9 @@
                     </div>
                 </div>
             </div>
-            <div ngbAccordionItem [collapsed]="seleccionado != 4">
+            <div ngbAccordionItem [collapsed]="seleccionado != 'pendientes_entrega'">
                 <h2 ngbAccordionHeader>
-                    <button ngbAccordionButton class="bg bg-warning text-white" (click)="selected(4)"><i class="fa-solid fa-bars me-2"></i>Pendientes de entrega (Pagados)</button>
+                    <button ngbAccordionButton class="bg bg-warning text-white" (click)="selected('pendientes_entrega')"><i class="fa-solid fa-bars me-2"></i>Pendientes de entrega (Pagados)</button>
                 </h2>
                 <div ngbAccordionCollapse>
                     <div ngbAccordionBody>

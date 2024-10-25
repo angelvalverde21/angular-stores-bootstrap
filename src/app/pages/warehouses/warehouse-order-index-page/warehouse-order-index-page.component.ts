@@ -1,12 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { OrderService } from '../../../services/order.service';
+
 import { HeaderComponent } from '../../../header/header.component';
 import { LoadingCenterComponent } from '../../../components/loading-center/loading-center.component';
 import { CommonModule } from '@angular/common';
-import { StepperComponent } from "../../../components/stepper/stepper.component";
-import { PipesModule } from '../../../shared/pipes.module';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
 import { CardAddressComponent } from '../../../auth/shared/order/card-address/card-address.component';
 import { BreadCrumbComponent } from '../../../auth/shared/bread-crumb/bread-crumb.component';
@@ -20,7 +18,7 @@ import { TableOrderIndexComponent } from "./table-order-index/table-order-index.
 @Component({
   selector: 'app-warehouse-order-index-page',
   standalone: true,
-  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, StepperComponent, PipesModule, RouterModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, TableOrderIndexComponent],
+  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, TableOrderIndexComponent],
   templateUrl: './warehouse-order-index-page.component.html',
   styleUrl: './warehouse-order-index-page.component.css',
   providers: [NgbAlertConfig],
@@ -38,7 +36,6 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
   
 
   constructor(
-
     private _store: StoreService,
     private route: ActivatedRoute,
     private _warehouseOrder: WarehouseOrderService,
@@ -97,16 +94,17 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
 
   }
 
-  seleccionado: number = 1;
+  seleccionado: string = "hoy";
   
   
-  selected(value:number){
+  selected(value:string){
     this.seleccionado = value;
   }
-
 
   ngOnDestroy(): void {
 
   }
+
+
 
 }
