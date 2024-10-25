@@ -13,11 +13,14 @@ import { BreadCrumbComponent } from '../../../auth/shared/bread-crumb/bread-crum
 import { WarehouseOrderService } from '../../../services/warehouse-order.service';
 import { ButtonOrderCreateModalComponent } from "../../../components/buttons/button-order-create-modal/button-order-create-modal.component";
 import { NgbAlertConfig, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderOrderStatusComponent } from "./header-order-status/header-order-status.component";
+import { CardRowOrderComponent } from "./card-row-order/card-row-order.component";
+import { OrderIndexAccordionComponent } from "./order-index-accordion/order-index-accordion.component";
 
 @Component({
   selector: 'app-warehouse-order-index-page',
   standalone: true,
-  imports: [HeaderComponent, LoadingCenterComponent, CommonModule, StepperComponent, PipesModule, RouterModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent,NgbAlertModule],
+  imports: [HeaderComponent, LoadingCenterComponent, CommonModule, StepperComponent, PipesModule, RouterModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, OrderIndexAccordionComponent],
   templateUrl: './warehouse-order-index-page.component.html',
   styleUrl: './warehouse-order-index-page.component.css',
   providers: [NgbAlertConfig],

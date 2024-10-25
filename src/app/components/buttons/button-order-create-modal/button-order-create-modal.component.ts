@@ -5,7 +5,7 @@ import { InputGroupComponent } from "../../forms/input-group/input-group.compone
 import { ItemColorSizeIndexComponent } from "../../Order/item/item-color-size-index/item-color-size-index.component";
 import { InputSearchProductComponent } from "../../product/input-search-product/input-search-product.component";
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
 import { UserService } from '../../../services/user.service';
 import { ItemOrderCreateComponent } from "../../Order/item-order-create/item-order-create.component";
@@ -14,6 +14,7 @@ import { CartService } from '../../../services/cart.service';
 import Swal from 'sweetalert2';
 import { CardSummaryComponent } from "../../../auth/shared/order/card-summary/card-summary.component";
 import { SummaryComponent } from "../../summary/summary.component";
+import { WarehouseOrderService } from '../../../services/warehouse-order.service';
 @Component({
   selector: 'app-button-order-create-modal',
   standalone: true,
@@ -29,9 +30,11 @@ export class ButtonOrderCreateModalComponent implements OnInit, OnDestroy{
   warehouse_id: number = 0;
   warehouseName: string = "";
   userName: string = "";
+  store: string = "";
   cartItems: any = null;
   btnActive: boolean = false;
   warehouseCartSubscription! : Subscription;
+  data: any = {};
 
 	constructor(
 		config: NgbModalConfig,
@@ -40,6 +43,8 @@ export class ButtonOrderCreateModalComponent implements OnInit, OnDestroy{
     private _store: StoreService,
     private _user: UserService,
     private _cart: CartService,
+    private _warehouseOrder: WarehouseOrderService,
+    private router: Router
 
 	) {
 		// customize default values of modals used by this component tree
@@ -57,7 +62,7 @@ export class ButtonOrderCreateModalComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     
     this.cartItems = this._cart.getItemsCartWarehouse();
-
+    this.store = this._store.name()!;
     // this.loadWarehouseCart();
     this.warehouseCartSubscription = this._cart.getCartWarehouseObservable().subscribe ((resp:any) => {
       //Escucho si se agrego o no elementos al warehouseCartItems
@@ -121,6 +126,37 @@ export class ButtonOrderCreateModalComponent implements OnInit, OnDestroy{
 
   generarVentaTienda(){
 
+    this.data.items = this._cart.getItemsCartWarehouse();
+    
+    this._warehouseOrder.createOrderTienda(this.data, this.warehouse_id).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+
+        const arrayResp = resp.data;
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Correcto',
+          text: 'El pedido ha sido registrado',
+          confirmButtonText: 'OK',
+          // showConfirmButton: false
+        });
+
+        this.router.navigate([
+          '/',
+          this.store,
+          'warehouses',
+          this.warehouse_id,
+          'orders',
+          arrayResp.order_id,
+        ]);
+
+      },
+      error: (error: any) => {
+        console.error('Ha ocurrido un error interno');
+        console.error(error);
+      },
+    });
   }
 
 

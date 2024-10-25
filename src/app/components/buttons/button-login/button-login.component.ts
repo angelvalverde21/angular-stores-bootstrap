@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-button-login',
@@ -12,11 +13,13 @@ import { StoreService } from '../../../services/store.service';
 export class ButtonLoginComponent{
 
   store: string = '/'; 
-  
-  constructor(private _store: StoreService){
+  estaAutenticado: boolean = false;
+
+  constructor(private _store: StoreService, private _auth: AuthService){
     this._store.getNameObservable().subscribe((store: string) => {
       // console.log(store + ' desde header');
       this.store = store;
+      this.estaAutenticado = this._auth.estaAutenticado();
     });
   }
   

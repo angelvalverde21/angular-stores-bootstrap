@@ -127,7 +127,7 @@ export class IzipayComponent implements OnInit, OnDestroy {
 
     //seteando la variable postData que enviaremos al servidor para pedir nuestro token
 
-    this.nameComplete = this.order.address.name.split(' ');
+    this.nameComplete = this.order.address ? this.order.address.name.split(' ') : "Venta Web";
     this.total_amount = this.order.total_amount.split('.');
 
     this.postData = {

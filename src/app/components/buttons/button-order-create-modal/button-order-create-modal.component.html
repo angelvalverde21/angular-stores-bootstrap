@@ -55,7 +55,7 @@
 
             </div>
 
-            <app-summary cartContent="ItemsCartWarehouse"></app-summary>
+            <app-summary cartContent="ItemsCartWarehouse" *ngIf="cartItems != null" [collapsed]="true"></app-summary>
 
             <app-input-search-product></app-input-search-product>
 
@@ -69,7 +69,7 @@
     </div>
 </ng-template>
 
-<button class="btn btn-outline-dark mb-2 me-2 d-flex align-items-center" aria-hidden="innerit"
+<button class="btn btn-dark mb-3 me-2 d-flex align-items-center" aria-hidden="innerit"
     (click)="openVerticallyCentered(content)">
     <i class="fa-solid fa-cash-register"></i><span class="d-none d-lg-block ms-2">Registrar Pedido</span>
 </button>

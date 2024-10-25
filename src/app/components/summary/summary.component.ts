@@ -2,13 +2,14 @@ import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core
 import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { PipesModule } from '../../shared/pipes.module';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [PipesModule],
+  imports: [PipesModule, NgbAccordionModule],
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.css'
+  styleUrl: './summary.component.css',
 })
 export class SummaryComponent implements OnInit, OnDestroy {
 
@@ -17,7 +18,9 @@ export class SummaryComponent implements OnInit, OnDestroy {
   items: any; 
   costos: any; 
   igv: number = 0;
-  
+  itemsx = ['First', 'Second', 'Third'];
+  @Input() collapsed: boolean = false;
+
   @Input() cartContent: string = "cartItems";
   
   constructor(private _cart: CartService){
@@ -48,5 +51,6 @@ export class SummaryComponent implements OnInit, OnDestroy {
     // throw new Error('Method not implemented.');
   }
 
+  
 
 }

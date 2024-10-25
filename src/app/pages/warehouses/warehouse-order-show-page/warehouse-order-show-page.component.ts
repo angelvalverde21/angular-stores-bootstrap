@@ -72,7 +72,7 @@ export class WarehouseOrderShowPageComponent {
             },
             {
               name: 'Orders',
-              link: ['/', this.store, 'auth', 'orders'],
+              link: ['/', this.store, 'warehouses', this.warehouse_id , 'orders'],
             },
             {
               name: `#${this.order.id}`,
