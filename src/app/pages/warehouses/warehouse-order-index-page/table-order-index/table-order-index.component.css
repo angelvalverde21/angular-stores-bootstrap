@@ -31,3 +31,19 @@ a{
     background-color: #E2FEE2 !important;
     color: #000;
 }
+
+.is_delivery_tr td{
+    background-color: #b4ff6e !important;
+    color: #000;
+}
+
+.is_shipment_tr td{
+    background-color: #b4ff6e !important;
+    color: #000;
+}
+
+.is_package_tr td{
+    background-color: #fff8bd !important;
+    color: #000;
+}
+

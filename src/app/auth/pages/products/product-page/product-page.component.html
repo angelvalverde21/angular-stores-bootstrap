@@ -53,7 +53,7 @@
                                 <form [formGroup]="form" (ngSubmit)="save()">
 
                                     <div class="row mb-3">
-                                        <div class="col-lg-8 col-12">
+                                        <div class="col-lg-12">
                                             <app-input-group icon="fa-regular fa-pen-to-square">
                                                 <input formControlName="name" type="text" class="form-control"
                                                     placeholder="Name" aria-label="tiktok"
@@ -61,11 +61,16 @@
                                             </app-input-group>
                                         </div>
 
-                                        <div class="col-lg-4 col-12">
+                                        <!-- <div class="col-lg-4 col-12">
                                             <app-input-group icon="fa-regular fa-pen-to-square">
                                                 <input formControlName="tags" type="text" class="form-control"
                                                     placeholder="tags" aria-label="tags" aria-describedby="basic-tags">
                                             </app-input-group>
+                                        </div> -->
+
+                                        <div class="col-lg-12 col-12">
+                                            <textarea id="" formControlName="tags" class="form-control"
+                                                placeholder="Tags"></textarea>
                                         </div>
 
                                         <div class="col-lg-12 col-12">

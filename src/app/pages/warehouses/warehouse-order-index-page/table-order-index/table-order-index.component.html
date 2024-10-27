@@ -6,7 +6,7 @@
 
             <ng-container *ngFor="let order of orders">
 
-                <tr>
+                <tr class="{{ status(order).case }}_tr">
 
                     <!-- id -->
 
@@ -14,13 +14,16 @@
                     <td class="centrar centrar-v {{ status(order).case }}" style="width: 125px !important;">
                         
                         <div class="mb-2">
-
                             <!-- Editar -->
                             <button class="btn btn-outline-dark"
                                 [routerLink]="['/', store, 'warehouses', warehouse_id , 'orders', order.id]">
                                 #{{ order.id }}
                             </button>
+                        </div>
 
+                         <!-- icon estatus -->
+                        <div class="mb-2">
+                            <i class="{{ status(order).icon }}"></i>
                         </div>
 
                     </td>
@@ -42,12 +45,8 @@
 
                     </td>
 
-                    <!-- icon estatus -->
+                   
 
-                    <td class="centrar centrar-v" style="width: 75px !important;">
-
-                        <i class="{{ status(order).icon }}"></i>
-                    </td>
 
                     <!-- estatus -->
 
