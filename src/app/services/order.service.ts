@@ -94,7 +94,7 @@ export class OrderService {
           if (order.is_pay) {
 
             this.orderStatus =  {
-              "message":"Pagado",
+              "message":"Preparar Envio",
               "icon":"fas fa-dollar-sign",
               "case":"is_pay"
             }

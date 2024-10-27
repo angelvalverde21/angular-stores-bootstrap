@@ -6,13 +6,13 @@
 
             <ng-container *ngFor="let order of orders">
 
-                <tr>
+                <tr class="{{ status(order).case }}_tr">
 
                     <!-- id -->
 
 
                     <td class="centrar centrar-v {{ status(order).case }}" style="width: 125px !important;">
-                        
+
                         <div class="mb-2">
 
                             <!-- Editar -->
@@ -20,6 +20,14 @@
                                 [routerLink]="['/', store, 'warehouses', warehouse_id , 'orders', order.id]">
                                 #{{ order.id }}
                             </button>
+
+                        </div>
+                        
+                        <div class="mb-2">
+
+                            <!-- icon estatus -->
+
+                            <i class="{{ status(order).icon }}"></i>
 
                         </div>
 
@@ -42,17 +50,18 @@
 
                     </td>
 
-                    <!-- icon estatus -->
 
-                    <td class="centrar centrar-v" style="width: 75px !important;">
-
-                        <i class="{{ status(order).icon }}"></i>
-                    </td>
 
                     <!-- estatus -->
 
                     <td style="width: 150px;" class="centrar centrar-v">
-                        <div class="mb-2">{{ status(order).message | uppercase }}</div>
+                        <div class="mb-2">
+                            @if (order.is_pay) {
+                                <strong>{{ status(order).message | uppercase }}</strong>
+                            }@else{
+                                {{ status(order).message | uppercase }}
+                            }
+                        </div>
                         <!-- <div><i class="{{ status(order).icon }}"></i></div> -->
                     </td>
 
