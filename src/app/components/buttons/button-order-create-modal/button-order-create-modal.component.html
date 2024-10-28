@@ -1,4 +1,4 @@
-<ng-template #content let-modal>
+<ng-template #contentPuntoVenta let-modal>
     <div class="modal-header">
         <h5 class="modal-title"><i class="fa-solid fa-cash-register me-2"></i>Tienda: {{ warehouseName | uppercase}}
         </h5>
@@ -69,6 +69,28 @@
     </div>
 </ng-template>
 
+<ng-template #contentVentaOnline let-modal>
+
+    <div class="modal-header">
+        <h5 class="modal-title"><i class="fa-solid fa-cash-register me-2"></i>Venta Online
+        </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <app-address-form [saving]="false" [header]="false"></app-address-form>
+
+        <app-input-search-product></app-input-search-product>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+        <button type="button" class="btn btn-primary" [disabled]="!btnActive" (click)="generarVentaTienda()">Generar
+            Pedido</button>
+    </div>
+
+</ng-template>
     
 <div ngbDropdown class="d-inline-block">
         
@@ -77,9 +99,9 @@
     </button>
     
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="w-100">
-        <button ngbDropdownItem><i class="fa-solid fa-globe me-2"></i>Venta Online</button>
+        <button ngbDropdownItem (click)="openVentaOnline(contentVentaOnline)"><i class="fa-solid fa-globe me-2"></i>Venta Online</button>
         <hr>
-        <button ngbDropdownItem (click)="openVerticallyCentered(content)"><i class="fa-solid fa-cash-register me-2"></i>Punto de Venta</button>
+        <button ngbDropdownItem (click)="openPuntoVenta(contentPuntoVenta)"><i class="fa-solid fa-cash-register me-2"></i>Punto de Venta</button>
     </div>
 </div>
 
