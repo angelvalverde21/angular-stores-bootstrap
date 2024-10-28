@@ -69,8 +69,22 @@
     </div>
 </ng-template>
 
-<button class="btn btn-dark mb-3 me-2 d-flex align-items-center" aria-hidden="innerit"
+    
+<div ngbDropdown class="d-inline-block">
+        
+    <button type="button" class="btn btn-dark mb-3 me-2 d-flex align-items-center" id="dropdownBasic1" ngbDropdownToggle>
+        <i class="fa-solid fa-plus me-2"></i> Registrar Pedido
+    </button>
+    
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="w-100">
+        <button ngbDropdownItem><i class="fa-solid fa-globe me-2"></i>Venta Online</button>
+        <hr>
+        <button ngbDropdownItem (click)="openVerticallyCentered(content)"><i class="fa-solid fa-cash-register me-2"></i>Punto de Venta</button>
+    </div>
+</div>
+
+<!-- <button class="btn btn-dark mb-3 me-2 d-flex align-items-center" aria-hidden="innerit"
     (click)="openVerticallyCentered(content)">
     <i class="fa-solid fa-cash-register"></i><span class="d-none d-lg-block ms-2">Registrar Pedido</span>
-</button>
+</button> -->
 

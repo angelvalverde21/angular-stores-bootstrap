@@ -15,10 +15,13 @@ import Swal from 'sweetalert2';
 import { CardSummaryComponent } from "../../../auth/shared/order/card-summary/card-summary.component";
 import { SummaryComponent } from "../../summary/summary.component";
 import { WarehouseOrderService } from '../../../services/warehouse-order.service';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 @Component({
   selector: 'app-button-order-create-modal',
   standalone: true,
-  imports: [AddressFormComponent, InputGroupComponent, ItemColorSizeIndexComponent, InputSearchProductComponent, CommonModule, ItemOrderCreateComponent, SummaryComponent],
+  imports: [AddressFormComponent, NgbDropdownModule, InputGroupComponent, ItemColorSizeIndexComponent, InputSearchProductComponent, CommonModule, ItemOrderCreateComponent, SummaryComponent],
   templateUrl: './button-order-create-modal.component.html',
   styleUrl: './button-order-create-modal.component.css',
   encapsulation: ViewEncapsulation.None

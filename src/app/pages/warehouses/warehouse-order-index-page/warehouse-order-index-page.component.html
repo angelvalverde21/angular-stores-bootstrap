@@ -15,7 +15,10 @@
     <!-- <app-stepper></app-stepper> -->
     <!-- {{ orders | json }} -->
 
-    @if (orders != null) {
+    
+    <app-table-order-index [orders]="orders" [store]="store" [warehouse_id]="warehouse_id"></app-table-order-index>
+
+    @if (false) {
 
         <div ngbAccordion>
 
