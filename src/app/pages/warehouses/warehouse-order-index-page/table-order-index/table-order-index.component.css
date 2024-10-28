@@ -18,7 +18,7 @@ a{
 }
 
 .is_shipment{
-    background-color: #b4ff6e !important;
+    background-color: #E2FEE2 !important;
     color: #000;
 }
 
@@ -32,13 +32,15 @@ a{
     color: #000;
 }
 
+/*********************************************/
+
 .is_delivery_tr td{
-    background-color: #b4ff6e !important;
+    background-color: #E2FEE2 !important;
     color: #000;
 }
 
 .is_shipment_tr td{
-    background-color: #b4ff6e !important;
+    background-color: #E2FEE2 !important;
     color: #000;
 }
 
@@ -46,4 +48,3 @@ a{
     background-color: #fff8bd !important;
     color: #000;
 }
-

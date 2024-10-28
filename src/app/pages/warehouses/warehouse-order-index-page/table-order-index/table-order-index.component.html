@@ -12,7 +12,7 @@
 
 
                     <td class="centrar centrar-v {{ status(order).case }}" style="width: 125px !important;">
-                        
+
                         <div class="mb-2">
                             <!-- Editar -->
                             <button class="btn btn-outline-dark"
@@ -24,6 +24,14 @@
                          <!-- icon estatus -->
                         <div class="mb-2">
                             <i class="{{ status(order).icon }}"></i>
+                        </div>
+                        
+                        <div class="mb-2">
+
+                            <!-- icon estatus -->
+
+                            <i class="{{ status(order).icon }}"></i>
+
                         </div>
 
                     </td>
@@ -45,13 +53,18 @@
 
                     </td>
 
-                   
 
 
                     <!-- estatus -->
 
                     <td style="width: 150px;" class="centrar centrar-v">
-                        <div class="mb-2">{{ status(order).message | uppercase }}</div>
+                        <div class="mb-2">
+                            @if (order.is_pay) {
+                                <strong>{{ status(order).message | uppercase }}</strong>
+                            }@else{
+                                {{ status(order).message | uppercase }}
+                            }
+                        </div>
                         <!-- <div><i class="{{ status(order).icon }}"></i></div> -->
                     </td>
 
