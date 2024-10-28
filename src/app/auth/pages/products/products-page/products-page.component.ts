@@ -12,11 +12,12 @@ import { LoadingCenterComponent } from "../../../../components/loading-center/lo
 import { ButtonProductsComponent } from "../../../../components/buttons/button-products/button-products.component";
 import { ButtonOrdersComponent } from "../../../../components/buttons/button-orders/button-orders.component";
 import Swal from 'sweetalert2';
+import { ButtonProductCreateModalComponent } from "../../../../components/buttons/button-product-create-modal/button-product-create-modal.component";
 
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, TableProductsComponent, ProductComponent, LoadingCenterComponent, ButtonProductsComponent, ButtonOrdersComponent],
+  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, TableProductsComponent, ProductComponent, LoadingCenterComponent, ButtonProductsComponent, ButtonOrdersComponent, ButtonProductCreateModalComponent],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css'
 })

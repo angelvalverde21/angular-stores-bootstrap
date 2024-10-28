@@ -2,15 +2,18 @@
 
 <app-loading-center *ngIf="loading"></app-loading-center>
 
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
+        <app-button-order-create-modal></app-button-order-create-modal>
+    </div>
+    
+</div>
 
 <div class="container" *ngIf="!loading">
 
     <!-- <app-stepper></app-stepper> -->
     <!-- {{ orders | json }} -->
-    <div class="d-flex justify-content-between">
-        <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
-        <app-button-order-create-modal></app-button-order-create-modal>
-    </div>
 
     @if (orders != null) {
 

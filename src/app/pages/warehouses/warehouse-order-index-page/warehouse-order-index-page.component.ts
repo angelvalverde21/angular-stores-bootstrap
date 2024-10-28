@@ -49,7 +49,7 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
 
     this.route.parent?.params.subscribe((param:any) => {
 
-      this.loading = true;
+
 
       // console.log(param['warehouse_id']);
       this.warehouse_id = param['warehouse_id'];
@@ -68,6 +68,8 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
       ];
   
       this.store = this._store.name()!;
+
+      this.loading = true;
   
       console.log("empieza la subscripcion");
 
