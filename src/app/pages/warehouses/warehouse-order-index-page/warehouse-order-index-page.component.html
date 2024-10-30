@@ -4,8 +4,11 @@
 
 <div class="container">
     <div class="d-flex justify-content-between mb-3">
-        <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
-        <app-button-order-create-punto-venta></app-button-order-create-punto-venta>
+        <app-bread-crumb [items]="breadCrumbs" />
+        <div class="buttons">
+            <app-button-order-create-punto-venta class="me-2" />
+            <app-button-order-create-online />
+        </div>
     </div>
     
 </div>

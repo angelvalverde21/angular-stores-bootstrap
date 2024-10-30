@@ -124,9 +124,6 @@ export class ButtonOrderCreatePuntoVentaComponent implements OnInit, OnDestroy {
           });
       }
     })
-    
-
-
   }
 
   closeModal() {

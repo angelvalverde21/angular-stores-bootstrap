@@ -16,11 +16,12 @@ import { WarehouseOrderService } from '../../../services/warehouse-order.service
 import { ActivatedRoute } from '@angular/router';
 import { PipesModule } from '../../../shared/pipes.module';
 import { CardOrderItemComponent } from "../../../auth/shared/order/card-order-item/card-order-item.component";
+import { InputSearchProductComponent } from "../../../components/product/input-search-product/input-search-product.component";
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
-  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent],
+  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent],
   templateUrl: './warehouse-order-show-page.component.html',
   styleUrl: './warehouse-order-show-page.component.css'
 })

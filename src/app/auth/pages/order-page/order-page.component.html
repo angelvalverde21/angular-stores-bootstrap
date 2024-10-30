@@ -1,14 +1,48 @@
 <app-header></app-header>
 
-<app-loading-center *ngIf="loading"></app-loading-center>
+<div class="container">
+
+    <app-loading-center *ngIf="loading"></app-loading-center>
+
+    <app-stepper [order]="order"></app-stepper>
+    <!-- {{ order | json }} -->
+
+    <div class="row">
+
+        <div class="col-lg-12 col-12">
+            <h6 class="mb-3">Creado: {{ order.created_at | dateCustom }} </h6>
+        </div>
+
+        <div class="col-lg-8">
+
+            <div class="row">
+                <div class="col-lg-12" *ngIf="order.address_id != null">
+                    <app-card-address [address]="order.address" title="Direccion de envio"></app-card-address>
+                    <app-card-courier [courier_address]="order.courier_address"></app-card-courier>
+                </div>
+
+                <div class="col-lg-12 col-12">
+                    <!-- <app-table-items [items]="order.items"></app-table-items> -->
+                    <app-card-order-item [item]="item" *ngFor="let item of order.items"></app-card-order-item>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <app-card-summary [items]="order.items" [is_pay]="order.is_pay"></app-card-summary>
+            <app-izipay [order]="order"></app-izipay>
+        </div>
+
+    </div>
+
+</div>
 
 
-<div class="container" *ngIf="!loading">
+<!-- <div class="container" *ngIf="!loading">
     
     <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
     
     <app-stepper></app-stepper>
-    <!-- {{ order | json }} -->
 
     <div class="row">
 
@@ -35,4 +69,4 @@
     </div>
     
 
-</div>
+</div> -->

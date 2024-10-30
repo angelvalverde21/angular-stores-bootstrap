@@ -12,11 +12,14 @@ import { TableItemsComponent } from "../../shared/order/table-items/table-items.
 import { BreadCrumbComponent } from "../../shared/bread-crumb/bread-crumb.component";
 import { CardSummaryComponent } from "../../shared/order/card-summary/card-summary.component";
 import { IzipayComponent } from "../../shared/order/izipay/izipay.component";
+import { PipesModule } from '../../../shared/pipes.module';
+import { CardOrderItemComponent } from "../../shared/order/card-order-item/card-order-item.component";
+import { InputSearchProductComponent } from "../../../components/product/input-search-product/input-search-product.component";
 
 @Component({
   selector: 'app-order-page',
   standalone: true,
-  imports: [HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent],
+  imports: [HeaderComponent, LoadingCenterComponent, PipesModule, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent],
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css'
 })

@@ -15,11 +15,12 @@ import { HeaderOrderStatusComponent } from "./header-order-status/header-order-s
 import { CardRowOrderComponent } from "./card-row-order/card-row-order.component";
 import { TableOrderIndexComponent } from "./table-order-index/table-order-index.component";
 import { ButtonOrderCreatePuntoVentaComponent } from "../../../components/buttons/button-order-create-punto-venta/button-order-create-punto-venta.component";
+import { ButtonOrderCreateOnlineComponent } from "../../../components/buttons/button-order-create-online/button-order-create-online.component";
 
 @Component({
   selector: 'app-warehouse-order-index-page',
   standalone: true,
-  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, TableOrderIndexComponent, ButtonOrderCreatePuntoVentaComponent],
+  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, TableOrderIndexComponent, ButtonOrderCreatePuntoVentaComponent, ButtonOrderCreateOnlineComponent],
   templateUrl: './warehouse-order-index-page.component.html',
   styleUrl: './warehouse-order-index-page.component.css',
   providers: [NgbAlertConfig],

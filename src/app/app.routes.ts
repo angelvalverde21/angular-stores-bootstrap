@@ -56,7 +56,7 @@ export const routes: Routes = [
       { path: 'products', component: HomeComponent },
       { path: 'products/:product_id/colors/:color_id', component: ColorPublicPageComponent },
       { path: 'search/:search', component: SearchComponent },
-      { path: 'tracking', component: TrackingComponent},
+      { path: 'orders/:order_id', component: OrderPageComponent},
       { path: 'checkout', component: PageCheckoutComponent},
       { path: 'login', component: LoginComponent },
       { path: 'auth', component: AuthComponent,canActivate: [authGuard],

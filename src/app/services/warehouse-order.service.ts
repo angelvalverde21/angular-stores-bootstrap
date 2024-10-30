@@ -54,6 +54,19 @@ export class WarehouseOrderService {
     
   }
 
+  
+  createOrderDelivery(data:[], warehouse_id: number): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.url}/${warehouse_id}/orders/create/delivery`;
+    // const url = `${this.url_base}?store=${store}`;
+    console.log(url);
+
+    return this.http.post(url, data);
+    
+  }
+
+
   createOrderTienda(data:[], warehouse_id: number): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
 
