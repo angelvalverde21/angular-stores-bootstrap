@@ -492,6 +492,10 @@ export class CartService {
     this.warehouseItems.next(items);
   }
 
+  removeItemWarehouse() {
+    localStorage.removeItem('ItemsCartWarehouse');
+  }
+
   /***************** observables ******************/
 
   //Observa los items que se agregan al cartWarehouse

@@ -14,11 +14,12 @@ import { NgbAccordionModule, NgbAlertConfig, NgbAlertModule } from '@ng-bootstra
 import { HeaderOrderStatusComponent } from "./header-order-status/header-order-status.component";
 import { CardRowOrderComponent } from "./card-row-order/card-row-order.component";
 import { TableOrderIndexComponent } from "./table-order-index/table-order-index.component";
+import { ButtonOrderCreatePuntoVentaComponent } from "../../../components/buttons/button-order-create-punto-venta/button-order-create-punto-venta.component";
 
 @Component({
   selector: 'app-warehouse-order-index-page',
   standalone: true,
-  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, TableOrderIndexComponent],
+  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, TableOrderIndexComponent, ButtonOrderCreatePuntoVentaComponent],
   templateUrl: './warehouse-order-index-page.component.html',
   styleUrl: './warehouse-order-index-page.component.css',
   providers: [NgbAlertConfig],
@@ -50,16 +51,17 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
     this.route.parent?.params.subscribe((param:any) => {
 
 
-
       // console.log(param['warehouse_id']);
       this.warehouse_id = param['warehouse_id'];
 
       this.warehouses = this._store.warehouses();
 
+      this.store = this._store.name()!;
+
       this.breadCrumbs = [
         {
           name: this.warehouses.find((warehouse: any)=> warehouse.id == this.warehouse_id).slug.toUpperCase(),
-          link: ['/', this.store, 'warehouses', this.warehouse_id],
+          link: ['/', this.store, 'warehouses', this.warehouse_id , 'orders'],
         },
         {
           name: 'Orders',
@@ -67,7 +69,7 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
         }
       ];
   
-      this.store = this._store.name()!;
+      
 
       this.loading = true;
   
