@@ -17,11 +17,12 @@ import { ActivatedRoute } from '@angular/router';
 import { PipesModule } from '../../../shared/pipes.module';
 import { CardOrderItemComponent } from "../../../auth/shared/order/card-order-item/card-order-item.component";
 import { InputSearchProductComponent } from "../../../components/product/input-search-product/input-search-product.component";
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
-  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent],
+  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent],
   templateUrl: './warehouse-order-show-page.component.html',
   styleUrl: './warehouse-order-show-page.component.css'
 })
@@ -59,31 +60,48 @@ export class WarehouseOrderShowPageComponent {
         this.store = this._store.name()!;
 
         console.log("empieza la subscripcion");
-        
-        this.orderSubcription = this._warehouseOrder.getById(this.warehouse_id,this.order_id).subscribe((resp:any) => {
-          this.order = resp.data;
-          console.log(resp);
-    
-          this.loading = false;
-    
-          this.breadCrumbs = [
-            {
-              name: this.warehouses.find((warehouse: any)=> warehouse.id == this.warehouse_id).slug.toUpperCase(),
-              link: ['/', this.store, 'warehouses', this.warehouse_id],
-            },
-            {
-              name: 'Orders',
-              link: ['/', this.store, 'warehouses', this.warehouse_id , 'orders'],
-            },
-            {
-              name: `#${this.order.id}`,
-              link: '',
-            },
-          ];
-          
-          console.log("Termina la subscripcion");
-        });
+
+        this.getBreadCrumbs(this.order_id);
+
+        const orderLocal = this._store.getOrders(this.order_id);
+
+        if(orderLocal != undefined){
+            this.order = orderLocal;
+            this.loading = false;
+        }else{
+
+          this.orderSubcription = this._warehouseOrder.getById(this.warehouse_id,this.order_id).subscribe((resp:any) => {
+            this.order = resp.data;
+            console.log(resp);
+      
+            this.loading = false;
+ 
+            console.log("Termina la subscripcion");
+
+          });
+
+        }
+
       });
+
+  }
+
+  getBreadCrumbs(order_id: number){
+
+    this.breadCrumbs = [
+      {
+        name: this.warehouses.find((warehouse: any)=> warehouse.id == this.warehouse_id).slug.toUpperCase(),
+        link: ['/', this.store, 'warehouses', this.warehouse_id],
+      },
+      {
+        name: 'Orders',
+        link: ['/', this.store, 'warehouses', this.warehouse_id , 'orders'],
+      },
+      {
+        name: `#${order_id}`,
+        link: '',
+      },
+    ];
 
   }
 

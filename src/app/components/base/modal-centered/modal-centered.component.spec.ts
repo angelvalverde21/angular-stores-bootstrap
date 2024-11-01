@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CardOrderItemComponent } from './card-order-item.component';
+import { ModalCenteredComponent } from './modal-centered.component';
 
-describe('CardOrderItemComponent', () => {
-  let component: CardOrderItemComponent;
-  let fixture: ComponentFixture<CardOrderItemComponent>;
+describe('ModalCenteredComponent', () => {
+  let component: ModalCenteredComponent;
+  let fixture: ComponentFixture<ModalCenteredComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardOrderItemComponent]
+      imports: [ModalCenteredComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CardOrderItemComponent);
+    fixture = TestBed.createComponent(ModalCenteredComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

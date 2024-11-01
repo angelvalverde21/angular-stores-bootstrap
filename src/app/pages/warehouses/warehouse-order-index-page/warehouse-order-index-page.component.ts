@@ -83,6 +83,7 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
 
         if (resp.data.length > 0) {
           this.orders = resp.data;
+          this._store.setOrders(this.orders); //setea en el localhost
         }else{
           this.orders = null;
         }

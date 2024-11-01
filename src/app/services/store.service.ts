@@ -25,6 +25,63 @@ export class StoreService {
     }
   }
 
+  getOrders(order_id: number | null){
+
+    const orders = JSON.parse(localStorage.getItem('store')!).orders;
+
+    if(order_id != null){
+      return orders.find((order:any) => order.id == order_id); //sino encuentra nada devuelve undefined
+    }else{
+      return orders;
+    }
+  }
+
+  setOrders(data: []){
+
+    const store = JSON.parse(localStorage.getItem('store')!);
+    store['orders'] = data;
+    localStorage.setItem('store', JSON.stringify(store));
+
+  }
+
+  setOrder(dataOrder: any){ //dataOrder es una sola orden
+
+    let store = JSON.parse(localStorage.getItem('store')!);
+
+    let orders = store.orders.map((order:any) => {
+      if (order.id === dataOrder.id) {
+        return dataOrder; // Reemplaza el objeto si coincide el id
+      }
+      return order; //sino encuentro el id, deja el order original
+    });
+
+    store['orders'] = orders;
+
+    localStorage.setItem('store', JSON.stringify(store));
+
+  }
+//43277
+  setOrderItem(dataItem: any){ //dataOrder es una sola orden
+
+    let store = JSON.parse(localStorage.getItem('store')!);
+
+    let order = store.orders.find((order:any) => order.id == dataItem.order_id);
+
+    let items = order.items.map((item:any) => {
+      if (item.id === dataItem.id) {
+        return dataItem; // Reemplaza el objeto si coincide el id
+      }
+      return item; //sino encuentro el id, deja el order original
+    });
+
+    order['items'] = items;
+
+    this.setOrder(order); //actualiza el orde en especifico con los cambios hechos a los irems
+
+    // localStorage.setItem('store', JSON.stringify(store));
+
+  }
+
   name() {
     if (localStorage.getItem('slug_base')) {
       return localStorage.getItem('slug_base'); //el ! le indica que no sera vacio

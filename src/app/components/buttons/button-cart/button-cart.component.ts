@@ -14,7 +14,6 @@ import {
 
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { OrderSummaryComponent } from '../../order-summary/order-summary.component';
 import { Router, RouterModule } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
 import { CartService } from '../../../services/cart.service';
@@ -25,7 +24,7 @@ import { SummaryComponent } from "../../summary/summary.component";
 @Component({
   selector: 'app-button-cart',
   standalone: true,
-  imports: [RouterModule, CommonModule, OrderSummaryComponent, CartComponent, SummaryComponent],
+  imports: [RouterModule, CommonModule, CartComponent, SummaryComponent],
   providers: [NgbOffcanvasConfig, NgbOffcanvas],
   templateUrl: './button-cart.component.html',
   styleUrl: './button-cart.component.css'

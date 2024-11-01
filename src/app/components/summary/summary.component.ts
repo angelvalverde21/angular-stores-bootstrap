@@ -28,7 +28,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void {
-
+    
     console.log("costos");
     
     this.costos = this._cart.costos(this.cartContent);
