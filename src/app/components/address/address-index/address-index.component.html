@@ -7,16 +7,16 @@
 
 <div ngbAccordion [closeOthers]="true" class="mb-3" *ngIf="showAddressIndex">
     <ng-container *ngFor="let address of addresses; let i = index">
-        <div ngbAccordionItem [collapsed]="i !== 0"> <!-- Abre el primer elemento -->
+        <div ngbAccordionItem [collapsed]="address.id !== addressIdShow"> <!-- Abre el primer elemento -->
             <h2 ngbAccordionHeader>
-                <button ngbAccordionButton (click)="selected(i)">
+                <button ngbAccordionButton (click)="accordionSelected(address.id)">
 
-                    @if(this.seleccionado == i){
-                    <i class='fa-solid fa-circle-check me-2' style="font-size: 1.25rem;"></i>
-                    <span class="fw-bold">ENVIAR A: {{ address.name | uppercase }}</span>
+                    @if(this.seleccionado == address.id){
+                        <i class='fa-solid fa-circle-check me-2' style="font-size: 1.25rem;"></i>
+                        <span class="fw-bold">{{ address.name | uppercase }} - {{ address.district.name }}</span>
                     } @else {
-                    <i class="fa-regular fa-circle-check me-2"></i>
-                    <span>{{ address.name | uppercase }}</span>
+                        <i class="fa-regular fa-circle-check me-2"></i>
+                        <span>{{ address.name | uppercase }} - {{ address.district.name }}</span>
                     }
 
                 </button>
@@ -24,7 +24,8 @@
             <div ngbAccordionCollapse>
                 <div ngbAccordionBody>
                     <ng-template>
-                        <app-card-address [address]="address" title="Direccion de envio" [show]="showHeaderCard"></app-card-address>
+                        <app-card-address [address]="address" title="Direccion de envio"
+                            [show]="showHeaderCard"></app-card-address>
                     </ng-template>
                 </div>
             </div>
@@ -38,5 +39,3 @@
     <app-loading></app-loading>
 
 </div>
-
-

@@ -101,10 +101,14 @@ export class PageCheckoutComponent implements OnInit, OnDestroy, AfterViewInit {
   /******************** RECEPTORES DESDE OTROS COMPONENTES QUE EMITEN *************************/
 
   //Recibo desde el listado de direcciones UNA SOLA DIRECCION desde <app-address-index> esta funcion se usa cuando el usuario esta logueado
-  authAddressIndex(address: any){
-    console.log(address);
-    this.address_id = address.id;
-    this.checkIsButtonValid();
+  authAddressIndex(address: any | null){
+
+    if (address != null) {
+      console.log(address);
+      this.address_id = address.id;
+      this.checkIsButtonValid();
+    }
+
   }
 
   //Recibo el status del formulario (<app-address-form>), esta funciona se usara cuando no este logueado en angular 

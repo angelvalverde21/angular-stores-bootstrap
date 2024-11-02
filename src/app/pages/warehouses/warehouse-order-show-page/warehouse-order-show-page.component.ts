@@ -18,11 +18,13 @@ import { PipesModule } from '../../../shared/pipes.module';
 import { CardOrderItemComponent } from "../../../auth/shared/order/card-order-item/card-order-item.component";
 import { InputSearchProductComponent } from "../../../components/product/input-search-product/input-search-product.component";
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { AddressIndexComponent } from "../../../components/address/address-index/address-index.component";
+
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
-  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent],
+  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent],
   templateUrl: './warehouse-order-show-page.component.html',
   styleUrl: './warehouse-order-show-page.component.css'
 })

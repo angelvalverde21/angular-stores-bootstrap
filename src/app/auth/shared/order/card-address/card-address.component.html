@@ -36,42 +36,21 @@
     </li>
 </ul> -->
 
-<div class="card mb-3">
 
-    <div class="card-header py-1 d-flex justify-content-between align-items-center">
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">
+        <h5 class="card-title">{{ address.name | uppercase }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">DNI: {{ address.dni }}</h6>
+    </li>
+    <li class="list-group-item">{{ address.phone }}</li>
+    <!-- <li class="list-group-item"><i class="fa-solid fa-id-badge me-2"></i>{{ address.dni }}</li> -->
+    <li class="list-group-item">{{ address.primary }}</li>
+    <li class="list-group-item" *ngIf="address.secondary">{{ address.secondary }}</li>
+    <li class="list-group-item" *ngIf="address.references">{{ address.references }}</li>
+    <li class="list-group-item">
+        <h6 class="card-subtitle mt-2 text-muted">{{ address.district.name }} - {{
+            address.district.province.name }}
+            - {{ address.district.province.department.name }}</h6>
+    </li>
 
-        <div class="title d-flex align-items-center">
-            <i class="fa-solid fa-map-pin me-2"></i>
-            <span>Direccion de envio</span>
-        </div>
-
-        <div class="icon">
-            <app-button-dots-vertical></app-button-dots-vertical>
-        </div>
-
-    </div>
-    
-    <div class="card-body p-1">
-
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <h5 class="card-title">{{ address.name | uppercase }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">DNI: {{ address.dni }}</h6>
-            </li>
-            <li class="list-group-item">{{ address.phone }}</li>
-            <!-- <li class="list-group-item"><i class="fa-solid fa-id-badge me-2"></i>{{ address.dni }}</li> -->
-            <li class="list-group-item">{{ address.primary }}</li>
-            <li class="list-group-item" *ngIf="address.secondary">{{ address.secondary }}</li>
-            <li class="list-group-item" *ngIf="address.references">{{ address.references }}</li>
-            <li class="list-group-item">
-                <h6 class="card-subtitle mt-2 text-muted">{{ address.district.name }} - {{
-                    address.district.province.name }}
-                    - {{ address.district.province.department.name }}</h6>
-            </li>
-
-        </ul>
-
-        <!-- <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a> -->
-    </div>
-</div>
+</ul>
