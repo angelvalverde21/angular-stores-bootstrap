@@ -87,8 +87,7 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
         }else{
           this.orders = null;
         }
-
-
+        
         console.log(resp);
         
         this.loading = false;

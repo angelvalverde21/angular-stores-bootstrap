@@ -38,7 +38,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   
   calcularCostos(){
 
-    let order = this._store.getOrders(this.order_id);
+    let order = this._store.getOrderById(this.order_id);
 
     this.items = order.items;
 

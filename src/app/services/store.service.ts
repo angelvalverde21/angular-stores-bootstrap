@@ -25,15 +25,17 @@ export class StoreService {
     }
   }
 
-  getOrders(order_id: number | null){
+  getOrders(){
 
     const orders = JSON.parse(localStorage.getItem('store')!).orders;
+    return orders;
+    
+  }
 
-    if(order_id != null){
-      return orders.find((order:any) => order.id == order_id); //sino encuentra nada devuelve undefined
-    }else{
-      return orders;
-    }
+  getOrderById(order_id: number | null){
+
+    const orders = JSON.parse(localStorage.getItem('store')!).orders;
+    return orders.find((order:any) => order.id == order_id); //sino encuentra nada devuelve undefined
   }
 
   setOrders(data: []){
@@ -241,7 +243,6 @@ export class StoreService {
 
     return this.http.get(url);
   }
-
 
 
   inventory(): Observable<any> {

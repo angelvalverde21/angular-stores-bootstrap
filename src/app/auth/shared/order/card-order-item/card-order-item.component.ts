@@ -18,11 +18,13 @@ import { SweetAlertService } from '../../../../services/sweet-alert.service';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../../../services/cart.service';
 import { StoreService } from '../../../../services/store.service';
+import { ButtonDotsVerticalComponent } from "../../../../components/button-dots-vertical/button-dots-vertical.component";
+import { ButtonIconDeleteComponent } from "../../../../components/button-icon-delete/button-icon-delete.component";
 
 @Component({
   selector: 'app-card-order-item',
   standalone: true,
-  imports: [CommonModule, PipesModule, ReactiveFormsModule, InputGroupComponent, ButtonSaveComponent],
+  imports: [CommonModule, PipesModule, ReactiveFormsModule, InputGroupComponent, ButtonSaveComponent, ButtonDotsVerticalComponent, ButtonIconDeleteComponent],
   templateUrl: './card-order-item.component.html',
   styleUrl: './card-order-item.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -107,6 +109,7 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
         this.btnActive = !this.btnActive;
 
       },
+
       error: (error: any) => {
         this._sweetAlert.showError('Error', 'Ha ocurrido un error al cargar los datos del servidor');
         // console.error('Ha ocurrido un error interno');

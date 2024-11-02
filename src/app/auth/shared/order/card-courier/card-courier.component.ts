@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { ButtonDotsVerticalComponent } from "../../../../components/button-dots-vertical/button-dots-vertical.component";
 
 @Component({
   selector: 'app-card-courier',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonDotsVerticalComponent],
   templateUrl: './card-courier.component.html',
   styleUrl: './card-courier.component.css'
 })

@@ -63,11 +63,13 @@ export class WarehouseOrderShowPageComponent {
 
         this.getBreadCrumbs(this.order_id);
 
-        const orderLocal = this._store.getOrders(this.order_id);
+        const orderLocal = this._store.getOrderById(this.order_id);
 
         if(orderLocal != undefined){
+          
             this.order = orderLocal;
             this.loading = false;
+            
         }else{
 
           this.orderSubcription = this._warehouseOrder.getById(this.warehouse_id,this.order_id).subscribe((resp:any) => {
