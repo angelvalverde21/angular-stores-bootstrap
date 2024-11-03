@@ -39,6 +39,7 @@ export class AddressIndexComponent {
     this.seleccionado = this.addressIdShow;
 
     if(!this.addresses.length){
+      
       console.log("No hay direcciones en el localhost");
       this.showAddressIndex = false;
       //ojo no se incluye el id del usuario en getAll porque esto se ve en en lado del servidor, es decir el usuaio logueado
@@ -49,6 +50,7 @@ export class AddressIndexComponent {
         
         this.addressSelected.emit(this.addresses[0])
       });
+
     }else{
       this.showAddressIndex = true;
     }

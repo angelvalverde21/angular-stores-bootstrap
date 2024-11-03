@@ -35,7 +35,7 @@ export class AddressService {
     
     const url = `${this.url}/${this._store.name()}/user/${user_id}/address/index`;
     // const url = `${this.url_base}?store=${store}`;
-    // console.log(url);
+    console.log(url);
 
     return this.http.get(url);
   }

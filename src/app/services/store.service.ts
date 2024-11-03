@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrderService } from './order.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,10 +33,19 @@ export class StoreService {
     
   }
 
-  getOrderById(order_id: number | null){
+  getOrderById(order_id: number | null) {
 
     const orders = JSON.parse(localStorage.getItem('store')!).orders;
-    return orders.find((order:any) => order.id == order_id); //sino encuentra nada devuelve undefined
+    const order = orders.find((order: any) => order.id == order_id);
+  
+    if (order != null) {
+      // Retorna un observable con el pedido encontrado
+      return of(order);
+    } else {
+      // Si no está en localStorage, hace la solicitud HTTP
+      const url = `${this.url_private}/${this.name()}/orders/${order_id}`;
+      return this.http.get(url);
+    }
   }
 
   setOrders(data: []){

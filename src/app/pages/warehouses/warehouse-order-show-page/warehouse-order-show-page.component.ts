@@ -19,7 +19,6 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { AddressIndexComponent } from "../../../components/address/address-index/address-index.component";
 import { AddressDefaultComponent } from "../../../components/address/address-default/address-default.component";
 
-
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
@@ -50,6 +49,9 @@ export class WarehouseOrderShowPageComponent {
   }
 
   ngOnInit(): void {
+
+    console.log("onInit");
+    
   
       this.route.parent?.params.subscribe((param:any) => {
 
@@ -60,30 +62,21 @@ export class WarehouseOrderShowPageComponent {
 
         this.store = this._store.name()!;
 
-        console.log("empieza la subscripcion");
-
         this.getBreadCrumbs(this.order_id);
 
-        const orderLocal = this._store.getOrderById(this.order_id);
+        this.loading = true;
 
-        if(orderLocal != undefined){
-          
-            this.order = orderLocal;
-            this.loading = false;
-            
-        }else{
+        this.orderSubcription = this._warehouseOrder.getById(this.warehouse_id,this.order_id).subscribe((resp:any) => {
 
-          this.orderSubcription = this._warehouseOrder.getById(this.warehouse_id,this.order_id).subscribe((resp:any) => {
             this.order = resp.data;
+            console.log("empieza la subscripcion");
             console.log(resp);
       
             this.loading = false;
  
-            console.log("Termina la subscripcion");
+            // console.log("Termina la subscripcion");d
 
-          });
-
-        }
+        });
 
       });
 
@@ -110,6 +103,9 @@ export class WarehouseOrderShowPageComponent {
 
   ngOnDestroy(): void {
     // throw new Error('Method not implemented.');
+    if (this.orderSubcription) {
+      this.orderSubcription.unsubscribe();
+    }
   }
 
 }

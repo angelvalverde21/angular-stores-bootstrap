@@ -1,26 +1,60 @@
-<div class="card mb-3">
+<div class="card mb-3" *ngIf="showAddressDefault">
+
+    <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+        <app-loading-center></app-loading-center>
+    </div>
+
     <div class="card-header py-3">
-        Direccion de envio
+        {{ title }}
     </div>
     <div class="card-body">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <h5 class="card-title">{{ address.name | uppercase }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">DNI: {{ address.dni }}</h6>
-            </li>
-            <li class="list-group-item">{{ address.phone }}</li>
-            <!-- <li class="list-group-item"><i class="fa-solid fa-id-badge me-2"></i>{{ address.dni }}</li> -->
-            <li class="list-group-item">{{ address.primary }}</li>
-            <li class="list-group-item" *ngIf="address.secondary">{{ address.secondary }}</li>
-            <li class="list-group-item" *ngIf="address.references">{{ address.references }}</li>
-            <li class="list-group-item">
-                <h6 class="card-subtitle mt-2 text-muted">{{ address.district.name }} - {{
-                    address.district.province.name }}
-                    - {{ address.district.province.department.name }}</h6>
-            </li>
-            <li class="list-group-item">
-            </li>
-        </ul> 
-        <button class="btn btn-dark">Cambiar</button>
+        <app-address-template [address]="address" title="Direccion de envio"></app-address-template>
+        <button class="btn btn-dark" (click)="change()">Cambiar</button>
     </div>
 </div>
+
+<ng-container *ngIf="showAddressIndex">
+
+<div class="card mb-3">
+    <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+        <app-loading-center></app-loading-center>
+    </div>
+
+    <div class="card-header py-3">
+        {{ title }}
+    </div>
+    <div class="card-body">
+        <ng-container *ngFor="let address of addresses">
+            <app-address-template [address]="address" title="Direccion de envio"></app-address-template>
+            <div class="controls d-flex">
+                <button class="btn btn-dark me-2" (click)="selectAddress(address)">Seleccionar</button>
+                <button class="btn btn-outline-dark" (click)="editAddress()">Editar</button>
+            </div>
+            <hr>
+        </ng-container>
+    </div>
+
+    <div class="card-footer py-3">
+        <div class="controls d-flex justify-content-between ">
+            <!-- Este address es el original -->
+            <button class="btn btn-outline-primary me-2"(click)="addNewAddress()">Agregar Nueva Direccion</button>
+            <button class="btn btn-outline-danger" (click)="selectAddress(address)">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+</ng-container>
+
+
+<ng-container *ngIf="showAddressForm">
+
+    <app-address-form [saving]="overlay">
+        <div class="controls d-flex justify-content-between ">
+            <!-- Este address es el original -->
+            <button class="btn btn-dark me-2"(click)="addNewAddress()">Agregar</button>
+            <button class="btn btn-outline-danger" (click)="selectAddress(address)">Cancelar</button>
+        </div>
+    </app-address-form>
+
+</ng-container>
+
