@@ -1,0 +1,26 @@
+<div class="card mb-3">
+    <div class="card-header py-3">
+        Direccion de envio
+    </div>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <h5 class="card-title">{{ address.name | uppercase }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">DNI: {{ address.dni }}</h6>
+            </li>
+            <li class="list-group-item">{{ address.phone }}</li>
+            <!-- <li class="list-group-item"><i class="fa-solid fa-id-badge me-2"></i>{{ address.dni }}</li> -->
+            <li class="list-group-item">{{ address.primary }}</li>
+            <li class="list-group-item" *ngIf="address.secondary">{{ address.secondary }}</li>
+            <li class="list-group-item" *ngIf="address.references">{{ address.references }}</li>
+            <li class="list-group-item">
+                <h6 class="card-subtitle mt-2 text-muted">{{ address.district.name }} - {{
+                    address.district.province.name }}
+                    - {{ address.district.province.department.name }}</h6>
+            </li>
+            <li class="list-group-item">
+            </li>
+        </ul> 
+        <button class="btn btn-dark">Cambiar</button>
+    </div>
+</div>

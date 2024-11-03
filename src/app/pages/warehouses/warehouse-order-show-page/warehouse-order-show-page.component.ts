@@ -1,13 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HeaderComponent } from "../../../header/header.component";
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 import { StepperComponent } from "../../../components/stepper/stepper.component";
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { OrderService } from '../../../services/order.service';
 import { StoreService } from '../../../services/store.service';
 import { IzipayComponent } from '../../../auth/shared/order/izipay/izipay.component';
-import { CardAddressComponent } from '../../../auth/shared/order/card-address/card-address.component';
 import { CardCourierComponent } from '../../../auth/shared/order/card-courier/card-courier.component';
 import { TableItemsComponent } from '../../../auth/shared/order/table-items/table-items.component';
 import { BreadCrumbComponent } from '../../../auth/shared/bread-crumb/bread-crumb.component';
@@ -19,12 +17,13 @@ import { CardOrderItemComponent } from "../../../auth/shared/order/card-order-it
 import { InputSearchProductComponent } from "../../../components/product/input-search-product/input-search-product.component";
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { AddressIndexComponent } from "../../../components/address/address-index/address-index.component";
+import { AddressDefaultComponent } from "../../../components/address/address-default/address-default.component";
 
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
-  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardAddressComponent, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent],
+  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent, AddressDefaultComponent],
   templateUrl: './warehouse-order-show-page.component.html',
   styleUrl: './warehouse-order-show-page.component.css'
 })
