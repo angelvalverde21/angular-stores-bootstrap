@@ -40,4 +40,16 @@ export class AddressService {
     return this.http.get(url);
   }
 
+  //Es mejor usar update porque save se confunde con crear que tambien seria guardar registro, es mas explicito usar update
+  update(data:[], address_id: number | null, user_id: number | null): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.url}/${this._store.name()}/user/${user_id}/address/${address_id}/update`;
+    // console.log(url);
+    
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.post(url, data);
+  }
 }

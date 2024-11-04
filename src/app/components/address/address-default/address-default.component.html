@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
             <app-address-template [address]="address" title="Direccion de envio"></app-address-template>
-            <button class="btn btn-dark" (click)="change()">Cambiar</button>
+            <button class="btn btn-dark" (click)="fnShowAddressIndex()">Cambiar</button>
         </div>
     </div>
 </ng-container>
@@ -34,8 +34,8 @@
             <ng-container *ngFor="let address of addresses">
                 <app-address-template [address]="address" title="Direccion de envio"></app-address-template>
                 <div class="controls d-flex">
-                    <button class="btn btn-dark me-2" (click)="selectAddress(address)">Seleccionar</button>
-                    <button class="btn btn-outline-dark" (click)="editAddress(address)">Editar</button>
+                    <button class="btn btn-dark me-2" (click)="fnShowAddressDefault(address)">Seleccionar</button>
+                    <button class="btn btn-outline-dark" (click)="fnShowEditAddress(address)">Editar</button>
                 </div>
                 <hr>
             </ng-container>
@@ -44,8 +44,8 @@
         <div class="card-footer py-3">
             <div class="controls d-flex justify-content-between ">
                 <!-- Este address es el original -->
-                <button class="btn btn-outline-primary me-2" (click)="createAddress()">Agregar Nueva Direccion</button>
-                <button class="btn btn-outline-danger" (click)="selectAddress(address)">Cancelar</button>
+                <button class="btn btn-outline-primary me-2" (click)="fnShowCreateAddress()">Agregar Nueva Direccion</button>
+                <button class="btn btn-outline-danger" (click)="fnShowAddressDefault(address)">Cancelar</button>
             </div>
         </div>
     </div>
@@ -71,15 +71,15 @@
 
             <form [formGroup]="form"> 
 
-                <!-- {{ form.value | json }} -->
+                {{ form.value | json }}
 
-                <!-- {{ formIsValid }} -->
+                {{ formIsValid }}
                     
                 <app-address-form (formValidity)="formValid($event)" formControlName="address" formType="addressToUser">
                     <div class="controls d-flex justify-content-between ">
                         <!-- Este address es el original -->
-                        <button class="btn btn-dark me-2" (click)="createAddress()" [disabled]="!formIsValid">Agregar</button>
-                        <button class="btn btn-outline-danger" (click)="selectAddress(address)">Cancelar</button>
+                        <button class="btn btn-dark me-2" (click)="createNewAddress()" [disabled]="!formIsValid">Agregar</button>
+                        <button class="btn btn-outline-danger" (click)="fnShowAddressDefault(address)">Cancelar</button>
                     </div>
                 </app-address-form>
 
@@ -116,8 +116,8 @@
                 <app-address-form formControlName="address" (formValidity)="formValid($event)" formType="addressToUser">
                     <div class="controls d-flex justify-content-between ">
                         <!-- Este address es el original -->
-                        <button class="btn btn-primary me-2" (click)="saveNewAddress()" [disabled]="!formIsValid">Guardar</button>
-                        <button class="btn btn-outline-danger" (click)="selectAddress(address)">Cancelar</button>
+                        <button class="btn btn-primary me-2" (click)="updateAddress()" [disabled]="!formIsValid">Guardar</button>
+                        <button class="btn btn-outline-danger" (click)="fnShowAddressDefault(address)">Cancelar</button>
                     </div>
                 </app-address-form>
 

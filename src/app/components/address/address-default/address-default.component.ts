@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingCenterComponent } from "../../loading-center/loading-center.component";
 import { AddressService } from '../../../services/address.service';
 import { AddressIndexComponent } from "../address-index/address-index.component";
@@ -23,14 +23,19 @@ export class AddressDefaultComponent implements OnInit{
   @Input() address: any; 
   @Input() title: string = "Direccion de envio"; 
   @Input() bg: string  = "secondary"; 
+
+  @Output() eventAddress = new EventEmitter<[]>();
+  
+
   overlay: boolean = false; 
 
-  showAddressDefault: boolean = true;
+  showAddressDefault: boolean = false;
   showAddressIndex: boolean = false;
-  showCreateAddress: boolean = false;
+  showCreateAddress: boolean = true;
   showEditAddress: boolean = false;
 
   addresesSubscription! : Subscription;
+  addresesUpdateSubscription! : Subscription;
   addresses: any[] = [];
 
   /* formulario */
@@ -45,24 +50,80 @@ export class AddressDefaultComponent implements OnInit{
   ngOnInit(): void {
   
     this.form = this.fb.group({
-      address: {
-        phone: ['', [Validators.required]],
-        dni: [''],
-        name: ['', [Validators.required]],
-        primary: ['', [Validators.required]],
-        secondary: [''],
-        references: [''],
-        district_id: ['', [Validators.required]]
-      },
+      address: {},
     });    
 
+    //sino se recibe un address por el input...
+    if (this.address != null) {
+      this.setViewState('default'); 
+    }else{
+      //... entonces mostramos el formulario para registrar un nuevo Address
+      this.setViewState('create');
+    }
+
   }
 
-  saveNewAddress(){
+  createNewAddress(){
+
+    console.log(this.form.value);
+    this.overlay = true;
+
+    this.addresesUpdateSubscription = this._address.create(this.form.value.address, this.user_id).subscribe((resp:any) => {
+
+      this.address = resp.data;
+      console.log(resp);
+
+      this.setViewState('default');
+      this.eventAddress.emit(resp.data);
+      this.addresses = resp.data;
+      this.overlay = false;
+      // console.log(this.addresses[0].id);
+
+    });
 
   }
 
-  change(){
+  updateAddress(){
+
+    console.log(this.form.value);
+    this.overlay = true;
+
+    this.addresesUpdateSubscription = this._address.update(this.form.value.address, this.address.id, this.user_id).subscribe((resp:any) => {
+
+      this.address = resp.data;
+      console.log(resp);
+
+      this.setViewState('default');
+      this.eventAddress.emit(resp.data);
+      this.addresses = resp.data;
+      this.overlay = false;
+      // console.log(this.addresses[0].id);
+
+    });
+
+  }
+
+  
+  /*estados*/
+
+  setViewState(view: 'index' | 'default' | 'edit' | 'create') {
+
+    this.showAddressDefault = view === 'default';
+    this.showAddressIndex = view === 'index';
+    this.showCreateAddress = view === 'create';
+    this.showEditAddress = view === 'edit';
+
+  }
+
+  formValid(value: boolean) {
+    console.log(value);
+    
+    this.formIsValid = value;
+  }
+
+  /* funciones de apertura y listado de addresses  */
+
+  fnShowAddressIndex(){
 
     this.overlay = true;
 
@@ -84,22 +145,24 @@ export class AddressDefaultComponent implements OnInit{
 
   }
   
-  selectAddress(address:any){
+  fnShowAddressDefault(address:any){
 
     this.overlay = true;
     setTimeout(() => {
 
       this.address = address;
       this.overlay = false;
-
+      this.eventAddress.emit(address);
       this.setViewState('default');  
 
     },500)
   }
 
-  editAddress(address:any){
+  fnShowEditAddress(address:any){
 
     // this.formIsValid = true;
+
+    this.address = address; //esto servira paque se pueda usar el address.id en el updateAddress
 
     this.form.patchValue({
       address: {
@@ -124,13 +187,15 @@ export class AddressDefaultComponent implements OnInit{
 
   }
 
-  createAddress(){
+  fnShowCreateAddress(){
+
+    this.form.reset();
 
     // this.formIsValid = false;
 
-    this.form = this.fb.group({
-      address: [],
-    });
+    // this.form = this.fb.group({
+    //   address: [],
+    // });
 
     this.overlay = true;
 
@@ -143,21 +208,6 @@ export class AddressDefaultComponent implements OnInit{
 
   }
 
-  /*estados*/
-
-  setViewState(view: 'index' | 'default' | 'edit' | 'create') {
-
-    this.showAddressDefault = view === 'default';
-    this.showAddressIndex = view === 'index';
-    this.showCreateAddress = view === 'create';
-    this.showEditAddress = view === 'edit';
-
-  }
-
-  formValid(value: boolean) {
-    console.log(value);
-    
-    this.formIsValid = value;
-  }
+  
 
 }

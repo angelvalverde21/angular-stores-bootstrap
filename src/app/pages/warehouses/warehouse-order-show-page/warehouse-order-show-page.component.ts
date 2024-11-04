@@ -108,4 +108,8 @@ export class WarehouseOrderShowPageComponent {
     }
   }
 
+  selectedAddress(event:any){
+    console.log("mostrando informacion en el warehouseOrderPage");
+    console.log(event);
+  }
 }
