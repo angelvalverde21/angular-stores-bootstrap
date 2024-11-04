@@ -45,11 +45,21 @@ export class InputDistrictIdComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
+
     this.searchSubject
     .pipe(debounceTime(500))  // Retrasa la búsqueda 300ms después del último evento
     .subscribe((searchTerm: string) => {
       this.searchDistrict(searchTerm);
     });
+
+    // Esto se hace para recibir el valor de district_id en caso se este editando una direccion
+    // this.addressForm.get('district_id')?.valueChanges.subscribe((newValue) => {
+    //   this.updatedDistrictId(newValue);
+      
+    // });
+
+
+    
 
   }
 
@@ -101,7 +111,19 @@ export class InputDistrictIdComponent implements ControlValueAccessor, OnInit {
   onTouchedCb?: () => void;
 
   writeValue(district_id: number): void {
+    
     this.district_id = district_id;
+    console.log(this.district_id);
+
+    if (this.district_id > 0) {
+      
+      this.nameSubscription = this._districtPublic.getById(this.district_id).subscribe((resp:any) => {
+        const district = resp.data;
+        this.name = `${district.name} - ${district.province.name} - ${district.province.department.name}` ;
+        console.log(resp.data);
+      });
+
+    }
   }
 
   registerOnChange(fn: any): void {

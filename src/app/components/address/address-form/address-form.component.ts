@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   EventEmitter,
   forwardRef,
@@ -40,7 +41,7 @@ import { OverlayComponent } from '../../overlay/overlay.component';
     },
   ],
 })
-export class AddressFormComponent implements ControlValueAccessor {
+export class AddressFormComponent implements ControlValueAccessor, AfterViewInit {
   // @Input() isValid!: (controlName: string) => boolean;
   // @Input() isInvalid!: (controlName: string) => boolean;
   @Input() addressData: any[] = [];
@@ -51,11 +52,36 @@ export class AddressFormComponent implements ControlValueAccessor {
   @Input() saving: boolean = true; //este valor se maneja desde los componentes padres
   addressForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private _cart: CartService) {}
+  constructor(private fb: FormBuilder, private _cart: CartService) {
+
+  }
+
+  ngAfterViewInit(): void {
+
+        // console.log(this.addressForm.get('district_id'));
+    // const districtValue = this.addressForm.get('district_id')?.value; // 150117
+    // console.log(districtValue);
+    this.addressForm.valueChanges
+    .pipe(
+      startWith(this.addressForm.value), // Emitir el valor inicial del formulario
+      switchMap(() => {
+        // Devuelve un observable que emitirá la validez después de que se complete la validación
+        return this.addressForm.statusChanges.pipe(
+          mergeMap(() => of(this.addressForm.valid)) // Emite la validez
+        );
+      })
+    )
+    .subscribe((isValid) => {
+      //Este codigo es para escuchar cuando se escucha cambios al momento de teclar en los campos y el formulario va emitiendo el form.valid del formulario ....
+      this.onChange(this.addressForm.value);
+      this.onTouched();
+      this.formValidity.emit(isValid); // Emitir la validez
+    });
+  }
 
   ngOnInit(): void {
-    // Inicializa el formulario vacío o con validadores
 
+    // Inicializa el formulario vacío o con validadores
     switch (this.formType) {
 
       //Para los formularios de venta rapida no se pide mayor verificacion
@@ -67,25 +93,34 @@ export class AddressFormComponent implements ControlValueAccessor {
           primary: [''],
           secondary: [''],
           references: [''],
-          district_id: [''],
+          district_id: ['']
         });
 
         break;
 
       case 'addressToUser':
+
+      console.log("addressToUser");
+      
+
         this.addressForm = this.fb.group({
+
           phone: ['', [Validators.required]],
           dni: [''],
           name: ['', [Validators.required]],
           primary: ['', [Validators.required]],
           secondary: [''],
           references: [''],
-          district_id: ['', [Validators.required]],
+          district_id: ['', [Validators.required]]
+
         });
 
         break;
 
       default:
+
+        console.log("default");
+      
         this.addressForm = this.fb.group({
           phone: [
             '',
@@ -113,44 +148,49 @@ export class AddressFormComponent implements ControlValueAccessor {
           primary: ['', [Validators.required]],
           secondary: [''],
           references: [''],
-          district_id: ['', [Validators.required]],
+          district_id: ['', [Validators.required]]
         });
 
         //... pero esto es cuando tambien se quiere escuchar a los validadores cuando luego de teclear actuan: osea los validadores travez de rxjs
-        this.addressForm.valueChanges
-          .pipe(
-            startWith(this.addressForm.value), // Emitir el valor inicial del formulario
-            switchMap(() => {
-              // Devuelve un observable que emitirá la validez después de que se complete la validación
-              return this.addressForm.statusChanges.pipe(
-                mergeMap(() => of(this.addressForm.valid)) // Emite la validez
-              );
-            })
-          )
-          .subscribe((isValid) => {
-            //Este codigo es para escuchar cuando se escucha cambios al momento de teclar en los campos y el formulario va emitiendo el form.valid del formulario ....
-            this.onChange(this.addressForm.value);
-            this.onTouched();
-            this.formValidity.emit(isValid); // Emitir la validez
-          });
+
 
         break;
     }
+
+
+    //Esto se hace para recibir el valor de district_id en caso se este editando una direccion
+    // this.addressForm.get('district_id')?.valueChanges.subscribe((newValue) => {
+    //   this.updatedDistrictId(newValue);
+      
+    // });
 
     if (this.addressData && this.addressData.length) {
       // Asegúrate de que este es un objeto, no un array
       this.addressForm.patchValue(this.addressData);
     }
+
   }
 
-  // isValid(value: string):boolean{
-  //   if (this.addressForm.get(value)?.valid && this.addressForm.get(value)?.touched) {
-  //     // console.log('VALIDO');
-  //     return true;
-  //   }else{
-  //     return false;
+  // isUpdating: boolean = false;
+
+  // updatedDistrictId(districtId: string) {
+
+  //   //para que no haya un bucle infinito se hace esto
+  //   if (this.isUpdating) {
+  //     return; // Si ya estamos actualizando, no hacemos nada
   //   }
+    
+  //   this.isUpdating = true; // Establecer la bandera a true para evitar bucles
+
+  //   if (districtId) {
+  //     this.addressForm.get('district_id')?.patchValue(districtId); //al establecer el valor de district_id con patchValue hace que se dispare la subscripcion de valueChanges, por lo que empieza un bucle infinito, por eso se colocar el isUpdating 
+  //   } else {
+  //     this.addressForm.get('district_id')?.reset(); // Resetear el campo si está vacío
+  //   }
+
+  //   this.isUpdating = false; // Restablecer la bandera después de la actualización
   // }
+
 
   isInvalid(value: string): boolean {
     if (
@@ -172,6 +212,7 @@ export class AddressFormComponent implements ControlValueAccessor {
     if (value) {
       this.addressForm.setValue(value, { emitEvent: false });
     }
+
   }
 
   registerOnChange(fn: any): void {
