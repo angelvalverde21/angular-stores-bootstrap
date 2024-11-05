@@ -103,4 +103,14 @@ export class WarehouseOrderService {
     return this.http.post(url, data);
     
   }
+
+  update(data:any, order_id: number | null): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this._store.name()}/orders/${order_id}/update`;
+    // const url = `${this.url_base}?store=${store}`;
+    console.log(url);
+
+    return this.http.post(url, data);
+  }
 }

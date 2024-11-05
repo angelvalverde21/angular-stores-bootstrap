@@ -24,7 +24,9 @@
                 <div class="col-lg-12" *ngIf="order.address_id != null">
                     <!-- <app-address-index [user_id]="order.user_id" [addressIdShow]="order.address_id"></app-address-index> -->
                     <app-address-default [user_id]="order.user_id" [address]="order.address" title="Direccion de envio" (eventAddress)="selectedAddress($event)"></app-address-default>
-                    <app-card-courier [courier_address]="order.courier_address"></app-card-courier>
+                    <!-- <app-card-courier [courier_address]="order.courier_address"></app-card-courier>
+                    {{ order.courier_address | json}} -->
+                    <app-courier-default [courier_id]="order.courier_address.courier.id" [address]="order.courier_address" title="Transporte" (eventAddress)="selectedCourierAddress($event)"></app-courier-default>
                 </div>
         
                 <div class="col-lg-12 col-12">

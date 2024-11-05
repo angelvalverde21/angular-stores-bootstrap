@@ -18,11 +18,12 @@ import { InputSearchProductComponent } from "../../../components/product/input-s
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { AddressIndexComponent } from "../../../components/address/address-index/address-index.component";
 import { AddressDefaultComponent } from "../../../components/address/address-default/address-default.component";
+import { CourierDefaultComponent } from "../../../components/courier/courier-default/courier-default.component";
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
-  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent, AddressDefaultComponent],
+  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent, AddressDefaultComponent, CourierDefaultComponent],
   templateUrl: './warehouse-order-show-page.component.html',
   styleUrl: './warehouse-order-show-page.component.css'
 })
@@ -108,8 +109,31 @@ export class WarehouseOrderShowPageComponent {
     }
   }
 
-  selectedAddress(event:any){
+  selectedAddress(address:any){
+
     console.log("mostrando informacion en el warehouseOrderPage");
-    console.log(event);
+    console.log(address);
+    const data = {
+      "address_id": address.id
+    }
+    this._warehouseOrder.update(data, this.order_id).subscribe((resp:any) => {
+      console.log(resp.data);
+      
+    });
+
+  }
+
+  selectedCourierAddress(address:any){
+
+    console.log("mostrando informacion en el warehouseOrderPage");
+    console.log(address);
+    const data = {
+      "courier_address_id": address.id
+    }
+    this._warehouseOrder.update(data, this.order_id).subscribe((resp:any) => {
+      console.log(resp.data);
+      
+    });
+
   }
 }
