@@ -1,0 +1,133 @@
+.opcion{
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.selectbox {
+	width: 100%;
+	margin: auto;
+	position: relative;
+}
+
+.select {
+	background: #fff;
+	width: 100%;
+	box-shadow: 0px 0px 0px rgba(0, 0, 0, .16);
+	border-radius: 10px;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transition: .2s ease all;
+	/*margin-bottom: 15px;
+	padding: 15px;*/
+	position: relative;
+	z-index: 200;
+	border: 1.5px solid #dad8d8;
+}
+
+.select.active,
+.select:hover {
+
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, .16);
+	border: 2px solid #213f8f;
+}
+
+.icon-select{
+	font-size: 1.5rem;
+}
+
+.select.active:before {
+	content: "";
+	display: block;
+	height: 0;
+	width: 0;
+	border-top: 15px solid #213f8f;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+	border-left: 15px solid transparent;
+	position: absolute;
+	bottom: -30px;
+	left: calc(50% - 15px);
+}
+
+.select i {
+	font-size: 1.5rem;
+	/*margin-left: 30px;*/
+	color: #213f8f;
+}
+
+.titulo {
+	/*margin-bottom: 10px;*/
+	/*color: #000;*/
+	/*font-weight: 600;*/
+	font-size: 1rem;
+}
+
+.descripcion {
+	font-size: 0.75rem;
+	color: #434343;
+}
+
+.opciones {
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0px 5px 10px rgba(0,0,0,.16);
+	max-height: 400px;
+	overflow: auto;
+	z-index: 100;
+	width: 100%;
+	display: none;
+}
+
+.opciones.active {
+	display: block;
+	animation: fadeIn .3s forwards;
+}
+
+@keyframes fadeIn {
+	from {
+		transform: translateY(-200px) scale(.5);
+	}
+	to {
+		transform: translateY(0) scale(1);
+	}
+}
+
+.contenido-opcion {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	transition: .2s ease all;
+}
+
+/*
+.opciones .contenido-opcion {
+	padding: 30px;
+}
+*/
+
+.contenido-opcion img {
+	width: 30px;
+	margin-right: 30px;
+}
+
+.opciones .contenido-opcion:hover {
+	background: #213F8F;
+	color: #fff;
+}
+
+/* .opciones .contenido-opcion:hover{
+
+} */
+
+/* .icon-select:hover{
+	color: #fff;
+} */
+
+@media screen and (max-width: 800px){
+	.selectbox {
+		width: 100%;
+	}
+}
+

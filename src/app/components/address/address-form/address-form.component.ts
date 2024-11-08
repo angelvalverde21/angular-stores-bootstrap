@@ -251,7 +251,7 @@ export class AddressFormComponent implements ControlValueAccessor, AfterViewInit
 
   writeValue(value: any): void {
     if (value) {
-      this.addressForm.patchValue(value, { emitEvent: false });
+      this.addressForm.patchValue(value, { emitEvent: false }); //son los datos que enviare al form
     }
 
   }

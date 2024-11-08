@@ -30,7 +30,43 @@
 
                 <form [formGroup]="form">
 
-                    <!-- {{ form.value | json }} -->
+                    {{ form.value | json }}
+
+                    <app-select-custom
+                        [title]="'Selecciona una opción'"
+                        [icon]="'fas fa-user'"
+                        [options]="[
+                        {id: 1, name: 'Home', icon: 'fas fa-home'},
+                        {id: 2, name: 'Settings', icon: 'fas fa-cog'},
+                        {id: 3, name: 'Profile', icon: 'fas fa-user'},
+                        {id: 4, name: 'Logout', icon: 'fas fa-sign-out-alt'}
+                        ]"
+                        formControlName="origin_id" 
+                    ></app-select-custom>
+
+                    <app-select-custom
+                        [title]="'Selecciona una opción'"
+                        [icon]="'fas fa-user'"
+                        [options]="[
+                        {id: 1, name: 'Home', icon: 'fas fa-home'},
+                        {id: 2, name: 'Settings', icon: 'fas fa-cog'},
+                        {id: 3, name: 'Profile', icon: 'fas fa-user'},
+                        {id: 4, name: 'Logout', icon: 'fas fa-sign-out-alt'}
+                        ]"
+                        formControlName="delivery_method_id" 
+                    ></app-select-custom>
+
+                    <app-select-custom
+                        [title]="'Selecciona una opción'"
+                        [icon]="'fas fa-user'"
+                        [options]="[
+                        {id: 1, name: 'Home', icon: 'fas fa-home'},
+                        {id: 2, name: 'Settings', icon: 'fas fa-cog'},
+                        {id: 3, name: 'Profile', icon: 'fas fa-user'},
+                        {id: 4, name: 'Logout', icon: 'fas fa-sign-out-alt'}
+                        ]"
+                        formControlName="courier_address_id" 
+                    ></app-select-custom>
 
                     <app-address-form  formControlName="address" (formValidity)="formValid($event)" [header]="false" [saving]="false"></app-address-form>
 

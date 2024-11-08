@@ -13,12 +13,13 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'; //Colocar esto arriba en los imports
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SelectCustomComponent } from "../../select-custom/select-custom.component"; //Colocar esto arriba en los imports
 
 @Component({
   selector: 'app-button-order-create-online',
   standalone: true,
-  imports: [InputGroupComponent, CartOrderComponent, InputSearchProductComponent, AddressFormComponent, CommonModule, ReactiveFormsModule],
+  imports: [InputGroupComponent, CartOrderComponent, InputSearchProductComponent, AddressFormComponent, CommonModule, ReactiveFormsModule, SelectCustomComponent],
   templateUrl: './button-order-create-online.component.html',
   styleUrl: './button-order-create-online.component.css',
   encapsulation: ViewEncapsulation.None
@@ -70,9 +71,9 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-
-
+    
     this.form = this.fb.group({
+      origin: 2,
       address: [],
     });
 
