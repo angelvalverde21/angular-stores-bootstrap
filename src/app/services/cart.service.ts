@@ -11,6 +11,7 @@ import { StoreService } from './store.service';
 })
 export class CartService {
   private url = environment.apiUrl;
+  private urlPrivate = environment.apiPrivate;
   private cartItemsSubject!: BehaviorSubject<any[]>; //para las ventas en web
   private warehouseItems!: BehaviorSubject<any[]>; //para las ventas en tienda
 
@@ -141,14 +142,19 @@ export class CartService {
   };
 
   verifyDni = (control: FormControl) => {
-    this.numeroCifras = control.value.toString().length;
 
+    // console.log(control.value);
+    
+
+    this.numeroCifras = control.value.toString().length;
+    // console.log(this.numeroCifras);
     /* COMO EL VALIDADOR ASINCRONO SOLO RECIBE PROMERSAS, TENEMOS QUE CREAR UNA *******/
     /* NO PODEMOS SIMPLEMENTE HACER UN RETURN FALSE, PORQUE EL VALIDADOR NO LO ACEPTA */
     /* POR ELLO TENEMOS QUE HACER UN return new Promise... etc ************************/
     /******************** DEVOLVEMOS UNA PROMESA CON VALOR FALSE  *********************/
 
     if (!(this.numeroCifras == 8)) {
+      
       return new Promise(function (resolve, reject) {
         (resolve: boolean) => {
           return false;
@@ -458,6 +464,7 @@ export class CartService {
   // warehouseItems: any[] = [];
 
   addItemCartWarehouse(item: any) {
+
     // Verifica si ya hay elementos en cartContent
     const itemsString = localStorage.getItem('ItemsCartWarehouse');
 
@@ -477,7 +484,20 @@ export class CartService {
     // Vuelve a setear los elementos del carrito en localStorage
     this.setCartWarehouse(items);
     // localStorage.setItem(cartContent, JSON.stringify(this.items));
+
   }
+
+    
+  addItemToOrder(data:any, order_id: number | null): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this._store.name()}/orders/${order_id}/items/create`;
+    // const url = `${this.url_base}?store=${store}`;
+    console.log(url);
+
+    return this.http.post(url, data);
+  }
+
 
   getItemsCartWarehouse() {
     if (localStorage.getItem('ItemsCartWarehouse') != null) {

@@ -16,6 +16,9 @@ import { CardRowOrderComponent } from "./card-row-order/card-row-order.component
 import { TableOrderIndexComponent } from "./table-order-index/table-order-index.component";
 import { ButtonOrderCreatePuntoVentaComponent } from "../../../components/buttons/button-order-create-punto-venta/button-order-create-punto-venta.component";
 import { ButtonOrderCreateOnlineComponent } from "../../../components/buttons/button-order-create-online/button-order-create-online.component";
+import { Warehouse } from '../../../models/warehouse.model';
+import { HttpClient } from '@angular/common/http';
+import { WarehouseService } from '../../../services/warehouse.service';
 
 @Component({
   selector: 'app-warehouse-order-index-page',
@@ -35,13 +38,14 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
   store: string = "";
 
   warehouse_id: number = 0; 
-  
+  OrdersSubscription! : Subscription;  
 
   constructor(
     private _store: StoreService,
     private route: ActivatedRoute,
-    private _warehouseOrder: WarehouseOrderService,
-    alertConfig: NgbAlertConfig
+    private _warehouse: WarehouseService,
+    alertConfig: NgbAlertConfig,
+    private http: HttpClient
   ){
     alertConfig.type = 'warning';
     alertConfig.dismissible = false;
@@ -79,20 +83,39 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
       // const warehouse_id = this.warehouse_id;
       /* ojo metemos al warehouse_id en una variable para poder usar esta sintaxios {warehouse_id} que es totalmente equivalnete a { warehouse_id: this.warehouse_id } */
       
-      this.ordersSubcription = this._warehouseOrder.getAll(this.warehouse_id).subscribe((resp:any) => {
+      this.OrdersSubscription = this._warehouse.getById(this.warehouse_id).order.getAll().subscribe((resp:any) => {
 
-        if (resp.data.length > 0) {
-          this.orders = resp.data;
-          this._store.setOrders(this.orders); //setea en el localhost
-        }else{
-          this.orders = null;
-        }
-        
-        console.log(resp);
-        
+        this.orders = resp.data;
+        console.log(resp.data);
         this.loading = false;
-        console.log("Termina la subscripcion");
+        // if (resp.data.length > 0) {
+        //   this.orders = resp.data;
+        //   this._store.setOrders(this.orders, this.warehouse_id); //setea en el localhost
+        // }else{
+        //   this.orders = null;
+        // }
+        
+        // console.log(resp);
+        
+        // this.loading = false;
+        // console.log("Termina la subscripcion");
+
       });
+
+      // this.ordersSubcription = this._warehouseOrder.getAll(this.warehouse_id).subscribe((resp:any) => {
+
+      //   if (resp.data.length > 0) {
+      //     this.orders = resp.data;
+      //     this._store.setOrders(this.orders, this.warehouse_id); //setea en el localhost
+      //   }else{
+      //     this.orders = null;
+      //   }
+        
+      //   console.log(resp);
+        
+      //   this.loading = false;
+      //   console.log("Termina la subscripcion");
+      // });
 
     });
 
@@ -107,7 +130,9 @@ export class WarehouseOrderIndexPageComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-
+    if (this.OrdersSubscription) {
+      this.OrdersSubscription.unsubscribe();
+    }
   }
 
 

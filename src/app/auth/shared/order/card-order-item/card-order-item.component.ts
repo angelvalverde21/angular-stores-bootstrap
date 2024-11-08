@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
@@ -32,6 +34,8 @@ import { ButtonIconDeleteComponent } from "../../../../components/button-icon-de
 export class CardOrderItemComponent implements OnInit, OnDestroy {
   @Input() item: any;
   @Input() bg: string = 'secondary';
+
+  @Output() eventDelete = new EventEmitter<number>();
 
   loading: boolean = false;
   btnActive: boolean = true;
@@ -87,7 +91,7 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
 
     this._sweetAlert.showLoading('Espere', 'Espere mientras ingresamos el pedido');
 
-    this.subscription = this._item.save(this.form.value, this.item.order_id, this.item.id).subscribe({
+    this.subscription = this._item.updateContent(this.form.value, this.item.order_id, this.item.id).subscribe({
 
       next: (resp: any) => {
 
@@ -104,6 +108,10 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
         this._sweetAlert.showSuccess('Correcto', 'El pedido ha sido registrado');
         //cerrando el modal
         this.closeModal();
+
+        console.log(this.item.id);
+        
+        
 
         this.loading = !this.loading;
         this.btnActive = !this.btnActive;
@@ -132,10 +140,45 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
 
     if (isConfirmed) {
       // Acción para eliminar el elemento
-      this._sweetAlert.showDeletionSuccess(
-        'Eliminado!',
-        'El elemento ha sido eliminado.'
-      );
+      this.subscription = this._item.update({"status": 0}, this.item.order_id, this.item.id).subscribe({
+
+        next: (resp: any) => {
+  
+          console.log(resp);
+          //Recibiendo valores de la api
+          this.item = resp.data;
+          
+          //Se escribe el valor del item en el localstorage
+          // this._store.setOrderItem(this.item);
+          
+          //se actualiza los valores del summary
+         
+          //Mostrando un control de sweetAlert2
+          // this._sweetAlert.showSuccess('Correcto', 'El pedido ha sido registrado');
+          //cerrando el modal
+          // this.closeModal();
+  
+          this.loading = !this.loading;
+          this.btnActive = !this.btnActive;
+
+          this.eventDelete.emit(this.item.id);
+          
+          this._sweetAlert.showDeletionSuccess(
+            'Eliminado!',
+            'El elemento ha sido eliminado.'
+          );
+  
+        },
+  
+        error: (error: any) => {
+          this._sweetAlert.showError('Error', 'Ha ocurrido un error al guardar, intente de nuevo');
+          // console.error('Ha ocurrido un error interno');
+          // console.error(error);
+        },
+  
+      });
+
+
       // Aquí puedes incluir la lógica para eliminar el elemento
     }
   }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Subscription } from 'rxjs';
@@ -30,6 +30,7 @@ import { trigger, style, transition, animate } from '@angular/animations';
 })
 
 export class InputSearchProductComponent implements OnInit, OnDestroy {
+
   loading: boolean = false;
   products: any[] = [];
   product: any;
@@ -37,6 +38,7 @@ export class InputSearchProductComponent implements OnInit, OnDestroy {
   productsSubscription!: Subscription;
   searchSubject: Subject<string> = new Subject();
   // @Output() eventProduct = new EventEmitter<number>();
+  @Input() order_id: number = 0;
   
   constructor(private _product: ProductService) {}
 
@@ -79,4 +81,5 @@ export class InputSearchProductComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {}
+  
 }

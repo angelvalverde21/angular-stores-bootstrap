@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef, ViewEncapsulation  } from '@angular/core';
 import { HeaderComponent } from "../../../header/header.component";
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 import { StepperComponent } from "../../../components/stepper/stepper.component";
@@ -19,13 +19,16 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { AddressIndexComponent } from "../../../components/address/address-index/address-index.component";
 import { AddressDefaultComponent } from "../../../components/address/address-default/address-default.component";
 import { CourierDefaultComponent } from "../../../components/courier/courier-default/courier-default.component";
+import { CartService } from '../../../services/cart.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
   imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent, AddressDefaultComponent, CourierDefaultComponent],
   templateUrl: './warehouse-order-show-page.component.html',
-  styleUrl: './warehouse-order-show-page.component.css'
+  styleUrl: './warehouse-order-show-page.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class WarehouseOrderShowPageComponent {
 
@@ -40,14 +43,22 @@ export class WarehouseOrderShowPageComponent {
   costos : any;
   @Input() order_id: number = 0;
   warehouse_id: number = 0;
+  items: any[] = [];
 
   constructor(
     private _warehouseOrder: WarehouseOrderService,
     private _store: StoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _cart: CartService,
+    private modalService: NgbModal
   ){
 
   }
+
+  open(content: TemplateRef<any>) {
+		this.modalService.open(content, { size: 'lg' });
+	}
+
 
   ngOnInit(): void {
 
@@ -75,10 +86,20 @@ export class WarehouseOrderShowPageComponent {
       
             this.loading = false;
  
+
+            
             // console.log("Termina la subscripcion");d
 
         });
 
+      });
+
+      this._warehouseOrder.getAddItemObservable().subscribe((resp:any) => {
+        console.log(resp);
+        //Esto se hace asi para que la primera vez que cargue no intente acceder a this.order ya que recien se esta creando y es posible que no exista aun
+        if (this.order != undefined || this.order != null) {
+          this.order.items.unshift(resp);
+        }
       });
 
   }
@@ -134,6 +155,19 @@ export class WarehouseOrderShowPageComponent {
       console.log(resp.data);
       
     });
+
+  }
+
+  elementoEliminado(item_id : number){
+
+    console.log(item_id);
+    
+
+    this.order.items = this.order.items.filter((item:any) => item.id !== item_id);
+    console.log(this.order.items);
+    console.log("se esuch a un eliminado");
+    
+    this._cart.setSummary();
 
   }
 }

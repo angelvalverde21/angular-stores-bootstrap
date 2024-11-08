@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { StoreService } from './store.service';
 
@@ -23,22 +23,57 @@ export class WarehouseOrderService {
   
   getAll(warehouse_id:any): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
-
     const url = `${this.url}/${warehouse_id}/orders`;
-    // const url = `${this.url_base}?store=${store}`;
-    // console.log(url);
-
+    console.log("hola");
+    
     return this.http.get(url);
+
+    const store = JSON.parse(localStorage.getItem('store')!);
+    // const warehouse = store.warehouses.find((warehouse:any) => warehouse.id == warehouse_id);
+    // warehouse['orders'] = data;
+
+    const warehouseIndex = store.warehouses.findIndex((warehouse: any) => warehouse.id == warehouse_id);
+
+    const orders = store.warehouses[warehouseIndex].orders;
+
+    if (warehouseIndex !== -1) {
+      
+      // console.log("x");
+      
+
+      if(orders != null){
+        return of({"data": orders});
+      }else{
+
+        // console.log("z");
+        
+        // const url = `${this.url_base}?store=${store}`;
+        // console.log(url);
+      
+        return this.http.get(url).pipe(
+          tap((resp:any) => {
+            store.warehouses[warehouseIndex]['orders'] = resp.data;
+            localStorage.setItem('store', JSON.stringify(store)); 
+          })
+        );
+
+      }
+
+    }else{
+      // console.log("w");
+      return of(null);
+    }
     
   }
 
   getById(warehouse_id:number, order_id: number): Observable<any> {
 
-    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.url}/${warehouse_id}/orders/${order_id}`;
+    return this.http.get(url);
+
     const store = JSON.parse(localStorage.getItem('store')!);
 
-    const orders = store.orders;
-    
+    const orders = store.orders; //recibe los valores de orders que estan en el localStorage
     
     console.log(orders);
     
@@ -52,7 +87,7 @@ export class WarehouseOrderService {
 
     } else {
       // Si no está en localStorage, hace la solicitud HTTP
-      const url = `${this.url}/${warehouse_id}/orders/${order_id}`;
+      
       // const url = `${this.url_base}?store=${store}`;
       // console.log(url);
   
@@ -112,5 +147,18 @@ export class WarehouseOrderService {
     console.log(url);
 
     return this.http.post(url, data);
+  }
+
+  private item: BehaviorSubject<{}> = new BehaviorSubject<{}>({}); //aqui el BehaviorSubject necesita un valor inicial en el argumento y le estamos pasando []
+
+  //Envia el valor de la propieadad a los componentes
+  getAddItemObservable() {
+    return this.item.asObservable();
+  }
+
+  //Establece el valor de la propiedad 
+  setAddItem(value: {}) {
+    console.log();
+    this.item.next(value)
   }
 }

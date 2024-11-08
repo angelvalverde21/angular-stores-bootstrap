@@ -8,7 +8,7 @@
             </div>
      -->
             <div *ngFor="let i of [].constructor(item.quantity); let index = index">
-                <div class="me-3 text-center">
+                <div class="me-3 text-center" style="min-width: 100px;">
                     <img [src]="item.image.url_thumbnail" class="me-2 mb-2" style="height: 100px;" alt="">
                     <div>( {{ item.content.size_name_virtual }} )</div>
                 </div>
@@ -16,7 +16,7 @@
             </div>
     
             <div class="w-100" style="min-width: 200px;">
-                <h6>{{ item.product.name }}</h6>
+                <h6>{{ item.name }}</h6>
                 
                 <div>Inventario: <strong>{{ item.content.size_name }}</strong></div>
                 <div class="mb-2">Cantidad: {{ item.quantity }}</div>
@@ -45,7 +45,7 @@
             <img [src]="item.image.url_thumbnail" class="mx-auto" style="height: 100px;" alt="">
         </div>
 
-        <form action="" [formGroup]="form">
+        <form action="" [formGroup]="form" (submit)="save()">
 
             <div class="row">
                 <div class="col-lg-12 col-12">
@@ -77,8 +77,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary mb-3 py-2" (click)="modal.close('Close click')">Close</button>
-        <app-button-save [btnLoading]="loading" [btnActive]="btnActive" (click)="save()" ></app-button-save>
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+        <app-button-save [btnLoading]="loading" [btnActive]="btnActive"></app-button-save>
 
     </div>
 </ng-template>

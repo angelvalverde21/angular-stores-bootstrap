@@ -35,6 +35,9 @@ export class StoreService {
 
   getOrderById(order_id: number | null) {
 
+    const url = `${this.url_private}/${this.name()}/orders/${order_id}`;
+    return this.http.get(url);
+
     const orders = JSON.parse(localStorage.getItem('store')!).orders;
     const order = orders.find((order: any) => order.id == order_id);
   
@@ -48,11 +51,25 @@ export class StoreService {
     }
   }
 
-  setOrders(data: []){
+  setOrders(data: [], warehouse_id: number){
 
     const store = JSON.parse(localStorage.getItem('store')!);
-    store['orders'] = data;
-    localStorage.setItem('store', JSON.stringify(store));
+    // const warehouse = store.warehouses.find((warehouse:any) => warehouse.id == warehouse_id);
+    // warehouse['orders'] = data;
+
+    const warehouseIndex = store.warehouses.findIndex((warehouse: any) => warehouse.id == warehouse_id);
+
+    if (warehouseIndex !== -1) {
+      // Si se encuentra el warehouse, actualizas el objeto
+      store.warehouses[warehouseIndex]['orders'] = data;
+      
+      // Si necesitas guardar de nuevo en localStorage
+      // store.warehouses = warehouses;
+      localStorage.setItem('store', JSON.stringify(store));
+    }
+
+
+    // localStorage.setItem('store', JSON.stringify(store));
 
   }
 

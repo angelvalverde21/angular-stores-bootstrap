@@ -20,14 +20,26 @@ export class ItemService {
   
   }
 
-  save(data:[], order_id: number, item_id: number): Observable<any> {
+  updateContent(data:any, order_id: number, item_id: number): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
 
-    const url = `${this.url}/${order_id}/items/${item_id}`;
+    const url = `${this.url}/${order_id}/items/${item_id}/update-content`;
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
     return this.http.post(url, data);
   }
 
+  update(data:any, order_id: number, item_id: number): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.url}/${order_id}/items/${item_id}/update`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.post(url, data);
+  }
+
+
+  
 }

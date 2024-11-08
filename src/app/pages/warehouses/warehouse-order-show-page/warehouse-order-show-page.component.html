@@ -31,19 +31,19 @@
         
                 <div class="col-lg-12 col-12">
                     <!-- <app-table-items [items]="order.items"></app-table-items> -->
-                    <app-card-order-item  [item]="item" *ngFor="let item of order.items"></app-card-order-item>
+                    <app-card-order-item (eventDelete)="elementoEliminado($event)"  [item]="item" *ngFor="let item of order.items"></app-card-order-item>
                 </div>
                 
-                <!-- <div class="col-lg-12 col-12">
-                    <app-input-search-product></app-input-search-product>
-                </div> -->
+                <div class="col-lg-12 col-12">
+                    
+                </div>
 
             </div>
 
         </div>
 
         <div class="col-lg-4">
-            <app-order-summary [order_id]="order.id" [is_pay]="order.is_pay"></app-order-summary>
+            <app-order-summary [order_id]="order.id" [is_pay]="order.is_pay" [order]="order" [warehouse_id]="warehouse_id"></app-order-summary>
             <!-- <app-order-summary [items]="order.items" [is_pay]="order.is_pay"></app-order-summary> -->
             <!-- <app-card-summary></app-card-summary> -->
             <app-izipay [order]="order"></app-izipay>
@@ -51,4 +51,23 @@
 
     </div>
 
+    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Agregar</button>
+
 </div>
+
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Agregar Color</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<app-input-search-product [order_id]="order.id"></app-input-search-product>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Save</button>
+	</div>
+</ng-template>
+
+
+

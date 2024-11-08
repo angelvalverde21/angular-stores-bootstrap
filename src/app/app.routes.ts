@@ -56,10 +56,10 @@ export const routes: Routes = [
       { path: 'products', component: HomeComponent },
       { path: 'products/:product_id/colors/:color_id', component: ColorPublicPageComponent },
       { path: 'search/:search', component: SearchComponent },
-      { path: 'orders/:order_id', component: OrderPageComponent},
+      { path: 'orders/:order_id', component: OrderPageComponent, canActivate: [authGuard]},
       { path: 'checkout', component: PageCheckoutComponent},
       { path: 'login', component: LoginComponent },
-      { path: 'auth', component: AuthComponent,canActivate: [authGuard],
+      { path: 'auth', component: AuthComponent, canActivate: [authGuard],
 
           children: [
             { path: '', component: DashboardComponent},

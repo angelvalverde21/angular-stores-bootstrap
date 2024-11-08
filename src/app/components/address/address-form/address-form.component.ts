@@ -51,6 +51,8 @@ export class AddressFormComponent implements ControlValueAccessor, AfterViewInit
 
   @Input() saving: boolean = true; //este valor se maneja desde los componentes padres
   addressForm!: FormGroup;
+  ejecutarExtrerDatos: boolean = true;
+
 
   constructor(private fb: FormBuilder, private _cart: CartService) {
 
@@ -139,7 +141,7 @@ export class AddressFormComponent implements ControlValueAccessor, AfterViewInit
             {
               validators: [
                 Validators.required,
-                Validators.pattern('[0123456789]{8,8}'),
+                Validators.pattern('^[0-9]{8}$'),
               ],
               asyncValidators: [this._cart.verifyDni],
             },
@@ -157,6 +159,13 @@ export class AddressFormComponent implements ControlValueAccessor, AfterViewInit
         break;
     }
 
+
+    this.addressForm.get('references')?.valueChanges.subscribe(value => {
+      if (value) {
+        this.extraerInformacion();
+        this.ejecutarExtrerDatos = false;
+      }
+    });
 
     //Esto se hace para recibir el valor de district_id en caso se este editando una direccion
     // this.addressForm.get('district_id')?.valueChanges.subscribe((newValue) => {
@@ -190,6 +199,38 @@ export class AddressFormComponent implements ControlValueAccessor, AfterViewInit
 
   //   this.isUpdating = false; // Restablecer la bandera después de la actualización
   // }
+
+  extraerInformacion(): void {
+
+    if(this.ejecutarExtrerDatos){
+      const texto = this.addressForm.get('references')?.value;
+
+      // Extraer el nombre (primera coincidencia de tres palabras separadas por espacio o salto de línea)
+      const nameMatch = texto.match(/(?:[^\n]+ ){2}[^\n]+/);
+      // Extraer números de 8 dígitos (DNI)
+      const numerosMatch = texto.match(/\b\d{8}\b/g);
+      // Extraer teléfonos con formato peruano
+      const telefonosMatch = texto.match(/\b(?:\+?51\s?)?(\d\s?){9}\b/g);
+  
+      // Limpiar el formato de los teléfonos (eliminar +51 y espacios)
+      const telefonos = telefonosMatch ? telefonosMatch.map((numero:string) => numero.replace(/(\+51|\s)/g, '')) : [];
+  
+      // Asignar valores extraídos directamente al FormGroup
+      this.addressForm.patchValue({
+        dni: numerosMatch ? numerosMatch.join(', ') : '',
+        phone: telefonos.length > 0 ? telefonos.join(', ') : '',
+        name: nameMatch ? nameMatch[0] : ''
+      });
+  
+      console.log('Datos extraidos');
+      console.log('DNI:', this.addressForm.get('dni')?.value);
+      console.log('Teléfono(s):', this.addressForm.get('phone')?.value);
+      console.log('Nombre:', this.addressForm.get('name')?.value);
+    }
+
+
+
+  }
 
 
   isInvalid(value: string): boolean {
