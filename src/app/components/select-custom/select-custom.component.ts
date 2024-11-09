@@ -34,11 +34,12 @@ export class SelectCustomComponent implements OnInit, ControlValueAccessor{
     this.title = option.name;  // Actualiza el título con el nombre de la opción seleccionada
     this.isOptionsVisible = false;  // Oculta las opciones
     this.onChange?.(this.selectedOption.id);
+    this.icon = option.icon;
   }
 
   ngOnInit() {
     // Si necesitas inicializar con un valor seleccionado
-
+    
   }
 
   onChange: any = () => {};
@@ -50,6 +51,7 @@ export class SelectCustomComponent implements OnInit, ControlValueAccessor{
     if (this.options && this.options.length > 0 && !this.selectedOption) {
 
       this.selectedOption = this.options.find((option:any) => option.id == value);
+      this.selectOption(this.selectedOption);
       this.title = this.selectedOption.name;
     }
 

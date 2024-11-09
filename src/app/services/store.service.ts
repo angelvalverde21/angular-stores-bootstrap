@@ -135,6 +135,33 @@ export class StoreService {
     }
   }
 
+  origins() {
+
+    const store = JSON.parse(localStorage.getItem('store')!);
+    if (store.origins != null) {
+      return store.origins; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+
+  }
+  couriers() {
+    const store = JSON.parse(localStorage.getItem('store')!);
+    if (store.couriers != null) {
+      return store.couriers; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
+  delivery_methods() {
+    const store = JSON.parse(localStorage.getItem('store')!);
+    if (store.delivery_methods != null) {
+      return store.delivery_methods; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
+
   isValid(name: string): Observable<boolean> { //name quiere decir el nombre del la primera (storeName) palabra del slug /storeName/login/etc
 
     console.log('Impresión desde la función setSlugBase: ' + name);

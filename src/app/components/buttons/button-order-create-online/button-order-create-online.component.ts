@@ -37,6 +37,10 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
   text: string = "";
   cartItems: any = null;
 
+  origins: any[] = [];
+  delivery_methods: any[] = [];
+  couriers: any[] = [];
+
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -73,9 +77,18 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     
     this.form = this.fb.group({
-      origin: 2,
+      origin_id: 4,
+      courier_address_id: 2,
+      delivery_method_id: 1,
       address: [],
     });
+
+    this.origins = this._store.origins();
+    this.delivery_methods = this._store.delivery_methods();
+    this.couriers = this._store.couriers();
+
+    console.log(this.couriers);
+    
 
     this.store = this._store.name()!;
 

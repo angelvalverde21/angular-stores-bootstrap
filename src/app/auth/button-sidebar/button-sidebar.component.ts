@@ -54,8 +54,19 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
     config.keyboard = false;
 
     this.store = this._store.name()!;
-    this.warehouses = this._store.warehouses();
 
+    if(this._auth.estaAutenticado()){
+      this.warehouses = this._store.warehouses();
+      this.loadMenu();
+    }
+
+
+
+  }
+
+
+  loadMenu(){
+    
     this.menus = [
 
       {
@@ -145,8 +156,8 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
         ]
       }
     ]
-
   }
+
   ngOnDestroy(): void {
 
   }
