@@ -42,6 +42,12 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
   delivery_methods: any[] = [];
   couriers: any[] = [];
 
+  courier: any;
+  
+  acepta_contra_entrega: boolean = false;
+  acepta_pago_destino: boolean = false;
+  
+
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -69,6 +75,7 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
         .find((warehouse: any) => warehouse.id == this.warehouse_id).slug;
       this.userName = this._user.info().name;
     });
+
   }
 
   openVerticallyCentered(content: TemplateRef<any>) {
@@ -79,9 +86,10 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
     
     this.form = this.fb.group({
       origin_id: 4,
-      courier_address_id: 2,
+      courier_id: 2,
       delivery_method_id: 1,
       envio_es: 1,
+      shipping_cost: 1,
       address: [],
     });
 
@@ -91,7 +99,6 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
 
     console.log(this.couriers);
     
-
     this.store = this._store.name()!;
 
     this.cartItems = this._cart.getItemsCartWarehouse();
@@ -110,6 +117,16 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
         this.cartItems = null;
       }
 
+    });
+
+    this.form.get('courier_id')?.valueChanges.subscribe(value => {
+      console.log('Value changed:', value);
+      const couriers = this._store.couriers();
+      this.courier = couriers.find((courier:any) => courier.id == value);
+      console.log(this.courier);
+      this.acepta_pago_destino = this.courier.acepta_pago_destino;
+      this.acepta_contra_entrega = this.courier.acepta_contra_entrega;
+      // Aquí puedes manejar el cambio de valor
     });
   }
 

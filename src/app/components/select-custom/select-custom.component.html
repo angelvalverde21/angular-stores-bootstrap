@@ -2,7 +2,7 @@
     <div class="selectbox mb-3">
         <div [ngClass]="{'active': isOptionsVisible, 'border-danger': error}" class="select p-3" (click)="toggleOptions()">
             <div class="contenido-select d-flex align-items-center">
-                <h2 class="titulo my-0 contenido-opcion d-flex align-items-center">
+                <h2 class="titulo my-0 contenido-opcion d-flex align-items-center" [ngStyle]="selectedOption.rbg != '' ? { color:selectedOption.rgb } : null">
                     @if(icon){
                         <i [class]="icon + ' icon-select'"></i>
                     }@else {
@@ -13,7 +13,6 @@
                                 <i class="fas fa-question-circle mr-3 icon-select"></i>
                             }
                     }
-
                     <span class="ms-3">{{ title }}</span>
                 </h2>
             </div>
@@ -22,8 +21,8 @@
 
         <div class="opciones px-3" [ngClass]="{'active': isOptionsVisible}">
 
-            <a *ngFor="let option of options" class="opcion px-3" (click)="selectOption(option)">
-                <div class="contenido-opcion py-2 d-flex align-items-center">
+            <a *ngFor="let option of options" class="opcion px-3" (click)="selectOption(option)" [ngStyle]="option.rbg != '' ? { color:option.rgb } : null" >
+                <div class="contenido-opcion py-3 d-flex align-items-center">
                     @if(option.icon != undefined){ 
                         <i [class]="option.icon + ' mr-3 ps-3 icon-select'"></i>
                     }@else {

@@ -1,7 +1,7 @@
 <ng-template #contentPuntoVenta let-modal>
 
     <div class="modal-header">
-        <h5 class="modal-title"><i class="fa-solid fa-truck-fast me-2"></i>Registrar envio</h5>
+        <h5 class="modal-title"><i class="fa-solid fa-truck-fast me-2"></i>Tienda: {{ warehouseName | uppercase}}</h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
 
@@ -9,7 +9,7 @@
 
         <div class="row">
 
-            <div class="col-lg-6 d-none d-lg-block">
+            <!-- <div class="col-lg-6 d-none d-lg-block">
                 <app-input-group icon="fa-solid fa-warehouse">
                     <select class="form-select" [disabled]="true" aria-label="Default select example">
                         <option value="1">Tienda: {{ warehouseName | uppercase}}</option>
@@ -23,50 +23,61 @@
                         <option value="1">Vendedor: {{ userName | uppercase }}</option>
                     </select>
                 </app-input-group>
-            </div>
+            </div> -->
 
 
             <div class="col-lg-12">
 
                 <form [formGroup]="form">
 
-                    {{ form.value | json }}
-
-                    <!-- origines -->
-                    <app-select-custom [options]="origins" formControlName="origin_id"></app-select-custom>
-
-                    <!-- seleccioanr courier -->
-                    <app-select-custom [options]="couriers" formControlName="courier_address_id"></app-select-custom>
-
-                    <!-- methodos de entrega -->
-                    <app-select-custom [options]="delivery_methods"
-                        formControlName="delivery_method_id"></app-select-custom>
                     <!-- {{ form.value | json }} -->
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <!-- origines -->
+                            <app-select-custom [options]="origins" formControlName="origin_id"></app-select-custom>
+                            <!-- {{ form.value | json }} -->
+                        </div>
+
+                        <div class="col-lg-6">
+                            <!-- methodos de entrega -->
+                            <app-select-custom [options]="delivery_methods"
+                                formControlName="delivery_method_id"></app-select-custom>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <!-- seleccioanr courier -->
+                            <app-select-custom [options]="couriers"
+                                formControlName="courier_id"></app-select-custom>
+                        </div>
+
+                    </div>
 
                     <div class="row mb-3">
                         <div class="col-lg-12">
-                            <button class="btn btn btn-outline-dark p-custom w-100 mb-3">Contra Entrega</button>
+                            <button class="btn btn btn-outline-dark p-custom w-100 mb-3" *ngIf="acepta_contra_entrega">Contra Entrega</button>
                         </div>
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <button class="btn btn-outline-dark p-custom w-100 mb-3">Pago Destino</button>
+                                    <app-button-push formControlName="envio_es" *ngIf="acepta_pago_destino">Pago Destino</app-button-push>
                                 </div>
                                 <div class="col-lg-4">
                                     <button class="btn btn btn-outline-dark p-custom w-100 mb-3">Envio Gratis</button>
                                 </div>
                                 <div class="col-lg-4">
                                     <app-input-group icon="fa-solid fa-user" icontext="S/.">
-                                        <input type="number" class="form-control" step="0.01" formControlName="shipping_cost" placeholder="0.00">
+                                        <input type="number" class="form-control" step="0.01"
+                                            formControlName="shipping_cost" placeholder="0.00">
                                     </app-input-group>
+
                                     
-                                    <app-button-push formControlName="envio_es">Envio</app-button-push>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-  
+
                     <div class="card mb-3">
                         <div class="card-body">
                             <app-address-form formControlName="address" (formValidity)="formValid($event)"
