@@ -30,6 +30,7 @@
 
                 <form [formGroup]="form">
 
+                    {{ form.value | json }}
 
                     <!-- origines -->
                     <app-select-custom [options]="origins" formControlName="origin_id"></app-select-custom>
@@ -58,6 +59,9 @@
                                     <app-input-group icon="fa-solid fa-user" icontext="S/.">
                                         <input type="number" class="form-control" step="0.01" formControlName="shipping_cost" placeholder="0.00">
                                     </app-input-group>
+                                    
+                                    <app-button-push formControlName="envio_es">Envio</app-button-push>
+
                                 </div>
                             </div>
                         </div>

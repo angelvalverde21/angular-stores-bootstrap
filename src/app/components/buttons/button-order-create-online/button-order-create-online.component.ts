@@ -14,12 +14,13 @@ import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SelectCustomComponent } from "../../select-custom/select-custom.component"; //Colocar esto arriba en los imports
+import { SelectCustomComponent } from "../../select-custom/select-custom.component";
+import { ButtonPushComponent } from "../button-push/button-push.component"; //Colocar esto arriba en los imports
 
 @Component({
   selector: 'app-button-order-create-online',
   standalone: true,
-  imports: [InputGroupComponent, CartOrderComponent, InputSearchProductComponent, AddressFormComponent, CommonModule, ReactiveFormsModule, SelectCustomComponent],
+  imports: [InputGroupComponent, CartOrderComponent, InputSearchProductComponent, AddressFormComponent, CommonModule, ReactiveFormsModule, SelectCustomComponent, ButtonPushComponent],
   templateUrl: './button-order-create-online.component.html',
   styleUrl: './button-order-create-online.component.css',
   encapsulation: ViewEncapsulation.None
@@ -80,6 +81,7 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
       origin_id: 4,
       courier_address_id: 2,
       delivery_method_id: 1,
+      envio_es: 1,
       address: [],
     });
 
