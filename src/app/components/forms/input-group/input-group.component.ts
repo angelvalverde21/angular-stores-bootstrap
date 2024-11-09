@@ -11,6 +11,7 @@ export class InputGroupComponent implements OnInit {
   @Input() icon: string = '';
   @Input() icontext: string = '';
   @Input() col: string = '';
+  @Input() mb: number = 3;
   iconHtml: string = "";
   isValid = false;
 
