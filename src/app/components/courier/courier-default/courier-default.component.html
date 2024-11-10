@@ -3,6 +3,9 @@
     <div class="card mb-3">
 
         <!-- {{ address.id }} -->
+        <div class="logo">
+            <img [src]="logo" alt="" style="max-height: 75px; max-width: 75px">
+        </div>
 
         <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
             <app-loading-center></app-loading-center>
@@ -12,7 +15,7 @@
             {{ title }}
         </div>
         <div class="card-body">
-            <app-address-template [address]="address" title="Direccion de envio"></app-address-template>
+            <app-address-template [address]="address"></app-address-template>
             <button class="btn btn-dark" (click)="fnShowAddressIndex()">Oficinas</button>
         </div>
     </div>

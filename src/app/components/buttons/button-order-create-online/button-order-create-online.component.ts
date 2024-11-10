@@ -15,12 +15,13 @@ import { CommonModule } from '@angular/common';
 
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectCustomComponent } from "../../select-custom/select-custom.component";
-import { ButtonPushComponent } from "../button-push/button-push.component"; //Colocar esto arriba en los imports
+import { ButtonPushComponent } from "../button-push/button-push.component";
+import { ButtonEnvioEsComponent } from "../button-envio-es/button-envio-es.component"; //Colocar esto arriba en los imports
 
 @Component({
   selector: 'app-button-order-create-online',
   standalone: true,
-  imports: [InputGroupComponent, CartOrderComponent, InputSearchProductComponent, AddressFormComponent, CommonModule, ReactiveFormsModule, SelectCustomComponent, ButtonPushComponent],
+  imports: [InputGroupComponent, CartOrderComponent, InputSearchProductComponent, AddressFormComponent, CommonModule, ReactiveFormsModule, SelectCustomComponent, ButtonPushComponent, ButtonEnvioEsComponent],
   templateUrl: './button-order-create-online.component.html',
   styleUrl: './button-order-create-online.component.css',
   encapsulation: ViewEncapsulation.None
@@ -29,6 +30,7 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
 
   modal: any;
   btnActive: boolean = false;
+  acepta_contra_entrega: boolean = false;
   warehouseCartSubscription!: Subscription;
   data: any = {};
   userName: string = '';
@@ -41,6 +43,10 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
   origins: any[] = [];
   delivery_methods: any[] = [];
   couriers: any[] = [];
+
+  courier: any;
+  courier_default_id: number = 1;
+  envio_es: number = 1;
 
   constructor(
     config: NgbModalConfig,
@@ -69,6 +75,7 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
         .find((warehouse: any) => warehouse.id == this.warehouse_id).slug;
       this.userName = this._user.info().name;
     });
+
   }
 
   openVerticallyCentered(content: TemplateRef<any>) {
@@ -79,11 +86,19 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
     
     this.form = this.fb.group({
       origin_id: 4,
-      courier_address_id: 2,
-      delivery_method_id: 1,
-      envio_es: 1,
+      courier_id: this.courier_default_id,
+      delivery_method_id: 2,
+      contra_entrega: 0,
+      envio_es: this.envio_es,
+      shipping_cost: '',
       address: [],
     });
+
+    // console.log(this.courier_default_id);
+    this.courier = this.setCourier(this.courier_default_id);
+
+    console.log("courier default");
+    console.log(this.courier);
 
     this.origins = this._store.origins();
     this.delivery_methods = this._store.delivery_methods();
@@ -91,7 +106,6 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
 
     console.log(this.couriers);
     
-
     this.store = this._store.name()!;
 
     this.cartItems = this._cart.getItemsCartWarehouse();
@@ -111,11 +125,35 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
       }
 
     });
+
+    this.form.get('courier_id')?.valueChanges.subscribe(value => {
+
+      console.log('Value changed:', value);
+
+      const courier = this.setCourier(value);
+
+      console.log(this.setCourier);
+      this.courier = this.setCourier(value);
+      // Aquí puedes manejar el cambio de valor
+
+    });
+
+
+  }
+
+  setCourier(value: number){
+    const couriers = this._store.couriers();
+    return  couriers.find((courier:any) => courier.id == value);
   }
 
   ngOnDestroy(): void {
 
   }
+
+  envio_gratis : boolean = false;
+
+
+
 
   generarVenta() {
 
@@ -128,7 +166,9 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
       didOpen: () => {
         Swal.showLoading();
 
-        this.data = this.form.value.address;
+        this.data = this.form.value
+
+        // this.data = this.form.value.address;
 
         this.data.items = this._cart.getItemsCartWarehouse();
 

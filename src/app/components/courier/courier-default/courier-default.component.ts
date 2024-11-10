@@ -19,8 +19,9 @@ export class CourierDefaultComponent  implements OnInit{
 
   @Input() courier_id: number | null = null; 
   @Input() address: any; 
-  @Input() title: string = "Direccion de envio"; 
+  @Input() title: string = "Transporte"; 
   @Input() bg: string  = "secondary"; 
+  @Input() logo: string  = "https://placehold.co/400x400"; 
 
   @Output() eventAddress = new EventEmitter<[]>();
   
@@ -146,7 +147,7 @@ export class CourierDefaultComponent  implements OnInit{
   fnShowAddressDefault(address:any){
 
     this.overlay = true;
-    
+
     setTimeout(() => {
 
       this.address = address;

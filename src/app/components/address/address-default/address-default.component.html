@@ -9,7 +9,7 @@
         </div>
 
         <div class="card-header py-3">
-            {{ title }}
+            Direccion de envio
         </div>
         <div class="card-body">
             <app-address-template [address]="address" title="Direccion de envio"></app-address-template>
@@ -28,11 +28,11 @@
         </div>
 
         <div class="card-header py-3">
-            {{ title }}
+            Listando Direcciones
         </div>
         <div class="card-body">
             <ng-container *ngFor="let address of addresses">
-                #{{address.id}}
+                <!-- #{{address.id}} -->
                 <app-address-template [address]="address" title="Direccion de envio"></app-address-template>
                 <div class="controls d-flex">
                     <button class="btn btn-dark me-2" (click)="fnShowAddressDefault(address)">Seleccionar</button>

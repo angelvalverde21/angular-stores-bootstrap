@@ -1,0 +1,7 @@
+<div class="controls d-flex justify-content-between mb-3">
+
+    <button class="w-100 btn me-2" [ngClass]="this.envio_es == 1 ? 'btn-dark' : 'btn-outline-dark'" (click)="envioEs(1)">GRATIS</button>
+    <button class="w-100 btn me-2" [ngClass]="this.envio_es == 3 ? 'btn-dark' : 'btn-outline-dark'" (click)="envioEs(3)" *ngIf="acepta_pago_destino">PAGO DESTINO</button>
+    <button class="w-100 btn" [ngClass]="this.envio_es == 2 ? 'btn-dark' : 'btn-outline-dark'" (click)="envioEs(2)">CLIENTE PAGA</button>
+
+</div>

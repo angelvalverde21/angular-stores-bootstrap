@@ -1,6 +1,5 @@
 <app-header></app-header>
 
-<app-loading-center *ngIf="loading"></app-loading-center>
 
 <div class="container">
     <div class="d-flex justify-content-between mb-3">
@@ -14,11 +13,12 @@
     
 </div>
 
+<app-loading-center *ngIf="loading"></app-loading-center>
+
 <div class="container" *ngIf="!loading">
 
     <!-- <app-stepper></app-stepper> -->
     <!-- {{ orders | json }} -->
-
     
     <app-table-order-index [orders]="orders" [store]="store" [warehouse_id]="warehouse_id"></app-table-order-index>
 
