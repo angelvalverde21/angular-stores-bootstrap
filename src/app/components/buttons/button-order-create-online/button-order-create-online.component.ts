@@ -29,6 +29,7 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
 
   modal: any;
   btnActive: boolean = false;
+  acepta_contra_entrega: boolean = false;
   warehouseCartSubscription!: Subscription;
   data: any = {};
   userName: string = '';
@@ -43,10 +44,8 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
   couriers: any[] = [];
 
   courier: any;
-  
-  acepta_contra_entrega: boolean = false;
-  acepta_pago_destino: boolean = false;
-  
+  courier_default_id: number = 1;
+  envio_es: number = 1;
 
   constructor(
     config: NgbModalConfig,
@@ -86,12 +85,20 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
     
     this.form = this.fb.group({
       origin_id: 4,
-      courier_id: 2,
+      courier_id: this.courier_default_id,
       delivery_method_id: 1,
-      envio_es: 1,
-      shipping_cost: 1,
+      acepta_contra_entrega: this.acepta_contra_entrega,
+      envio_es: this.envio_es,
+      shipping_cost: '',
       address: [],
     });
+
+    // console.log(this.courier_default_id);
+    this.courier = this.setCourier(this.courier_default_id);
+
+    console.log("courier default");
+    console.log(this.courier);
+    this.toggleShippingCost(this.envio_es);
 
     this.origins = this._store.origins();
     this.delivery_methods = this._store.delivery_methods();
@@ -120,18 +127,54 @@ export class ButtonOrderCreateOnlineComponent implements OnInit, OnDestroy{
     });
 
     this.form.get('courier_id')?.valueChanges.subscribe(value => {
+
       console.log('Value changed:', value);
-      const couriers = this._store.couriers();
-      this.courier = couriers.find((courier:any) => courier.id == value);
-      console.log(this.courier);
-      this.acepta_pago_destino = this.courier.acepta_pago_destino;
-      this.acepta_contra_entrega = this.courier.acepta_contra_entrega;
+
+      const courier = this.setCourier(value);
+
+      console.log(this.setCourier);
+      this.courier = this.setCourier(value);
       // Aquí puedes manejar el cambio de valor
+
     });
+
+
+  }
+
+  setCourier(value: number){
+    const couriers = this._store.couriers();
+    return  couriers.find((courier:any) => courier.id == value);
   }
 
   ngOnDestroy(): void {
 
+  }
+
+  envio_gratis : boolean = false;
+
+  envioGratis(){
+
+    this.envio_gratis = ! this.envio_gratis;
+
+
+    if (this.envio_gratis) {
+      this.envio_es = 1;
+      
+    }else{
+      this.envio_es = 0; 
+    }
+
+    this.toggleShippingCost(this.envio_es);
+
+
+  }
+
+  toggleShippingCost(value: number){
+    if (value == 1) {
+      this.form.get('shipping_cost')?.disable();
+    }else{
+      this.form.get('shipping_cost')?.enable();
+    }
   }
 
   generarVenta() {

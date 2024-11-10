@@ -55,26 +55,24 @@
 
                     <div class="row mb-3">
                         <div class="col-lg-12">
-                            <button class="btn btn btn-outline-dark p-custom w-100 mb-3" *ngIf="acepta_contra_entrega">Contra Entrega</button>
+                            <app-button-push formControlName="acepta_contra_entrega" *ngIf="courier.acepta_contra_entrega">Contra Entrega</app-button-push>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <app-button-push formControlName="envio_es" *ngIf="acepta_pago_destino">Pago Destino</app-button-push>
-                                </div>
-                                <div class="col-lg-4">
-                                    <button class="btn btn btn-outline-dark p-custom w-100 mb-3">Envio Gratis</button>
-                                </div>
-                                <div class="col-lg-4">
-                                    <app-input-group icon="fa-solid fa-user" icontext="S/.">
-                                        <input type="number" class="form-control" step="0.01"
-                                            formControlName="shipping_cost" placeholder="0.00">
-                                    </app-input-group>
-
-                                    
-
-                                </div>
-                            </div>
+                        <div class="col-lg-4">
+                            <button class="btn p-custom w-100 mb-3" [disabled]="courier.acepta_pago_destino ? false : true" [ngClass]="envio_es == 3 ? 'btn-dark' : 'btn-outline-dark'" (click)="envioEs(3)">
+                                Pago destino
+                            </button>
+                            
+                        </div>
+                        <div class="col-lg-4">
+                            <button class="btn p-custom w-100 mb-3" [ngClass]="envio_gratis ? 'btn-dark' : 'btn-outline-dark'" (click)="envioGratis()">
+                                Gratis
+                            </button>
+                        </div>
+                        <div class="col-lg-4">
+                            <app-input-group icon="fa-solid fa-user" icontext="S/.">
+                                <input type="number" class="form-control" step="0.01"
+                                    formControlName="shipping_cost" placeholder="0.00">
+                            </app-input-group>
                         </div>
                     </div>
 
