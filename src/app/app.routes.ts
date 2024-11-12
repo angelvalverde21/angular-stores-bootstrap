@@ -76,7 +76,7 @@ export const routes: Routes = [
                 { path: ':product_id/colors/inactive', component: ProductColorsInactivePageComponent}, //(Single Product of all Warehouses)       
                 { path: 'search/:search', component: ProductsSearchPageComponent}, //(Single Product of all Warehouses)             
                 { path: 'warehouse/:warehouse_id', component: ProductsWarehousePageComponent}, //(All Products of single Warehouse)           
-                { path: ':product_id/warehouse/:warehouse_id', component: ProductWarehousePageComponent}, //(Single Product of single Warehouse)   
+                { path: ':product_id/warehouse/:warehouse_id', component: ProductWarehousePageComponent}, //(Single Product of single Warehouse)
                 { path: 'warehouse/:warehouse_id/search/:search', component: ProductsWarehouseSearchPageComponent},  //(Single Product of single Warehouse for search)          
             ]}, //(All Products of all Warehouses)
 
@@ -96,6 +96,8 @@ export const routes: Routes = [
           { path: ':warehouse_id', component: WarehouseShowPageComponent, children: [
             { path: 'orders', component: WarehouseOrderIndexPageComponent },
             { path: 'orders/:order_id', component: WarehouseOrderShowPageComponent },
+            { path: 'orders/create-online', component: WarehouseOrderShowPageComponent },
+            { path: 'orders/create-punto-venta', component: WarehouseOrderShowPageComponent },
           ]},
         ] 
       },
