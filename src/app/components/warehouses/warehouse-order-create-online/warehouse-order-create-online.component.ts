@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 
 import { InputGroupComponent } from "../../forms/input-group/input-group.component";
 import { CartOrderComponent } from "../../../componentes/order/cart-order/cart-order.component";
@@ -17,7 +17,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectCustomComponent } from "../../select-custom/select-custom.component";
 import { ButtonPushComponent } from '../../buttons/button-push/button-push.component';
 import { ButtonEnvioEsComponent } from '../../buttons/button-envio-es/button-envio-es.component';
-import { EventEmitter } from 'stream';
 
 
 @Component({

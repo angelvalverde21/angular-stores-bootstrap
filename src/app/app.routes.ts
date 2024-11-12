@@ -36,6 +36,7 @@ import { WarehousesComponent } from './pages/warehouses/warehouses.component';
 import { WarehouseOrderIndexPageComponent } from './pages/warehouses/warehouse-order-index-page/warehouse-order-index-page.component';
 import { WarehouseShowPageComponent } from './pages/warehouses/warehouse-show-page/warehouse-show-page.component';
 import { WarehouseOrderShowPageComponent } from './pages/warehouses/warehouse-order-show-page/warehouse-order-show-page.component';
+import { WarehouseOrderCreateOnlinePageComponent } from './auth/pages/warehouses/warehouse-order-create-online-page/warehouse-order-create-online-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -89,15 +90,13 @@ export const routes: Routes = [
         ],
 
       },
-      { path: 'store', component: AccountComponent, children: [
-        ]
-      },
+      { path: 'store', component: AccountComponent },
       { path: 'warehouses', component: WarehousesComponent, children: [
           { path: ':warehouse_id', component: WarehouseShowPageComponent, children: [
             { path: 'orders', component: WarehouseOrderIndexPageComponent },
+            { path: 'orders/create-online', component: WarehouseOrderCreateOnlinePageComponent },
             { path: 'orders/:order_id', component: WarehouseOrderShowPageComponent },
-            { path: 'orders/create-online', component: WarehouseOrderShowPageComponent },
-            { path: 'orders/create-punto-venta', component: WarehouseOrderShowPageComponent },
+            // { path: 'orders/create-punto-venta', component: WarehouseOrderShowPageComponent },
           ]},
         ] 
       },

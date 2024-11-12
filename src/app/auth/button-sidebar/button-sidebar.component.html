@@ -12,6 +12,8 @@
                     <a class="p-3 d-block" (click)="redirect(children.url)"><i class="{{ children.icon }} me-2"></i> {{ children.name }}</a>
                     <div class="warehouses" *ngFor="let warehouse of children?.warehouses">
                         <a class="ms-3 p-3 d-block" [routerLink]="['/', store, 'warehouses', warehouse.id, 'orders']" (click)="closeSidebar()"><i class="fa-solid fa-warehouse me-2"></i> {{ warehouse.slug | uppercase}}</a>
+                        <a class="ms-5 p-3 d-block" [routerLink]="['/', store, 'warehouses', warehouse.id, 'orders', 'create-online']" (click)="closeSidebar()"><i class="fa-solid fa-truck-fast me-2"></i>Pedido Online</a>
+                        <a class="ms-5 p-3 d-block" [routerLink]="['/', store, 'warehouses', warehouse.id, 'orders', 'create-online']" (click)="closeSidebar()"><i class="fa-solid fa-cash-register me-2"></i>Pedido Tienda</a>
                     </div>
                 </div>
             </ng-container>
