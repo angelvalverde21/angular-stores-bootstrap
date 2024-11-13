@@ -38,6 +38,7 @@ import { ProductPricesComponent } from '../../../shared/products/prices/product-
 import Swal from 'sweetalert2';
 import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
 import { ButtonSwitchComponent } from "../../../../components/buttons/button-switch/button-switch.component";
+import { ProductReportComponent } from "../../../../components/products/product-report/product-report.component";
 
 @Component({
   selector: 'app-product-page',
@@ -66,7 +67,8 @@ import { ButtonSwitchComponent } from "../../../../components/buttons/button-swi
     ProductWarehouseComponent,
     ProductPricesComponent,
     BreadCrumbComponent,
-    ButtonSwitchComponent
+    ButtonSwitchComponent,
+    ProductReportComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css',
