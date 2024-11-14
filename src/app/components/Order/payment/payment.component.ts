@@ -22,6 +22,7 @@ export class PaymentComponent implements OnInit, OnDestroy{
   paymentSubscription! : Subscription;
   deleteSubscription! : Subscription;
   loading: boolean = false;
+  overlay: boolean = false;
   gateways: any[] = [];
   @Input() order_id: number = 0;
 
@@ -94,13 +95,13 @@ export class PaymentComponent implements OnInit, OnDestroy{
   eliminar(payment_id: number){
 
     console.log(payment_id);
-    
+    this.overlay = true;
     // this.loading = true;
     this.deleteSubscription = this._payment.destroy(payment_id).subscribe((resp:any) => {
       // this.loading = false;
       // console.log("payments recibidos");
       console.log("item borrado");
-      
+      this.overlay = false;
       this.payments =  this.payments.filter((payment:any) => payment.id !== payment_id);
       
     });

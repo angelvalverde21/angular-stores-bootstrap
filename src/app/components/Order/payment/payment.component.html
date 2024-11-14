@@ -1,5 +1,9 @@
 <div class="card mb-3">
 
+    <!-- <div class="overlay d-flex align-items-center justify-content-center" *ngIf="loading">
+        <app-loading-center></app-loading-center>
+    </div> -->
+
     <div class="card-body">
         <app-dropzone-payment name="payment" [slug]="'orders/' + order_id + '/payments/create'" class="mx-3" (eventAddFile)="dropzoneValid($event)" (eventUpload)="addPayment($event)" #dropzone></app-dropzone-payment>
 
@@ -28,6 +32,10 @@
 
 <div class="card" *ngIf="!loading">
 
+    <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+        <app-loading-center></app-loading-center>
+    </div>
+
     <ul class="list-group list-group-flush">
 
       <li class="list-group-item d-flex justify-content-between p-3" *ngFor="let payment of payments">
@@ -39,7 +47,7 @@
             <div class="mb-3">{{ payment.created_at | dateCustom }}</div>
             <button class="btn btn-danger" (click)="eliminar(payment.id)">X</button>
         </div>
-
+ 
       </li>
     </ul>
 </div>
