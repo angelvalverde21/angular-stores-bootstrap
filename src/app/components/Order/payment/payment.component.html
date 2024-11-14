@@ -1,0 +1,45 @@
+<div class="card mb-3">
+
+    <div class="card-body">
+        <app-dropzone-payment name="payment" [slug]="'orders/' + order_id + '/payments/create'" class="mx-3" (eventAddFile)="dropzoneValid($event)" (eventUpload)="addPayment($event)" #dropzone></app-dropzone-payment>
+
+        <form [formGroup]="form">
+        
+            <!-- {{ form.value | json }}
+        
+            <hr>
+            {{ is_dropzone_valid }} -->
+        
+            <app-select-custom [options]="gateways" formControlName="gateway_id"></app-select-custom>
+        
+            <app-input-group icontext="S/.">
+                <input type="number" step="0.01" class="form-control" placeholder="0.00" formControlName="amount">
+            </app-input-group>
+        
+            <button class="btn btn-primary w-100 mb-3" [disabled]="!(form.valid && is_dropzone_valid)" (click)="onSubmit(dropzone)">Registrar Pago</button>
+        
+        </form>
+
+    </div>
+
+</div>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="card" *ngIf="!loading">
+
+    <ul class="list-group list-group-flush">
+
+      <li class="list-group-item d-flex justify-content-between p-3" *ngFor="let payment of payments">
+        <div>
+            <img height="200px" [src]="payment.image.url_thumbnail" alt="">
+        </div>
+        <div class="text-end">
+            <h4>{{ payment.amount | pen }}</h4>
+            <div class="mb-3">{{ payment.created_at | dateCustom }}</div>
+            <button class="btn btn-danger" (click)="eliminar(payment.id)">X</button>
+        </div>
+
+      </li>
+    </ul>
+</div>

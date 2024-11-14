@@ -4,9 +4,9 @@
 
         <div class="step" [ngClass]="order?.is_pay ? 'active' : ''">
 
-            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1"  aria-selected="true">
-                <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i
-                        class="fas fa-dollar-sign"></i></span>
+            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true"
+                (click)="openVerticallyCentered(content)">
+                <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-dollar-sign"></i></span>
                 <span class="bs-stepper-label  label-azul  d-none d-sm-block">
                     Pagado
                 </span>
@@ -30,8 +30,7 @@
         <div class="step" [ngClass]="order?.is_shippment ? 'active' : ''">
 
             <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true">
-                <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i
-                        class="fas fa-shipping-fast"></i></span>
+                <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-shipping-fast"></i></span>
                 <span class="bs-stepper-label  label-gris  d-none d-sm-block">
                     Enviado
                 </span>
@@ -43,8 +42,7 @@
         <div class="step" [ngClass]="order?.is_delivery ? 'active' : ''">
 
             <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true">
-                <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i
-                        class="fas fa-check-circle"></i></span>
+                <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-check-circle"></i></span>
                 <span class="bs-stepper-label  label-azul  d-none d-sm-block">
                     Entregado
                 </span>
@@ -53,3 +51,18 @@
         </div>
     </div>
 </div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Pagos recibidos</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <app-payment [order_id]="order.id"></app-payment>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

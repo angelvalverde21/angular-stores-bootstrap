@@ -145,6 +145,18 @@ export class StoreService {
     }
 
   }
+
+  gateways() {
+
+    const store = JSON.parse(localStorage.getItem('store')!);
+    if (store.gateways != null) {
+      return store.gateways; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+
+  }
+
   couriers() {
     const store = JSON.parse(localStorage.getItem('store')!);
     if (store.couriers != null) {
