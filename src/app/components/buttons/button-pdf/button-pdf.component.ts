@@ -38,15 +38,17 @@ export class ButtonPdfComponent {
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);  // Limpia la URL creada
-            Swal.fire({
-              icon: 'success',
-              title: 'Correcto',
-              text: 'Hemos generado su pdf',
-              confirmButtonText: 'OK',
-              showConfirmButton: true,
-              timer: 1000,  // 1000 milisegundos = 1 segundo
-              timerProgressBar: true
-            })
+
+            Swal.close();
+            // Swal.fire({
+            //   icon: 'success',
+            //   title: 'Correcto',
+            //   text: 'Hemos generado su pdf',
+            //   confirmButtonText: 'OK',
+            //   showConfirmButton: true,
+            //   timer: 1000,  // 1000 milisegundos = 1 segundo
+            //   timerProgressBar: true
+            // })
             
           },
           
