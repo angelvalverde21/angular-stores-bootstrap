@@ -9,6 +9,7 @@ import { SelectCustomComponent } from "../../select-custom/select-custom.compone
 import { InputGroupComponent } from "../../forms/input-group/input-group.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StoreService } from '../../../services/store.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-payment',
   standalone: true,
@@ -25,12 +26,14 @@ export class PaymentComponent implements OnInit, OnDestroy{
   overlay: boolean = false;
   gateways: any[] = [];
   @Input() order_id: number = 0;
+  @Input() type: number = 1; // 1 es para registrar el pago del cliente, 3 es para registrar el pago que se le hace al courier
 
   constructor(private _payment: PaymentService, private fb: FormBuilder, private _store: StoreService) // private upperFirstPipe: UpperFirstPipe
   {
     this.gateways = this._store.gateways();
 
     this.form = this.fb.group({
+      type: [this.type, [Validators.required]], //1 es efectivo, 2 es yape, son los id que estan en la db
       gateway_id: [2, [Validators.required]], //1 es efectivo, 2 es yape, son los id que estan en la db
       amount: ['', [Validators.required]], //1 es efectivo, 2 es yape, son los id que estan en la db
     });
@@ -46,13 +49,12 @@ export class PaymentComponent implements OnInit, OnDestroy{
 
   loadPayments(){
     this.loading = true;
-    this.paymentSubscription = this._payment.index(this.order_id).subscribe((resp:any) => {
+    this.paymentSubscription = this._payment.index(this.order_id, this.type).subscribe((resp:any) => {
+      this.payments = resp.data;
       this.loading = false;
       console.log("payments recibidos");
-      
-      this.payments = resp.data;
       console.log(this.payments);
-      
+      console.log(resp);
     });
   }
 
@@ -73,19 +75,33 @@ export class PaymentComponent implements OnInit, OnDestroy{
     this.formChildrenIsValid = value;
   }
 
+  swal: any;
+
   save() {}
 
   onSubmit(dropzone: DropzonePaymentComponent) {
-    if (this.form.valid) {
-      // Crear un objeto con los parámetros adicionales del formulario
-      const extraParams = {
-        gateway_id: this.form.get('gateway_id')?.value,
-        amount: this.form.get('amount')?.value
-      };
 
-      // Procesar la subida de archivos con Dropzone y agregar los parámetros
-      dropzone.processQueue(extraParams);
-    }
+    this.swal = Swal.fire({
+      title: 'Espere...',
+      html: 'Estamos cargando el comprobante',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        if (this.form.valid) {
+          // Crear un objeto con los parámetros adicionales del formulario
+          const extraParams = {
+            type: this.type,
+            gateway_id: this.form.get('gateway_id')?.value,
+            amount: this.form.get('amount')?.value
+          };
+    
+          // Procesar la subida de archivos con Dropzone y agregar los parámetros
+          dropzone.processQueue(extraParams);
+        }
+      }
+    })
+
+
   }
 
   addPayment($event: any){
@@ -105,6 +121,31 @@ export class PaymentComponent implements OnInit, OnDestroy{
       this.payments =  this.payments.filter((payment:any) => payment.id !== payment_id);
       
     });
+
+  }
+
+  formError(){
+
+  }
+
+  formStatus(event: boolean){
+
+    if (event) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Correcto',
+        text: 'Subio correctamente',
+        confirmButtonText: 'OK',
+        showConfirmButton: true
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ha ocurrido un error al cargar el archivo',
+      });
+      
+    }
 
   }
 }

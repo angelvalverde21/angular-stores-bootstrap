@@ -28,7 +28,11 @@ export class StepperComponent implements OnInit, OnDestroy{
     config.keyboard = false;
   }
 
-  openVerticallyCentered(content: TemplateRef<any>) {
+  openUploadVoucher(content: TemplateRef<any>) {
+    this.modal = this.modalService.open(content, { centered: true });
+  }
+
+  openUploadPaymentCourier(content: TemplateRef<any>) {
     this.modal = this.modalService.open(content, { centered: true });
   }
 

@@ -5,7 +5,7 @@
         <div class="step" [ngClass]="order?.is_pay ? 'active' : ''">
 
             <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true"
-                (click)="openVerticallyCentered(content)">
+                (click)="openUploadVoucher(content)">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-dollar-sign"></i></span>
                 <span class="bs-stepper-label  label-azul  d-none d-sm-block">
                     Pagado
@@ -29,7 +29,7 @@
 
         <div class="step" [ngClass]="order?.is_shippment ? 'active' : ''">
 
-            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true">
+            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true" (click)="openUploadPaymentCourier(uploadPaymentCourier)">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-shipping-fast"></i></span>
                 <span class="bs-stepper-label  label-gris  d-none d-sm-block">
                     Enviado
@@ -61,6 +61,21 @@
     <div class="modal-body">
 
         <app-payment [order_id]="order.id"></app-payment>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+
+
+<ng-template #uploadPaymentCourier let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Pagos recibidos</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <app-payment [type]="3" [order_id]="order.id"></app-payment>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>

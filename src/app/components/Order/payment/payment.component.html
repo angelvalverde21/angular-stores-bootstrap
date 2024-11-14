@@ -5,7 +5,8 @@
     </div> -->
 
     <div class="card-body">
-        <app-dropzone-payment name="payment" [slug]="'orders/' + order_id + '/payments/create'" class="mx-3" (eventAddFile)="dropzoneValid($event)" (eventUpload)="addPayment($event)" #dropzone></app-dropzone-payment>
+
+        <app-dropzone-payment  name="payment" [slug]="'orders/' + order_id + '/payments/create'" class="mx-3" (eventAddFile)="dropzoneValid($event)" (eventUpload)="addPayment($event)" (eventComplete)="formStatus($event)" #dropzone></app-dropzone-payment>
 
         <form [formGroup]="form">
         
@@ -36,7 +37,9 @@
         <app-loading-center></app-loading-center>
     </div>
 
-    <ul class="list-group list-group-flush">
+
+
+    <ul class="list-group list-group-flush" *ngIf="payments.length > 0; else templateName">
 
       <li class="list-group-item d-flex justify-content-between p-3" *ngFor="let payment of payments">
         <div>
@@ -50,4 +53,17 @@
  
       </li>
     </ul>
+
+    <ng-template #templateName>
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item d-flex justify-content-between p-3">
+                <p class="mx-auto">No hay pagos</p>
+            </li>
+          </ul>
+
+    </ng-template>
+
+
+
 </div>

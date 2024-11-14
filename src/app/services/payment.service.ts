@@ -23,10 +23,10 @@ export class PaymentService {
 
   }
 
-  index(order_id: number): Observable<any> {
+  index(order_id: number, type: number | null = null): Observable<any> {
 
-    const url = `${this.url}/orders/${order_id}/payments`;
-    // console.log(url);
+    const url = `${this.url}/orders/${order_id}/payments/type/${type}`;
+    console.log(url);
     return this.http.get(url);
   }
 

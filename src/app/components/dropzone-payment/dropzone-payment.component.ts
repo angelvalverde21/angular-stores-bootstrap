@@ -34,6 +34,7 @@ export class DropzonePaymentComponent implements OnInit, AfterViewInit {
   @Input() slug: string = '';
   @Output() eventUpload = new EventEmitter<[]>();
   @Output() eventAddFile = new EventEmitter<boolean>();
+  @Output() eventComplete = new EventEmitter<boolean>();
   private dropzoneInstance!: Dropzone;
 
   constructor(
@@ -92,6 +93,7 @@ export class DropzonePaymentComponent implements OnInit, AfterViewInit {
               self.image = resp.image;
               self.eventUpload.emit(resp.data);
             } else {
+              self.eventComplete.emit(false);
               console.error('Error al subir el archivo:', resp.message);
             }
           });
@@ -113,7 +115,7 @@ export class DropzonePaymentComponent implements OnInit, AfterViewInit {
 
           this.on('complete', (file) => {
             console.log("completado");
-            
+            self.eventComplete.emit(true);
             this.removeFile(file);
           });
 
