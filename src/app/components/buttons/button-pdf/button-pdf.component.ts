@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { PdfService } from '../../../services/pdf.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-button-pdf',
   standalone: true,
@@ -16,25 +17,47 @@ export class ButtonPdfComponent {
 
   downloadPdf(tipo: string) {
 
-    this.pdfService.downloadPdf(this.order_id,tipo).subscribe({
+    Swal.fire({
+      title: 'Espere...',
+      html: 'Generado pdf',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        this.pdfService.downloadPdf(this.order_id,tipo).subscribe({
 
-      next: (response: Blob) => {
-        const blob = new Blob([response], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = this.order_id + '-'+ tipo +'.pdf';  // Nombre por defecto para el archivo descargado
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);  // Limpia la URL creada
-      },
-      
-      error: (error) => {
-        console.error('Error al descargar el PDF', error);
+          next: (response: Blob) => {
+    
+            const blob = new Blob([response], { type: 'application/pdf' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = this.order_id + '-'+ tipo +'.pdf';  // Nombre por defecto para el archivo descargado
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  // Limpia la URL creada
+            Swal.fire({
+              icon: 'success',
+              title: 'Correcto',
+              text: 'Hemos generado su pdf',
+              confirmButtonText: 'OK',
+              showConfirmButton: true,
+              timer: 1000,  // 1000 milisegundos = 1 segundo
+              timerProgressBar: true
+            })
+            
+          },
+          
+          error: (error) => {
+            console.error('Error al descargar el PDF', error);
+          }
+    
+        });
+    
       }
+    })
+    
 
-    });
   }
 
 }
