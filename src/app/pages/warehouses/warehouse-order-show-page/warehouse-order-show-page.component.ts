@@ -22,11 +22,13 @@ import { CourierDefaultComponent } from "../../../components/courier/courier-def
 import { CartService } from '../../../services/cart.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PaymentComponent } from "../../../components/Order/payment/payment.component";
+import { ButtonPdfComponent } from "../../../components/buttons/button-pdf/button-pdf.component";
+
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
-  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent, AddressDefaultComponent, CourierDefaultComponent, PaymentComponent],
+  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent, AddressDefaultComponent, CourierDefaultComponent, PaymentComponent, ButtonPdfComponent],
   templateUrl: './warehouse-order-show-page.component.html',
   styleUrl: './warehouse-order-show-page.component.css',
   encapsulation: ViewEncapsulation.None,

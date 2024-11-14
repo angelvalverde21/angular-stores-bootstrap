@@ -5,7 +5,14 @@
 
 <div class="container" *ngIf="!loading">
     
-    <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
+
+    <div class="controls d-flex justify-content-between">
+        <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
+
+        <app-button-pdf [order_id]="order.id"></app-button-pdf>
+
+    </div>
+
     
     <app-stepper [order]="order"></app-stepper>
 

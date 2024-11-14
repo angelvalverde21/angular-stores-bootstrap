@@ -96,6 +96,8 @@ export const routes: Routes = [
             { path: 'orders', component: WarehouseOrderIndexPageComponent },
             { path: 'orders/create-online', component: WarehouseOrderCreateOnlinePageComponent },
             { path: 'orders/:order_id', component: WarehouseOrderShowPageComponent },
+            { path: 'orders/:order_id/print/voucher', component: WarehouseOrderShowPageComponent },
+            { path: 'orders/:order_id/print/packing', component: WarehouseOrderShowPageComponent },
             // { path: 'orders/create-punto-venta', component: WarehouseOrderShowPageComponent },
           ]},
         ] 
