@@ -23,7 +23,7 @@ export class ButtonPdfComponent {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = this.order_id + '-voucher.pdf';  // Nombre por defecto para el archivo descargado
+        a.download = this.order_id + '-'+ tipo +'.pdf';  // Nombre por defecto para el archivo descargado
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
