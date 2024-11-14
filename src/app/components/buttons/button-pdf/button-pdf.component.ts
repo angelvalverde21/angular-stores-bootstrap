@@ -27,11 +27,13 @@ export class ButtonPdfComponent {
 
           next: (response: Blob) => {
     
+            const timestampInSeconds = Math.floor(Date.now() / 1000);
+            
             const blob = new Blob([response], { type: 'application/pdf' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = this.order_id + '-'+ tipo +'.pdf';  // Nombre por defecto para el archivo descargado
+            a.download = this.order_id + '-' + timestampInSeconds + '-' + tipo + '.pdf';  // Nombre por defecto para el archivo descargado
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
