@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PaymentComponent } from "../Order/payment/payment.component";
+import { OrderPhotoComponent } from "../Order/order-photo/order-photo.component";
 
 
 @Component({
   selector: 'app-stepper',
   standalone: true,
-  imports: [CommonModule, PaymentComponent],
+  imports: [CommonModule, PaymentComponent, OrderPhotoComponent],
   templateUrl: './stepper.component.html',
   styleUrl: './stepper.component.css',
   encapsulation: ViewEncapsulation.None
@@ -33,6 +34,10 @@ export class StepperComponent implements OnInit, OnDestroy{
   }
 
   openUploadPaymentCourier(content: TemplateRef<any>) {
+    this.modal = this.modalService.open(content, { centered: true });
+  }
+
+  openUplodPackage(content: TemplateRef<any>) {
     this.modal = this.modalService.open(content, { centered: true });
   }
 

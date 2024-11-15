@@ -101,7 +101,6 @@ export class PaymentComponent implements OnInit, OnDestroy{
       }
     })
 
-
   }
 
   addPayment($event: any){
@@ -113,7 +112,7 @@ export class PaymentComponent implements OnInit, OnDestroy{
     console.log(payment_id);
     this.overlay = true;
     // this.loading = true;
-    this.deleteSubscription = this._payment.destroy(payment_id).subscribe((resp:any) => {
+    this.deleteSubscription = this._payment.destroy(payment_id, this.order_id).subscribe((resp:any) => {
       // this.loading = false;
       // console.log("payments recibidos");
       console.log("item borrado");
@@ -138,6 +137,11 @@ export class PaymentComponent implements OnInit, OnDestroy{
         confirmButtonText: 'OK',
         showConfirmButton: true
       })
+
+      // this.form.valid = false;
+      this.is_dropzone_valid = false;
+      this.form.get('amount')?.setValue(0);
+
     } else {
       Swal.fire({
         icon: 'error',

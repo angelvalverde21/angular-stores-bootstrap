@@ -17,7 +17,7 @@
 
         <div class="step" [ngClass]="order?.is_package ? 'active' : ''">
 
-            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true">
+            <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true" (click)="openUploadPaymentCourier(openUplodPackage)">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-box-open"></i></span>
                 <span class="bs-stepper-label  label-azul  d-none d-sm-block">
                     Package
@@ -27,7 +27,7 @@
         </div>
         <div class="bs-stepper-line"></div>
 
-        <div class="step" [ngClass]="order?.is_shippment ? 'active' : ''">
+        <div class="step" [ngClass]="order?.is_shipment ? 'active' : ''">
 
             <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true" (click)="openUploadPaymentCourier(uploadPaymentCourier)">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-shipping-fast"></i></span>
@@ -55,7 +55,7 @@
 
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Pagos recibidos</h4>
+        <h4 class="modal-title"><i class="fa-solid fa-sack-dollar me-2"></i>Pagos recibidos</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
@@ -70,12 +70,29 @@
 
 <ng-template #uploadPaymentCourier let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Pagos recibidos</h4>
+        <h4 class="modal-title"><i class="fa-solid fa-receipt me-2"></i>Comprobantes de envio</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
 
         <app-payment [type]="3" [order_id]="order.id"></app-payment>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #openUplodPackage let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title"><i class="fa-solid fa-receipt me-2"></i>Comprobantes de envio</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <app-order-photo [order_id]="order.id"></app-order-photo>
+
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>

@@ -103,7 +103,7 @@ export class DropzonePaymentComponent implements OnInit, AfterViewInit {
             
             console.log(file);
             // Agregar parámetros adicionales de forma dinámica
-            formData.append('name', self.name); // Agregar el parámetro 'name'
+            // formData.append('name', self.name); // Agregar el parámetro 'name'
           });
 
           this.on('addedfile', (file: File) => {

@@ -11,11 +11,13 @@ export class OrderService {
 
   name: string | null = null;
   url: string = "";
+  urlOrders: string = "";
   urlPrivate: string = environment.apiPrivate;
   
   constructor( private http: HttpClient, private _store: StoreService) {
     this.name = this._store.name();
     this.url = `${this.urlPrivate}/${this.name}/manage/orders`;
+    this.urlOrders = `${this.urlPrivate}/${this.name}/orders`;
     console.log(this.url);
   
   }
@@ -116,5 +118,23 @@ export class OrderService {
   }
 
 
+  photoPackageIndex(order_id: number): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlOrders}/${order_id}/package/photos`;
+    // const url = `${this.url_base}?store=${store}`;
+    console.log(url);
+
+    return this.http.get(url);
+    
+  }
+
+  destroy(photo_id:number, order_id: number){
+    const url = `${this.urlOrders}/${order_id}/package/photos`;
+    // const url = `${this.url_base}?store=${store}`;
+    console.log(url);
+
+    return this.http.get(url);
+  }
 
 }
