@@ -1,0 +1,49 @@
+<div class="card mb-3" [ngClass]="order.is_pay ? 'card border-success' : ''">
+
+    <div class="card-header py-3 d-flex justify-content-between" [ngClass]="order.is_pay ? 'custom-success' : ''">
+
+        <div class="info">
+            <!-- status -->
+            
+            <app-header-order-status [order]="order"></app-header-order-status>
+
+            <div>
+                <a href="#" class=""
+                    [routerLink]="['/', store, 'warehouses', warehouse_id , 'orders', order.id]">#{{
+                    order.id }}</a>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-outline-dark"
+                [routerLink]="['/', store, 'warehouses', warehouse_id , 'orders', order.id]"><i
+                    class="fa-solid fa-ellipsis"></i></button>
+        </div>
+    </div>
+    
+    <div class="card-body d-flex">
+
+        <div class="images text-center" style="width: 130px;">
+            <figure *ngFor="let item of order.items" style="width: 100px;" class="text-center me-2">
+                <img height="150px" [src]="item.image.url_thumbnail" alt="">
+                <p class="text-center">({{ item.content.talla_impresa }})</p>
+            </figure>
+        </div>
+
+        <div class="right w-100">
+            
+            <app-card-address *ngIf="order.address_id != null" [address]="order.address"></app-card-address>
+
+            <!-- <app-stepper></app-stepper> -->
+
+            <div class="info d-flex justify-content-between">
+                <h5 class="mb-3">{{ order.total_amount | pen }}</h5>
+
+                <img style="max-width: 75px; max-height: 75px;" class="mb-3"
+                    [src]="order.courier_address?.courier.profile_photo_url" alt="">
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

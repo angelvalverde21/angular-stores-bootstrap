@@ -36,7 +36,7 @@ export class UploadOptionDropzoneComponent implements OnInit, AfterViewInit {
     this.url =  environment.apiUrl + '/procesos/options/' + this.store + '/upload'; // Actualiza esto con la URL de tu servidor
     
   }
-  
+ 
   ngAfterViewInit(): void { 
     
     setTimeout(() => { //usamos setTimeOut solo para retrazar ligeramente el tiempo de carga, asi esperamos que el contenedor padre cargue primero, en este caso cuando este componente es llamado desde <app-card-config>

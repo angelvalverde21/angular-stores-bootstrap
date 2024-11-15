@@ -17,7 +17,7 @@ import { PipesModule } from '../../../../shared/pipes.module';
 import { ColorComponent } from '../../../shared/color/color.component';
 import { ProductColorComponent } from '../../../shared/products/product-color/product-color.component';
 import { UploadDropzoneColorComponent } from '../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component';
-import { Subscription } from 'rxjs';
+
 import { StoreService } from '../../../../services/store.service';
 import { HeaderProductComponent } from '../header-product/header-product.component';
 import { ButtonInventoryComponent } from '../../../../components/buttons/button-inventory/button-inventory.component';
@@ -32,13 +32,13 @@ import {} from '@ng-bootstrap/ng-bootstrap';
 import {
   NgbModal,
   NgbModule,
-  NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { ProductWarehouseComponent } from '../../../shared/products/product-warehouse/product-warehouse.component';
 import { ProductPricesComponent } from '../../../shared/products/prices/product-prices/product-prices.component';
 import Swal from 'sweetalert2';
 import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
 import { ButtonSwitchComponent } from "../../../../components/buttons/button-switch/button-switch.component";
+import { ProductReportComponent } from "../../../../components/products/product-report/product-report.component";
 
 @Component({
   selector: 'app-product-page',
@@ -67,7 +67,8 @@ import { ButtonSwitchComponent } from "../../../../components/buttons/button-swi
     ProductWarehouseComponent,
     ProductPricesComponent,
     BreadCrumbComponent,
-    ButtonSwitchComponent
+    ButtonSwitchComponent,
+    ProductReportComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css',
@@ -80,6 +81,7 @@ export class ProductPageComponent {
   btnActive: boolean = false;
   success: boolean = false;
   id: number = 0;
+  accordionItem: number = 1;
   totalQuantity: number = 0;
   product: any;
   colors: any;
@@ -124,6 +126,11 @@ export class ProductPageComponent {
     this.store = this._store.name()!;
   }
 
+  selected(value: number){
+    console.log(value);
+    
+    this.accordionItem = value;
+  }
   private initForm(): void {
     this.form = this.fb.group({
       name: ['', [Validators.required]],

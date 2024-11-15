@@ -1,24 +1,2 @@
-<app-button-login *ngIf="!estaAutenticado"></app-button-login>
-<ng-container>
-
-    <!-- Example single danger button -->
-    <!-- <button (click)="openSearch()" type="button" [ngClass]="showSearch ? 'btn-secondary' : 'btn-outline-secondary'"
-        class="btn me-2"><i class="fa-solid fa-magnifying-glass"></i></button> -->
-
-    <app-button-open-canvas-search></app-button-open-canvas-search>
-
-
-    <ng-container  *ngIf="estaAutenticado">
-        <app-button-cart></app-button-cart>
-        <app-dropdown-auth-home [store]="store"></app-dropdown-auth-home>
-        <app-dropdown-auth-user [store]="store" [name]="user.name"></app-dropdown-auth-user>
-    </ng-container>
-
-
-    <!-- <app-button-products></app-button-products>
-    <app-button-orders></app-button-orders> -->
-
-
-    <!-- <app-cart></app-cart> -->
-
-</ng-container>
+<app-button-login></app-button-login>
+<app-button-cart></app-button-cart>

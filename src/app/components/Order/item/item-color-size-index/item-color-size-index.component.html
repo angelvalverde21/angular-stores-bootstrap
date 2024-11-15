@@ -1,0 +1,35 @@
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="card mb-3 fadeIn" *ngIf="!loading && colors">
+    
+    <ul class="list-group list-group-flush">
+
+        <li class="list-group-item d-flex justify-content-between" *ngFor="let color of colors">
+
+            <div class="image text-center" style="width: 150px;">
+                <img class="mb-3" height="100px" [src]="color.image.url_thumbnail" alt="">
+                <p>{{ color.name }}</p>
+                <p>{{ color.sku.warehouse.pivot.quantity }}</p>
+            </div>
+
+            <div class="sizes" style="width: 200px;">
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                        <tr *ngFor="let size of color.sizes">
+                            <td class="text-center">{{ size.name }}</td>
+                            <td class="text-center">{{ size.color_size.sku.warehouse.pivot.quantity }}</td>
+                            <td class="text-center"><button class="btn"
+                                    [ngClass]="size.color_size.sku.warehouse.pivot.quantity ? 'btn-success' : 'btn-secondary'"
+                                    [disabled]="size.color_size.sku.warehouse.pivot.quantity ? false : true"
+                                    (click)="addCart(color, size, size.color_size.sku.warehouse.pivot)">+</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </li>
+
+    </ul>
+
+</div>

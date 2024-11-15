@@ -21,7 +21,7 @@ export class DropdownAuthUserComponent {
   }
   
   logout(){
-    this._auth.logout(this.store);
+    this._auth.logout();
   }
 
 

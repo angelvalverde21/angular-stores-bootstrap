@@ -6,22 +6,30 @@
 
     <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
 
-
     <div ngbAccordion class="mb-3" [closeOthers]="true">
-        <div ngbAccordionItem [collapsed]="false">
+
+        <div ngbAccordionItem [collapsed]="false" (click)="selected(1)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
-                    <i class="fa-solid fa-circle-info me-2"></i>
-                    <span>{{ product.name }}</span>
+                    @if(this.accordionItem == 1){
+                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
+                            <i class="fa-solid fa-circle-info me-2"></i>
+                            <span>{{ product.name }}</span>
+                        </div>
+                    }@else {
+                        <i class="fa-solid fa-circle-info me-2"></i>
+                        <span>{{ product.name }}</span>
+                    }
                 </button>
             </h2>
+
             <div ngbAccordionCollapse>
                 <div ngbAccordionBody>
                     <ng-template>
                         <div class="row">
 
                             <div class="col-lg-4 col-md-6 col-12">
-                                <div class="card">
+                                <div class="card mt-3">
                                     <div class="card-body text-center">
                                         <img width="50%" class="mx-auto mb-3"
                                             [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"
@@ -45,7 +53,7 @@
                                 <form [formGroup]="form" (ngSubmit)="save()">
 
                                     <div class="row mb-3">
-                                        <div class="col-lg-8 col-12">
+                                        <div class="col-lg-12">
                                             <app-input-group icon="fa-regular fa-pen-to-square">
                                                 <input formControlName="name" type="text" class="form-control"
                                                     placeholder="Name" aria-label="tiktok"
@@ -53,11 +61,16 @@
                                             </app-input-group>
                                         </div>
 
-                                        <div class="col-lg-4 col-12">
+                                        <!-- <div class="col-lg-4 col-12">
                                             <app-input-group icon="fa-regular fa-pen-to-square">
                                                 <input formControlName="tags" type="text" class="form-control"
                                                     placeholder="tags" aria-label="tags" aria-describedby="basic-tags">
                                             </app-input-group>
+                                        </div> -->
+
+                                        <div class="col-lg-12 col-12">
+                                            <textarea id="" formControlName="tags" class="form-control mb-3"
+                                                placeholder="Tags"></textarea>
                                         </div>
 
                                         <div class="col-lg-12 col-12">
@@ -69,8 +82,8 @@
 
                                     <ul class="list-group mb-3">
 
-                                        <li class="list-group-item">
-                                            <p class="mt-3">
+                                        <li class="list-group-item py-0 bg bg-secondary text-white">
+                                            <p class="my-2">
                                                 Disponible: <span *ngFor="let size of product.sizes; last as last">{{
                                                     size.name }} <i *ngIf="!last">,</i></span>
                                             </p>
@@ -87,6 +100,7 @@
                                         </li>
 
                                         <li class="list-group-item">
+
                                             <div class="form-check mb-3">
 
                                                 @if (product.sizes.length > 1){
@@ -107,37 +121,13 @@
                                                 }
 
                                             </div>
+
                                         </li>
 
                                     </ul>
 
-                                    <app-button-save [btnLoading]="loadingEdit"
+                                    <app-button-save type="dark" [btnLoading]="loadingEdit"
                                     [btnActive]="form.valid"></app-button-save>
-
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="times d-flex justify-content-between">
-                                                <div class="created">
-                                                    <p>Creado:</p>
-                                                    <time
-                                                        [attr.datetime]="product.created_at | date: 'yyyy-MM-ddTHH:mm:ss'">
-                                                        {{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}
-                                                    </time>
-                                                </div>
-                                                <div class="updated">
-                                                    <p>Actualizado:</p>
-                                                    <strong>
-                                                        <time
-                                                            [attr.datetime]="product.updated_at | date: 'yyyy-MM-ddTHH:mm:ss'">
-                                                            {{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}
-                                                        </time>
-                                                    </strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
 
                                 </form>
                             </div>
@@ -147,11 +137,18 @@
                 </div>
             </div>
         </div>
-        <div ngbAccordionItem>
+        <div ngbAccordionItem (click)="selected(2)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
-                    <i class="fa-solid fa-dollar-sign me-2"></i>
-                    <span>Precios</span>
+                    @if(this.accordionItem == 2){
+                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
+                            <i class="fa-solid fa-sack-dollar me-2"></i>
+                            <span>Precios</span>
+                        </div>
+                    }@else {
+                        <i class="fa-solid fa-sack-dollar me-2"></i>
+                        <span>Precios</span>
+                    }
                 </button>
             </h2>
             <div ngbAccordionCollapse>
@@ -162,12 +159,20 @@
                 </div>
             </div>
         </div>
-        <div ngbAccordionItem>
+        <div ngbAccordionItem (click)="selected(3)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
-                    <i class="fa-solid fa-warehouse me-2"></i>
-                    <span>Inventario</span>
+                    @if(this.accordionItem == 3){
+                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
+                            <i class="fa-solid fa-warehouse me-2"></i>
+                            <span>Inventario</span>
+                        </div>
+                    }@else {
+                        <i class="fa-solid fa-warehouse me-2"></i>
+                        <span>Inventario</span>
+                    }
                 </button>
+
             </h2>
             <div ngbAccordionCollapse>
                 <div ngbAccordionBody>
@@ -177,7 +182,55 @@
                 </div>
             </div>
         </div>
+        <div ngbAccordionItem (click)="selected(4)">
+            <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                    @if(this.accordionItem == 4){
+                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
+                            <i class="fa-solid fa-warehouse me-2"></i>
+                            <span>Reporte por ciudad</span>
+                        </div>
+                    }@else {
+                        <i class="fa-solid fa-warehouse me-2"></i>
+                        <span>Reporte por ciudad</span>
+                    }
+                </button>
+
+            </h2>
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                    <ng-template>
+                        <app-product-report [product_id]="product.id"></app-product-report>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
     </div>
+
+    
+    <div class="card">
+        <div class="card-body">
+            <div class="times d-flex justify-content-between">
+                <div class="created">
+                    <p>Creado:</p>
+                    <time
+                        [attr.datetime]="product.created_at | date: 'yyyy-MM-ddTHH:mm:ss'">
+                        {{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}
+                    </time>
+                </div>
+                <div class="updated">
+                    <p>Actualizado:</p>
+                    <strong>
+                        <time
+                            [attr.datetime]="product.updated_at | date: 'yyyy-MM-ddTHH:mm:ss'">
+                            {{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}
+                        </time>
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- <div class="card mb-3 custom-card">
 

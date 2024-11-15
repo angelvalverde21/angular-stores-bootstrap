@@ -1,0 +1,24 @@
+
+<div class="row">
+    <div class="col-lg-6 col-6 col-md-6">
+        <div class="card text-bg-primary mb-3" style="min-height: 175px;">
+            <div class="card-header text-center">Total Productos</div>
+            <div class="card-body d-flex align-items-center justify-content-center">
+                <div class="text-center">
+                    <h1>{{ totalQuantityProduct }}</h1>
+                    <small>Unidad(es)</small>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-6 col-md-6">
+        <app-card-total-amount type="success" title="Total Precio Normal" [totalAmount]="totalPriceNormal" [amount]="priceNormal"></app-card-total-amount>
+    </div>
+    <div class="col-lg-6 col-6 col-md-6">
+        <app-card-total-amount type="warning" title="Total Precio Mayor" [totalAmount]="totalPriceMayor" [amount]="priceMayor"></app-card-total-amount>
+    </div>
+    <div class="col-lg-6 col-6 col-md-6">
+        <app-card-total-amount type="danger" title="Total Precio Costo" [totalAmount]="totalPriceCosto" [amount]="priceCosto"></app-card-total-amount>
+    </div>
+</div>

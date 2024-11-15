@@ -7,6 +7,8 @@
 
 		<app-cart></app-cart>
 
+		<app-summary></app-summary>
+
 		<!-- {{ items | json }} -->
 		<div class="text-end mb-3">
 			<!-- <button type="button" class="btn btn-outline-secondary" (click)="offcanvas.close('Save click')">Save</button> -->
@@ -15,4 +17,4 @@
 	</div>
 </ng-template>
 
-<button class="btn btn-outline-dark me-2" (click)="openCanvas(content)"><i class="fa-solid fa-bag-shopping me-2"></i>{{ count }}</button>
+<button class="btn btn-light" (click)="openCanvas(content)" [disabled]="count <= 0"><i class="fa-solid fa-bag-shopping"></i></button>

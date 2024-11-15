@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-between align-items-center mb-3" *ngIf="showAddressIndex">
+    <h5>Direcciones de envio</h5>
+    <div>
+        <app-address-create-modal (emitAddress)="receiveAddress($event)"></app-address-create-modal>
+    </div>
+</div>
+
+<div ngbAccordion [closeOthers]="true" class="mb-3" *ngIf="showAddressIndex">
+    <ng-container *ngFor="let address of addresses; let i = index">
+        <div ngbAccordionItem [collapsed]="address.id !== addressIdShow"> <!-- Abre el primer elemento -->
+            <h2 ngbAccordionHeader>
+                <button ngbAccordionButton (click)="accordionSelected(address.id)">
+
+                    @if(this.seleccionado == address.id){
+                        <i class='fa-solid fa-circle-check me-2' style="font-size: 1.25rem;"></i>
+                        <span class="fw-bold">{{ address.name | uppercase }} - {{ address.district.name }}</span>
+                    } @else {
+                        <i class="fa-regular fa-circle-check me-2"></i>
+                        <span>{{ address.name | uppercase }} - {{ address.district.name }}</span>
+                    }
+
+                </button>
+            </h2>
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                    <ng-template>
+                        <app-card-address [address]="address" title="Direccion de envio"
+                            [show]="showHeaderCard"></app-card-address>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<div class="mb-3 d-flex justify-content-between align-items-center" *ngIf="!showAddressIndex">
+
+    <h5>Cargando Direcciones...</h5>
+    <app-loading></app-loading>
+
+</div>

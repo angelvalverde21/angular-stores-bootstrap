@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+
+<div class="container" >
+    <div class="card border-primary">
+
+        <div class="card-header py-3 bg bg-primary text-white">
+            Crear orden online
+        </div>
+    
+        <div class="card-body">
+     
+            <app-warehouse-order-create-online (eventOrderId)="receiveOrderId($event)"></app-warehouse-order-create-online>
+    
+        </div>
+    
+    </div>
+</div>

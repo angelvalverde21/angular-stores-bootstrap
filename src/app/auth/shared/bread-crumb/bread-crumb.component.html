@@ -1,13 +1,9 @@
 <nav aria-label="breadcrumb mb-3">
     <ol class="breadcrumb">
-
         <ng-container *ngFor="let item of items; last as ultimo">
             <li *ngIf="!ultimo" class="breadcrumb-item"><a [routerLink]="item.link">{{ item.name }}</a></li>
             <li *ngIf="ultimo" class="breadcrumb-item" [ngClass]="ultimo ? 'active' : '' ">{{ item.name }}</li>
         </ng-container>
-        
         <!-- <li class="breadcrumb-item active" aria-current="page">Colors</li> -->
     </ol>
 </nav>
-
-<hr>

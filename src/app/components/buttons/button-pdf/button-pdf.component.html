@@ -1,0 +1,10 @@
+<div ngbDropdown class="d-inline-block">
+    <button type="button" class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>
+        <i class="fa-solid fa-print me-2"></i>Imprimir
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button (click)="downloadPdf('packing')" href="" ngbDropdownItem><i class="fa-solid fa-print me-2"></i> Rotulado</button>
+        <hr>
+        <button (click)="downloadPdf('voucher')" href="" ngbDropdownItem><i class="fa-solid fa-box-open me-2"></i>Voucher</button>
+    </div>
+</div>

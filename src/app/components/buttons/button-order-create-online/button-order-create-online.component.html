@@ -1,0 +1,19 @@
+<ng-template #contentPuntoVenta let-modal>
+
+    <div class="modal-header">
+        <h5 class="modal-title"><i class="fa-solid fa-truck-fast me-2"></i></h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <div class="modal-body">
+
+        <app-warehouse-order-create-online (eventOrderId)="receiveOrderId($event)"></app-warehouse-order-create-online>
+
+    </div>
+
+
+</ng-template>
+
+
+<button class="btn btn-outline-dark px-3" (click)="openVerticallyCentered(contentPuntoVenta)"><i
+        class="fa-solid fa-truck-fast"></i>{{ text }}</button>

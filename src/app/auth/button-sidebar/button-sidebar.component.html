@@ -1,0 +1,30 @@
+<ng-template #content let-offcanvas>
+	<div class="offcanvas-header">
+		<h5 class="offcanvas-title" id="offcanvas-basic-title"><i class="fa-solid fa-user me-3"></i>{{ name | firstName }}</h5>
+		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+	</div>
+	<div class="offcanvas-body">
+
+        <div class="menu" *ngFor="let menu of menus">
+            <ng-container *ngIf="!menu.protected || estaAutenticado">
+                <div class="name p-3">{{ menu.name }}</div>
+                <div class="submenu" *ngFor="let children of menu.childrens">
+                    <a class="p-3 d-block" (click)="redirect(children.url)"><i class="{{ children.icon }} me-2"></i> {{ children.name }}</a>
+                    <div class="warehouses" *ngFor="let warehouse of children?.warehouses">
+                        <a class="ms-3 p-3 d-block" [routerLink]="['/', store, 'warehouses', warehouse.id, 'orders']" (click)="closeSidebar()"><i class="fa-solid fa-warehouse me-2"></i> {{ warehouse.slug | uppercase}}</a>
+                        <a class="ms-5 p-3 d-block" [routerLink]="['/', store, 'warehouses', warehouse.id, 'orders', 'create-online']" (click)="closeSidebar()"><i class="fa-solid fa-truck-fast me-2"></i>Online</a>
+                        <a class="ms-5 p-3 d-block" [routerLink]="['/', store, 'warehouses', warehouse.id, 'orders', 'create-online']" (click)="closeSidebar()"><i class="fa-solid fa-cash-register me-2"></i>Tienda</a>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="menu logout" *ngIf="estaAutenticado">
+            <hr>
+            <a class="p-3 d-block" (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i> Salir</a>
+        </div>
+
+	</div>
+</ng-template>
+
+<button class="btn btn-light me-2" (click)="openCanvas(content)"><i class="fa-solid fa-bars mx-1"></i></button>

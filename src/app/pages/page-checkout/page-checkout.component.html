@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<div class="container">
+
+    @if (is_auth) {
+
+        <div class="row">
+                
+            <div class="col-lg-7 col-md-12 col-l2">
+
+                <app-address-index [addresses]="user.addresses" (addressSelected)="authAddressIndex($event)"></app-address-index>
+                <!-- <app-accordion-address></app-accordion-address> -->
+            
+            </div>
+
+            <div class="col-lg-5 col-md-12 col-l2">
+
+                <app-cart></app-cart>
+
+                <app-summary></app-summary>
+
+                <button class="btn btn-dark w-100"  (click)="save()" [disabled]="!isButtonValid">Realizar Pedido</button>
+
+            </div>
+        </div>
+        <!-- <app-accordion-address></app-accordion-address> -->
+
+    } @else {
+        
+        <form [formGroup]="form">
+
+            <div class="row">
+                
+                <div class="col-lg-7 col-md-12 col-l2">
+    
+                    <app-address-form formControlName="address" (formValidity)="formValid($event)" [saving]="saving"></app-address-form>
+                
+                </div>
+    
+                <div class="col-lg-5 col-md-12 col-l2">
+    
+                    <app-cart></app-cart>
+    
+                    <app-summary></app-summary>
+    
+                    <button class="btn btn-dark w-100"  (click)="save()" [disabled]="!isButtonValid">Realizar Pedido</button>
+    
+                </div>
+            </div>
+    
+        </form>
+
+    }
+
+</div>

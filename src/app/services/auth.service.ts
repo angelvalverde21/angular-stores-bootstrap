@@ -32,13 +32,13 @@ export class AuthService {
     private _store: StoreService,
   ) {}
 
-  logout(store: string) {
+  logout() {
 
     localStorage.setItem('access_token', '');
     localStorage.setItem('roles', '');
     localStorage.setItem('user', '');
     // localStorage.setItem('store', '');
-    this.router.navigateByUrl(store + '/login');
+    this.router.navigateByUrl(this._store.name() + '/login');
     console.log('logout');
 
   }
@@ -54,6 +54,7 @@ export class AuthService {
     
     
     return this.http.post(this.url + '/'  + this._store.leerSlugBase() +  '/login', user, this.opciones).pipe(
+
       map((resp: any) => {
         // this._console.log('entro al RXJS');
 
@@ -68,6 +69,7 @@ export class AuthService {
 
       })
     );
+
   }
 
   setLogin(token: string, user: {}, store: any){
@@ -109,13 +111,13 @@ export class AuthService {
   }
 
   getformToken(order: any) {
-    return this.http.post(this.url + '/izipay/token', order, {
+    return this.http.post(this.url + '/' + this._store.name() + '/izipay/token', order, {
       responseType: 'text',
     });
   }
 
   registrarPago(dataFromIzipay: any) {
-    return this.http.post(this.url + '/izipay/registrarpago', dataFromIzipay, {
+    return this.http.post(this.url + '/' + this._store.name() +  '/izipay/registrarpago', dataFromIzipay, {
       responseType: 'text',
     });
   }

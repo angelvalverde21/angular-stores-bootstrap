@@ -4,6 +4,10 @@
 
 <div class="container" *ngIf="!loading">
 
+  <app-button-product-create-modal></app-button-product-create-modal>
+
+  <!-- <div class="d-flex  flex-row-reverse mb-3" [routerLink]="['/',store, 'auth', 'products', 'create']"><button class="btn btn-dark">Crear Producto</button></div> -->
+
   <app-product [product]="product" *ngFor="let product of products"></app-product>
 
 </div>

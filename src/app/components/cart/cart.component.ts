@@ -4,13 +4,12 @@ import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SummaryComponent } from "../summary/summary.component";
 import { PipesModule } from '../../shared/pipes.module';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [RouterModule, CommonModule, SummaryComponent, PipesModule],
+  imports: [RouterModule, CommonModule, PipesModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -37,9 +36,10 @@ export class CartComponent implements OnInit, OnDestroy{
     this.itemsSubscription = this._cart.getItemsObservable().subscribe((resp:any) => {
       
       this.items = resp;
-      console.log("se ejecuto la subscripcion");
+      console.log("se ejecuto la subscripcion en cart");
 
     });
+
   }
 
   deleteItem(index: any) {

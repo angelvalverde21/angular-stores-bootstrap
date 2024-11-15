@@ -5,9 +5,7 @@ import { PenPipe } from './Pipes/pen.pipe';
 import { UpperFirstPipe } from './Pipes/upper-first.pipe';
 import { ShortNameSizePipe } from './Pipes/short-name-size.pipe';
 import { SlugPipe } from './Pipes/slug.pipe';
-
-
-
+import { DateCustomPipe } from './Pipes/date-custom.pipe';
 
 @NgModule({
 
@@ -17,7 +15,8 @@ import { SlugPipe } from './Pipes/slug.pipe';
     PenPipe,
     UpperFirstPipe,
     ShortNameSizePipe,
-    SlugPipe
+    SlugPipe,
+    DateCustomPipe
   ],
   
   exports: [
@@ -26,7 +25,8 @@ import { SlugPipe } from './Pipes/slug.pipe';
     PenPipe,
     UpperFirstPipe,
     ShortNameSizePipe,
-    SlugPipe
+    SlugPipe,
+    DateCustomPipe
   ],
 
   imports: [

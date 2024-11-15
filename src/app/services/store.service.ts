@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrderService } from './order.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,91 @@ export class StoreService {
     }
   }
 
+  getOrders(){
+
+    const orders = JSON.parse(localStorage.getItem('store')!).orders;
+    return orders;
+    
+  }
+
+  getOrderById(order_id: number | null) {
+
+    const url = `${this.url_private}/${this.name()}/orders/${order_id}`;
+    return this.http.get(url);
+
+    const orders = JSON.parse(localStorage.getItem('store')!).orders;
+    const order = orders.find((order: any) => order.id == order_id);
+  
+    if (order != null) {
+      // Retorna un observable con el pedido encontrado
+      return of(order);
+    } else {
+      // Si no está en localStorage, hace la solicitud HTTP
+      const url = `${this.url_private}/${this.name()}/orders/${order_id}`;
+      return this.http.get(url);
+    }
+  }
+
+  setOrders(data: [], warehouse_id: number){
+
+    const store = JSON.parse(localStorage.getItem('store')!);
+    // const warehouse = store.warehouses.find((warehouse:any) => warehouse.id == warehouse_id);
+    // warehouse['orders'] = data;
+
+    const warehouseIndex = store.warehouses.findIndex((warehouse: any) => warehouse.id == warehouse_id);
+
+    if (warehouseIndex !== -1) {
+      // Si se encuentra el warehouse, actualizas el objeto
+      store.warehouses[warehouseIndex]['orders'] = data;
+      
+      // Si necesitas guardar de nuevo en localStorage
+      // store.warehouses = warehouses;
+      localStorage.setItem('store', JSON.stringify(store));
+    }
+
+
+    // localStorage.setItem('store', JSON.stringify(store));
+
+  }
+
+  setOrder(dataOrder: any){ //dataOrder es una sola orden
+
+    let store = JSON.parse(localStorage.getItem('store')!);
+
+    let orders = store.orders.map((order:any) => {
+      if (order.id === dataOrder.id) {
+        return dataOrder; // Reemplaza el objeto si coincide el id
+      }
+      return order; //sino encuentro el id, deja el order original
+    });
+
+    store['orders'] = orders;
+
+    localStorage.setItem('store', JSON.stringify(store));
+
+  }
+//43277
+  setOrderItem(dataItem: any){ //dataOrder es una sola orden
+
+    let store = JSON.parse(localStorage.getItem('store')!);
+
+    let order = store.orders.find((order:any) => order.id == dataItem.order_id);
+
+    let items = order.items.map((item:any) => {
+      if (item.id === dataItem.id) {
+        return dataItem; // Reemplaza el objeto si coincide el id
+      }
+      return item; //sino encuentro el id, deja el order original
+    });
+
+    order['items'] = items;
+
+    this.setOrder(order); //actualiza el orde en especifico con los cambios hechos a los irems
+
+    // localStorage.setItem('store', JSON.stringify(store));
+
+  }
+
   name() {
     if (localStorage.getItem('slug_base')) {
       return localStorage.getItem('slug_base'); //el ! le indica que no sera vacio
@@ -44,6 +130,45 @@ export class StoreService {
   warehouses() {
     if (localStorage.getItem('store')) {
       return JSON.parse(localStorage.getItem('store')!).warehouses; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
+
+  origins() {
+
+    const store = JSON.parse(localStorage.getItem('store')!);
+    if (store.origins != null) {
+      return store.origins; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+
+  }
+
+  gateways() {
+
+    const store = JSON.parse(localStorage.getItem('store')!);
+    if (store.gateways != null) {
+      return store.gateways; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+
+  }
+
+  couriers() {
+    const store = JSON.parse(localStorage.getItem('store')!);
+    if (store.couriers != null) {
+      return store.couriers; //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
+  delivery_methods() {
+    const store = JSON.parse(localStorage.getItem('store')!);
+    if (store.delivery_methods != null) {
+      return store.delivery_methods; //el ! le indica que no sera vacio
     } else {
       return '';
     }
@@ -157,6 +282,15 @@ export class StoreService {
     return this.http.get(url);
   }
 
+  show(store: string): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    const url = `${this.urlPrivate}/${store}`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.get(url);
+  }
+
   
   searchPublic(store: string, search: string): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
@@ -175,7 +309,6 @@ export class StoreService {
 
     return this.http.get(url);
   }
-
 
 
   inventory(): Observable<any> {
@@ -212,6 +345,30 @@ export class StoreService {
   }
 
 
+  save(data:[]): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+
+    const url = `${this.urlPrivate}/${this.name()}/update`;
+    // const url = `${this.url_base}?store=${store}`;
+    // console.log(url);
+
+    return this.http.post(url, data);
+  }
+
+
+
+  private sidebarVisibility: Subject<boolean> = new Subject<boolean>();
+
+  /** CREANDO LOS SETTER Y GETTER */
+
+  setOpenSidebar(value: boolean) {
+    this.sidebarVisibility.next(value);
+    // this.cartVisibility.complete(); //termina la suscripcion, util cuando solo se requiere usar una sola vez
+  }
+
+  getOpenSidebarObservable() {
+    return this.sidebarVisibility.asObservable();
+  }
 
   // verifyStore(storeName: string): Observable<boolean> {
   //   return this.http.get<{status: number, success: boolean, message: string, error?: any}>(`${this.url_base}/${storeName}`).pipe(

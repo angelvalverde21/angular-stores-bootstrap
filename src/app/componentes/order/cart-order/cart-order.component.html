@@ -1,0 +1,33 @@
+<div class="card mb-3 border-secondary" *ngIf="cartItems != null">
+
+    <div class="card-header">
+        <h6>Pedido</h6>
+    </div>
+
+    <ul class="list-group list-group-flush">
+
+        <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let item of cartItems; index as index">
+            <div class="w-100 d-flex">
+                <figure class="image me-3 mb-0">
+                    <img height="75px" [src]="item.image" alt="">
+
+                </figure>
+                <div class="description">
+                    <div>Cantidad {{ item.quantity }}</div>
+                    <div>Talla {{ item.size.name }}</div>
+                </div>
+            </div>
+            <div class="control ms-3">
+                <button class="btn btn-danger" (click)="eliminarItem(index)"
+                    aria-label="Eliminar producto">X</button>
+                <!-- Texto más accesible -->
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+
+<app-summary cartContent="ItemsCartWarehouse" *ngIf="cartItems != null"
+[collapsed]="true"></app-summary>

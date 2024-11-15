@@ -26,4 +26,14 @@ export class DistrictPublicService {
     return this.http.get(url);
   }
 
+  getById(district_id: number): Observable<any> {
+    // Construye la URL con el parámetro 'nombre'
+    
+    const url = `${this.urlPublic}/${this._store.name()}/districts/${district_id}`;
+    // const url = `${this.url_base}?store=${store}`;
+    console.log(url);
+
+    return this.http.get(url);
+  }
+
 }

@@ -1,18 +1,28 @@
-<div class="card">
-    <div class="card-header bg bg-secondary text-white d-flex align-items-center">
-        <i class="fa-solid fa-truck-fast me-2"></i>
-        <span>Transporte</span>
+<div class="card mb-3">
+    <div class="card-header bg bg-{{ bg }}  py-1 d-flex justify-content-between align-items-center">
+
+        <div class="title d-flex align-items-center">
+            <i class="fa-solid fa-truck-fast me-2"></i>
+            <span>Transportar por: </span>
+        </div>
+
+        <div class="icon">
+            <app-button-dots-vertical></app-button-dots-vertical>
+        </div>
+
     </div>
     <div class="card-body">
 
-        <!-- {{ courier_address | json}} -->
-
-        <ul class="list-group">
-            <li class="list-group-item"><h6>{{ courier_address.name | uppercase }}</h6></li>
-            <li class="list-group-item">{{ courier_address.primary }}</li>
-            <li class="list-group-item"><i class="fa-solid fa-phone me-2"></i> {{ courier_address.phone }}</li>
+        <ul class="p-0">
+            <li class="list-group-item">
+                <h6>{{ courier_address?.name | uppercase }}</h6>
+            </li>
+            <li class="list-group-item">{{ courier_address?.primary }}</li>
+            <li class="list-group-item"><i class="fa-solid fa-phone me-2"></i> {{ courier_address?.phone }}</li>
             <!-- <li class="list-group-item"><strong>{{ courier_address.district.name }} - {{  courier_address.district.province.name }} - {{ courier_address.district.province.department.name }}</strong></li> -->
-            <li class="list-group-item text-center"><img height="100px" [src]="courier_address.courier.profile_photo_url" alt=""></li>
-          </ul>
+        </ul>
+
+        <img class="logo-courier" style="max-height: 75px; max-width: 100px;" [src]="courier_address?.courier.profile_photo_url" alt="">
+
     </div>
 </div>

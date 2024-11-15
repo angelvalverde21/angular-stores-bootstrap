@@ -1,0 +1,134 @@
+<!-- Mostrar direccion por defecto -->
+<ng-container *ngIf="showAddressDefault">
+    <div class="card mb-3">
+
+        <!-- {{ address.id }} -->
+        <div class="logo">
+            <img [src]="logo" alt="" style="max-height: 75px; max-width: 75px">
+        </div>
+
+        <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+            <app-loading-center></app-loading-center>
+        </div>
+
+        <div class="card-header py-3">
+            {{ title }}
+        </div>
+        <div class="card-body">
+            <app-address-template [address]="address"></app-address-template>
+            <button class="btn btn-dark" (click)="fnShowAddressIndex()">Oficinas</button>
+        </div>
+    </div>
+</ng-container>
+
+<!-- Listar Direcciones de envio -->
+
+<ng-container *ngIf="showAddressIndex">
+
+    <div class="card mb-3">
+        <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+            <app-loading-center></app-loading-center>
+        </div>
+
+        <div class="card-header py-3">
+            {{ title }}
+        </div>
+        <div class="card-body">
+            <ng-container *ngFor="let address of addresses">
+                #{{address.id}}
+                <app-address-template [address]="address" title="Direccion de envio"></app-address-template>
+                <div class="controls d-flex">
+                    <button class="btn btn-dark me-2" (click)="fnShowAddressDefault(address)">Seleccionar</button>
+                    <button class="btn btn-outline-dark" (click)="fnShowEditAddress(address)">Editar</button>
+                </div>
+                <hr>
+            </ng-container>
+        </div>
+
+        <div class="card-footer py-3">
+            <div class="controls d-flex justify-content-between ">
+                <!-- Este address es el original -->
+                <button class="btn btn-outline-primary me-2" (click)="fnShowCreateAddress()">Agregar Nueva Oficina</button>
+                <button class="btn btn-outline-danger" (click)="fnShowAddressDefault(address)">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+</ng-container>
+
+
+<!-- Agregar Direccion -->
+
+<ng-container *ngIf="showCreateAddress">
+
+    <div class="card mb-3">
+
+        <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+            <app-loading-center></app-loading-center>
+        </div>
+
+        <div class="card-header">
+            Agregar Direccion
+        </div>
+
+        <div class="card-body">
+
+            <form [formGroup]="form"> 
+
+                {{ form.value | json }}
+
+                {{ formIsValid }}
+                    
+                <app-address-form (formValidity)="formValid($event)" formControlName="address" formType="addressToUser">
+                    <div class="controls d-flex justify-content-between ">
+                        <!-- Este address es el original -->
+                        <button class="btn btn-dark me-2" (click)="createNewAddress()" [disabled]="!formIsValid">Agregar</button>
+                        <button class="btn btn-outline-danger" (click)="fnShowAddressDefault(address)">Cancelar</button>
+                    </div>
+                </app-address-form>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</ng-container>
+
+<!-- Editar Direccion de envio -->
+
+<ng-container *ngIf="showEditAddress">
+
+    <div class="card mb-3">
+
+        <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+            <app-loading-center></app-loading-center>
+        </div>
+
+        <div class="card-header">
+            Editar Direccion
+        </div>
+
+        <div class="card-body">
+
+            <form [formGroup]="form"> 
+
+                <!-- {{ formIsValid }} -->
+
+                <!-- {{ form.value | json }} -->
+                
+                <app-address-form formControlName="address" (formValidity)="formValid($event)" formType="addressToUser">
+                    <div class="controls d-flex justify-content-between ">
+                        <!-- Este address es el original -->
+                        <button class="btn btn-primary me-2" (click)="updateAddress()" [disabled]="!formIsValid">Guardar</button>
+                        <button class="btn btn-outline-danger" (click)="fnShowAddressDefault(address)">Cancelar</button>
+                    </div>
+                </app-address-form>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</ng-container>

@@ -1,61 +1,56 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { PipesModule } from '../../shared/pipes.module';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [PipesModule],
+  imports: [PipesModule, NgbAccordionModule],
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.css'
+  styleUrl: './summary.component.css',
 })
 export class SummaryComponent implements OnInit, OnDestroy {
 
   summarySubscription! : Subscription;
   summary: any[] = [];
-  items: any;
-  subAmount: number = 0;
-  totalAmount: number = 0;
+  items: any; 
+  costos: any; 
   igv: number = 0;
+  itemsx = ['First', 'Second', 'Third'];
+  @Input() collapsed: boolean = false;
 
+  @Input() cartContent: string = "cartItems";
+  
   constructor(private _cart: CartService){
 
   }
   
   ngOnInit(): void {
-
-    this.calculate();
+    
+    console.log("costos");
+    
+    this.costos = this._cart.costos(this.cartContent);
 
     this.summarySubscription =  this._cart.getSummaryObservable().subscribe((resp:any) => {
+      
       console.log("se escucho la subscripcion calculate");
       
-      this.calculate();
+      this.costos = this._cart.costos(this.cartContent) ;
+       
     });
 
-  }
-
-  calculate(){
-
-    this.subAmount = 0;
-    this.totalAmount = 0;
-
-    console.log("se ejecuto calculate");
-    
-
-    this.items = this._cart.getItems();
-
-    this.items.forEach((item:any) => {
-      this.subAmount += item.price ? item.prices[0].value : 0;
-
-    });
-
-    this.totalAmount = this.subAmount;
   }
 
   ngOnDestroy(): void {
+
+    if (this.summarySubscription) {
+      this.summarySubscription.unsubscribe();
+    }
     // throw new Error('Method not implemented.');
   }
 
+  
 
 }

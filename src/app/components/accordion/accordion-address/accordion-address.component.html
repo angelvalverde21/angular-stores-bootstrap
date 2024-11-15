@@ -1,0 +1,41 @@
+<div class="header d-flex justify-content-between">
+    <div>
+        <h4>Direcciones de envio</h4>
+        <div class="mb-3">
+            <small>Seleccione una direccion de envio</small>
+        </div>
+    </div>
+    <div>
+        <app-address-create-modal (addressNew)="newAddress($event)"></app-address-create-modal>
+    </div>
+</div>
+
+<div ngbAccordion [closeOthers]="true" class="mb-3">
+    <ng-container *ngFor="let address of addresses; let i = index">
+        <div ngbAccordionItem [collapsed]="i !== 0"> <!-- Abre el primer elemento -->
+            <h2 ngbAccordionHeader>
+                <button ngbAccordionButton (click)="selected(i)">
+
+                    @if(this.seleccionado == i){
+                    <i class='fa-solid fa-circle-check me-2' style="font-size: 1.25rem;"></i>
+                    <span class="fw-bold">ENVIAR A: {{ address.name | uppercase }}</span>
+                    } @else {
+                    <i class="fa-regular fa-circle-check me-2"></i>
+                    <span>{{ address.name | uppercase }}</span>
+                    }
+
+                </button>
+            </h2>
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                    <ng-template>
+                        <app-card-address [address]="address" title="Direccion de envio"></app-card-address>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<!-- <i class="fa-regular fa-circle-check"></i> -->
+<!-- <i class="fa-solid fa-truck me-2"></i>  -->

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PipesModule } from '../../../../../shared/pipes.module';
 import { ProductPriceCreateComponent } from "../product-price-create/product-price-create.component";
 import Swal from 'sweetalert2';
@@ -12,12 +12,22 @@ import { ProductService } from '../../../../../services/product.service';
   templateUrl: './product-prices.component.html',
   styleUrl: './product-prices.component.css'
 })
-export class ProductPricesComponent {
+export class ProductPricesComponent implements OnInit{
 
   @Input() product_id: number = 0; 
   @Input() prices: any[] = []; 
 
   constructor(private _product: ProductService){
+
+
+    
+  }
+  ngOnInit(): void {
+
+    this.prices = this.prices.reverse();
+    // console.log(this.prices);
+    
+    // console.log(this.prices.reverse());
 
   }
 

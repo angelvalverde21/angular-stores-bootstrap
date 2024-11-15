@@ -1,0 +1,51 @@
+<div class="card mb-3">
+
+    <!-- <div class="overlay d-flex align-items-center justify-content-center" *ngIf="loading">
+        <app-loading-center></app-loading-center>
+    </div> -->
+
+    <div class="card-body">
+
+        <app-dropzone name="photo" [slug]="'orders/' + order_id + '/package/photos'" class="mx-3" (eventAddFile)="dropzoneValid($event)" (eventUpload)="addPhoto($event)" (eventComplete)="dropzoneStatus($event)" #dropzone></app-dropzone>
+
+        <button class="btn btn-primary w-100 mb-3" [disabled]="!is_dropzone_valid" (click)="onSubmit(dropzone)">Registrar comprobante</button>
+
+    </div>
+
+</div>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="card" *ngIf="!loading">
+
+    <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+        <app-loading-center></app-loading-center>
+    </div>
+
+    <ul class="list-group list-group-flush" *ngIf="photos.length > 0; else templateName">
+
+      <li class="list-group-item d-flex justify-content-between p-3" *ngFor="let photo of photos">
+        <div>
+            <img height="200px" [src]="photo.url_thumbnail" alt="">
+        </div>
+        <div class="text-end">
+            <div class="mb-3">{{ photo.created_at | dateCustom }}</div>
+            <button class="btn btn-danger" (click)="eliminar(photo.id)">X</button>
+        </div>
+ 
+      </li>
+    </ul>
+
+    <ng-template #templateName>
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item d-flex justify-content-between p-3">
+                <p class="mx-auto">No hay comprobantes</p>
+            </li>
+          </ul>
+
+    </ng-template>
+
+
+
+</div>

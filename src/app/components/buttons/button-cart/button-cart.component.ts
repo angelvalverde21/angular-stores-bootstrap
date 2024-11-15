@@ -14,16 +14,17 @@ import {
 
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { OrderSummaryComponent } from '../../order-summary/order-summary.component';
 import { Router, RouterModule } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
 import { CartService } from '../../../services/cart.service';
 import { CartComponent } from "../../cart/cart.component";
+import { SummaryComponent } from "../../summary/summary.component";
+
 
 @Component({
   selector: 'app-button-cart',
   standalone: true,
-  imports: [RouterModule, CommonModule, OrderSummaryComponent, CartComponent],
+  imports: [RouterModule, CommonModule, CartComponent, SummaryComponent],
   providers: [NgbOffcanvasConfig, NgbOffcanvas],
   templateUrl: './button-cart.component.html',
   styleUrl: './button-cart.component.css'
@@ -38,6 +39,8 @@ export class ButtonCartComponent {
   items: any;
   loading: boolean = true;
   count: number = 0;
+
+  offCanvasRef: any;
 
   constructor(
     private _store: StoreService,
@@ -60,6 +63,7 @@ export class ButtonCartComponent {
   isVisible = false;
 
   ngOnInit() {
+    
     this.store = this._store.name()!;
     this.cartOpenSubscription = this._cart.getOpenCartObservable()
       .subscribe((visible: boolean) => {
@@ -72,12 +76,14 @@ export class ButtonCartComponent {
       });
   }
 
-  // closeCanvas() {
-  //   this._cart.closeCart();
-  // }
+  closeCanvas() {
+    if (this.offCanvasRef) {
+      this.offCanvasRef.close();
+    }
+  }
 
   openCanvas(content: TemplateRef<any>) {
-    this.offcanvasService
+    this.offCanvasRef = this.offcanvasService
       .open(content, {
         ariaLabelledBy: 'offcanvas-basic-title',
         panelClass: 'custom-offcanvas',

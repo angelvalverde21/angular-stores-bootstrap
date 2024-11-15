@@ -1,1 +1,30 @@
-<p>card-summary works!</p>
+
+<ul class="list-group mb-3">
+
+    <li class="list-group-item d-flex justify-content-between bg text-white" [ngClass]="is_pay ? 'bg-success' : 'bg-secondary'">
+        <h5 *ngIf="is_pay">
+            Pagado
+        </h5>
+        <h6 class="py-2" *ngIf="!is_pay">
+            Resumen de pago
+        </h6>
+    </li>
+    <li class="list-group-item d-flex justify-content-between">
+        <span class="label">Sub Total</span><span class="amount">{{ summary?.sub_total | pen }}</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between">
+        <span class="label">Descuentos</span><span class="amount">{{ summary?.descuentos | pen }}</span>
+    </li>
+
+    <li class="list-group-item d-flex justify-content-between">
+        <span class="label">IGV</span><span class="amount">S/. 0.00</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between">
+        <span class="label">Envio</span><span class="amount">GRATIS</span>
+    </li>
+    <li class="list-group-item">
+        <h4 class="d-flex justify-content-between"><span class="label">Total</span><span class="amount">{{ summary?.total_amount | pen }}</span>
+        </h4>
+    </li>
+    
+</ul>

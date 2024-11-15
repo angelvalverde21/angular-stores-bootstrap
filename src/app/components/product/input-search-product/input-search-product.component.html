@@ -1,0 +1,17 @@
+<app-input-group class="input-search">
+    <input type="text" name="search" (keyup)="keyUpSearch($event)" class="form-control py-2" style="font-size: 1rem;" placeholder="Agregar Producto">
+    <div class="loading" *ngIf="loading">
+        <app-loading size="sm"></app-loading>
+    </div>
+    <span class="input-group-text" *ngIf="product"><button class="btn" (click)="clearColors()"><i class="fa-solid fa-x"></i></button></span>
+</app-input-group>
+
+<ul class="list-group" *ngIf="products.length>0">
+    <li class="list-group-item" *ngFor="let product of products">
+        <button class="btn btn-light" (click)="selectProduct(product.id)">{{ product.name }}</button>
+    </li>
+</ul>
+
+<ng-container *ngIf="product">
+    <app-item-color-size-index [order_id]="order_id" [product]="product"></app-item-color-size-index>
+</ng-container>

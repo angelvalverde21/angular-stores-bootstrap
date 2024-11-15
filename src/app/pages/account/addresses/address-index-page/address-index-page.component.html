@@ -1,0 +1,8 @@
+<app-header></app-header>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="container" *ngIf="!loading">
+    <!-- <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb> -->
+     <app-address-index></app-address-index>
+</div>

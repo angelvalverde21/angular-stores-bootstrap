@@ -1,17 +1,20 @@
 <div class="controls d-flex justify-content-between mb-3 align-items-center">
 
     <div class="controls-left d-flex">
+
         <!-- boton de filtro -->
         <button class="btn btn-outline-dark me-2" (click)="openTop(contentFilters)"><i
                 class="fa-solid fa-filter"></i></button>
         <!-- boton para subir colores -->
         <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentModal)">
-            <i class="fa-solid fa-palette"></i>
+            <i class="fa-solid fa-camera"></i>
         </button>
+        
         <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentReport)"
             *ngIf="totalQuantityProduct">
             <i class="fa-solid fa-chart-column me-2"></i> {{ totalQuantityProduct }}
         </button>
+
     </div>
 
     <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
@@ -61,43 +64,23 @@
     </div>
 </ng-template>
 
-<!-- canvas report -->
+<!-- REPORTES COSTO TOTAL, POR MAYOR Y MENOR -->
 
 <ng-template #contentReport let-modal>
+
     <div class="modal-header">
         <h6 class="modal-title"><i class="fa-solid fa-chart-column me-2"></i> Reportes</h6>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
 
-        <div class="row">
-            <div class="col-lg-6 col-6 col-md-6">
-                <div class="card text-bg-primary mb-3" style="min-height: 175px;">
-                    <div class="card-header text-center">Total Productos</div>
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <div class="text-center">
-                            <h1>{{ totalQuantityProduct }}</h1>
-                            <small>Unidad(es)</small>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-lg-6 col-6 col-md-6">
-                <app-card-total-amount type="success" title="Total Precio Normal" [totalAmount]="totalPriceNormal" [amount]="priceNormal"></app-card-total-amount>
-            </div>
-            <div class="col-lg-6 col-6 col-md-6">
-                <app-card-total-amount type="warning" title="Total Precio Mayor" [totalAmount]="totalPriceMayor" [amount]="priceMayor"></app-card-total-amount>
-            </div>
-            <div class="col-lg-6 col-6 col-md-6">
-                <app-card-total-amount type="danger" title="Total Precio Costo" [totalAmount]="totalPriceCosto" [amount]="priceCosto"></app-card-total-amount>
-            </div>
-        </div>
+        <app-report-inventory [product]="product"></app-report-inventory>
 
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
     </div>
+    
 </ng-template>
 
 <!-- <h5 class="mb-3 title">{{ product.name }} - {{ totalQuantityProduct }}</h5> -->

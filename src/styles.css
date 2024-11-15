@@ -55,13 +55,125 @@ a {
 
 @media (min-width: 993px) and (max-width: 1200px) {
   .custom-offcanvas {
+    width: 35% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1600px) {
+  .custom-offcanvas {
     width: 30% !important; /* Establecer ancho al 75% */
   }
 }
 
-
-@media (min-width: 1201px){
+@media (min-width: 1601px){
   .custom-offcanvas {
     width: 25% !important; /* Establecer ancho al 75% */
   }
+}
+
+
+/**** sidebar *****/
+
+
+/* Canvas Cart */
+@media (min-width: 0px) and (max-width: 400px) {
+  .custom-sidebar-offcanvas {
+    width: 60% !important; /* Establecer ancho al 75% */
+  }
+}
+
+/* Canvas Cart */
+@media (min-width: 401px) and (max-width: 576px) {
+  .custom-sidebar-offcanvas {
+    width: 50% !important; /* Establecer ancho al 75% */
+  }
+}
+
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .custom-sidebar-offcanvas {
+    width: 40% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .custom-sidebar-offcanvas {
+    width: 35% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .custom-sidebar-offcanvas {
+    width: 25% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1600px) {
+  .custom-sidebar-offcanvas {
+    width: 20% !important; /* Establecer ancho al 75% */
+  }
+}
+
+@media (min-width: 1601px){
+  .custom-sidebar-offcanvas {
+    width: 15% !important; /* Establecer ancho al 75% */
+  }
+}
+
+
+/* Animaciones */
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fast {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+}
+
+.centrar{
+  text-align: center; 
+  white-space: nowrap; /* Evita que el texto se divida */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.centrar-v{
+  vertical-align: middle;
+  white-space: nowrap; /* Evita que el texto se divida */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
