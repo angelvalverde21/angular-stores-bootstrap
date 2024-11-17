@@ -52,3 +52,7 @@ a{
     background-color: #fff8bd !important;
     color: #000;
 }
+
+.address{
+    font-size: 0.85rem;
+}

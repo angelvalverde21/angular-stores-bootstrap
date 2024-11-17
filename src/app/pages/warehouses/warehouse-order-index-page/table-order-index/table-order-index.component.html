@@ -48,7 +48,7 @@
                         @if (order.address != null) {
 
 
-                        <ul class="list-group list-group-flush">
+                        <ul class="address list-group list-group-flush mb-3">
                             <li class="list-group-item">
                                 <h5 class="card-title">{{ order.address.name | uppercase }}</h5>
 
@@ -65,8 +65,6 @@
                                 <h6 class="card-subtitle mt-2 text-muted">{{ order.address.district.name }} - {{
                                     order.address.district.province.name }}
                                     - {{ order.address.district.province.department.name }}</h6>
-                            </li>
-                            <li class="list-group-item">
                             </li>
                         </ul>
 
