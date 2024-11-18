@@ -46,7 +46,7 @@
 
                     <td style="width: 300px !important;" class="">
 
-                        <h3 class="badge text-bg-{{ status(order).bg}}">{{ status(order).message}}</h3> 
+                        <h3 class="badge text-bg-{{ status(order).bg}}">{{ status(order).message}}</h3>
 
                         @if (order.address != null) {
 
@@ -70,14 +70,16 @@
                             </li>
                         </ul>
 
-                        <div class="controls d-flex justify-content-between mb-3">
+                        <!-- Botones de wasap -->
+                        <div class="controls d-flex justify-content-between mb-3 d-block d-sm-none">
                             <button class="btn btn-success"><i class="fa-brands fa-whatsapp me-2"></i>Wasap</button>
                             <button class="btn btn-primary"><i class="fa-solid fa-phone me-2"></i>Llamar</button>
                             <button class="btn btn-secondary"><i
                                     class="fa-solid fa-diamond-turn-right me-2"></i>Ruta</button>
                         </div>
 
-                        <div class="controls w-100">
+                        <!-- Botones para imprimir pdf -->
+                        <div class="controls w-100 d-block d-sm-none">
                             <app-button-pdf [order_id]="order.id"></app-button-pdf>
                         </div>
 
@@ -90,15 +92,23 @@
 
                     <!-- estatus -->
 
-                    <td style="width: 150px;" class="centrar centrar-v">
-                        <div class="mb-2">
-                            @if (order.is_pay) {
-                            <strong>{{ status(order).message | uppercase }}</strong>
-                            }@else{
-                            {{ status(order).message | uppercase }}
-                            }
+                    <td class="centrar centrar-v" style="width: 325px;">
+
+                        <!-- Botones de wasap -->
+                        <div class="controls d-flex justify-content-between d-none d-sm-block">
+                            <button class="btn btn-success me-1"><i class="fa-brands fa-whatsapp me-2"></i>Wasap</button>
+                            <button class="btn btn-primary me-1"><i class="fa-solid fa-phone me-2"></i>Llamar</button>
+                            <button class="btn btn-secondary"><i
+                                    class="fa-solid fa-diamond-turn-right me-2"></i>Ruta</button>
                         </div>
-                        <!-- <div><i class="{{ status(order).icon }}"></i></div> -->
+
+                    </td>
+
+                    <td style="width: 175px;" class="centrar centrar-v">
+                        <!-- Botones para imprimir pdf -->
+                        <div class="controls w-100 d-none d-sm-block">
+                            <app-button-pdf [order_id]="order.id"></app-button-pdf>
+                        </div>
                     </td>
 
                     <!-- Fecha de actualizacion -->
