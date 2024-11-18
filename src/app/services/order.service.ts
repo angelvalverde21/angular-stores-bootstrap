@@ -68,6 +68,7 @@ export class OrderService {
         "icon":"bs-stepper-circle",
         "case":"is_delivery",
         "color":"is_delivery",
+        "bg":"success"
       }
 
     } else {
@@ -77,7 +78,8 @@ export class OrderService {
         this.orderStatus =  {
           "message":"Enviado",
           "icon":"fas fa-shipping-fast",
-          "case":"is_shipment"
+          "case":"is_shipment",
+          "bg":"success"
         }
 
         
@@ -88,7 +90,8 @@ export class OrderService {
           this.orderStatus =  {
             "message":"Listo para Envio",
             "icon":"fas fa-box-open",
-            "case":"is_package"
+            "case":"is_package",
+            "bg":"primary"
           }
 
         } else {
@@ -98,7 +101,8 @@ export class OrderService {
             this.orderStatus =  {
               "message":"Preparar Envio",
               "icon":"fas fa-dollar-sign",
-              "case":"is_pay"
+              "case":"is_pay",
+              "bg":"warning"
             }
 
           } else {
@@ -106,7 +110,8 @@ export class OrderService {
             this.orderStatus =  {
               "message":"Solicitado",
               "icon":"",
-              "case":""
+              "case":"",
+              "bg":"secondary"
             }
 
           }

@@ -15,7 +15,18 @@
             {{ title }}
         </div>
         <div class="card-body">
-            <app-address-template [address]="address"></app-address-template>
+            <!-- <app-address-template [address]="address"></app-address-template> -->
+            <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item">
+                    <h5 class="card-title">{{ address.name | uppercase }}</h5>
+                </li>
+                <li class="list-group-item">
+                    <h6 class="card-subtitle mt-2 text-muted">{{ address.district.name }} - {{
+                        address.district.province.name }}
+                        - {{ address.district.province.department.name }}</h6>
+                </li>
+
+            </ul> 
             <button class="btn btn-dark" (click)="fnShowAddressIndex()">Oficinas</button>
         </div>
     </div>

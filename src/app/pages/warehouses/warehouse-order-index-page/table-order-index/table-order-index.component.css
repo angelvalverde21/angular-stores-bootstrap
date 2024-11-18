@@ -7,6 +7,10 @@ a{
     text-decoration: none;
 }
 
+.green{
+    color: green;
+}
+
 
 /* colores del status */
 
@@ -47,4 +51,8 @@ a{
 .is_package_tr td{
     background-color: #fff8bd !important;
     color: #000;
+}
+
+.address{
+    font-size: 0.85rem;
 }

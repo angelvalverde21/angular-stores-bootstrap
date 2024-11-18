@@ -10,9 +10,12 @@
 
                     <!-- id -->
 
-                    <td class="centrar centrar-v {{ status(order).case }}" style="width: 125px !important;">
+                    <td class="centrar {{ status(order).case }}" style="width: 105px !important;">
 
-                        <div class="mb-2">
+                        <h5 class="mb-3" [ngClass]="{'green': order.is_pay }"><strong>{{ order.total_amount | pen
+                                }}</strong></h5>
+
+                        <div class="mb-3">
                             <!-- Editar -->
                             <button class="btn btn-outline-dark"
                                 [routerLink]="['/', store, 'warehouses', warehouse_id , 'orders', order.id]">
@@ -20,27 +23,62 @@
                             </button>
                         </div>
 
-                        <div class="mb-2">
-                            <!-- Editar -->
-                            <button class="btn btn-outline-light text-dark"
-                                [routerLink]="['/', store, 'orders', order.id]">
-                                <i class="fa-solid fa-link"></i>
+                        <!-- icon estatus -->
+                        <!-- <div class="mb-2">
+                            <i class="{{ status(order).icon }}"></i>
+                        </div> -->
+
+                        <!-- icon estatus -->
+                        <div class="mb-2 text-center">
+
+                            <button type="button" class="btn btn-link p-0"
+                                (click)="openModal(uploadPaymentCourier, order.id)"
+                                aria-label="Abrir comprobantes de envío">
+                                <img style="max-width: 75px; max-height: 75px;"
+                                    [src]="order.courier_address?.courier.profile_photo_url" alt="Comprobante de envío">
                             </button>
+
                         </div>
 
-                         <!-- icon estatus -->
-                        <div class="mb-2">
-                            <i class="{{ status(order).icon }}"></i>
-                        </div>
-                        
                     </td>
 
                     <!-- Consignatario -->
 
-                    <td style="width: 275px !important;" class="centrar-v">
+                    <td style="width: 300px !important;" class="">
+
+                        <h3 class="badge text-bg-{{ status(order).bg}}">{{ status(order).message}}</h3> 
+
                         @if (order.address != null) {
-                        <div>{{ order.address?.name | uppercase }}</div>
-                        <div><small class="text-secondary">- {{ order.address?.district.name | uppercase }}</small>
+
+                        <ul class="address list-group list-group-flush mb-3">
+                            <li class="list-group-item">
+                                <h5 class="card-title">{{ order.address.name | uppercase }}</h5>
+
+                            </li>
+                            <li class="list-group-item">DNI: {{ order.address.dni }}</li>
+                            <li class="list-group-item">CEL: {{ order.address.phone }}</li>
+                            <!-- <li class="list-group-item"><i class="fa-solid fa-id-badge me-2"></i>{{ order.address.dni }}</li> -->
+                            <li class="list-group-item">{{ order.address.primary }}</li>
+                            <li class="list-group-item" *ngIf="order.address.secondary">{{ order.address.secondary }}
+                            </li>
+                            <li class="list-group-item" *ngIf="order.address.references">{{ order.address.references }}
+                            </li>
+                            <li class="list-group-item">
+                                <h6 class="card-subtitle mt-2 text-muted">{{ order.address.district.name }} - {{
+                                    order.address.district.province.name }}
+                                    - {{ order.address.district.province.department.name }}</h6>
+                            </li>
+                        </ul>
+
+                        <div class="controls d-flex justify-content-between mb-3">
+                            <button class="btn btn-success"><i class="fa-brands fa-whatsapp me-2"></i>Wasap</button>
+                            <button class="btn btn-primary"><i class="fa-solid fa-phone me-2"></i>Llamar</button>
+                            <button class="btn btn-secondary"><i
+                                    class="fa-solid fa-diamond-turn-right me-2"></i>Ruta</button>
+                        </div>
+
+                        <div class="controls w-100">
+                            <app-button-pdf [order_id]="order.id"></app-button-pdf>
                         </div>
 
                         }@else {
@@ -55,9 +93,9 @@
                     <td style="width: 150px;" class="centrar centrar-v">
                         <div class="mb-2">
                             @if (order.is_pay) {
-                                <strong>{{ status(order).message | uppercase }}</strong>
+                            <strong>{{ status(order).message | uppercase }}</strong>
                             }@else{
-                                {{ status(order).message | uppercase }}
+                            {{ status(order).message | uppercase }}
                             }
                         </div>
                         <!-- <div><i class="{{ status(order).icon }}"></i></div> -->
@@ -83,17 +121,13 @@
 
                     <!-- Total a pagar -->
 
-                    <td class="centrar centrar-v" style="width: 105px;">
-                        {{ order.total_amount | pen }}
-                    </td>
 
-                    <!-- Courier -->
 
-                    <td class="centrar centrar-v">
-
-                        <img style="max-width: 75px; max-height: 75px;"
-                            [src]="order.courier_address?.courier.profile_photo_url" alt="">
-
+                    <!-- Link online -->
+                    <td class="text-center centrar-v">
+                        <button class="btn btn-outline-light text-dark" [routerLink]="['/', store, 'orders', order.id]">
+                            <i class="fa-solid fa-link"></i>
+                        </button>
                     </td>
 
                 </tr>
@@ -165,3 +199,20 @@
         </tbody>
     </table>
 </div> -->
+
+
+<ng-template #uploadPaymentCourier let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title"><i class="fa-solid fa-receipt me-2"></i>Comprobantes de envio</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <!-- type 3 es para comprobantes de envio -->
+        <app-payment [type]="3" [order_id]="selectedOrderId"></app-payment>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template>

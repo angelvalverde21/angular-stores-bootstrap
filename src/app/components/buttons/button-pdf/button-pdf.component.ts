@@ -15,11 +15,11 @@ export class ButtonPdfComponent {
 
   constructor(private pdfService: PdfService) {}
 
-  downloadPdf(tipo: string) {
+  downloadPdf(tipo: string, message: string = "") {
 
     Swal.fire({
       title: 'Espere...',
-      html: 'Generado pdf',
+      html: message,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
