@@ -14,6 +14,7 @@ import { StoreService } from '../../../../services/store.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PaymentComponent } from '../../../../components/Order/payment/payment.component';
+import { ButtonPdfComponent } from "../../../../components/buttons/button-pdf/button-pdf.component";
 
 @Component({
   selector: 'app-table-order-index',
@@ -25,7 +26,8 @@ import { PaymentComponent } from '../../../../components/Order/payment/payment.c
     RouterModule,
     NgbDropdownModule,
     PaymentComponent,
-  ],
+    ButtonPdfComponent
+],
   templateUrl: './table-order-index.component.html',
   styleUrl: './table-order-index.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -45,7 +47,7 @@ export class TableOrderIndexComponent {
     config.backdrop = 'static';
     config.keyboard = false;
   }
-  status(order: any) {
+   status(order: any) {
     return this._order.status(order);
   }
 

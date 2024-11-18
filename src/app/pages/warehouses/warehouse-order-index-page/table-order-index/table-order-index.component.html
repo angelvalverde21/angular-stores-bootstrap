@@ -10,7 +10,7 @@
 
                     <!-- id -->
 
-                    <td class="centrar {{ status(order).case }}" style="width: 125px !important;">
+                    <td class="centrar {{ status(order).case }}" style="width: 105px !important;">
 
                         <h5 class="mb-3" [ngClass]="{'green': order.is_pay }"><strong>{{ order.total_amount | pen
                                 }}</strong></h5>
@@ -45,8 +45,10 @@
                     <!-- Consignatario -->
 
                     <td style="width: 300px !important;" class="">
-                        @if (order.address != null) {
 
+                        <h3 class="badge text-bg-{{ status(order).bg}}">{{ status(order).message}}</h3> 
+
+                        @if (order.address != null) {
 
                         <ul class="address list-group list-group-flush mb-3">
                             <li class="list-group-item">
@@ -76,17 +78,7 @@
                         </div>
 
                         <div class="controls w-100">
-                            <div ngbDropdown class="d-inline-block mb-3 w-100">
-                                <button type="button" class="btn btn-secondary w-100" id="dropdownBasic1"
-                                    ngbDropdownToggle>
-                                    <i class="fa-solid fa-print me-2"></i> Imprimir
-                                </button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="w-100">
-                                    <button ngbDropdownItem><i class="fa-solid fa-box-open me-2"></i>Rotulado</button>
-                                    <hr>
-                                    <button ngbDropdownItem><i class="fa-solid fa-receipt me-2"></i>Voucher</button>
-                                </div>
-                            </div>
+                            <app-button-pdf [order_id]="order.id"></app-button-pdf>
                         </div>
 
                         }@else {
