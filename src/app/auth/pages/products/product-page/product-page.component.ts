@@ -12,33 +12,24 @@ import { CommonModule } from '@angular/common';
 
 import { ProductService } from '../../../../services/product.service';
 import { ButtonSaveComponent } from '../../../../components/buttons/button-save/button-save.component';
-import { AlertComponent } from '../../../../components/alerts/alert/alert.component';
 import { PipesModule } from '../../../../shared/pipes.module';
-import { ColorComponent } from '../../../shared/color/color.component';
-import { ProductColorComponent } from '../../../shared/products/product-color/product-color.component';
-import { UploadDropzoneColorComponent } from '../../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component';
 
 import { StoreService } from '../../../../services/store.service';
-import { HeaderProductComponent } from '../header-product/header-product.component';
-import { ButtonInventoryComponent } from '../../../../components/buttons/button-inventory/button-inventory.component';
 import { LoadingCenterComponent } from '../../../../components/loading-center/loading-center.component';
-import { ButtonColorsComponent } from '../../../../components/buttons/button-colors/button-colors.component';
-import { ModalComponent } from '../../../../components/modal/modal.component';
-import { DropdownComponent } from '../../../../components/bootstrap/dropdown/dropdown.component';
-import { DropdownInventoryComponent } from '../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component';
-import { DropdownColorsComponent } from '../../../../components/bootstrap/dropdown-colors/dropdown-colors.component';
 import {} from '@ng-bootstrap/ng-bootstrap';
 
 import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
+
 import { ProductWarehouseComponent } from '../../../shared/products/product-warehouse/product-warehouse.component';
 import { ProductPricesComponent } from '../../../shared/products/prices/product-prices/product-prices.component';
 import Swal from 'sweetalert2';
 import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
-import { ButtonSwitchComponent } from "../../../../components/buttons/button-switch/button-switch.component";
 import { ProductReportComponent } from "../../../../components/products/product-report/product-report.component";
+import { ChartBarOrdersComponent } from "../../../../components/charts/chart-bar-orders/chart-bar-orders.component";
+
 
 @Component({
   selector: 'app-product-page',
@@ -49,26 +40,15 @@ import { ProductReportComponent } from "../../../../components/products/product-
     CommonModule,
     ReactiveFormsModule,
     ButtonSaveComponent,
-    AlertComponent,
     PipesModule,
-    ColorComponent,
-    ProductColorComponent,
-    UploadDropzoneColorComponent,
     RouterModule,
-    HeaderProductComponent,
-    ButtonInventoryComponent,
     LoadingCenterComponent,
-    ButtonColorsComponent,
-    ModalComponent,
-    DropdownComponent,
-    DropdownInventoryComponent,
-    DropdownColorsComponent,
     NgbModule,
     ProductWarehouseComponent,
     ProductPricesComponent,
     BreadCrumbComponent,
-    ButtonSwitchComponent,
-    ProductReportComponent
+    ProductReportComponent,
+    ChartBarOrdersComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css',
@@ -119,6 +99,8 @@ export class ProductPageComponent {
       );
   }
 
+
+    
   ngOnInit(): void {
     this.initForm(); //inicial el formulario
     this.loadForm(); //carga el formulario

@@ -1,28 +1,26 @@
 <div class="card mb-3">
-    <div class="card-header bg bg-dark text-white">
+
+    <div class="card-header">
         <div class="d-flex justify-content-between">
             <a  [routerLink]="['/', store, 'auth', 'products',product.id]">{{ product.name }}</a>
             <span>{{ quantityGlobalProduct }}</span>
         </div>
     </div>
-    <div class="card-body d-flex justify-content-between">
 
+    <div class="card-body d-flex justify-content-between text-center">
         <div class="image">
-                <a [routerLink]="['/', store, 'auth', 'products',product.id]">
-                    <img [src]="product.image?.url_thumbnail" alt="" style="width: 100px;">
-                </a>
+            <a [routerLink]="['/', store, 'auth', 'products', product.id]">
+                <img width="100%"
+                    [src]="product.image?.url_thumbnail" 
+                    [alt]="'Imagen de ' + product.name || 'Producto sin nombre'" 
+                    class="product-thumbnail"
+                >
+            </a>
         </div>
+    </div>
+
+    <div class="card-footer">
 
     </div>
-    <div class="card-footer">
-        <div class="controls mt-3 d-flex justify-content-between">
-            <div class="mb-3">
-                <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
-            </div>
-            <hr>
-            <div class="mb-3">
-                <app-dropdown-colors [product_id]="product.id" [store]="store"></app-dropdown-colors>
-            </div>
-        </div>
-    </div>
+    
 </div>

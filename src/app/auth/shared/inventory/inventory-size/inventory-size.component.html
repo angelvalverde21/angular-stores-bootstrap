@@ -1,6 +1,10 @@
 <!-- Size -->
 <form [formGroup]="sizeForm">
 
+    <!-- {{ size | json }} -->
+
+    #{{ size.color_size.sku.id }}
+
     <app-input-group icontext="{{ size.name | shortNameSize }}">
     
       <input type="number" formControlName="quantity" style="width: 100px;" step="1" class="form-control" (keyup)="updateKeyupStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"

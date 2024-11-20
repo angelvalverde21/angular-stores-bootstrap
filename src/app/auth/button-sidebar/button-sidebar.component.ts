@@ -132,15 +132,15 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
             "url":['/', this.store, 'auth', 'dashboard']
           },
           {
+            "name":"Products",
+            "icon":"fa-solid fa-box-open",
+            "url":['/', this.store, 'auth', 'products']
+          },
+          {
             "name":"Mis Ventas",
             "icon":"fa-solid fa-sack-dollar",
             "url": this.warehouses.length > 1 ? ['/', this.store, 'auth', 'orders'] : ['/', this.store, 'warehouses', this.warehouses[0].id, 'orders'],
             "warehouses": this.warehouses.length > 1 ? this.warehouses : [],
-          },
-          {
-            "name":"Products",
-            "icon":"fa-solid fa-box-open",
-            "url":['/', this.store, 'auth', 'products']
           },
           {
             "name":"Categorias",

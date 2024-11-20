@@ -3,16 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { HeaderComponent } from '../../../../header/header.component';
 import { CommonService } from '../../../../services/common.service';
-import { TableProductsComponent } from '../../../shared/table-products/table-products.component';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../../../../services/product.service';
-import { ProductComponent } from '../../../shared/products/product/product.component';
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
+import { ProductsTableComponent } from "../../../../components/products/products-table/products-table.component";
 @Component({
   selector: 'app-products-search-page',
   standalone: true,
-  imports: [HeaderComponent, TableProductsComponent, CommonModule, ProductComponent, LoadingCenterComponent],
+  imports: [HeaderComponent, CommonModule, LoadingCenterComponent, ProductsTableComponent],
   templateUrl: './products-search-page.component.html',
   styleUrl: './products-search-page.component.css'
 })

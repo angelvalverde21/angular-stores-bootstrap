@@ -4,7 +4,8 @@
         </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body p-4">
+
         <form [formGroup]="form"> 
 
             <!-- <app-alert *ngIf="success"></app-alert> -->
@@ -71,7 +72,7 @@
     
             </div>
     
-            <app-button-save (click)="save()" [btnLoading]="loadingEdit" [btnActive]="form.valid"></app-button-save>
+            <app-button-save (click)="save()" [btnLoading]="loadingEdit" [btnActive]="form.valid" text="Crear Producto"></app-button-save>
     
         </form>
     </div>
@@ -82,6 +83,6 @@
 
 <button class="btn btn-dark mb-3 me-2 d-flex align-items-center" aria-hidden="innerit"
     (click)="openVerticallyCentered(content)">
-    <i class="fa-solid fa-plus ms-2"></i>Crear Producto
+    <i class="fa-solid fa-plus me-2"></i> Crear Producto
 </button>
 

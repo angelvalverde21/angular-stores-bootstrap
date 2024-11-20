@@ -73,7 +73,7 @@ export class ButtonOrderCreatePuntoVentaComponent implements OnInit, OnDestroy {
   }
 
   openVerticallyCentered(content: TemplateRef<any>) {
-    this.modal = this.modalService.open(content, { centered: true, size: 'xl' });
+    this.modal = this.modalService.open(content, { centered: true });
   }
 
   generarVenta() {

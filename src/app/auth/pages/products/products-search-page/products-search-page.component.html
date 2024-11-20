@@ -4,8 +4,8 @@
 
 <div class="container" *ngIf="!loading">
 
-    <app-product [product]="product" *ngFor="let product of products"></app-product>
-    <!-- <app-table-products *ngIf="!loading" [products]="products"></app-table-products> -->
+    <!-- <app-product [product]="product" *ngFor="let product of products"></app-product> -->
+    <app-products-table [products]="products"></app-products-table>
 
     <!-- {{ products | json }} -->
 

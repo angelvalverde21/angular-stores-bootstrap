@@ -110,36 +110,49 @@ export class ButtonProductCreateModalComponent {
   
       this.success = false;
   
-      this._product.create(this.form.value).subscribe({
-        next: (resp: any) => {
-          console.log(resp);
-          this.success = true;
-          // this.btnSaveReady();
-          const url = ['/', this._store.name(), 'auth', 'products', resp.data.id];
-          console.log(url);
-          this.modal.close();
-          this.router.navigate(url);
-          Swal.fire({
-            icon: 'success',
-            title: 'Correcto',
-            text: 'El producto sea ha creado correctamente',
-            confirmButtonText: 'OK',
-            showConfirmButton: true
-          })
-          
-        },
-        error: (error: any) => {
+      Swal.fire({
+        title: 'Espere...',
+        html: 'Creando producto',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
 
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Ha ocurrido un error interno',
+          this._product.create(this.form.value).subscribe({
+            next: (resp: any) => {
+              console.log(resp);
+              this.success = true;
+              // this.btnSaveReady();
+              const url = ['/', this._store.name(), 'auth', 'products', resp.data.id];
+              console.log(url);
+              this.modal.close();
+              this.router.navigate(url);
+              Swal.fire({
+                icon: 'success',
+                title: 'Correcto',
+                text: 'El producto sea ha creado correctamente',
+                confirmButtonText: 'OK',
+                showConfirmButton: true
+              })
+              
+            },
+            error: (error: any) => {
+    
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ha ocurrido un error interno',
+              });
+              
+              console.error(error);
+              this.btnSaveReady();
+            },
           });
           
-          console.error(error);
-          this.btnSaveReady();
-        },
-      });
+
+        }
+      })
+      
+
     }
   
     success: boolean = false;

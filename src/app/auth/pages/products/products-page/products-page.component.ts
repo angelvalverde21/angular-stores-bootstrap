@@ -3,21 +3,16 @@ import { HeaderComponent } from "./../../../../header/header.component";
 import { ProductService } from './../../../../services/product.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from "./../../../../components/loading/loading.component";
 import { StoreService } from './../../../../services/store.service';
-import { RouterModule } from '@angular/router';
-import { TableProductsComponent } from "./../../../shared/table-products/table-products.component";
-import { ProductComponent } from '../../../shared/products/product/product.component';
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
-import { ButtonProductsComponent } from "../../../../components/buttons/button-products/button-products.component";
-import { ButtonOrdersComponent } from "../../../../components/buttons/button-orders/button-orders.component";
 import Swal from 'sweetalert2';
 import { ButtonProductCreateModalComponent } from "../../../../components/buttons/button-product-create-modal/button-product-create-modal.component";
+import { ProductsTableComponent } from "../../../../components/products/products-table/products-table.component";
 
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, LoadingComponent, RouterModule, TableProductsComponent, ProductComponent, LoadingCenterComponent, ButtonProductsComponent, ButtonOrdersComponent, ButtonProductCreateModalComponent],
+  imports: [HeaderComponent, CommonModule, LoadingCenterComponent, ButtonProductCreateModalComponent, ProductsTableComponent],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css'
 })

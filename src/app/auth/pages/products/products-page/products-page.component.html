@@ -8,6 +8,10 @@
 
   <!-- <div class="d-flex  flex-row-reverse mb-3" [routerLink]="['/',store, 'auth', 'products', 'create']"><button class="btn btn-dark">Crear Producto</button></div> -->
 
-  <app-product [product]="product" *ngFor="let product of products"></app-product>
+  <app-products-table [products]="products"></app-products-table>
+  
+  <!-- <div class="products">
+    <app-product [product]="product" *ngFor="let product of products"></app-product>
+  </div> -->
 
 </div>
