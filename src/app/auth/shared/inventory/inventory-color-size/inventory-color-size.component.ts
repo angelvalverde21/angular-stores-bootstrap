@@ -22,6 +22,7 @@ import Swal from 'sweetalert2';
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
 import { first, Subscription } from 'rxjs';
 import { ImageColorComponent } from "./image-color/image-color.component";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-inventory-color-size',
@@ -43,8 +44,13 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   loadingDelete: boolean = false;
   loadImagesFromColor!: Subscription;
+  componentName : string = "";
 
-  constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService, private elRef: ElementRef, private _color: ColorService) {}
+  constructor(private fb: FormBuilder, private _skuWarehouse : SkuWarehouseService, private elRef: ElementRef, private _color: ColorService) {
+    if(environment.showNameComponent){
+    this.componentName = this.constructor.name;
+    }
+  }
 
 	private modalService = inject(NgbModal);
 

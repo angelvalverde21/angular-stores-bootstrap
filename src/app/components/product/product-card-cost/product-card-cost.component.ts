@@ -1,14 +1,15 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CardTotalAmountComponent } from "../../../auth/shared/card-total-amount/card-total-amount.component";
+import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-report-inventory',
+  selector: 'app-product-card-cost',
   standalone: true,
   imports: [CardTotalAmountComponent],
-  templateUrl: './report-inventory.component.html',
-  styleUrl: './report-inventory.component.css'
+  templateUrl: './product-card-cost.component.html',
+  styleUrl: './product-card-cost.component.css'
 })
-export class ReportInventoryComponent implements OnInit, OnDestroy{
+export class ProductCardCostComponent {
 
 
   @Input() product: any; 
@@ -20,14 +21,19 @@ export class ReportInventoryComponent implements OnInit, OnDestroy{
   priceMayor: number = 0;
   priceNormal: number = 0;
   totalQuantityProduct: number = 0; 
-
+  componentName : string = "";
   constructor(){
-    
+    if(environment.showNameComponent){
+      this.componentName = this.constructor.name;
+      }
   }
+
+
+
 
   ngOnInit(): void {
 
-    if(this.product?.sku.warehouse.pivot != null){
+    if(this.product?.sku.warehouse?.pivot != null){
       this.totalQuantityProduct = this.product.sku.warehouse.pivot?.quantity;
     }else{
       if (this.product?.sku != null) {
@@ -54,4 +60,5 @@ export class ReportInventoryComponent implements OnInit, OnDestroy{
     // throw new Error('Method not implemented.');
   }
   
+
 }

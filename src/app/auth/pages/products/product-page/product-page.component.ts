@@ -23,12 +23,16 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 
-import { ProductWarehouseComponent } from '../../../shared/products/product-warehouse/product-warehouse.component';
-import { ProductPricesComponent } from '../../../shared/products/prices/product-prices/product-prices.component';
+// import { ProductPricesComponent } from '../../../shared/products/prices/product-prices/product-prices.component';
+// import { ButtonProductReportComponent } from "../../../../components/reports/button-product-report/button-product-report.component";
 import Swal from 'sweetalert2';
 import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
-import { ProductReportComponent } from "../../../../components/products/product-report/product-report.component";
-import { ChartBarOrdersComponent } from "../../../../components/charts/chart-bar-orders/chart-bar-orders.component";
+import { ButtonProductCreateModalComponent } from "../../../../components/buttons/button-product-create-modal/button-product-create-modal.component";
+import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
+import { ProductCardCostComponent } from "../../../../components/product/product-card-cost/product-card-cost.component";
+import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
+import { environment } from '../../../../../environments/environment';
+import { ProductGalleryComponent } from "../../../../components/product/product-gallery/product-gallery.component";
 
 
 @Component({
@@ -44,11 +48,12 @@ import { ChartBarOrdersComponent } from "../../../../components/charts/chart-bar
     RouterModule,
     LoadingCenterComponent,
     NgbModule,
-    ProductWarehouseComponent,
-    ProductPricesComponent,
     BreadCrumbComponent,
-    ProductReportComponent,
-    ChartBarOrdersComponent
+    ButtonProductCreateModalComponent,
+    DropdownInventoryComponent,
+    ProductCardCostComponent,
+    ProductWarehouseComponent,
+    ProductGalleryComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css',
@@ -69,7 +74,7 @@ export class ProductPageComponent {
   store: string = '';
   breadCrumbs: any[] = [];
   // private uploadSubscription!: Subscription;
-
+  componentName : string = "";
   constructor(
     private fb: FormBuilder,
     private _product: ProductService,
@@ -77,7 +82,13 @@ export class ProductPageComponent {
     // private _upload: UploadService,
     private _store: StoreService,
     private router: Router
-  ) {}
+  ) {
+    if(environment.showNameComponent){
+      this.componentName = this.constructor.name;
+      }
+  }
+
+
 
   private modalService = inject(NgbModal);
   closeResult = '';

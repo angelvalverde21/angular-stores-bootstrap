@@ -13,6 +13,7 @@ import { DropdownInventoryComponent } from '../../../../components/bootstrap/dro
 import { DropdownColorsComponent } from '../../../../components/bootstrap/dropdown-colors/dropdown-colors.component';
 import { FormsModule } from '@angular/forms';
 import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-product-colors-page',
@@ -33,7 +34,7 @@ import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.com
   styleUrl: './product-colors-page.component.css',
 })
 export class ProductColorsPageComponent implements OnInit {
-  id: number = 0;
+  product_id: number = 0;
   product: any;
   loading: boolean = true;
   store: string = '';
@@ -48,11 +49,16 @@ export class ProductColorsPageComponent implements OnInit {
     private route: ActivatedRoute,
     private _store: StoreService,
     private _upload: UploadService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
 
-    this.id = Number(this.route.snapshot.paramMap.get('product_id'));
+    this.product_id = Number(this.route.snapshot.paramMap.get('product_id'));
+
+    console.log(this.product_id);
+    
 
     this.loading = true;
     this.store = this._store.name()!;
@@ -66,10 +72,12 @@ export class ProductColorsPageComponent implements OnInit {
       // Actualiza tu UI o realiza otras acciones necesarias
     });
 
-    this.getColorsSubscription = this._product.getColorsActive(this.id).subscribe((resp: any) => {
+    this.getColorsSubscription = this._product.getColorsActive(this.product_id).subscribe((resp: any) => {
       this.loading = false;
       this.product = resp.data;
 
+      console.log(resp);
+      
       
       this.breadCrumbs = [
         {
@@ -86,7 +94,7 @@ export class ProductColorsPageComponent implements OnInit {
         },
       ];
       
-      this.colorsFilter = this.product.colors.sort(
+      this.colorsFilter = resp.data.sort(
         (a: any, b: any) => b.sku.quantity - a.sku.quantity
       );
 

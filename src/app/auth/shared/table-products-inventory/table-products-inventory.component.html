@@ -1,23 +1,29 @@
+<div class="controls d-flex justify-content-between mb-3">
+    <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
+    <div>
+        <button class="btn btn-outline-dark me-2" (click)="openTop(contentFilters)"><i
+                class="fa-solid fa-filter"></i></button>
+        <button class="btn btn-outline-dark" (click)="openVerticallyCentered(contentModal)">
+            <i class="fa-solid fa-camera"></i>
+        </button>
+    </div>
+
+</div>
+
+{{ componentName }}
+
 <div class="controls d-flex justify-content-between mb-3 align-items-center">
 
     <div class="controls-left d-flex">
 
         <!-- boton de filtro -->
-        <button class="btn btn-outline-dark me-2" (click)="openTop(contentFilters)"><i
-                class="fa-solid fa-filter"></i></button>
+
         <!-- boton para subir colores -->
-        <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentModal)">
-            <i class="fa-solid fa-camera"></i>
-        </button>
-        
-        <button class="btn btn-outline-dark me-2" (click)="openVerticallyCentered(contentReport)"
-            *ngIf="totalQuantityProduct">
-            <i class="fa-solid fa-chart-column me-2"></i> {{ totalQuantityProduct }}
-        </button>
+        <!-- <app-button-product-report [product]="product"></app-button-product-report> -->
 
     </div>
 
-    <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
+    
     <!-- <button type="button" class="btn btn-outline-dark"
         [routerLink]="['/', store, 'auth', 'products',product.id]"><i class="fa-solid fa-bars mx-1"></i></button> -->
 </div>
@@ -66,7 +72,7 @@
 
 <!-- REPORTES COSTO TOTAL, POR MAYOR Y MENOR -->
 
-<ng-template #contentReport let-modal>
+<!-- <ng-template #contentReport let-modal>
 
     <div class="modal-header">
         <h6 class="modal-title"><i class="fa-solid fa-chart-column me-2"></i> Reportes</h6>
@@ -81,48 +87,48 @@
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
     </div>
     
-</ng-template>
+</ng-template> -->
 
 <!-- <h5 class="mb-3 title">{{ product.name }} - {{ totalQuantityProduct }}</h5> -->
 
 @switch (product.have) {
 
-    @case ('ColorSize') {
+@case ('ColorSize') {
 
-    <app-loading-center *ngIf="loading"></app-loading-center>
+<app-loading-center *ngIf="loading"></app-loading-center>
 
-    <ng-container *ngIf="!loading">
+<ng-container *ngIf="!loading">
 
-        @if (colorsFilter.length > 0) {
+    @if (colorsFilter.length > 0) {
 
-        <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id"
-            [color]="color" *ngFor="let color of colorsFilter"></app-inventory-color-size>
+    <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id"
+        [color]="color" *ngFor="let color of colorsFilter"></app-inventory-color-size>
 
+    }@else {
+    <div class="text-center">
+        @if (colorsActive) {
+        Sin colores Activos que mostrar
         }@else {
-        <div class="text-center">
-            @if (colorsActive) {
-            Sin colores Activos que mostrar
-            }@else {
-            No hay colores desactivados
-            }
-        </div>
+        No hay colores desactivados
         }
-
-    </ng-container>
-
+    </div>
     }
 
-    @case ('Size') {
-        Size
-    }
-    @case ('Color') {
-        Color
-    }
-    @case ('Product') {
-        Product
-    }
+</ng-container>
 
-    @default {
-    <p>No se ha podido cargr la relacion del producto have_color o have_size</p>
-    }
+}
+
+@case ('Size') {
+Size
+}
+@case ('Color') {
+Color
+}
+@case ('Product') {
+Product
+}
+
+@default {
+<p>No se ha podido cargr la relacion del producto have_color o have_size</p>
+}
 }

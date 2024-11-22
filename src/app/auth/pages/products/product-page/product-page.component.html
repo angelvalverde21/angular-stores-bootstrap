@@ -4,172 +4,213 @@
 
 <div class="container" *ngIf="!loading">
 
-    <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
+    <strong>Page: {{ componentName }}</strong>
 
-    <div ngbAccordion class="mb-3" [closeOthers]="true">
+    <div class="times d-flex justify-content-between mb-3">
+        <div class="created">
+            <time [attr.datetime]="product.created_at | date: 'yyyy-MM-ddTHH:mm:ss'">
+                {{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}
+            </time>
+        </div>
+        <div class="updated">
+            <strong>
+                <time [attr.datetime]="product.updated_at | date: 'yyyy-MM-ddTHH:mm:ss'">
+                    {{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}
+                </time>
+            </strong>
+        </div>
+    </div>
+
+    <div class="controls">
+
+        <app-bread-crumb [items]="breadCrumbs"></app-bread-crumb>
+
+        <div class="controls d-flex justify-content-between">
+            <!-- <app-button-product-report [product]="product"></app-button-product-report> -->
+            <app-dropdown-inventory [product_id]="product.id" class="me-2"></app-dropdown-inventory>
+            <app-button-product-create-modal>Crear Producto</app-button-product-create-modal>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="cards">
+        <app-product-card-cost [product]="product" [height]="120"></app-product-card-cost>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-lg-6 col-12">
+
+            <div class="card mb-3">
+            
+                <div class="card-body">
+                    <app-product-gallery [product]="product"></app-product-gallery>
+                </div>
+            
+            </div>
+
+            <div class="card mb-3">
+    
+                <div class="card-body bg bg-body-secondary">
+                    <form [formGroup]="form" (ngSubmit)="save()">
+        
+                        <div class="row mb-3">
+                            <div class="col-lg-12">
+                                <app-input-group icon="fa-regular fa-pen-to-square">
+                                    <input formControlName="name" type="text" class="form-control"
+                                        placeholder="Name" aria-label="tiktok"
+                                        aria-describedby="basic-tiktok">
+                                </app-input-group>
+                            </div>
+
+                            <!-- <div class="col-lg-4 col-12">
+                                <app-input-group icon="fa-regular fa-pen-to-square">
+                                    <input formControlName="tags" type="text" class="form-control"
+                                        placeholder="tags" aria-label="tags" aria-describedby="basic-tags">
+                                </app-input-group>
+                            </div> -->
+
+                            <div class="col-lg-12 col-12">
+                                <textarea id="" formControlName="tags" class="form-control mb-3"
+                                    placeholder="Tags"></textarea>
+                            </div>
+
+                            <div class="col-lg-12 col-12">
+                                <textarea id="" formControlName="body" class="form-control"
+                                    placeholder="Descripcion"></textarea>
+                            </div>
+                        </div>
+
+
+                        <ul class="list-group mb-3">
+
+                            <li class="list-group-item py-0 bg bg-body-secondary">
+                                <p class="my-2">
+                                    Disponible: <span *ngFor="let size of product.sizes; last as last">{{
+                                        size.name }} <i *ngIf="!last">,</i></span>
+                                </p>
+                            </li>
+
+                            <li class="list-group-item bg bg-body-secondary">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input me-3" formControlName="over_sale"
+                                        type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label pt-1" for="flexCheckDefault">
+                                        Pre-venta
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item bg bg-body-secondary">
+
+                                <div class="form-check mb-3">
+
+                                    @if (product.sizes.length > 1){
+
+                                    <input class="form-check-input me-3" formControlName="sell_size_unique"
+                                        type="checkbox" value="" id="flexCheckChecked" checked>
+                                    <label class="form-check-label pt-1" for="flexCheckChecked">
+                                        Vender como ESTANDAR
+                                    </label>
+
+                                    }@else{
+
+                                    <input class="form-check-input me-3" formControlName="sell_size_unique"
+                                        type="checkbox" value="" id="flexCheckChecked" checked>
+                                    <label class="form-check-label pt-1" for="flexCheckChecked">
+                                        Vender como S,M,L
+                                    </label>
+                                    }
+
+                                </div>
+
+                            </li>
+
+                        </ul>
+
+                        <app-button-save type="primary" [btnLoading]="loadingEdit"
+                            [btnActive]="form.valid"></app-button-save>
+
+                    </form>
+            
+                </div>
+            
+            </div>
+        
+        </div>
+
+        <div class="col-lg-6 col-12">
+
+            <app-product-warehouse></app-product-warehouse>
+            
+        </div>
+    </div>
+    <!-- inicio de acordion -->
+
+    <!-- <div ngbAccordion class="mb-3" [closeOthers]="true">
 
         <div ngbAccordionItem [collapsed]="false" (click)="selected(1)">
+
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
                     @if(this.accordionItem == 1){
-                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
-                            <i class="fa-solid fa-circle-info me-2"></i>
-                            <span>{{ product.name }}</span>
-                        </div>
-                    }@else {
+                    <div class="fw-bold py-1" style="font-size: 1.1rem;">
                         <i class="fa-solid fa-circle-info me-2"></i>
                         <span>{{ product.name }}</span>
+                    </div>
+                    }@else {
+                    <i class="fa-solid fa-circle-info me-2"></i>
+                    <span>{{ product.name }}</span>
                     }
                 </button>
             </h2>
 
             <div ngbAccordionCollapse>
-                <div ngbAccordionBody>
+                <div ngbAccordionBody class="bg-body-secondary">
                     <ng-template>
-                        <div class="row">
 
-                            <div class="col-lg-4 col-md-6 col-12">
-                                <div class="card mt-3">
-                                    <div class="card-body text-center">
-                                        <img width="50%" class="mx-auto mb-3"
-                                            [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"
-                                            alt="">
-
-                                        <div>
-                                            Disponible: {{ product.sku.quantity }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-8 col-md-6 col-12">
-
-                                <!-- <app-alert *ngIf="success"></app-alert> -->
-
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <!-- <app-dropdown-colors [store]="store" [product_id]="product.id"></app-dropdown-colors> -->
-                                </div>
-
-                                <form [formGroup]="form" (ngSubmit)="save()">
-
-                                    <div class="row mb-3">
-                                        <div class="col-lg-12">
-                                            <app-input-group icon="fa-regular fa-pen-to-square">
-                                                <input formControlName="name" type="text" class="form-control"
-                                                    placeholder="Name" aria-label="tiktok"
-                                                    aria-describedby="basic-tiktok">
-                                            </app-input-group>
-                                        </div>
-
-                                        <!-- <div class="col-lg-4 col-12">
-                                            <app-input-group icon="fa-regular fa-pen-to-square">
-                                                <input formControlName="tags" type="text" class="form-control"
-                                                    placeholder="tags" aria-label="tags" aria-describedby="basic-tags">
-                                            </app-input-group>
-                                        </div> -->
-
-                                        <div class="col-lg-12 col-12">
-                                            <textarea id="" formControlName="tags" class="form-control mb-3"
-                                                placeholder="Tags"></textarea>
-                                        </div>
-
-                                        <div class="col-lg-12 col-12">
-                                            <textarea id="" formControlName="body" class="form-control"
-                                                placeholder="Descripcion"></textarea>
-                                        </div>
-                                    </div>
-
-
-                                    <ul class="list-group mb-3">
-
-                                        <li class="list-group-item py-0 bg bg-secondary text-white">
-                                            <p class="my-2">
-                                                Disponible: <span *ngFor="let size of product.sizes; last as last">{{
-                                                    size.name }} <i *ngIf="!last">,</i></span>
-                                            </p>
-                                        </li>
-
-                                        <li class="list-group-item">
-                                            <div class="form-check mb-3">
-                                                <input class="form-check-input me-2" formControlName="over_sale"
-                                                    type="checkbox" value="" id="flexCheckDefault">
-                                                <label class="form-check-label pt-1" for="flexCheckDefault">
-                                                    Pre-venta
-                                                </label>
-                                            </div>
-                                        </li>
-
-                                        <li class="list-group-item">
-
-                                            <div class="form-check mb-3">
-
-                                                @if (product.sizes.length > 1){
-
-                                                <input class="form-check-input me-2" formControlName="sell_size_unique"
-                                                    type="checkbox" value="" id="flexCheckChecked" checked>
-                                                <label class="form-check-label pt-1" for="flexCheckChecked">
-                                                    Vender como ESTANDAR
-                                                </label>
-
-                                                }@else{
-
-                                                <input class="form-check-input me-2" formControlName="sell_size_unique"
-                                                    type="checkbox" value="" id="flexCheckChecked" checked>
-                                                <label class="form-check-label pt-1" for="flexCheckChecked">
-                                                    Vender como S,M,L
-                                                </label>
-                                                }
-
-                                            </div>
-
-                                        </li>
-
-                                    </ul>
-
-                                    <app-button-save type="dark" [btnLoading]="loadingEdit"
-                                    [btnActive]="form.valid"></app-button-save>
-
-                                </form>
-                            </div>
-
-                        </div>
                     </ng-template>
                 </div>
             </div>
         </div>
+
+
         <div ngbAccordionItem (click)="selected(2)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
                     @if(this.accordionItem == 2){
-                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
-                            <i class="fa-solid fa-sack-dollar me-2"></i>
-                            <span>Precios</span>
-                        </div>
-                    }@else {
+                    <div class="fw-bold py-1" style="font-size: 1.1rem;">
                         <i class="fa-solid fa-sack-dollar me-2"></i>
                         <span>Precios</span>
+                    </div>
+                    }@else {
+                    <i class="fa-solid fa-sack-dollar me-2"></i>
+                    <span>Precios</span>
                     }
                 </button>
             </h2>
             <div ngbAccordionCollapse>
-                <div ngbAccordionBody>
+                <div ngbAccordionBody class="bg-body-secondary">
                     <ng-template>
                         <app-product-prices [prices]="product.prices" [product_id]="product.id"></app-product-prices>
                     </ng-template>
                 </div>
             </div>
         </div>
+
         <div ngbAccordionItem (click)="selected(3)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
                     @if(this.accordionItem == 3){
-                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
-                            <i class="fa-solid fa-warehouse me-2"></i>
-                            <span>Inventario</span>
-                        </div>
-                    }@else {
+                    <div class="fw-bold py-1" style="font-size: 1.1rem;">
                         <i class="fa-solid fa-warehouse me-2"></i>
                         <span>Inventario</span>
+                    </div>
+                    }@else {
+                    <i class="fa-solid fa-warehouse me-2"></i>
+                    <span>Inventario</span>
                     }
                 </button>
 
@@ -182,17 +223,18 @@
                 </div>
             </div>
         </div>
+
         <div ngbAccordionItem (click)="selected(4)">
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
                     @if(this.accordionItem == 4){
-                        <div class="fw-bold py-1" style="font-size: 1.1rem;">
-                            <i class="fa-solid fa-warehouse me-2"></i>
-                            <span>Reporte por ciudad</span>
-                        </div>
-                    }@else {
+                    <div class="fw-bold py-1" style="font-size: 1.1rem;">
                         <i class="fa-solid fa-warehouse me-2"></i>
                         <span>Reporte por ciudad</span>
+                    </div>
+                    }@else {
+                    <i class="fa-solid fa-warehouse me-2"></i>
+                    <span>Reporte por ciudad</span>
                     }
                 </button>
 
@@ -204,34 +246,21 @@
                     </ng-template>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> 
+  
 
-    
-    <div class="card">
+    </div> -->
+
+    <!-- fin de acordion -->
+
+
+    <!-- <div class="card">
         <div class="card-body">
-            <div class="times d-flex justify-content-between">
-                <div class="created">
-                    <p>Creado:</p>
-                    <time
-                        [attr.datetime]="product.created_at | date: 'yyyy-MM-ddTHH:mm:ss'">
-                        {{ product.created_at | date: 'dd/MM/yyyy, h:mm a' }}
-                    </time>
-                </div>
-                <div class="updated">
-                    <p>Actualizado:</p>
-                    <strong>
-                        <time
-                            [attr.datetime]="product.updated_at | date: 'yyyy-MM-ddTHH:mm:ss'">
-                            {{ product.updated_at | date: 'dd/MM/yyyy, h:mm a' }}
-                        </time>
-                    </strong>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <app-chart-bar-orders></app-chart-bar-orders>
+        </div>
+    </div> -->
+
+    <!-- <app-chart-bar-orders></app-chart-bar-orders> -->
 
     <!-- <div class="card mb-3 custom-card">
 

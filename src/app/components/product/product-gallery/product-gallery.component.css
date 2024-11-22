@@ -1,0 +1,10 @@
+.mySwiper {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+  }
+  .carousel-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }

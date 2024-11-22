@@ -1,0 +1,18 @@
+{{ componentName }}
+<div>
+    <img width="50%" class="mx-auto my-3" style="border-radius: 1rem;"
+        [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"
+        alt="">
+
+    <app-button-dots-horizontal></app-button-dots-horizontal>
+
+    <div>
+        Disponible: {{ product.sku.quantity }}
+    </div>
+
+    <swiper [slidesPerView]="3" [spaceBetween]="50"  #newSwiper>
+        <ng-template swiperSlide>Slide 1</ng-template>
+        <ng-template swiperSlide>Slide 2</ng-template>
+        <ng-template swiperSlide>Slide 3</ng-template>
+      </swiper>
+</div>

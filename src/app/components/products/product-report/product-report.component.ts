@@ -2,11 +2,12 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ReportService } from '../../../services/report.service';
 import { CommonModule } from '@angular/common';
+import { LoadingCenterComponent } from "../../loading-center/loading-center.component";
 
 @Component({
   selector: 'app-product-report',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingCenterComponent],
   templateUrl: './product-report.component.html',
   styleUrl: './product-report.component.css'
 })

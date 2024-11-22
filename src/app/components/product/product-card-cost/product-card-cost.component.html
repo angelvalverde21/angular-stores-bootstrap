@@ -1,0 +1,26 @@
+{{ componentName }}
+<div class="row mb-3">
+    <div class="col-lg-3 col-6 col-md-6">
+        <div class="card text-bg-secondary" [style.min-height.px]="height">
+            <div class="card-body d-flex align-items-center justify-content-center">
+                <div class="text-center">
+                    <h1 class="my-0">{{ totalQuantityProduct }}</h1>
+                    <small>Unidad(es)</small>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                Stock Total
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-3 col-6 col-md-6">
+        <app-card-total-amount type="success" title="T. Precio Normal" [height]="height" [totalAmount]="totalPriceNormal" [amount]="priceNormal" [quantity]="totalQuantityProduct"></app-card-total-amount>
+    </div>
+    <div class="col-lg-3 col-6 col-md-6">
+        <app-card-total-amount type="warning" title="T. Precio Mayor" [height]="height" [totalAmount]="totalPriceMayor" [amount]="priceMayor" [quantity]="totalQuantityProduct"></app-card-total-amount>
+    </div>
+    <div class="col-lg-3 col-6 col-md-6">
+        <app-card-total-amount type="primary" title="T. Precio Costo" [height]="height" [totalAmount]="totalPriceCosto" [amount]="priceCosto" [quantity]="totalQuantityProduct"></app-card-total-amount>
+    </div>
+</div>

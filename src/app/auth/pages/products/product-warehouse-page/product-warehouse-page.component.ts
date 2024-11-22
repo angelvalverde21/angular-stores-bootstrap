@@ -5,17 +5,17 @@ import { Subscription } from 'rxjs';
 import { HeaderComponent } from "../../../../header/header.component";
 import { TableProductsInventoryComponent } from "../../../shared/table-products-inventory/table-products-inventory.component";
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from "../../../../components/loading/loading.component";
 import { LoadingCenterComponent } from "../../../../components/loading-center/loading-center.component";
-import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
+// import { LoadingComponent } from "../../../../components/loading/loading.component";
+// import { ButtonInventoryComponent } from "../../../../components/buttons/button-inventory/button-inventory.component";
+// import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
 import { StoreService } from '../../../../services/store.service';
-import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
 import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
 
 @Component({
   selector: 'app-product-warehouse-page',
   standalone: true,
-  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, ButtonInventoryComponent, RouterModule, ProductWarehouseComponent, BreadCrumbComponent],
+  imports: [HeaderComponent, TableProductsInventoryComponent, CommonModule, LoadingCenterComponent, RouterModule, BreadCrumbComponent],
   templateUrl: './product-warehouse-page.component.html',
   styleUrl: './product-warehouse-page.component.css'
 })

@@ -1,9 +1,12 @@
-<div class="card text-bg-{{ type }} mb-3" style="min-height: 175px;">
+<div class="card text-bg-{{ type }} mb-3" [style.min-height.px]="height">
     <div class="card-header text-center">{{ title }}</div>
     <div class="card-body d-flex align-items-center justify-content-center">
         <div class="text-center">
-            <small class="mb-3">{{ amount | pen }}</small>
-            <h3>{{ totalAmount | pen }}</h3>
+            <h3>{{ amount | pen }}</h3>
+            <small class="mb-3">{{ totalAmount | pen }}</small>
+
+            <!-- <small class="mb-3">{{ quantity }} x {{ amount | pen }}</small>
+            <h3>{{ totalAmount | pen }}</h3> -->
         </div>
     </div>
 </div>

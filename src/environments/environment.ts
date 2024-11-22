@@ -1,5 +1,7 @@
 export const environment = {
+
     production: false,
+    showNameComponent: true,
     parametroBase: 'store', //este parametro sera usado como variable base
 
     urlBase:'http://localhost:4200',

@@ -2,14 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, inject, TemplateRef, ViewEncapsulation } from '@angular/core';  //inject, TemplateRef, ViewEncapsulation son Para el canvas
 import { RouterModule } from '@angular/router';
 import { StoreService } from '../../../services/store.service';
-import { ColorSizeComponent } from "../color-size/color-size.component";
-import { InventoryColorComponent } from "../inventory/inventory-color/inventory-color.component";
-import { ColorComponent } from "../color/color.component";
+// import { ColorSizeComponent } from "../color-size/color-size.component";
+// import { InventoryColorComponent } from "../inventory/inventory-color/inventory-color.component";
+// import { ColorComponent } from "../color/color.component";
+// import { ButtonInventoryComponent } from "../../../components/buttons/button-inventory/button-inventory.component";
+// import { DropdownColorsComponent } from "../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
+// import { CardTotalAmountComponent } from "../card-total-amount/card-total-amount.component";
 import { InventoryColorSizeComponent } from "../inventory/inventory-color-size/inventory-color-size.component";
 import { SkuWarehouseService } from '../../../services/api/sku-warehouse.service';
-import { ButtonInventoryComponent } from "../../../components/buttons/button-inventory/button-inventory.component";
 import { DropdownInventoryComponent } from "../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
-import { DropdownColorsComponent } from "../../../components/bootstrap/dropdown-colors/dropdown-colors.component";
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../../services/product.service';
 import { Subscription } from 'rxjs';
@@ -20,13 +21,14 @@ import { UploadDropzoneColorComponent } from "../../../components/upload-dropzon
 import { UploadService } from '../../../services/upload.service';
 import { ColorService } from '../../../services/color.service';
 import Swal from 'sweetalert2';
-import { CardTotalAmountComponent } from "../card-total-amount/card-total-amount.component";
 import { ReportInventoryComponent } from "../../../components/inventory/report-inventory/report-inventory.component";
+import { ButtonProductReportComponent } from "../../../components/reports/button-product-report/button-product-report.component";
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-table-products-inventory',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ColorSizeComponent, InventoryColorComponent, ColorComponent, InventoryColorSizeComponent, ButtonInventoryComponent, DropdownInventoryComponent, DropdownColorsComponent, LoadingCenterComponent, UploadDropzoneColorComponent, CardTotalAmountComponent, ReportInventoryComponent],
+  imports: [RouterModule, FormsModule, CommonModule, InventoryColorSizeComponent, DropdownInventoryComponent, LoadingCenterComponent, UploadDropzoneColorComponent, ReportInventoryComponent, ButtonProductReportComponent],
   templateUrl: './table-products-inventory.component.html',
   styleUrl: './table-products-inventory.component.css',
   encapsulation: ViewEncapsulation.None, //Para el canvas y el modal
@@ -43,6 +45,7 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
   store: string = "";
   colorsFilter: any;
   searchTerm: string = '';
+  componentName : string = "";
 
   private warehouseColorsInactiveSubscription!: Subscription; 
   private uploadSubscription!: Subscription;
@@ -55,6 +58,10 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
     private _upload: UploadService,
     private _color: ColorService
   ){
+
+    if(environment.showNameComponent){
+    this.componentName = this.constructor.name;
+    }
     
   }
 

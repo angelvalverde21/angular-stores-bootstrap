@@ -1,4 +1,6 @@
-<div class="table-responsive">
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="table-responsive" *ngIf="!loading">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>

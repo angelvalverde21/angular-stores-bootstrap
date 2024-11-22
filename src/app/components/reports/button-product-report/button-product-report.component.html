@@ -1,0 +1,57 @@
+
+
+<div ngbDropdown class="d-inline-block">
+    <button type="button" class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>
+        Reportes ({{ totalQuantityProduct }})
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem (click)="openVerticallyCentered(contentReport)"
+        *ngIf="totalQuantityProduct">
+        <i class="fa-solid fa-chart-column me-2"></i> Resumen
+        </button>
+        <hr>
+        <button ngbDropdownItem (click)="openVerticallyCentered(contentCiudad)"><i class="fa-solid fa-building-circle-check me-2"></i>Ciudades</button>
+        <hr>
+        <button ngbDropdownItem><i class="fa-solid fa-chart-simple me-2"></i>Graficos</button>
+    </div>
+</div>
+
+<ng-template #contentReport let-modal>
+
+    <div class="modal-header">
+        <h6 class="modal-title"><i class="fa-solid fa-chart-column me-2"></i> Reportes</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <app-report-inventory [product]="product"></app-report-inventory>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+    
+</ng-template>
+
+
+<ng-template #contentCiudad let-modal>
+
+    <div class="modal-header">
+        <h6 class="modal-title"><i class="fa-solid fa-chart-column me-2"></i> Reporte por ciudades</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+        <!-- <app-report-inventory [product]="product"></app-report-inventory> -->
+        <app-product-report [product_id]="product.id"></app-product-report>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+    
+</ng-template>
+
+
+
+
