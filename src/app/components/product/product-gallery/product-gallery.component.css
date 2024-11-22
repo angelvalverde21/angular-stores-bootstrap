@@ -1,10 +1,35 @@
-.mySwiper {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-  }
-  .carousel-img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.add{
+  border: 2px dashed #61d800;
+  height: 100px;
+  width: 100px;
+}
+
+.gallery{
+  height: 300px;
+  width: 300px;
+}
+
+.mySwiper{
+  height: 150px;
+}

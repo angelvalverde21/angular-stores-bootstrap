@@ -1,18 +1,33 @@
 {{ componentName }}
-<div>
-    <img width="50%" class="mx-auto my-3" style="border-radius: 1rem;"
-        [src]="product.image != null ? product.image.url_thumbnail : (product.last_color != null ? product.last_color.image.url_thumbnail : 'https://placehold.co/400x700')"
-        alt="">
+<div class="text-center">
 
-    <app-button-dots-horizontal></app-button-dots-horizontal>
+    <!-- <app-dropzone-payment  name="payment" [slug]="'orders/' + order_id + '/payments/create'" class="mx-3" (eventAddFile)="dropzoneValid($event)" (eventUpload)="addPayment($event)" (eventComplete)="formStatus($event)" #dropzone></app-dropzone-payment> -->
 
-    <div>
-        Disponible: {{ product.sku.quantity }}
-    </div>
+    <ng-template #template> Agregar imagenes</ng-template>
+    <!-- Disponible: {{ product.sku.quantity }} -->
 
-    <swiper [slidesPerView]="3" [spaceBetween]="50"  #newSwiper>
-        <ng-template swiperSlide>Slide 1</ng-template>
-        <ng-template swiperSlide>Slide 2</ng-template>
-        <ng-template swiperSlide>Slide 3</ng-template>
-      </swiper>
+    <!-- {{ product.images.length }} -->
+
+    <swiper-container 
+    
+    class="mySwiper" 
+    pagination="true" 
+    pagination-clickable="true" 
+    space-between="30"
+    slides-per-view="6" 
+    *ngIf="product.images?.length > 0; else template"
+    [breakpoints]="breakpoints"
+    >
+    
+        <!-- <swiper-slide><div class="add"></div></swiper-slide> -->
+        <swiper-slide>
+            <app-dropzone name="Imagenes" [maxFiles]="10" [autoProcess]="true" [slug]="'products/'+  product.id +'/images/create'"  (eventUpload)="imageUpload($event)" (eventComplete)="imageUploadStatus($event)" #dropzone></app-dropzone>
+    
+        </swiper-slide>
+        <swiper-slide *ngFor="let image of product.images"><a href="#"><img [src]="image.url_thumbnail" alt=""></a></swiper-slide>
+
+    </swiper-container>
+
+    
+
 </div>

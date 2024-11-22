@@ -6,7 +6,14 @@
     background-position: center;  /* Centra la imagen en el contenedor */
     background-color: #f0f0f0;  
     background-color: rgba(240, 240, 240, 0.8);
-    height: 100px;
+    height: 75px;
+    /* width: 300px; */
+    margin: 0 auto;
+    height: 100% !important;
+}
+
+image{
+    position: relative;
 }
 
 :host ::ng-deep .dropzone .dz-message {
