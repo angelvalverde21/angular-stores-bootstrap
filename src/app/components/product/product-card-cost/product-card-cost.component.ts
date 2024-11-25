@@ -14,22 +14,18 @@ export class ProductCardCostComponent {
 
   @Input() product: any; 
   @Input() height: number = 175;
-  totalPriceCosto: number = 0;
-  totalPriceMayor: number = 0;
-  totalPriceNormal: number = 0;
+
   priceCosto: number = 0;
   priceMayor: number = 0;
   priceNormal: number = 0;
   totalQuantityProduct: number = 0; 
   componentName : string = "";
+  
   constructor(){
     if(environment.showNameComponent){
       this.componentName = this.constructor.name;
       }
   }
-
-
-
 
   ngOnInit(): void {
 
@@ -45,13 +41,16 @@ export class ProductCardCostComponent {
 
     // this.totalQuantityProduct = this.product.sku.warehouse.pivot?.quantity;
 
-    this.priceCosto = this.product.prices.find((price:any) => price.quantity == 0).value;
-    this.priceNormal = this.product.prices.find((price:any) => price.quantity == 1).value;
-    this.priceMayor = this.product.prices.find((price:any) => price.quantity == 3).value;
+    console.log("imprimiendo precios");
+    console.log(this.product.prices);
+    
+    this.priceCosto = this.product.prices.find((price:any) => price.quantity == 0) || 0;
+    this.priceNormal = this.product.prices.find((price:any) => price.quantity == 1) || 0;
+    this.priceMayor = this.product.prices.find((price:any) => price.quantity == 3) || 0;
 
-    this.totalPriceCosto = this.totalQuantityProduct * this.priceCosto;
-    this.totalPriceNormal = this.totalQuantityProduct * this.priceNormal;
-    this.totalPriceMayor = this.totalQuantityProduct * this.priceMayor;
+    // this.totalPriceCosto = this.totalQuantityProduct * this.priceCosto;
+    // this.totalPriceNormal = this.totalQuantityProduct * this.priceNormal;
+    // this.totalPriceMayor = this.totalQuantityProduct * this.priceMayor;
     
 
     // throw new Error('Method not implemented.');

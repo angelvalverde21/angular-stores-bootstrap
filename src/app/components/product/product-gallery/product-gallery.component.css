@@ -2,6 +2,9 @@ swiper-container {
   width: 100%;
   height: 100%;
 }
+swiper-container .swiper-wrapper {
+  justify-content: center;
+}
 
 swiper-slide {
   text-align: center;
@@ -19,17 +22,13 @@ swiper-slide img {
   object-fit: cover;
 }
 
-.add{
+.add {
   border: 2px dashed #61d800;
   height: 100px;
   width: 100px;
 }
 
-.gallery{
+.gallery {
   height: 300px;
   width: 300px;
-}
-
-.mySwiper{
-  height: 150px;
 }

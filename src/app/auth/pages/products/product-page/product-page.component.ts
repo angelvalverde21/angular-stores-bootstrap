@@ -1,17 +1,9 @@
 import { Component, inject, TemplateRef } from '@angular/core';
 import { HeaderComponent } from '../../../../header/header.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { InputGroupComponent } from '../../../../components/forms/input-group/input-group.component';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { ProductService } from '../../../../services/product.service';
-import { ButtonSaveComponent } from '../../../../components/buttons/button-save/button-save.component';
 import { PipesModule } from '../../../../shared/pipes.module';
 
 import { StoreService } from '../../../../services/store.service';
@@ -28,39 +20,39 @@ import {
 import Swal from 'sweetalert2';
 import { BreadCrumbComponent } from "../../../shared/bread-crumb/bread-crumb.component";
 import { ButtonProductCreateModalComponent } from "../../../../components/buttons/button-product-create-modal/button-product-create-modal.component";
-import { DropdownInventoryComponent } from "../../../../components/bootstrap/dropdown-inventory/dropdown-inventory.component";
 import { ProductCardCostComponent } from "../../../../components/product/product-card-cost/product-card-cost.component";
 import { ProductWarehouseComponent } from "../../../shared/products/product-warehouse/product-warehouse.component";
 import { environment } from '../../../../../environments/environment';
 import { ProductGalleryComponent } from "../../../../components/product/product-gallery/product-gallery.component";
-
+import { ProductEditComponent } from '../../../../components/product/product-edit/product-edit.component';
+import { ProductPricesComponent } from "../../../shared/products/prices/product-prices/product-prices.component";
+import { ButtonProductReportComponent } from "../../../../components/reports/button-product-report/button-product-report.component";
 
 @Component({
   selector: 'app-product-page',
   standalone: true,
   imports: [
     HeaderComponent,
-    InputGroupComponent,
     CommonModule,
-    ReactiveFormsModule,
-    ButtonSaveComponent,
     PipesModule,
     RouterModule,
     LoadingCenterComponent,
     NgbModule,
     BreadCrumbComponent,
     ButtonProductCreateModalComponent,
-    DropdownInventoryComponent,
     ProductCardCostComponent,
     ProductWarehouseComponent,
-    ProductGalleryComponent
+    ProductGalleryComponent,
+    ProductEditComponent,
+    ProductPricesComponent,
+    ButtonProductReportComponent
 ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.css',
 })
 export class ProductPageComponent {
-  form!: FormGroup;
-  formPrice!: FormGroup;
+
+ 
   loading: boolean = false;
   loadingEdit: boolean = false;
   btnActive: boolean = false;
@@ -76,7 +68,7 @@ export class ProductPageComponent {
   // private uploadSubscription!: Subscription;
   componentName : string = "";
   constructor(
-    private fb: FormBuilder,
+
     private _product: ProductService,
     private route: ActivatedRoute,
     // private _upload: UploadService,
@@ -109,12 +101,10 @@ export class ProductPageComponent {
         }
       );
   }
-
-
-    
+ 
   ngOnInit(): void {
-    this.initForm(); //inicial el formulario
-    this.loadForm(); //carga el formulario
+
+    this.loadProduct(); //carga el formulario
 
     this.store = this._store.name()!;
   }
@@ -124,18 +114,10 @@ export class ProductPageComponent {
     
     this.accordionItem = value;
   }
-  private initForm(): void {
-    this.form = this.fb.group({
-      name: ['', [Validators.required]],
-      body: [''],
-      tags: [''],
-      over_sale: [''],
-      sell_size_unique: [''],
-      colors: this.fb.array([]),
-    });
-  }
 
-  private loadForm() {
+
+  private loadProduct() {
+
     this.loading = true;
 
     this.id = Number(this.route.snapshot.paramMap.get('product_id'));
@@ -164,7 +146,7 @@ export class ProductPageComponent {
 
           this.warehouses = resp.data.store;
           this.loading = false;
-          this.form.patchValue(resp.data);
+
         },
         error: (error: any) => {
           Swal.fire({
@@ -186,59 +168,6 @@ export class ProductPageComponent {
     }
   }
 
-  btnSaveReady() {
-    this.btnActive = true;
-    this.loadingEdit = false;
-  }
-
-  btnSaveBusy() {
-    this.btnActive = false;
-    this.loadingEdit = true;
-  }
-
-  save() {
-    this.btnSaveBusy();
-
-    console.log('form enviado');
-
-    this.success = false;
-
-    this._product.save(this.form.value, this.id).subscribe({
-      next: (resp: any) => {
-        console.log(resp);
-        console.log('recibiendo el producto guardado');
-        Swal.fire('Guardado', 'El producto ha sido actualizado', 'success');
-        // this.product = resp.data; //Momentaneamente se ha bloqueado la respuesta para que no colicione con
-        this.success = true;
-        this.btnSaveReady();
-      },
-      error: (error: any) => {
-        console.error(error);
-        this.btnSaveReady();
-      },
-    });
-  }
-
-  savePrice() {
-    this.btnSaveBusy();
-
-    console.log('form enviado');
-
-    this.success = false;
-
-    this._product.save(this.form.value, this.id).subscribe({
-      next: (resp: any) => {
-        console.log(resp);
-        this.product = resp.data;
-        this.success = true;
-        this.btnSaveReady();
-      },
-      error: (error: any) => {
-        console.error(error);
-        this.btnSaveReady();
-      },
-    });
-  }
 
   getTotalQuantity(sizes: { pivot: { quantity: number } }[]): number {
     return sizes.reduce((acc, size) => acc + size.pivot.quantity, 0);

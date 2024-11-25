@@ -3,31 +3,46 @@
 
     <!-- <app-dropzone-payment  name="payment" [slug]="'orders/' + order_id + '/payments/create'" class="mx-3" (eventAddFile)="dropzoneValid($event)" (eventUpload)="addPayment($event)" (eventComplete)="formStatus($event)" #dropzone></app-dropzone-payment> -->
 
-    <ng-template #template> Agregar imagenes</ng-template>
+    <div class="controls d-flex justify-content-between align-items-center">
+        <span>Galeria</span>
+        <button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)"><i class="fa-solid fa-camera me-2"></i>Agregar</button>
+    </div>
+
+    <hr>
+
+    <ng-template #template> Este product no tiene imagenes, agreguelos</ng-template>
     <!-- Disponible: {{ product.sku.quantity }} -->
 
     <!-- {{ product.images.length }} -->
 
+
     <swiper-container 
-    
+    style="justify-content: center !important;"
     class="mySwiper" 
     pagination="true" 
     pagination-clickable="true" 
-    space-between="30"
+    [spaceBetween]="20" 
     slides-per-view="6" 
-    *ngIf="product.images?.length > 0; else template"
     [breakpoints]="breakpoints"
+    *ngIf="product.images?.length > 0; else template" 
     >
-    
-        <!-- <swiper-slide><div class="add"></div></swiper-slide> -->
-        <swiper-slide>
-            <app-dropzone name="Imagenes" [maxFiles]="10" [autoProcess]="true" [slug]="'products/'+  product.id +'/images/create'"  (eventUpload)="imageUpload($event)" (eventComplete)="imageUploadStatus($event)" #dropzone></app-dropzone>
-    
-        </swiper-slide>
-        <swiper-slide *ngFor="let image of product.images"><a href="#"><img [src]="image.url_thumbnail" alt=""></a></swiper-slide>
+        <swiper-slide *ngFor="let image of product.images"><a href="#"><img [src]="image.url_thumbnail"
+                    alt=""></a></swiper-slide>
 
     </swiper-container>
 
-    
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h6 class="modal-title">Agregar Imagenes</h6>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <app-dropzone name="Imagenes" [maxFiles]="10" [autoProcess]="true"
+                [slug]="'products/'+  product.id +'/images/create'" (eventUpload)="imageUpload($event)"
+                (eventComplete)="imageUploadStatus($event)" #dropzone></app-dropzone>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </ng-template>
 
 </div>
