@@ -69,7 +69,7 @@ export class InputDistrictIdComponent implements ControlValueAccessor, OnInit {
     
     const searchTerm = $event.target.value;
   
-    if (searchTerm.length > 3) { //permite la busqueda si hay mas de 3 caracteres
+    if (searchTerm.length >= 3) { //permite la busqueda si hay mas de 3 caracteres
 
       this.loading = true;
 

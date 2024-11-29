@@ -100,7 +100,7 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
         this.item = resp.data;
         
         //Se escribe el valor del item en el localstorage
-        this._store.setOrderItem(this.item);
+        //this._store.setOrderItem(this.item);
         
         //se actualiza los valores del summary
         this._cart.setSummary();
