@@ -60,8 +60,6 @@ export class DropzoneComponent implements OnInit, AfterViewInit {
     )}`;
 
     console.log(this.url);
-    
-
   }
 
   processQueue(extraParams: any = null) {

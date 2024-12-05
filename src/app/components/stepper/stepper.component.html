@@ -85,17 +85,16 @@
 </ng-template>
 
 <ng-template #openUplodPackage let-modal>
+
     <div class="modal-header">
         <h4 class="modal-title"><i class="fas fa-box-open me-2"></i>Fotos de empaque</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-
         <app-order-photo [order_id]="order.id"></app-order-photo>
-
-
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
     </div>
+    
 </ng-template>
