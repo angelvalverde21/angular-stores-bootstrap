@@ -83,7 +83,8 @@ export class OrderPhotoComponent implements OnInit, OnDestroy{
   }
 
   addPhoto(event:any){
-
+    console.log(event);
+    this.photos.unshift(event);
   }
 
   dropzoneValid(event:any){
