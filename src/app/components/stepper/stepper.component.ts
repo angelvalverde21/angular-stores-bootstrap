@@ -41,6 +41,10 @@ export class StepperComponent implements OnInit, OnDestroy{
     this.modal = this.modalService.open(content, { centered: true });
   }
 
+  openModal(content: TemplateRef<any>) {
+    this.modal = this.modalService.open(content, { centered: true });
+  }
+
 
   ngOnInit(): void {
 
