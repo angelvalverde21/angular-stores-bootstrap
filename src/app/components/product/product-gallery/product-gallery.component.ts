@@ -1,10 +1,10 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA   } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
-import { register } from 'swiper/element/bundle';
 import { DropzoneComponent } from "../../dropzone/dropzone.component";
-import { DropzonePaymentComponent } from '../../dropzone-payment/dropzone-payment.component';
 import Swal from 'sweetalert2';
+import { register } from 'swiper/element/bundle';
+
 register();
 
 @Component({

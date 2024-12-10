@@ -7,6 +7,8 @@
     <!-- Disponible: {{ product.sku.quantity }} -->
 
     <!-- {{ product.images.length }} -->
+    <app-dropzone name="Imagenes" [maxFiles]="10" [autoProcess]="true" [slug]="'products/'+  product.id +'/images/create'"  (eventUpload)="imageUpload($event)" (eventComplete)="imageUploadStatus($event)" #dropzone></app-dropzone>
+
 
     <swiper-container 
     
@@ -20,10 +22,7 @@
     >
     
         <!-- <swiper-slide><div class="add"></div></swiper-slide> -->
-        <swiper-slide>
-            <app-dropzone name="Imagenes" [maxFiles]="10" [autoProcess]="true" [slug]="'products/'+  product.id +'/images/create'"  (eventUpload)="imageUpload($event)" (eventComplete)="imageUploadStatus($event)" #dropzone></app-dropzone>
-    
-        </swiper-slide>
+        
         <swiper-slide *ngFor="let image of product.images"><a href="#"><img [src]="image.url_thumbnail" alt=""></a></swiper-slide>
 
     </swiper-container>
