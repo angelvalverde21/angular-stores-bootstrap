@@ -1,10 +1,8 @@
-import { Component, Input, ElementRef, ViewChild, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA   } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA,ViewEncapsulation, TemplateRef   } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { DropzoneComponent } from "../../dropzone/dropzone.component";
-import Swal from 'sweetalert2';
-import { register } from 'swiper/element/bundle';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 register();
 
 @Component({
@@ -13,9 +11,10 @@ register();
   imports: [CommonModule, DropzoneComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './product-gallery.component.html',
-  styleUrl: './product-gallery.component.css'
+  styleUrl: './product-gallery.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
-export class ProductGalleryComponent {
+export class ProductGalleryComponent implements AfterViewInit{
 
   // @ViewChild('carouselTrack', { static: true }) carouselTrack!: ElementRef<HTMLDivElement>;
 
@@ -30,10 +29,23 @@ export class ProductGalleryComponent {
     1440: { slidesPerView: 8 }
   };
 
-  constructor(){
+  constructor( private modalService: NgbModal){
     if(environment.showNameComponent){
     this.componentName = this.constructor.name;
     }
+  }
+  
+  ngAfterViewInit() {
+    // Espera a que se rendericen los elementos de Swiper
+    // const swiperWrapper = document.querySelector('.mySwiper .swiper .swiper-wrapper') as HTMLElement;
+      
+    // if (swiperWrapper) {
+    //   console.log('Swiper Wrapper encontrado');
+    //   swiperWrapper.style.display = 'flex';
+    //   swiperWrapper.style.justifyContent = 'center';
+    // } else {
+    //   console.log('Swiper Wrapper no encontrado');
+    // }
   }
 
   imageAdd(dropzone: any){
@@ -67,7 +79,11 @@ export class ProductGalleryComponent {
 
   }
 
-  swal: any;
+  //Esto va en la parte superior, en los imports
+  
+  openVerticallyCentered(content: TemplateRef<any>) {
+    this.modalService.open(content, { centered: true });
+  }
 
   // onSubmit(dropzone: DropzonePaymentComponent) {
 

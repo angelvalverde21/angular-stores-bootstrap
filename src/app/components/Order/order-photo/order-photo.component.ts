@@ -83,10 +83,27 @@ export class OrderPhotoComponent implements OnInit, OnDestroy{
   }
 
   addPhoto(event:any){
+    console.log(event);
+    this.photos.unshift(event);
 
+    Swal.fire({
+      icon: 'success',
+      title: 'Correcto',
+      text: 'Subio correctamente',
+      confirmButtonText: 'OK',
+      showConfirmButton: true
+    })
+    
   }
 
   dropzoneValid(event:any){
-
+    this.swal = Swal.fire({
+      title: 'Espere...',
+      html: 'Estamos cargando el comprobante',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    })
   }
 }

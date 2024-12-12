@@ -41,7 +41,12 @@ export class DropzoneComponent implements OnInit, AfterViewInit {
   @Input() slug: string = '';
   @Output() eventUpload = new EventEmitter<[]>();
   @Output() eventAddFile = new EventEmitter<boolean>();
+  
+  @Output() eventSuccess = new EventEmitter<any>();
+  @Output() eventSending = new EventEmitter<boolean>();
+  @Output() eventAddedfile = new EventEmitter<boolean>();
   @Output() eventComplete = new EventEmitter<boolean>();
+  
 
   private dropzoneInstance!: Dropzone;
 
@@ -60,7 +65,6 @@ export class DropzoneComponent implements OnInit, AfterViewInit {
     )}`;
 
     console.log(this.url);
-    
   }
 
   processQueue(extraParams: any = null) {
@@ -108,15 +112,17 @@ export class DropzoneComponent implements OnInit, AfterViewInit {
               console.log('Archivo subido correctamente:', resp.data);
               self.image = resp.image;
               self.eventUpload.emit(resp.data);
+              self.eventSuccess.emit(resp.data);
             } else {
               // self.eventComplete.emit(false);
+              self.eventSuccess.emit(false);
               console.error('Error al subir el archivo:', resp.message);
             }
           });
 
           this.on('sending', (file, xhr, formData) => {
             console.log("sending");
-            
+            self.eventSending.emit(true);
             // console.log(file);
 
             // Agregar parámetros adicionales de forma dinámica
@@ -129,6 +135,7 @@ export class DropzoneComponent implements OnInit, AfterViewInit {
             // console.log(file);
             // console.log(self._auth.getToken());
             // console.log(self.url);
+            self.eventAddedfile.emit(true);
             self.eventAddFile.emit(true);
 
           });

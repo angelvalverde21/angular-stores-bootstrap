@@ -2,5 +2,9 @@
 <button class="btn btn-{{ type }} w-100 d-flex align-items-center justify-content-center" [disabled]="!btnActive || btnLoading" type="submit">
     <span *ngIf="btnLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
     <i *ngIf="!btnLoading" class="{{ icon }} me-2" style="font-size: 0.9rem;"></i>
-    <span>{{ text }}</span>
+    <span>
+        <ng-content>
+            {{ text }}
+        </ng-content>
+    </span>
 </button>

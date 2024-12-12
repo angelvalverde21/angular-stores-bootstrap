@@ -126,7 +126,7 @@ export class OrderService {
   photoPackageIndex(order_id: number): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
 
-    const url = `${this.urlOrders}/${order_id}/package/photos`;
+    const url = `${this.urlOrders}/${order_id}/packages/photos/index`;
     // const url = `${this.url_base}?store=${store}`;
     console.log(url);
 
@@ -135,7 +135,7 @@ export class OrderService {
   }
 
   destroy(photo_id:number, order_id: number){
-    const url = `${this.urlOrders}/${order_id}/package/photos`;
+    const url = `${this.urlOrders}/${order_id}/packages/photos/index`;
     // const url = `${this.url_base}?store=${store}`;
     console.log(url);
 

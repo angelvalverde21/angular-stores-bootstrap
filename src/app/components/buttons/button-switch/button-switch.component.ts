@@ -22,6 +22,8 @@ export class ButtonSwitchComponent implements ControlValueAccessor {
   @Input() id: string = '';
   @Input() textActive: string = 'Activo';
   @Input() textDesactive: string = 'Desactivado';
+  @Input() textOff: boolean = false;
+
 
   value: boolean = false;
   isDisabled: boolean = false;

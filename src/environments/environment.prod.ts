@@ -1,5 +1,6 @@
 export const environment = {
     production: true,
+    showNameComponent: false,
     parametroBase: 'store',
     urlBase:'https://3b.pe',
     apiUrl: 'https://erp.3b.pe/api/v1/public',

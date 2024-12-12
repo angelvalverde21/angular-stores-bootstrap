@@ -78,7 +78,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-        <app-button-save [btnLoading]="loading" [btnActive]="btnActive"></app-button-save>
+        <app-button-save [btnLoading]="loading" [btnActive]="btnActive" (click)="save()"></app-button-save>
 
     </div>
 </ng-template>
