@@ -66,7 +66,10 @@ export class CatalogoComponent implements OnInit, OnDestroy, AfterViewInit{
 
     this.estaAutenticado = this._auth.estaAutenticado();
 
-    this.phone = this._store.storeWarehouses().phone;
+    this.phone = this._store.info().phone;
+
+    console.log(this._store.storeWarehouses());
+    
 
     this.commonSubscription = this._common.getCardPlaceHolderObservable().subscribe((value:boolean) => {
 
