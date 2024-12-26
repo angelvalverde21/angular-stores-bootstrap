@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ViewEncapsulation  } from '@angular/core';
+import { Component, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { HeaderComponent } from "../../../header/header.component";
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 import { StepperComponent } from "../../../components/stepper/stepper.component";
@@ -23,7 +23,6 @@ import { CartService } from '../../../services/cart.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PaymentComponent } from "../../../components/Order/payment/payment.component";
 import { ButtonPdfComponent } from "../../../components/buttons/button-pdf/button-pdf.component";
-
 
 @Component({
   selector: 'app-warehouse-order-show-page',

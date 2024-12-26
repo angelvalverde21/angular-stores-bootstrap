@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit, ElementRef, AfterViewInit } from '@angular/core';
-import { CardProductComponent } from '../cards/card-product/card-product.component';
-import { CardColorComponent } from '../cards/card-color/card-color.component';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from '../../shared/pipes.module';
-import { LoadingComponent } from '../loading/loading.component';
 import { CardPlaceHolderComponent } from "../card-place-holder/card-place-holder.component";
 import { CommonService } from '../../services/common.service';
 import { Subscription } from 'rxjs';
@@ -17,12 +14,9 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-catalogo',
   standalone: true,
   imports: [
-    CardProductComponent,
     CommonModule,
     RouterModule,
-    CardColorComponent,
     PipesModule,
-    LoadingComponent,
     CardPlaceHolderComponent
 ],
   templateUrl: './catalogo.component.html',
