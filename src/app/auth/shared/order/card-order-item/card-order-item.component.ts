@@ -83,8 +83,8 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
   private initForm(): void {
     this.form = this.fb.group({
       price: [this.item.content.price, [Validators.required]],
-      size_name_virtual: [
-        this.item.content.size_name_virtual,
+      talla_impresa: [
+        this.item.content.talla_impresa,
         [Validators.required],
       ],
     });
