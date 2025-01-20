@@ -5,6 +5,7 @@ import {
   OnInit,
   TemplateRef,
   ViewEncapsulation,
+  ElementRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { PaymentComponent } from '../../../../components/Order/payment/payment.component';
 import { ButtonPdfComponent } from "../../../../components/buttons/button-pdf/button-pdf.component";
+import { Fancybox } from '@fancyapps/ui';
 
 @Component({
   selector: 'app-table-order-index',
@@ -32,7 +34,7 @@ import { ButtonPdfComponent } from "../../../../components/buttons/button-pdf/bu
   styleUrl: './table-order-index.component.css',
   encapsulation: ViewEncapsulation.None,
 })
-export class TableOrderIndexComponent {
+export class TableOrderIndexComponent implements OnInit{
   @Input() orders: any;
   @Input() store: string = '';
   @Input() warehouse_id: number = 0;
@@ -41,11 +43,18 @@ export class TableOrderIndexComponent {
     private _order: OrderService,
     private _store: StoreService,
     config: NgbModalConfig,
+    private elRef: ElementRef,
     private modalService: NgbModal
   ) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
+  }
+  ngOnInit(): void {
+    //iniciamos fancybox
+    Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
+      // Custom options
+    });
   }
    status(order: any) {
     return this._order.status(order);

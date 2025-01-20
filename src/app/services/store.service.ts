@@ -26,21 +26,18 @@ export class StoreService {
     }
   }
 
-  getOrders(){
-
+  getOrders() {
     const orders = JSON.parse(localStorage.getItem('store')!).orders;
     return orders;
-    
   }
 
   getOrderById(order_id: number | null) {
-
     const url = `${this.url_private}/${this.name()}/orders/${order_id}`;
     return this.http.get(url);
 
     const orders = JSON.parse(localStorage.getItem('store')!).orders;
     const order = orders.find((order: any) => order.id == order_id);
-  
+
     if (order != null) {
       // Retorna un observable con el pedido encontrado
       return of(order);
@@ -51,33 +48,33 @@ export class StoreService {
     }
   }
 
-  setOrders(data: [], warehouse_id: number){
-
+  setOrders(data: [], warehouse_id: number) {
     const store = JSON.parse(localStorage.getItem('store')!);
     // const warehouse = store.warehouses.find((warehouse:any) => warehouse.id == warehouse_id);
     // warehouse['orders'] = data;
 
-    const warehouseIndex = store.warehouses.findIndex((warehouse: any) => warehouse.id == warehouse_id);
+    const warehouseIndex = store.warehouses.findIndex(
+      (warehouse: any) => warehouse.id == warehouse_id
+    );
 
     if (warehouseIndex !== -1) {
       // Si se encuentra el warehouse, actualizas el objeto
       store.warehouses[warehouseIndex]['orders'] = data;
-      
+
       // Si necesitas guardar de nuevo en localStorage
       // store.warehouses = warehouses;
       localStorage.setItem('store', JSON.stringify(store));
     }
 
-
     // localStorage.setItem('store', JSON.stringify(store));
-
   }
 
-  setOrder(dataOrder: any){ //dataOrder es una sola orden
+  setOrder(dataOrder: any) {
+    //dataOrder es una sola orden
 
     let store = JSON.parse(localStorage.getItem('store')!);
 
-    let orders = store.orders.map((order:any) => {
+    let orders = store.orders.map((order: any) => {
       if (order.id === dataOrder.id) {
         return dataOrder; // Reemplaza el objeto si coincide el id
       }
@@ -87,16 +84,18 @@ export class StoreService {
     store['orders'] = orders;
 
     localStorage.setItem('store', JSON.stringify(store));
-
   }
-//43277
-  setOrderItem(dataItem: any){ //dataOrder es una sola orden
+  //43277
+  setOrderItem(dataItem: any) {
+    //dataOrder es una sola orden
 
     let store = JSON.parse(localStorage.getItem('store')!);
 
-    let order = store.orders.find((order:any) => order.id == dataItem.order_id);
+    let order = store.orders.find(
+      (order: any) => order.id == dataItem.order_id
+    );
 
-    let items = order.items.map((item:any) => {
+    let items = order.items.map((item: any) => {
       if (item.id === dataItem.id) {
         return dataItem; // Reemplaza el objeto si coincide el id
       }
@@ -108,12 +107,19 @@ export class StoreService {
     this.setOrder(order); //actualiza el orde en especifico con los cambios hechos a los irems
 
     // localStorage.setItem('store', JSON.stringify(store));
-
   }
 
   name() {
     if (localStorage.getItem('slug_base')) {
       return localStorage.getItem('slug_base'); //el ! le indica que no sera vacio
+    } else {
+      return '';
+    }
+  }
+
+  info() {
+    if (localStorage.getItem('store')) {
+      return JSON.parse(localStorage.getItem('store')!); //el ! le indica que no sera vacio
     } else {
       return '';
     }
@@ -136,25 +142,21 @@ export class StoreService {
   }
 
   origins() {
-
     const store = JSON.parse(localStorage.getItem('store')!);
     if (store.origins != null) {
       return store.origins; //el ! le indica que no sera vacio
     } else {
       return '';
     }
-
   }
 
   gateways() {
-
     const store = JSON.parse(localStorage.getItem('store')!);
     if (store.gateways != null) {
       return store.gateways; //el ! le indica que no sera vacio
     } else {
       return '';
     }
-
   }
 
   couriers() {
@@ -174,7 +176,8 @@ export class StoreService {
     }
   }
 
-  isValid(name: string): Observable<boolean> { //name quiere decir el nombre del la primera (storeName) palabra del slug /storeName/login/etc
+  isValid(name: string): Observable<boolean> {
+    //name quiere decir el nombre del la primera (storeName) palabra del slug /storeName/login/etc
 
     console.log('Impresión desde la función setSlugBase: ' + name);
 
@@ -186,21 +189,17 @@ export class StoreService {
       localStorage.getItem('slug_base') === null ||
       localStorage.getItem('slug_base') !== name
     ) {
-      
       console.log('verificaremos el slug inicial ' + name);
-      
+
       return this.SlugVerification(name);
-      
     } else {
       console.log('El slug existe y es ' + name);
-      
-      return of(true); 
-    }
 
+      return of(true);
+    }
   }
 
   SlugVerification(name: string): Observable<boolean> {
-    
     return this.verifyStore(name).pipe(
       map((resp: any) => {
         console.log('se ha seteado el slug_base ' + name);
@@ -213,10 +212,7 @@ export class StoreService {
       catchError((err: any) => {
         console.log('redireccionando a la pagina de login');
         this.router.navigate(['/', name, 'error-404']);
-        console.error(
-          'El nombre de la tienda ' + name + ' no existe:',
-          err
-        );
+        console.error('El nombre de la tienda ' + name + ' no existe:', err);
         return of(false); // Devuelve un observable vacío para manejar el error
       })
     );
@@ -237,22 +233,22 @@ export class StoreService {
 
   /****************************************************************************************** */
 
-  private slugName: BehaviorSubject<string> = new BehaviorSubject<string>(""); //aqui el BehaviorSubject necesita un valor inicial en el argumento y le estamos pasando []
+  private slugName: BehaviorSubject<string> = new BehaviorSubject<string>(''); //aqui el BehaviorSubject necesita un valor inicial en el argumento y le estamos pasando []
 
   //Envia el valor de la propieadad a los componentes
   getNameObservable() {
     return this.slugName.asObservable();
   }
 
-  //Establece el valor de la propiedad 
+  //Establece el valor de la propiedad
   setName(value: string) {
     console.log();
-    this.slugName.next(value)
+    this.slugName.next(value);
   }
 
   // Método para obtener el valor actual sin necesidad de suscripción
   getNameValue() {
-    return this.slugName.getValue();  // Obtiene el valor actual directamente
+    return this.slugName.getValue(); // Obtiene el valor actual directamente
   }
 
   /****************************************************************************************** */
@@ -264,7 +260,7 @@ export class StoreService {
   getHome(store: string): Observable<any> {
     console.log('se llamo a getHome');
     console.log(store);
-    
+
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.urlPublic}/${store}`;
     // const url = `${this.url_base}?store=${store}`;
@@ -291,7 +287,6 @@ export class StoreService {
     return this.http.get(url);
   }
 
-  
   searchPublic(store: string, search: string): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.urlPublic}/${store}/products/search/${search}`;
@@ -301,7 +296,11 @@ export class StoreService {
     return this.http.get(url);
   }
 
-  searchWarehouse(store: string, warehouse: number, search: string): Observable<any> {
+  searchWarehouse(
+    store: string,
+    warehouse: number,
+    search: string
+  ): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.urlPrivate}/${store}/products/warehouses/${warehouse}/search/${search}`;
     // const url = `${this.url_base}?store=${store}`;
@@ -310,12 +309,11 @@ export class StoreService {
     return this.http.get(url);
   }
 
-
   inventory(): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.url_private}/${this.leerSlugBase()}/products`;
     console.log(url);
-    
+
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
@@ -324,28 +322,29 @@ export class StoreService {
 
   categories(): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
-    const url = `${this.url_private}/${this.leerSlugBase()}/products/categories`;
+    const url = `${
+      this.url_private
+    }/${this.leerSlugBase()}/products/categories`;
     console.log(url);
-    
+
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
     return this.http.get(url);
   }
-  
+
   productSizes(): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     const url = `${this.url_private}/${this.leerSlugBase()}/products/sizes`;
     console.log(url);
-    
+
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
 
     return this.http.get(url);
   }
 
-
-  save(data:[]): Observable<any> {
+  save(data: []): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
 
     const url = `${this.urlPrivate}/${this.name()}/update`;
@@ -354,8 +353,6 @@ export class StoreService {
 
     return this.http.post(url, data);
   }
-
-
 
   private sidebarVisibility: Subject<boolean> = new Subject<boolean>();
 

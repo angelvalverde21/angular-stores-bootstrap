@@ -9,7 +9,9 @@
      -->
             <div *ngFor="let i of [].constructor(item.quantity); let index = index">
                 <div class="me-3 text-center" style="min-width: 100px;">
-                    <img [src]="item.image.url_thumbnail" class="me-2 mb-2" style="height: 100px;" alt="">
+                    <a data-fancybox="gallery" [attr.data-caption]="item.image.name" [href]="item.image.url_thumbnail">
+                        <img [src]="item.image.url_thumbnail" class="me-2 mb-2" style="height: 100px;" alt="">
+                    </a>
                     <div>( {{ item.content.talla_impresa }} )</div>
                 </div>
 
@@ -61,7 +63,7 @@
 
                     <label for="reetiquetado" class="mb-2">Re-etiquetado</label>
 
-                    <select id="reetiquetado" formControlName="size_name_virtual" class="form-select form-select-lg mb-3" aria-label=".form-select example">
+                    <select id="reetiquetado" formControlName="talla_impresa" class="form-select form-select-lg mb-3" aria-label=".form-select example">
                         <option selected>Talla Impresa</option>
                         <option value="ESTANDAR">ESTANDAR</option>
                         <option value="XS">XS</option> 
