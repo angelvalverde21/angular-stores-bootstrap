@@ -37,6 +37,7 @@ import { WarehouseOrderIndexPageComponent } from './pages/warehouses/warehouse-o
 import { WarehouseShowPageComponent } from './pages/warehouses/warehouse-show-page/warehouse-show-page.component';
 import { WarehouseOrderShowPageComponent } from './pages/warehouses/warehouse-order-show-page/warehouse-order-show-page.component';
 import { WarehouseOrderCreateOnlinePageComponent } from './auth/pages/warehouses/warehouse-order-create-online-page/warehouse-order-create-online-page.component';
+import { setNameStoreGuard } from './set-name-store.guard';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -47,9 +48,10 @@ export const routes: Routes = [
 
   {
     path: ':store',
-    component: StoreComponent,
+    component: StoreComponent, 
+    canActivate: [setNameStoreGuard],
     // resolve: {
-    //   slugBase: verifyStoreResolver
+    //   store: NameStoreResolver
     // },
     children: [
 
@@ -88,6 +90,7 @@ export const routes: Routes = [
           ] },
           // { path: 'store', component: DashboardComponent },
         ],
+        
 
       },
       { path: 'store', component: AccountComponent },

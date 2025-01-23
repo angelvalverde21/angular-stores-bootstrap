@@ -1,9 +1,24 @@
 <ng-template #content let-offcanvas>
 	<div class="offcanvas-header">
-		<h5 class="offcanvas-title" id="offcanvas-basic-title"><i class="fa-solid fa-user me-3"></i>{{ name | firstName }}</h5>
+		<!-- <h5 *ngIf="estaAutenticado" class="offcanvas-title" id="offcanvas-basic-title"><i class="fa-solid fa-user me-3"></i>{{ name | firstName }}</h5> -->
+        <!-- <app-button-login *ngIf="!estaAutenticado"></app-button-login> -->
+         <span>CATALOGO</span>
 		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
 	</div>
+
 	<div class="offcanvas-body">
+
+        <div class="menu" *ngFor="let menu of menuPublic">
+            <hr>
+            <ng-container *ngIf="!menu.protected || estaAutenticado">
+                <div class="name p-3">{{ menu.name }}</div>
+                <div class="submenu" *ngFor="let children of menu.childrens">
+                    
+                    <a class="p-3 d-block" (click)="redirect(children.url)"><i class="{{ children.icon }} me-2"></i> {{ children.name }}</a>
+
+                </div>
+            </ng-container>
+        </div>
 
         <div class="menu" *ngFor="let menu of menus">
             <hr>
@@ -27,6 +42,7 @@
         </div>
 
 	</div>
+    
 </ng-template>
 
 <button class="btn btn-light me-2" (click)="openCanvas(content)"><i class="fa-solid fa-bars mx-1"></i></button>

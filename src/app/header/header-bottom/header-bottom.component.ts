@@ -18,7 +18,7 @@ import { ButtonSidebarComponent } from "../../auth/button-sidebar/button-sidebar
 @Component({
   selector: 'app-header-bottom',
   standalone: true,
-  imports: [CommonModule, RouterModule, ButtonLoginComponent, FormSearchComponent, PipesModule, ButtonProductsComponent, ButtonOrdersComponent, DropdownAuthHomeComponent, DropdownComponent, DropdownAuthUserComponent, ButtonOpenCanvasSearchComponent, ButtonCartComponent, ButtonSidebarComponent],
+  imports: [CommonModule, RouterModule, ButtonLoginComponent, PipesModule, ButtonCartComponent],
   templateUrl: './header-bottom.component.html',
   styleUrl: './header-bottom.component.css'
 })
@@ -26,7 +26,7 @@ export class HeaderBottomComponent implements OnInit{
 
   showSearch: boolean = false;
 
-  @Input() store: string = ""; 
+
   @Input() estaAutenticado: boolean = false; 
   @Input() user: any; 
   @Output() statusShowSearch = new EventEmitter<boolean>();

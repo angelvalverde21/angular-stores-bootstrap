@@ -27,6 +27,7 @@ export class authGuard implements CanActivate, CanActivateChild {
     _route: ActivatedRouteSnapshot
   ): Observable<boolean> | Promise<boolean> | any {
     // Luego, verifica si el usuario está autenticado
+    
 
     // Obtén el parámetro 'store' desde la ruta
     const slugBase = _route.parent?.paramMap.get('store');

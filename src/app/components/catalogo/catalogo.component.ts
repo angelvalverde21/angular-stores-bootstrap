@@ -48,7 +48,7 @@ export class CatalogoComponent implements OnInit, OnDestroy, AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    this.store = this._store.getNameValue();
+    this.store = this._store.getName();
   }
 
   ngOnInit(): void {

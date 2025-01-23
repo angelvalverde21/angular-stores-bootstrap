@@ -39,10 +39,10 @@ export class LoginComponent {
     /** inicio **/
 
     if (this._auth.estaAutenticado()) {
-      this._store.getNameObservable().subscribe((store: string) => {
-        // console.log(store + ' desde header');
-        this.router.navigateByUrl(store + '/auth');
-      });
+
+      this.router.navigateByUrl(this._store.getName() + '/auth');
+
+
     }
 
     this.form = this.fb.group({

@@ -236,9 +236,9 @@ export class StoreService {
   private slugName: BehaviorSubject<string> = new BehaviorSubject<string>(''); //aqui el BehaviorSubject necesita un valor inicial en el argumento y le estamos pasando []
 
   //Envia el valor de la propieadad a los componentes
-  getNameObservable() {
-    return this.slugName.asObservable();
-  }
+  // getNameObservable() {
+  //   return this.slugName.asObservable();
+  // }
 
   //Establece el valor de la propiedad
   setName(value: string) {
@@ -247,7 +247,7 @@ export class StoreService {
   }
 
   // Método para obtener el valor actual sin necesidad de suscripción
-  getNameValue() {
+  getName() {
     return this.slugName.getValue(); // Obtiene el valor actual directamente
   }
 

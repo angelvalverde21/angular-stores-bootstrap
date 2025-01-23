@@ -50,10 +50,10 @@ export class AuthService {
 
   login(user: User) {
 
-    console.log(this.url + '/'  + this._store.leerSlugBase() +  '/login');
+    console.log(this.url + '/'  + this._store.getName() +  '/login');
     
     
-    return this.http.post(this.url + '/'  + this._store.leerSlugBase() +  '/login', user, this.opciones).pipe(
+    return this.http.post(this.url + '/'  + this._store.getName() +  '/login', user, this.opciones).pipe(
 
       map((resp: any) => {
         // this._console.log('entro al RXJS');

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { StoreService } from '../../services/store.service';
 import { LogoComponent } from "../../components/logo/logo.component";
 
 @Component({
@@ -13,8 +12,7 @@ import { LogoComponent } from "../../components/logo/logo.component";
 })
 export class HeaderMiddleComponent implements OnInit {
 
-  @Input() store: string = ""; 
-  
+
   ngOnInit(): void {
 
   }
