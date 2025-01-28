@@ -1,9 +1,9 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA,ViewEncapsulation, TemplateRef   } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
-import { register } from 'swiper/element/bundle';
 import { DropzoneComponent } from "../../dropzone/dropzone.component";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { register } from 'swiper/element/bundle';
 register();
 
 @Component({

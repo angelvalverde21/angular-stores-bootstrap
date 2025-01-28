@@ -19,11 +19,12 @@ import { Router, RouterModule } from '@angular/router';
 import { StoreService } from '../../services/store.service';
 import { AuthService } from '../../services/auth.service';
 import { PipesModule } from '../../shared/pipes.module';
+import { ButtonLoginComponent } from "../../components/buttons/button-login/button-login.component";
 
 @Component({
   selector: 'app-button-sidebar',
   standalone: true,
-  imports: [RouterModule, CommonModule, PipesModule],
+  imports: [RouterModule, CommonModule, PipesModule, ButtonLoginComponent],
   providers: [NgbOffcanvasConfig, NgbOffcanvas],
   templateUrl: './button-sidebar.component.html',
   styleUrl: './button-sidebar.component.css'
@@ -38,6 +39,7 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
   store: string = '';
   warehouses: any[] = [];
   menus: any[] = [];
+  menuPublic: any[] = [];
   @Input() name : string = "User"; 
   offCanvasRef: any;
   estaAutenticado: boolean = false;
@@ -55,22 +57,13 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
 
     this.store = this._store.name()!;
 
-    if(this._auth.estaAutenticado()){
-      this.warehouses = this._store.warehouses();
-      this.loadMenu();
-    }
-
-
-
   }
 
-
   loadMenu(){
-    
-    this.menus = [
 
+    this.menuPublic  = [
       {
-        "name":"CATALOGO",
+        "name":"NAVEGACION",
         "protected" : false,
         "childrens": [
           {
@@ -90,72 +83,49 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
           },
         ]
       },
-
-      // {
-      //   "name":"MI CUENTA",
-      //   "protected" : true,
-      //   "childrens": [
-      //     {
-      //       "name":"Dashboard",
-      //       "icon":"fa-solid fa-house",
-      //       "url":['/', this.store, 'auth', 'dashboard']
-      //     },
-      //     {
-      //       "name":"Mis pedidos",
-      //       "icon":"fa-solid fa-file-lines",
-      //       "url":['/', this.store, 'auth', 'orders']
-      //     },
-      //     {
-      //       "name":"Mis Direcciones",
-      //       "icon":"fa-solid fa-location-pin",
-      //       "url":['/', this.store, 'account', 'addresses']
-      //     },
-      //     {
-      //       "name":"Notificaciones",
-      //       "icon":"fa-solid fa-bell",
-      //       "url":['/', this.store, 'auth', 'notifications']
-      //     },
-      //     {
-      //       "name":"Mi Perfil",
-      //       "icon":"fa-solid fa-user",
-      //       "url":['/', this.store, 'auth', 'profile']
-      //     },
-      //   ]
-      // },
-      {
-        "name":"MI STORE",
-        "protected" : true,
-        "childrens": [
-          {
-            "name":"Reportes",
-            "icon":"fa-solid fa-chart-column",
-            "url":['/', this.store, 'auth', 'dashboard']
-          },
-          {
-            "name":"Products",
-            "icon":"fa-solid fa-box-open",
-            "url":['/', this.store, 'auth', 'products']
-          },
-          {
-            "name":"Mis Ventas",
-            "icon":"fa-solid fa-sack-dollar",
-            "url": this.warehouses.length > 1 ? ['/', this.store, 'auth', 'orders'] : ['/', this.store, 'warehouses', this.warehouses[0].id, 'orders'],
-            "warehouses": this.warehouses.length > 1 ? this.warehouses : [],
-          },
-          {
-            "name":"Categorias",
-            "icon":"fa-solid fa-layer-group",
-            "url":['/', this.store, 'auth', 'products']
-          },
-          {
-            "name":"Settings",
-            "icon":"fa-solid fa-gear",
-            "url":['/', this.store, 'auth', 'store', 'settings']
-          },
-
-        ]
-      }
     ]
+    
+    if (this.estaAutenticado) {
+      this.menus = [
+
+        {
+          "name":"MI STORE",
+          "protected" : true,
+          "childrens": [
+            {
+              "name":"Reportes",
+              "icon":"fa-solid fa-chart-column",
+              "url":['/', this.store, 'auth', 'dashboard']
+            },
+            {
+              "name":"Products",
+              "icon":"fa-solid fa-box-open",
+              "url":['/', this.store, 'auth', 'products']
+            },
+            {
+              "name":"Mis Ventas",
+              "icon":"fa-solid fa-sack-dollar",
+              "url": this.warehouses.length > 1 ? ['/', this.store, 'auth', 'orders'] : ['/', this.store, 'warehouses', this.warehouses[0].id, 'orders'],
+              "warehouses": this.warehouses.length > 1 ? this.warehouses : [],
+            },
+            {
+              "name":"Categorias",
+              "icon":"fa-solid fa-layer-group",
+              "url":['/', this.store, 'auth', 'products']
+            },
+            {
+              "name":"Settings",
+              "icon":"fa-solid fa-gear",
+              "url":['/', this.store, 'auth', 'store', 'settings']
+            },
+  
+          ]
+        }
+      ];
+    }
+
+    console.log(this.menus);
+    
   }
 
   ngOnDestroy(): void {
@@ -165,7 +135,15 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
   isVisible = false;
 
   ngOnInit() {
+
     this.estaAutenticado = this._auth.estaAutenticado();
+    
+    if(this._auth.estaAutenticado()){
+      this.warehouses = this._store.warehouses();
+    }
+
+    this.loadMenu();
+
   }
 
   redirect(url:[]){

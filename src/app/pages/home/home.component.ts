@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { FooterComponent } from '../../footer/footer.component';
 import { ProductService } from '../../services/product.service';
@@ -15,7 +15,7 @@ import { CatalogoComponent } from "../../components/catalogo/catalogo.component"
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   // private subscription: Subscription;
 
   name: string = "";
@@ -24,7 +24,8 @@ export class HomeComponent {
     private _store: StoreService,
     private _product: ProductService,
     private _common: CommonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     // console.log('se llama a los productos');
     //Consultamos a la base de datos la informacion del perfil y productos
@@ -36,21 +37,25 @@ export class HomeComponent {
 
     // const slugBase = localStorage.getItem('slug_base')!;/
     // this.name = this._store.name()!;
+  }
+  
+  ngOnInit(): void {
+    this._store.getHome(this._store.getName()).subscribe({
 
-    this.route.parent?.params.subscribe((params) => {
-      // console.log(params['store']);
-      this._store.getHome(params['store']).subscribe((resp: any) => {
-
+      next: (resp:any) => {
+        // Manejo de datos recibidos
         console.log(resp.message);
-        
+      
         //setea los productos para que se puedan mostrar
         this._product.setProducts(resp.data);
   
-      });
+      },
+      error: (err) => {
+        // Manejo del error
+        this.router.navigate(['/','error-404']);
+        console.error('Error al obtener los datos:', err);
+      },
+
     });
-
-
-
-
   }
 }

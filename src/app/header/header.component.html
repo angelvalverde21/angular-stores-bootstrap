@@ -15,13 +15,13 @@
 
             <!-- <a [routerLinkActive]="['active']" [routerLink]="['/',store,'tracking']" class=" px-2">Tracking</a> -->
 
-            <app-header-middle [store]="store"></app-header-middle>
+            <app-header-middle></app-header-middle>
 
 
         </div>
 
         <div class="">  
-            <app-header-bottom class="mb-1 d-block" [store]="store" [estaAutenticado]="estaAutenticado" (statusShowSearch)="changeShowSearch($event)" [user]="user"></app-header-bottom>
+            <app-header-bottom class="mb-1 d-block" [estaAutenticado]="estaAutenticado" (statusShowSearch)="changeShowSearch($event)" [user]="user"></app-header-bottom>
         </div>
         
         <!-- d-sm-none mx-auto -->
@@ -32,7 +32,7 @@
             
             <div class="px-auto" *ngIf="estaAutenticado">
                 
-                <app-header-middle [store]="store"></app-header-middle>
+                <app-header-middle></app-header-middle>
             </div>
             
             

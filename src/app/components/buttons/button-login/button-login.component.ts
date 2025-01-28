@@ -16,11 +16,8 @@ export class ButtonLoginComponent{
   estaAutenticado: boolean = false;
 
   constructor(private _store: StoreService, private _auth: AuthService){
-    this._store.getNameObservable().subscribe((store: string) => {
-      // console.log(store + ' desde header');
-      this.store = store;
-      this.estaAutenticado = this._auth.estaAutenticado();
-    });
+    this.store = this._store.getName();
+    this.estaAutenticado = this._auth.estaAutenticado();
   }
   
 

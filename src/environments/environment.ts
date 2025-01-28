@@ -1,6 +1,6 @@
 export const environment = {
 
-    production: true,
+    production: false,
     showNameComponent: true,
     parametroBase: 'store', //este parametro sera usado como variable base
 

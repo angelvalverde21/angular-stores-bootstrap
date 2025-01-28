@@ -14,10 +14,7 @@ export class ButtonLogoutComponent {
   store: string = ''; 
   
   constructor(private _store: StoreService, private _auth: AuthService){
-    this._store.getNameObservable().subscribe((store: string) => {
-      // console.log(store + ' desde header');
-      this.store = store;
-    });
+    this.store = this._store.getName();
   }
   
   logout(){

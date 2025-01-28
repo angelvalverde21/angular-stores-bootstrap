@@ -1,11 +1,7 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { LogoComponent } from '../components/logo/logo.component';
 import { RouterModule } from '@angular/router';
-import { ButtonLoginComponent } from '../components/buttons/button-login/button-login.component';
-import { ButtonRegisterComponent } from '../components/buttons/button-register/button-register.component';
-import { LoadingComponent } from '../components/loading/loading.component';
-import { FormSearchComponent } from '../components/form-search/form-search.component';
 import { CommonModule } from '@angular/common';
 import { StoreService } from '../services/store.service';
 import {
@@ -17,13 +13,9 @@ import {
 } from '@angular/animations';
 import { CommonService } from '../services/common.service';
 import { AuthService } from '../services/auth.service';
-import { ButtonLogoutComponent } from "../components/buttons/button-logout/button-logout.component";
-import { User } from '../interfaces/user.interface';
 import { PipesModule } from '../shared/pipes.module';
 import { HeaderMiddleComponent } from "./header-middle/header-middle.component";
 import { HeaderBottomComponent } from "./header-bottom/header-bottom.component";
-import { ButtonProductsComponent } from "../components/buttons/button-products/button-products.component";
-import { ButtonOrdersComponent } from "../components/buttons/button-orders/button-orders.component";
 import { ButtonOpenCanvasSearchComponent } from "../components/buttons/button-open-canvas-search/button-open-canvas-search.component";
 import { ButtonSidebarComponent } from "../auth/button-sidebar/button-sidebar.component";
 
@@ -33,17 +25,10 @@ import { ButtonSidebarComponent } from "../auth/button-sidebar/button-sidebar.co
   imports: [
     LogoComponent,
     RouterModule,
-    ButtonLoginComponent,
-    ButtonRegisterComponent,
-    LoadingComponent,
-    FormSearchComponent,
     CommonModule,
-    ButtonLogoutComponent,
     PipesModule,
     HeaderMiddleComponent,
     HeaderBottomComponent,
-    ButtonProductsComponent,
-    ButtonOrdersComponent,
     ButtonOpenCanvasSearchComponent,
     ButtonSidebarComponent
 ],

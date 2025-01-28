@@ -21,12 +21,7 @@ export class LogoComponent{
     private _store: StoreService
   ){
     // console.log(this.store + 'desde btn login');
-    this._store.getNameObservable().subscribe((store: string) => {
-      // console.log(store + ' desde header');
-      console.log(store + ' desde logo');
-      
-      this.store = store;
-    });
+    this.store = this._store.getName();
   }
   
   ngOnInit(): void {
