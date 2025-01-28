@@ -72,16 +72,17 @@
 
                         <!-- Botones de wasap -->
                         <div class="controls d-flex justify-content-between mb-3">
-                            <button class="btn btn-success"><i class="fa-brands fa-whatsapp me-2"></i>Wasap</button>
-                            <button class="btn btn-primary"><i class="fa-solid fa-phone me-2"></i>Llamar</button>
+                            <button class="btn btn-success w-50 me-2"><i class="fa-brands fa-whatsapp me-2"></i>Wasap</button>
+                            <app-button-pdf class="w-50" [order_id]="order.id"></app-button-pdf>
+                            <!-- <button class="btn btn-primary"><i class="fa-solid fa-phone me-2"></i>Llamar</button>
                             <button class="btn btn-secondary"><i
-                                    class="fa-solid fa-diamond-turn-right me-2"></i>Ruta</button>
+                                    class="fa-solid fa-diamond-turn-right me-2"></i>Ruta</button> -->
                         </div>
 
                         <!-- Botones para imprimir pdf -->
-                        <div class="controls w-100">
+                        <!-- <div class="controls w-100">
                             <app-button-pdf [order_id]="order.id"></app-button-pdf>
-                        </div>
+                        </div> -->
 
                         }@else {
                         <div>TIENDA</div>
