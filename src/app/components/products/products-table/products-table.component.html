@@ -1,42 +1,59 @@
-<div class="table-responsive">
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th scope="col" class="text-center">Id</th>
-        <th scope="col">Image</th>
-        <th scope="col">Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
-        <th scope="row" style="width: 75px;" class="text-center">{{ product.id }}</th>
-        <td style="width: 150px;" class="text-center">
+<div class="card mb-3">
 
-          <a [routerLink]="['/', store, 'auth', 'products', product.id]">
-            <img height="150px" [src]="product.image?.url_thumbnail"
-              [alt]="'Imagen de ' + product.name || 'Producto sin nombre'" class="product-thumbnail my-3">
-          </a>
-        </td>
-        <td class="py-3">
-          <h5>{{ product.name }}</h5>
-          <div>Stock: {{ product.sku? product.sku.quantity : "" }}</div>
-          <div class="controls mt-3 d-flex">
-            <div class="mb-3 me-2">
-              <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
-            </div>
-          </div>
-          <!-- <div class="controls mt-3 d-flex">
-            <div class="mb-3 me-2">
-              <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
-            </div>
-            <hr>
-            <div class="mb-3">
-              <app-dropdown-colors [product_id]="product.id" [store]="store"></app-dropdown-colors>
-            </div>
-          </div> -->
-        </td>
+  <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+    <div class="icon mb-3 me-3">
+      <i class="fa-solid fa-filter"></i>
+    </div>
+    <div class="filter w-100">
+      <app-form-search></app-form-search>
+    </div>
+  </div>
 
-      </tr>
-    </tbody>
-  </table>
+  <div class="card-body p-0">
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col" class="text-center py-3">Cod.</th>
+            <th scope="col" class="py-3">Imagen</th>
+            <th scope="col" class="py-3">Detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <th scope="row" style="width: 75px;" class="text-center">{{ product.id }}</th>
+            <td style="width: 150px;" class="text-center">
+    
+              <a [routerLink]="['/', store, 'auth', 'products', product.id]">
+                <img height="150px" [src]="product.image?.url_thumbnail"
+                  [alt]="'Imagen de ' + product.name || 'Producto sin nombre'" class="product-thumbnail my-3">
+              </a>
+            </td>
+            <td class="py-3">
+              <h5>{{ product.name }}</h5>
+              <div>Stock: {{ product.sku? product.sku.quantity : "" }}</div>
+              <div class="controls mt-3 d-flex">
+                <div class="mb-3 me-2">
+                  <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
+                </div>
+              </div>
+              <!-- <div class="controls mt-3 d-flex">
+                <div class="mb-3 me-2">
+                  <app-dropdown-inventory [product_id]="product.id"></app-dropdown-inventory>
+                </div>
+                <hr>
+                <div class="mb-3">
+                  <app-dropdown-colors [product_id]="product.id" [store]="store"></app-dropdown-colors>
+                </div>
+              </div> -->
+            </td>
+    
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+
 </div>

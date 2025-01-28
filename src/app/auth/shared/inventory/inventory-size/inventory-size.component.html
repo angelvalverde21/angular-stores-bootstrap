@@ -1,20 +1,59 @@
 <!-- Size -->
 <form [formGroup]="sizeForm">
 
-    <!-- {{ size | json }} -->
+  <!-- {{ size | json }} -->
 
-    #{{ size.color_size.sku.id }}
+  <!-- <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Codigo</th>
+            <th scope="col">Talla</th>
+            <th scope="col">Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">{{ size.color_size.sku.id }}</th>
+            <td class="text-center">{{ size.name | shortNameSize }}</td>
+            <td>
+              <app-input-group>
+    
+                <input type="number" formControlName="quantity" style="width: 75px;" step="1" class="form-control" (keyup)="updateKeyupStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
+                aria-describedby="basic-Tallas">
+            
+                <div class="loading" *ngIf="loading">
+                    <app-loading size="sm"></app-loading>
+                </div>
+              
+              </app-input-group>
+            </td>
+    
+          </tr>
+        </tbody>
+      </table>
+    </div>
+     -->
+
+  <div class="stock d-flex justify-content-between align-items-center">
 
     <app-input-group icontext="{{ size.name | shortNameSize }}">
-    
-      <input type="number" formControlName="quantity" style="width: 75px;" step="1" class="form-control" (keyup)="updateKeyupStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
-      aria-describedby="basic-Tallas">
-  
+
+      <input type="number" formControlName="quantity" style="width: 75px;" step="1" class="form-control"
+        (keyup)="updateKeyupStock($event)" placeholder="0" aria-label="Tallas" onclick="this.select()"
+        aria-describedby="basic-Tallas">
+
       <div class="loading" *ngIf="loading">
-          <app-loading size="sm"></app-loading>
+        <app-loading size="sm"></app-loading>
       </div>
-    
+
     </app-input-group>
-    <!-- {{ sizeForm.value | json }} -->
-    
+
+    <div class="code ms-3 mb-3">
+      <i class="fa-solid fa-barcode me-2"></i> {{ size.color_size.sku.id }}
+    </div>
+
+  </div>
+  <!-- {{ sizeForm.value | json }} -->
+
 </form>

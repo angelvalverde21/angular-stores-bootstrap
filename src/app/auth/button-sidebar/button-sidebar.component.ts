@@ -66,11 +66,11 @@ export class ButtonSidebarComponent implements OnInit, OnDestroy{
         "name":"NAVEGACION",
         "protected" : false,
         "childrens": [
-          {
-            "name":"Buscar",
-            "icon":"fa-solid fa-magnifying-glass",
-            "url":['/', this.store, '/', 'profile']
-          },
+          // {
+          //   "name":"Buscar",
+          //   "icon":"fa-solid fa-magnifying-glass",
+          //   "url":['/', this.store, '/', 'profile']
+          // },
           {
             "name":"Home",
             "icon":"fa-solid fa-house",

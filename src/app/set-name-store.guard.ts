@@ -21,7 +21,6 @@ export class setNameStoreGuard implements CanActivate, CanActivateChild {
     return true;
   }
 
-  
   canActivateChild(): boolean {
     console.log('se paso por el canActivateChild oooooooo');
 

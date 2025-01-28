@@ -43,45 +43,7 @@
 
     <div ngbAccordion class="mb-3" [closeOthers]="true">
 
-        
         <div ngbAccordionItem [collapsed]="false" (click)="selected(1)">
-
-            <h2 ngbAccordionHeader>
-                <button ngbAccordionButton>
-                    <div class="py-1" style="font-size: 1.1rem;">
-                        <i class="fa-regular fa-image me-2"></i>
-                        <span>Galeria</span>
-                    </div>
-                </button>
-            </h2>
-
-            <div ngbAccordionCollapse>
-                <div ngbAccordionBody class="bg-body-secondary">
-                    <app-product-gallery [product]="product"></app-product-gallery>
-                </div>
-            </div>
-
-        </div>
-
-        <div ngbAccordionItem (click)="selected(2)">
-            <h2 ngbAccordionHeader>
-                <button ngbAccordionButton>
-                    <div class="py-1" style="font-size: 1.1rem;">
-                        <i class="fa-solid fa-sack-dollar me-2"></i>
-                        <span>Precios</span>
-                    </div>
-                </button>
-            </h2>
-            <div ngbAccordionCollapse>
-                <div ngbAccordionBody class="bg-body-secondary">
-                    <ng-template>
-                        <app-product-prices [prices]="product.prices" [product_id]="product.id"></app-product-prices>
-                    </ng-template>
-                </div>
-            </div>
-        </div>
-
-        <div ngbAccordionItem [collapsed]="false" (click)="selected(3)">
 
             <h2 ngbAccordionHeader>
 
@@ -104,8 +66,46 @@
 
         </div>
 
+        <!-- 
+        <div ngbAccordionItem (click)="selected(2)">
 
-        <div ngbAccordionItem [collapsed]="false" (click)="selected(4)">
+            <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                    <div class="py-1" style="font-size: 1.1rem;">
+                        <i class="fa-regular fa-image me-2"></i>
+                        <span>Galeria</span>
+                    </div>
+                </button>
+            </h2>
+
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody class="bg-body-secondary">
+                    <app-product-gallery [product]="product"></app-product-gallery>
+                </div>
+            </div>
+
+        </div> 
+        -->
+
+        <div ngbAccordionItem (click)="selected(2)">
+            <h2 ngbAccordionHeader>
+                <button ngbAccordionButton>
+                    <div class="py-1" style="font-size: 1.1rem;">
+                        <i class="fa-solid fa-sack-dollar me-2"></i>
+                        <span>Precios</span>
+                    </div>
+                </button>
+            </h2>
+            <div ngbAccordionCollapse>
+                <div ngbAccordionBody class="bg-body-secondary">
+                    <ng-template>
+                        <app-product-prices [prices]="product.prices" [product_id]="product.id"></app-product-prices>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <div ngbAccordionItem (click)="selected(3)">
 
             <h2 ngbAccordionHeader>
                 <button ngbAccordionButton>
