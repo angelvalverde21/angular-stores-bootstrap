@@ -23,7 +23,7 @@ import { WarehouseService } from '../../../services/warehouse.service';
 @Component({
   selector: 'app-warehouse-order-index-page',
   standalone: true,
-  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, CardAddressComponent, BreadCrumbComponent, ButtonOrderCreateModalComponent, NgbAlertModule, HeaderOrderStatusComponent, CardRowOrderComponent, TableOrderIndexComponent, ButtonOrderCreatePuntoVentaComponent, ButtonOrderCreateOnlineComponent],
+  imports: [HeaderComponent, NgbAccordionModule, LoadingCenterComponent, CommonModule, BreadCrumbComponent, NgbAlertModule, TableOrderIndexComponent, ButtonOrderCreatePuntoVentaComponent, ButtonOrderCreateOnlineComponent],
   templateUrl: './warehouse-order-index-page.component.html',
   styleUrl: './warehouse-order-index-page.component.css',
   providers: [NgbAlertConfig],

@@ -4,9 +4,9 @@ import { FooterComponent } from '../../footer/footer.component';
 import { ProductService } from '../../services/product.service';
 import { StoreService } from '../../services/store.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from '../../services/common.service';
-import { environment } from '../../../environments/environment';
+
 import { CatalogoComponent } from "../../components/catalogo/catalogo.component";
+
 
 @Component({
   selector: 'app-home',
@@ -19,11 +19,11 @@ export class HomeComponent implements OnInit{
   // private subscription: Subscription;
 
   name: string = "";
+  loading: boolean = false;
 
   constructor(
     private _store: StoreService,
     private _product: ProductService,
-    private _common: CommonService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -33,19 +33,21 @@ export class HomeComponent implements OnInit{
 
     console.log('se llamo a homeComponent');
 
-    this._common.setCardPlaceHolder(true);
 
     // const slugBase = localStorage.getItem('slug_base')!;/
     // this.name = this._store.name()!;
   }
   
   ngOnInit(): void {
+
+    this.loading = true;
+
     this._store.getHome(this._store.getName()).subscribe({
 
       next: (resp:any) => {
         // Manejo de datos recibidos
         console.log(resp.message);
-      
+        this.loading = false;
         //setea los productos para que se puedan mostrar
         this._product.setProducts(resp.data);
   

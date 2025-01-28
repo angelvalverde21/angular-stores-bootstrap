@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { CommonModule } from '@angular/common';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-store',
@@ -18,9 +19,11 @@ export class StoreComponent{
     // private _productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
-    private _store: StoreService
+    private _store: StoreService,
+    private _common: CommonService,  
   ) {
 
+    this._common.setCardPlaceHolder(true);
     /*
     | -------------------------------------
     | Seteo global del nombre de la tienda
