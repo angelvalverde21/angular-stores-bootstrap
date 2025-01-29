@@ -1,92 +1,62 @@
 import { Injectable } from '@angular/core';
-declare let qz: any;
+import * as qz from 'qz-tray';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class QzPrinterService {
+  constructor() {
+    this.configureQZ();
+  }
 
-  constructor() {}
+  private configureQZ() {
+    qz.security.setCertificatePromise(() => {
+      return fetch('/assets/qz-tray-cert.pem') // Opcional si usas certificados
+        .then(response => response.text());
+    });
 
-  // Método para conectar con QZ Tray
-  private connectToQZTray(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      qz.websocket.connect().then(() => {
-        console.log('Conectado a QZ Tray');
-        resolve();
-      }).catch((err:any) => {
-        console.error('Error al conectar a QZ Tray:', err);
-        reject(err);
-      });
+    qz.security.setSignaturePromise((toSign) => {
+      return fetch('/sign', { method: 'POST', body: JSON.stringify({ data: toSign }) })
+        .then(response => response.text());
     });
   }
 
-  // Método para obtener la lista de impresoras disponibles
-  getPrinters(): Promise<string[]> {
-    return new Promise((resolve, reject) => {
-      if (!qz.websocket.isActive()) {
-        qz.websocket.connect()
-          .then(() => {
-            return qz.printers.find();
-          })
-          .then((printers: string[]) => {
-            console.log('Impresoras disponibles:', printers);
-            resolve(printers);
-          })
-          .catch((err:any) => {
-            console.error('Error al obtener impresoras:', err);
-            reject(err);
-          });
-      } else {
-        qz.printers.find()
-          .then((printers: string[]) => {
-            console.log('Impresoras disponibles:', printers);
-            resolve(printers);
-          })
-          .catch((err:any) => {
-            console.error('Error al obtener impresoras:', err);
-            reject(err);
-          });
-      }
-    });
-  }
-  
+  async connect() {
+    if (qz.websocket.isActive()) {
+      console.log('⚠️ Ya existe una conexión con QZ Tray.');
+      return; // No intentes conectar de nuevo
+    }
 
-  // Método para imprimir el PDF
-  printPDF(pdfBlob: Blob, printerName: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.connectToQZTray().then(() => {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          const pdfBase64 = e.target.result.split(',')[1];
-
-          // Configurar la impresora
-          const config = qz.configs.create(printerName);
-
-          // Preparar los datos para la impresión
-          const data = [{
-            type: 'pdf',
-            format: 'base64',
-            data: pdfBase64,
-          }];
-
-          // Imprimir el PDF
-          qz.print(config, data).then(() => {
-            console.log('PDF enviado a la impresora');
-            qz.websocket.disconnect();
-            resolve();
-          }).catch((err:any) => {
-            console.error('Error al imprimir el PDF:', err);
-            qz.websocket.disconnect();
-            reject(err);
-          });
-        };
-        reader.readAsDataURL(pdfBlob); // Convertir Blob a Base64
-      }).catch((err) => {
-        reject(err);
-      });
-    });
+    try {
+      await qz.websocket.connect();
+      console.log('✅ Conectado a QZ Tray');
+    } catch (error) {
+      console.error('❌ Error al conectar a QZ Tray:', error);
+    }
   }
 
+  async disconnect() {
+    if (qz.websocket.isActive()) {
+      await qz.websocket.disconnect();
+      console.log('🔌 Desconectado de QZ Tray');
+    }
+  }
+
+  async getPrinters() {
+    await this.connect(); // Asegura que haya conexión antes de obtener las impresoras
+    return qz.printers.find();
+  }
+
+  async printPDF(pdfBlob: Blob, printerName: string) {
+    await this.connect(); // Solo se conecta si no lo está
+
+    try {
+      const config = qz.configs.create(printerName);
+      await qz.print(config, pdfBlob);
+      console.log('✅ PDF enviado a la impresora');
+    } catch (error) {
+      console.error('❌ Error al imprimir PDF:', error);
+    }
+  }
 }
+

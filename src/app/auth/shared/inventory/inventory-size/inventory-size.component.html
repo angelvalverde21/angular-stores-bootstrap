@@ -57,6 +57,10 @@
       <button (click)="generateBarcode(size.color_size.sku.id, sizeForm.value.quantity)" class="btn btn-outline-secondary"><i class="fa-solid fa-print"></i></button>
     </div>
 
+    <div class="code ms-3 mb-3">
+      <button (click)="printerQzBarcodePDF()" class="btn btn-outline-secondary">Qz <i class="fa-solid fa-print"></i></button>
+    </div>
+
 
   </div>
   <!-- {{ sizeForm.value | json }} -->

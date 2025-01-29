@@ -170,37 +170,31 @@ export class InventorySizeComponent {
 
   }
 
-    // Función para manejar la impresión de un PDF
-    printerBarcodePDF(sku_id: number, quantity: number) {
-
-      this.qzPrinterService.getPrinters().then((printers: string[]) => {
-        this.printers = printers;
-        if (printers.length > 0) {
-          this.selectedPrinter = printers[2]; // Seleccionamos la primera impresora por defecto
-        }
-      }).catch(err => {
-        console.error('Error al obtener impresoras', err);
-      });
+  async printerQzBarcodePDF() {
+    try {
+      this.printers = await this.qzPrinterService.getPrinters();
+      
+      if (this.printers.length > 0) {
+        this.selectedPrinter = this.printers[2] || this.printers[0];
+      } else {
+        throw new Error('No hay impresoras disponibles.');
+      }
   
-      // Aquí obtendrás el PDF como un Blob desde tu servidor o una URL.
-      // Este es un ejemplo de cómo descargar un PDF desde una URL.
+      console.log(`📠 Impresora seleccionada: ${this.selectedPrinter}`);
   
-      fetch('https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf', {
-        method: 'GET'
-      })  // Reemplaza con la URL del archivo PDF
-        .then((response) => response.blob())
-        .then((pdfBlob) => {
-          // Llamar al servicio para imprimir el PDF
-          this.qzPrinterService.printPDF(pdfBlob, this.selectedPrinter).then(() => {
-            console.log('PDF impreso correctamente');
-          }).catch((err) => {
-            console.error('Error al imprimir el PDF:', err);
-          });
-        })
-        .catch((err) => {
-          console.error('Error al descargar el PDF:', err);
-        });
+      const response = await fetch('https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf');
+      if (!response.ok) throw new Error(`Error al descargar PDF: ${response.statusText}`);
+  
+      const pdfBlob = await response.blob();
+  
+      await this.qzPrinterService.printPDF(pdfBlob, this.selectedPrinter);
+      console.log('✅ PDF impreso correctamente');
+  
+    } catch (error) {
+      console.error('❌ Error en la impresión:', error);
     }
+  }
+  
 
   generateBarcode(sku_id: number, quantity: number) {
 
