@@ -34,6 +34,7 @@
     "jquery": "^3.7.1",
     "ng2-charts": "^6.0.1",
     "popper.js": "^1.16.1",
+    "qz-tray": "^2.2.4",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.14.1",
     "swiper": "^11.1.15",

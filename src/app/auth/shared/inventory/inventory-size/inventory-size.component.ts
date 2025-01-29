@@ -22,7 +22,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { PdfService } from '../../../../services/pdf.service';
-import { QzPrinterService } from '../../../../qz-printer.service';
+import { QzService } from '../../../../services/qz.service';
 // import Swal from 'sweetalert2';
 
 
@@ -64,7 +64,7 @@ export class InventorySizeComponent {
     private pdfService: PdfService,
     private cdr: ChangeDetectorRef,
     private _inventory: InventoryService,
-    private qzPrinterService: QzPrinterService
+    private qzService: QzService
   ) {
 
   }
@@ -170,31 +170,40 @@ export class InventorySizeComponent {
 
   }
 
-  async printerQzBarcodePDF() {
-    try {
-      this.printers = await this.qzPrinterService.getPrinters();
+  // async printerQzBarcodePDF() {
+  //   try {
+  //     this.printers = await this.qzPrinterService.getPrinters();
       
-      if (this.printers.length > 0) {
-        this.selectedPrinter = this.printers[2] || this.printers[0];
-      } else {
-        throw new Error('No hay impresoras disponibles.');
-      }
+  //     if (this.printers.length > 0) {
+  //       this.selectedPrinter = this.printers[2] || this.printers[0];
+  //     } else {
+  //       throw new Error('No hay impresoras disponibles.');
+  //     }
   
-      console.log(`📠 Impresora seleccionada: ${this.selectedPrinter}`);
+  //     console.log(`📠 Impresora seleccionada: ${this.selectedPrinter}`);
   
-      const response = await fetch('https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf');
-      if (!response.ok) throw new Error(`Error al descargar PDF: ${response.statusText}`);
+  //     const response = await fetch('https://s2.q4cdn.com/175719177/files/doc_presentations/Placeholder-PDF.pdf');
+  //     if (!response.ok) throw new Error(`Error al descargar PDF: ${response.statusText}`);
   
-      const pdfBlob = await response.blob();
+  //     const pdfBlob = await response.blob();
   
-      await this.qzPrinterService.printPDF(pdfBlob, this.selectedPrinter);
-      console.log('✅ PDF impreso correctamente');
+  //     await this.qzPrinterService.printPDF(pdfBlob, this.selectedPrinter);
+  //     console.log('✅ PDF impreso correctamente');
   
-    } catch (error) {
-      console.error('❌ Error en la impresión:', error);
-    }
+  //   } catch (error) {
+  //     console.error('❌ Error en la impresión:', error);
+  //   }
+  // }
+  
+
+  print() {
+    // Primero, intentamos conectar a QZ Tray
+    this.qzService.connect().then(() => {
+      this.qzService.printLabel('Vestido Gitana', this.size.color_size.sku.id);  // Si la conexión es exitosa, imprime la etiqueta
+    }).catch((error) => {
+      console.error('No se pudo conectar con QZ Tray. Asegúrate de que esté corriendo.');
+    });
   }
-  
 
   generateBarcode(sku_id: number, quantity: number) {
 
