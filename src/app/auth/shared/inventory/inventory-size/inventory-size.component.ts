@@ -23,6 +23,7 @@ import { debounceTime } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { PdfService } from '../../../../services/pdf.service';
 import { QzService } from '../../../../services/qz.service';
+import { ShortTitlePipe } from '../../../../shared/Pipes/short-title.pipe';
 // import Swal from 'sweetalert2';
 
 
@@ -45,6 +46,7 @@ export class InventorySizeComponent {
   hasColor: boolean = false;
   quantityInit: number = 0;
   quantityAfter: number = 0;
+  @Input() product: any; // Recibe el grupo de formulario de color
   @Input() size: any; // Recibe el grupo de formulario de color
   @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
   @Output() quantitySizeUpdated = new EventEmitter<number>(); // Notifica cambios en el color
@@ -197,9 +199,11 @@ export class InventorySizeComponent {
   
 
   print() {
+
+    let title = this.product.name.split(' ');
     // Primero, intentamos conectar a QZ Tray
     this.qzService.connect().then(() => {
-      this.qzService.printLabel('Vestido Gitana', this.size.color_size.sku.id);  // Si la conexión es exitosa, imprime la etiqueta
+      this.qzService.printLabel(title[0] + ' ' + title[1], this.size.color_size.sku.id, this.sizeForm.value.quantity);  // Si la conexión es exitosa, imprime la etiqueta
     }).catch((error) => {
       console.error('No se pudo conectar con QZ Tray. Asegúrate de que esté corriendo.');
     });

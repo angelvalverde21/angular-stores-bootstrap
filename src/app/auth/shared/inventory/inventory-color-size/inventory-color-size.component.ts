@@ -34,6 +34,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class InventoryColorSizeComponent implements OnInit, OnDestroy {
 
+  @Input() product: any; // Recibe el grupo de formulario de color
   @Input() color: any; // Recibe el grupo de formulario de color
   @Input() warehouse_id: number = 0; // Recibe el grupo de formulario de color
   @Output() quantityColorUpdated = new EventEmitter<number>(); // Notifica cambios en el color

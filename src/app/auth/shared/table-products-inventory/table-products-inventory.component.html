@@ -101,7 +101,7 @@
 
     @if (colorsFilter.length > 0) {
 
-    <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [warehouse_id]="warehouse_id"
+    <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [product]="product" [warehouse_id]="warehouse_id"
         [color]="color" *ngFor="let color of colorsFilter"></app-inventory-color-size>
 
     }@else {

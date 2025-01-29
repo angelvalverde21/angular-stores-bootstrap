@@ -41,7 +41,7 @@
     <!-- <gallery [items]="[image]"></gallery> -->
 
     <div class="p-3">
-      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [warehouse_id]="warehouse_id" [size]="size"
+      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [product]="product" [warehouse_id]="warehouse_id" [size]="size"
         *ngFor="let size of color.sizes"></app-inventory-size>
     </div>
 

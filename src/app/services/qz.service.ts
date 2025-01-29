@@ -9,6 +9,7 @@ export class QzService {
 
   constructor() { }
 
+  // Método para conectar con QZ Tray
   connect() {
     return new Promise((resolve, reject) => {
       if (qz.websocket.isActive()) {
@@ -25,34 +26,52 @@ export class QzService {
       }
     });
   }
+
   // Método para listar las impresoras disponibles
   listPrinters() {
-    qz.printers.find().then((printers: any) => {
-      console.log("Impresoras disponibles:", printers);
-    }).catch((err: any) => {
-      console.error("Error al listar impresoras:", err);
+    return new Promise((resolve, reject) => {
+      qz.printers.find().then((printers: any) => {
+        console.log("Impresoras disponibles:", printers);
+        resolve(printers);  // Devolvemos la lista de impresoras
+      }).catch((err: any) => {
+        console.error("Error al listar impresoras:", err);
+        reject(err);
+      });
     });
   }
 
-  printLabel(title:string, code: number) {
+  // Método para imprimir la etiqueta múltiples veces sin confirmación
+  printLabel(title: string, code: number, copies: number) {
     // Primero, lista las impresoras disponibles para encontrar el nombre exacto
-    this.listPrinters();
+    this.listPrinters().then((printers: any) => {
+      const printerName = 'ZDesigner LP 2844-Z';  // Ajusta el nombre según el que encuentres
 
-    const config = qz.configs.create('ZDesigner LP 2844-Z');  // Asegúrate de que el nombre coincida exactamente
+      // Verifica si la impresora está en la lista de impresoras disponibles
+      if (printers.includes(printerName)) {
+        const config = qz.configs.create(printerName, { 
+          silent: true // Activamos el modo silencioso para que no pida confirmación, auno no funciona esto
+        });
 
-    const data   = `^XA
-                    // Título en la parte superior (aproximadamente 30 puntos de alto)
-                    // ^FO situa la posicion en el 0,0 de la etiqueta y 30,20 situa la posicion en el posicion x=30 e y=20
-                    ^FO30,20
-                    ^A0N,30,25 // el primer 30 indica el alto de cada letra y el siguiente 20 indica el ancho de cada leta
-                    ^FD${title}^FS
-                  
-                    // Código de barras en la parte media
-                    ^FO30,70
-                    ^B3N,N,60,Y,N
-                    ^FD>:${code}^FS
-                  ^XZ`;
+        // Datos de la etiqueta con el texto y el código de barras
+        const data = `^XA
+                        ^FO30,20
+                        ^A0N,30,25
+                        ^FD${title}^FS
+                      
+                        ^FO30,70
+                        ^B3N,N,60,Y,N
+                        ^FD>:${code}^FS
+                      ^XZ`;
 
-    qz.print(config, [data]).catch((err: any) => console.error('Error al imprimir:', err));
+        // Imprimir la etiqueta la cantidad de veces especificada
+        for (let i = 0; i < copies; i++) {
+          qz.print(config, [data]).catch((err: any) => console.error('Error al imprimir:', err));
+        }
+      } else {
+        console.error(`Impresora ${printerName} no encontrada en la lista de impresoras.`);
+      }
+    }).catch((err: any) => {
+      console.error("Error al obtener la lista de impresoras:", err);
+    });
   }
 }
