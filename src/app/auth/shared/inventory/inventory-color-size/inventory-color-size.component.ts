@@ -23,11 +23,22 @@ import { LoadingCenterComponent } from "../../../../components/loading-center/lo
 import { first, Subscription } from 'rxjs';
 import { ImageColorComponent } from "./image-color/image-color.component";
 import { environment } from '../../../../../environments/environment';
+import { ButtonSwitchComponent } from "../../../../components/buttons/button-switch/button-switch.component";
 
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
-  imports: [CommonModule, InventorySizeComponent, ColorFieldsComponent, UploadVariantsComponent, LoadingCenterComponent, LoadingComponent, ImageColorComponent],
+  imports: [
+    CommonModule, 
+    InventorySizeComponent, 
+    ColorFieldsComponent, 
+    UploadVariantsComponent, 
+    LoadingCenterComponent, 
+    LoadingComponent, 
+    ImageColorComponent, 
+    ButtonSwitchComponent,
+    ReactiveFormsModule
+  ],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css',
   encapsulation: ViewEncapsulation.None
@@ -70,6 +81,8 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
     });
 
   }
+
+
 
   get sizes(): FormArray {
     return this.color.get('sizes') as FormArray;
@@ -124,7 +137,15 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   //   this.colorForm.setControl('sizes', formArray);
   // }
 
+  form!: FormGroup;
+  
   ngOnInit(): void {
+
+    this.form = this.fb.group({
+      status: [''],
+    });
+
+    this.form.patchValue(this.color);
 
     Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
       // Custom options
@@ -145,9 +166,6 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
     
   }
 
-  save(){
-
-  }
 
   handleQuantityUpdate(quantity: number) {
     // Actualiza el totalQuantity con el valor recibido
@@ -231,5 +249,31 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   //     this.uploadSubscription.unsubscribe();
   //   }
   // }
+
+  success: boolean = false;
+
+  save() {
+
+    this.loading = true;
+
+    console.log('form enviado');
+    console.log(this.form.value);
+
+    this.success = false;
+
+    this._color.save(this.form.value, this.color.id).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        this.success = true;
+        this.loading = false;
+        Swal.fire('Actualizado', 'Se ha guardado las opciones del color', 'success');
+      },
+      error: (error: any) => {
+        console.error(error);
+        this.loading = false;
+      },
+    });
+
+  }
 
 }

@@ -30,6 +30,13 @@
         <img width="120px" height="180px" style="border-radius: 0.75rem;" [src]="color.image?.url_thumbnail" alt="">
       </a>
 
+      <form [formGroup]="form">
+
+        <app-button-switch formControlName="status" (change)="save()"  [id]="'color-status-switchx'"/>
+
+      </form>
+
+
       <!-- <button class="btn btn-outline-secondary" (click)="openVerticallyCentered(variantes)">
         <i class="fa-solid fa-ellipsis"></i>
       </button> -->

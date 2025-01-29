@@ -25,7 +25,7 @@ import { PdfService } from '../../../../services/pdf.service';
 import { QzService } from '../../../../services/qz.service';
 import { ShortTitlePipe } from '../../../../shared/Pipes/short-title.pipe';
 // import Swal from 'sweetalert2';
-
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-inventory-size',
@@ -53,6 +53,7 @@ export class InventorySizeComponent {
   sizeForm!: FormGroup;
   @ViewChild('myInput') myInput!: ElementRef<HTMLInputElement>;
   stockWarehouse: any;
+  componentName : string = "";
 
   updateQuantitySubject: Subject<number> = new Subject();
 
@@ -68,7 +69,9 @@ export class InventorySizeComponent {
     private _inventory: InventoryService,
     private qzService: QzService
   ) {
-
+    if(environment.showNameComponent){
+    this.componentName = this.constructor.name;
+    }
   }
 
   ngOnInit(): void {
