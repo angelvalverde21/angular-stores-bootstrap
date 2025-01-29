@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<app-loading-center *ngIf="loading"></app-loading-center>
+
+<div class="container">
+    <div class="card">
+
+        <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+            <div class="icon mb-3 me-3">
+                <i class="fa-solid fa-filter"></i>
+            </div>
+            <div class="filter w-100">
+                <app-form-search></app-form-search>
+            </div>
+        </div>
+    
+        <div class="card-body text-center py-3">
+
+            <div *ngIf="!loading">
+
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <img [src]="sku.color_size.color.image.url_thumbnail" alt="" class="w-100">
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+
+                        <div class="title py-3">
+                            <h5 class="card-title">{{ sku.color_size.color.product.name }}</h5>
+        
+                            <h5>{{ sku.color_size.size.name }}</h5>
+        
+                            <h5>Stock: {{ sku.quantity }}</h5>
+                        </div>
+        
+                        <button class="btn btn-outline-dark" [routerLink]="['/', store, 'auth', 'products', sku.color_size.color.product.id]">Volver</button>
+                    
+                    </div>
+                    
+                </div>
+    
+                <!-- <app-product [product]="product" *ngFor="let product of products"></app-product> -->
+                
+                
+            
+                <!-- {{ sku | json }} -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

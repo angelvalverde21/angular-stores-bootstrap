@@ -19,12 +19,11 @@ import { Router, RouterModule } from '@angular/router';
 import { StoreService } from '../../services/store.service';
 import { AuthService } from '../../services/auth.service';
 import { PipesModule } from '../../shared/pipes.module';
-import { ButtonLoginComponent } from "../../components/buttons/button-login/button-login.component";
 
 @Component({
   selector: 'app-button-sidebar',
   standalone: true,
-  imports: [RouterModule, CommonModule, PipesModule, ButtonLoginComponent],
+  imports: [RouterModule, CommonModule, PipesModule],
   providers: [NgbOffcanvasConfig, NgbOffcanvas],
   templateUrl: './button-sidebar.component.html',
   styleUrl: './button-sidebar.component.css'

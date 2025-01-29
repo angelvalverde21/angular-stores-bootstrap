@@ -130,6 +130,11 @@ export class FormSearchComponent implements OnInit {
     
   }
 
+  isNumber(value: string): boolean {
+    const parsed = parseFloat(value);
+    return !isNaN(parsed) && isFinite(parsed);
+  }
+
   searchProduct(event: any = null) {
 
     if (this.search) {
@@ -155,32 +160,37 @@ export class FormSearchComponent implements OnInit {
       //   this.path = "searchInventoryWarehouse"
       // }
   
-      switch (this.path) {
+      if(this.isNumber(this.search)){
+        this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'sku', 'search', this.search]); //this.search viene del formulario de este componente
+
+      }else{
+        switch (this.path) {
   
-        case 'auth':
-          console.log('navigate a auth/search');
-          this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'products', 'search', this.search]); //this.search viene del formulario de este componente
-          break;
-      
-        case 'authInventory':
-            console.log('navigate a auth/authInventory');
-            this.route.params.subscribe((params) => {
-              console.log(params);
-              this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'w', params['warehouse_id'] , 'inventory', 'search', this.search]);
-            });
-          break;
-      
-        case 'searchInventoryWarehouse':
-            console.log('navigate a auth/searchInventoryWarehouse');
-            if (this.search) {
-              this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'products', 'warehouse', this.warehouse_id, 'search', this.search]); //this.search viene del formulario de este componente
-            }
-          break;
-            
-        default:
-          console.log('navigate a search');
-          this.router.navigate(['/', this._store.leerSlugBase(), 'search', this.search]);
-          break;
+          case 'auth':
+            console.log('navigate a auth/search');
+            this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'products', 'search', this.search]); //this.search viene del formulario de este componente
+            break;
+        
+          case 'authInventory':
+              console.log('navigate a auth/authInventory');
+              this.route.params.subscribe((params) => {
+                console.log(params);
+                this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'w', params['warehouse_id'] , 'inventory', 'search', this.search]);
+              });
+            break;
+        
+          case 'searchInventoryWarehouse':
+              console.log('navigate a auth/searchInventoryWarehouse');
+              if (this.search) {
+                this.router.navigate(['/', this._store.leerSlugBase(), 'auth', 'products', 'warehouse', this.warehouse_id, 'search', this.search]); //this.search viene del formulario de este componente
+              }
+            break;
+              
+          default:
+            console.log('navigate a search');
+            this.router.navigate(['/', this._store.leerSlugBase(), 'search', this.search]);
+            break;
+        }
       }
     }
 

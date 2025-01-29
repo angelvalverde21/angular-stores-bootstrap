@@ -39,6 +39,18 @@ export class PdfService {
     });
   }
 
+  
+  downloadStockBarCode(sku_id: number, quantity: number){
+
+    const url = `${this.urlPrivate}/${this.name}/inventory/pdf/sku/${sku_id}/quantity/${quantity}`;
+    // console.log(url);
+
+    return this.http.get(url, {
+      responseType: 'blob', // Importante para descargar el archivo como blob
+    });
+  }
+
+
   // downloadVoucher(order_id: number){
 
   //   const url = `${this.url}/orders/${order_id}/pdf/voucher`;

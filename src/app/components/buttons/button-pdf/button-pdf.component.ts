@@ -7,37 +7,34 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [NgbDropdownModule],
   templateUrl: './button-pdf.component.html',
-  styleUrl: './button-pdf.component.css'
+  styleUrl: './button-pdf.component.css',
 })
 export class ButtonPdfComponent {
-
   @Input() order_id: number = 0;
 
   constructor(private pdfService: PdfService) {}
 
-  downloadPdf(tipo: string, message: string = "") {
-
+  downloadPdf(tipo: string, message: string = '') {
     Swal.fire({
       title: 'Espere...',
       html: message,
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-        this.pdfService.downloadPdf(this.order_id,tipo).subscribe({
-
+        this.pdfService.downloadPdf(this.order_id, tipo).subscribe({
           next: (response: Blob) => {
-    
             const timestampInSeconds = Math.floor(Date.now() / 1000);
-            
+
             const blob = new Blob([response], { type: 'application/pdf' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = this.order_id + '-' + timestampInSeconds + '-' + tipo + '.pdf';  // Nombre por defecto para el archivo descargado
+            a.download =
+              this.order_id + '-' + timestampInSeconds + '-' + tipo + '.pdf'; // Nombre por defecto para el archivo descargado
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  // Limpia la URL creada
+            window.URL.revokeObjectURL(url); // Limpia la URL creada
 
             Swal.close();
             // Swal.fire({
@@ -49,19 +46,21 @@ export class ButtonPdfComponent {
             //   timer: 1000,  // 1000 milisegundos = 1 segundo
             //   timerProgressBar: true
             // })
-            
           },
-          
+
           error: (error) => {
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se pudo descargar el archivo. Por favor, intente nuevamente más tarde.',
+              confirmButtonText: 'Aceptar',
+            });
+
             console.error('Error al descargar el PDF', error);
-          }
-    
+          },
         });
-    
-      }
-    })
-    
-
+      },
+    });
   }
-
 }

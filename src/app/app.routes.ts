@@ -38,6 +38,7 @@ import { WarehouseShowPageComponent } from './pages/warehouses/warehouse-show-pa
 import { WarehouseOrderShowPageComponent } from './pages/warehouses/warehouse-order-show-page/warehouse-order-show-page.component';
 import { WarehouseOrderCreateOnlinePageComponent } from './auth/pages/warehouses/warehouse-order-create-online-page/warehouse-order-create-online-page.component';
 import { setNameStoreGuard } from './set-name-store.guard';
+import { SearchSkuPageComponent } from './auth/pages/search-sku-page/search-sku-page.component';
 
 // import { StoreNameGuard } from './guards/store-name.guard';
 
@@ -83,10 +84,11 @@ export const routes: Routes = [
                 { path: 'warehouse/:warehouse_id/search/:search', component: ProductsWarehouseSearchPageComponent},  //(Single Product of single Warehouse for search)          
             ]}, //(All Products of all Warehouses)
 
-          { path: 'config', component: ConfigComponent },
-          { path: 'dashboard', component: DashboardComponent },
-          { path: 'store', component: StoreSettingsComponent, children: [
-            { path: 'settings', component: StoreSettingsComponent},
+            { path: 'sku/search/:search', component: SearchSkuPageComponent },
+            { path: 'config', component: ConfigComponent },
+            { path: 'dashboard', component: DashboardComponent },
+            { path: 'store', component: StoreSettingsComponent, children: [
+              { path: 'settings', component: StoreSettingsComponent},
           ] },
           // { path: 'store', component: DashboardComponent },
         ],
