@@ -209,6 +209,18 @@ export class InventorySizeComponent {
     });
   }
 
+  printSize() {
+
+    let title = this.product.name.split(' ');
+    // Primero, intentamos conectar a QZ Tray
+    this.qzService.connect().then(() => {
+      this.qzService.printLabelSize(this.size.color_size.sku.id, this.size.name);  // Si la conexión es exitosa, imprime la etiqueta
+    }).catch((error) => {
+      console.error('No se pudo conectar con QZ Tray. Asegúrate de que esté corriendo.');
+    });
+  }
+
+
   generateBarcode(sku_id: number, quantity: number) {
 
     Swal.fire({
