@@ -36,6 +36,39 @@
 
       </form>
 
+      <div ngbDropdown class="d-inline-block me-2">
+
+        <button class="btn btn-outline-secondary" ngbDropdownToggle>
+          <i class="fa-solid fa-arrow-down me-2"></i>Descargar
+        </button>
+    
+        <div ngbDropdownMenu>
+            
+          <a ngbDropdownItem [href]="color.image.url_large" target="_blank" rel="noreferrer"><i class="fa-solid fa-image me-2"></i>Large</a>
+    
+          <!-- <button ngbDropdownItem (click)="descargarImagen( color.image.url_large , 'large-' + color.image.url_large)">
+            <i class="fa-solid fa-image me-2"></i>Large
+          </button> -->
+            
+            <hr class="dropdown-divider">
+            <a ngbDropdownItem [href]="color.image.url_medium" target="_blank" rel="noreferrer"><i class="fa-solid fa-image me-2"></i>Medium</a>
+    
+            <!-- <button ngbDropdownItem (click)="descargarImagen(color.image.url_medium, 'medium-' + color.image.url_medium)">
+              <i class="fa-solid fa-image me-2"></i>Medium
+            </button> -->
+            
+            <hr class="dropdown-divider">
+            <a ngbDropdownItem [href]="color.image.url_thumbnail" target="_blank" rel="noreferrer"><i class="fa-solid fa-image me-2"></i>Thumbnail</a>
+    
+            <!-- <button ngbDropdownItem (click)="descargarImagen(color.image.url_thumbnail,'thumbnail-' + color.image.url_thumbnail)">
+              <i class="fa-solid fa-image me-2"></i>Thumbnail
+            </button> -->
+            <!-- <app-product-create-modal></app-product-create-modal> -->
+    
+        </div>
+    
+    
+    </div>
 
       <!-- <button class="btn btn-outline-secondary" (click)="openVerticallyCentered(variantes)">
         <i class="fa-solid fa-ellipsis"></i>
@@ -53,6 +86,8 @@
     </div>
 
     <h3 class="text-center quantity" *ngIf="color.sizes.length > 1">{{ totalQuantityColor }}</h3>
+
+    
 
   </div>
 

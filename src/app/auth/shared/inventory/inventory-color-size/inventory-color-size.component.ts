@@ -15,7 +15,7 @@ import { InventorySizeComponent } from '../inventory-size/inventory-size.compone
 import { SkuWarehouseService } from '../../../../services/api/sku-warehouse.service';
 import { ColorFieldsComponent } from "../../products/colors/color-fields/color-fields.component";
 import { Fancybox } from '@fancyapps/ui';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorService } from '../../../../services/color.service';
 import { UploadVariantsComponent } from "../../../../components/upload-dropzone/upload-variants/upload-variants.component";
 import Swal from 'sweetalert2';
@@ -37,7 +37,8 @@ import { ButtonSwitchComponent } from "../../../../components/buttons/button-swi
     LoadingComponent, 
     ImageColorComponent, 
     ButtonSwitchComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbDropdownModule
   ],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css',
@@ -82,7 +83,18 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
 
   }
 
-
+  descargarImagen(url: string, nombreArchivo: string) {
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = nombreArchivo;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      })
+      .catch(error => console.error('Error al descargar la imagen:', error));
+  }
 
   get sizes(): FormArray {
     return this.color.get('sizes') as FormArray;
