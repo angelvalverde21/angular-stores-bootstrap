@@ -2,6 +2,8 @@
 
     <img width="100px" [src]="image.url_thumbnail" alt="">
 
+    <app-dropdown-download-images [image]="image"></app-dropdown-download-images>
+
     <button class="btn btn-danger" (click)="deleleImage(image.id)">
       <i class="fa-solid fa-x" *ngIf="!loadingDelete"></i>
       <app-loading *ngIf="loadingDelete" [size]="'sm'" [color]="'light'"></app-loading>

@@ -3,11 +3,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LoadingComponent } from "../../../../../components/loading/loading.component";
 import { ColorService } from '../../../../../services/color.service';
 import Swal from 'sweetalert2';
+import { DropdownDownloadImagesComponent } from "../../../../../components/buttons/dropdown/dropdown-download-images/dropdown-download-images.component";
 
 @Component({
   selector: 'app-image-color',
   standalone: true,
-  imports: [CommonModule, LoadingComponent],
+  imports: [CommonModule, LoadingComponent, DropdownDownloadImagesComponent],
   templateUrl: './image-color.component.html',
   styleUrl: './image-color.component.css'
 })

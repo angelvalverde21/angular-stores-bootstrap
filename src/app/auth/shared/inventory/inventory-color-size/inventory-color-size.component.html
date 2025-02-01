@@ -36,39 +36,8 @@
 
       </form>
 
-      <div ngbDropdown class="d-inline-block me-2">
 
-        <button class="btn btn-outline-secondary" ngbDropdownToggle>
-          <i class="fa-solid fa-arrow-down me-2"></i>Descargar
-        </button>
-    
-        <div ngbDropdownMenu>
-            
-          <a ngbDropdownItem [href]="color.image.url_large" target="_blank" rel="noreferrer"><i class="fa-solid fa-image me-2"></i>Large</a>
-    
-          <!-- <button ngbDropdownItem (click)="descargarImagen( color.image.url_large , 'large-' + color.image.url_large)">
-            <i class="fa-solid fa-image me-2"></i>Large
-          </button> -->
-            
-            <hr class="dropdown-divider">
-            <a ngbDropdownItem [href]="color.image.url_medium" target="_blank" rel="noreferrer"><i class="fa-solid fa-image me-2"></i>Medium</a>
-    
-            <!-- <button ngbDropdownItem (click)="descargarImagen(color.image.url_medium, 'medium-' + color.image.url_medium)">
-              <i class="fa-solid fa-image me-2"></i>Medium
-            </button> -->
-            
-            <hr class="dropdown-divider">
-            <a ngbDropdownItem [href]="color.image.url_thumbnail" target="_blank" rel="noreferrer"><i class="fa-solid fa-image me-2"></i>Thumbnail</a>
-    
-            <!-- <button ngbDropdownItem (click)="descargarImagen(color.image.url_thumbnail,'thumbnail-' + color.image.url_thumbnail)">
-              <i class="fa-solid fa-image me-2"></i>Thumbnail
-            </button> -->
-            <!-- <app-product-create-modal></app-product-create-modal> -->
-    
-        </div>
-    
-    
-    </div>
+      <app-dropdown-download-images [image]="color.image"></app-dropdown-download-images>
 
       <!-- <button class="btn btn-outline-secondary" (click)="openVerticallyCentered(variantes)">
         <i class="fa-solid fa-ellipsis"></i>
@@ -145,10 +114,14 @@
           <h4 class="modal-title"><i class="fa-solid fa-images"></i></h4>
         </li>
 
+        <!-- cuadro de carga - upload  -->
+
         <li class="list-group-item pt-3">
           <app-upload-variants (uploadReady)="uploadUpdate($event)" (completedUpload)="uploadComplete($event)"
             [color_id]="color.id" [product_id]="color.product_id"></app-upload-variants>
         </li>
+
+        <!-- Listando imagenes del color -->
 
         <li class="list-group-item" *ngFor="let variant of variants">
           <app-image-color [image]="variant" [color_id]="color.id" [product_id]="color.product_id"

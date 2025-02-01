@@ -10,12 +10,11 @@ import {
   inject, TemplateRef, ViewEncapsulation 
 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LoadingComponent } from '../../../../components/loading/loading.component';
 import { InventorySizeComponent } from '../inventory-size/inventory-size.component';
 import { SkuWarehouseService } from '../../../../services/api/sku-warehouse.service';
 import { ColorFieldsComponent } from "../../products/colors/color-fields/color-fields.component";
 import { Fancybox } from '@fancyapps/ui';
-import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColorService } from '../../../../services/color.service';
 import { UploadVariantsComponent } from "../../../../components/upload-dropzone/upload-variants/upload-variants.component";
 import Swal from 'sweetalert2';
@@ -24,22 +23,22 @@ import { first, Subscription } from 'rxjs';
 import { ImageColorComponent } from "./image-color/image-color.component";
 import { environment } from '../../../../../environments/environment';
 import { ButtonSwitchComponent } from "../../../../components/buttons/button-switch/button-switch.component";
+import { DropdownDownloadImagesComponent } from "../../../../components/buttons/dropdown/dropdown-download-images/dropdown-download-images.component";
 
 @Component({
   selector: 'app-inventory-color-size',
   standalone: true,
   imports: [
-    CommonModule, 
-    InventorySizeComponent, 
-    ColorFieldsComponent, 
-    UploadVariantsComponent, 
-    LoadingCenterComponent, 
-    LoadingComponent, 
-    ImageColorComponent, 
+    CommonModule,
+    InventorySizeComponent,
+    ColorFieldsComponent,
+    UploadVariantsComponent,
+    LoadingCenterComponent,
+    ImageColorComponent,
     ButtonSwitchComponent,
     ReactiveFormsModule,
-    NgbDropdownModule
-  ],
+    DropdownDownloadImagesComponent
+],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css',
   encapsulation: ViewEncapsulation.None
@@ -94,6 +93,12 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
         URL.revokeObjectURL(link.href);
       })
       .catch(error => console.error('Error al descargar la imagen:', error));
+  }
+
+
+  downloadImage(filename: string) {
+    const url = `${filename}`;
+    window.open(url, '_blank');
   }
 
   get sizes(): FormArray {
