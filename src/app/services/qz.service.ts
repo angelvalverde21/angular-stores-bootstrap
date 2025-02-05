@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 declare var qz: any;  // Esto permite usar la librería de QZ
 
@@ -7,7 +8,26 @@ declare var qz: any;  // Esto permite usar la librería de QZ
 })
 export class QzService {
 
+  
+    
   constructor() { }
+  
+    /********************************* verificar si qz esta instalado ****************************************** */
+  
+    private isQZAvailable: Subject<boolean> = new Subject<boolean>();
+  
+    /** CREANDO LOS SETTER Y GETTER */
+  
+    setAvailable(value: boolean) {
+      this.isQZAvailable.next(value);
+      // this.products.complete(); //termina la suscripcion, util cuando solo se requiere usar una sola vez
+    }
+  
+    getAvailable() {
+      return this.isQZAvailable.asObservable();
+    }
+    
+
 
   data: any; 
 

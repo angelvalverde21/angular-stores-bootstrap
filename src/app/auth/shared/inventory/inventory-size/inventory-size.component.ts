@@ -42,6 +42,8 @@ import { environment } from '../../../../../environments/environment';
 })
 export class InventorySizeComponent {
 
+  @Input() isQZAvailable: boolean = false;
+
   loading: boolean = false;
   hasColor: boolean = false;
   quantityInit: number = 0;
@@ -74,12 +76,17 @@ export class InventorySizeComponent {
     }
   }
 
+
+
   ngOnInit(): void {
 
     /* printes */
 
+    // this.checkQZAvailability();v
+
 
     /* fin de printes */
+
 
     this.updateQuantitySubject
     .pipe(debounceTime(350))  // Retrasa la búsqueda 300ms después del último evento
@@ -209,6 +216,7 @@ export class InventorySizeComponent {
       this.qzService.printLabel(title[0] + ' ' + title[1], this.size.color_size.sku.id, this.sizeForm.value.quantity);  // Si la conexión es exitosa, imprime la etiqueta
     }).catch((error) => {
       console.error('No se pudo conectar con QZ Tray. Asegúrate de que esté corriendo.');
+      this.isQZAvailable = false;
     });
   }
 

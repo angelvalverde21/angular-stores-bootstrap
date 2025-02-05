@@ -34,7 +34,8 @@ export class ProductService {
     return this.products.asObservable();
   }
 
-
+  /**************** FIN DE PRODUCTOS ***********************/
+  
   load(id: number | null): Observable<any> {
     // Construye la URL con el parámetro 'nombre'
     

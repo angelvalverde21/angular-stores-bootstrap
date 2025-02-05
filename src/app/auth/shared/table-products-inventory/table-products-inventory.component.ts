@@ -24,6 +24,7 @@ import Swal from 'sweetalert2';
 import { ReportInventoryComponent } from "../../../components/inventory/report-inventory/report-inventory.component";
 import { ButtonProductReportComponent } from "../../../components/reports/button-product-report/button-product-report.component";
 import { environment } from '../../../../environments/environment';
+import { QzService } from '../../../services/qz.service';
 
 @Component({
   selector: 'app-table-products-inventory',
@@ -36,6 +37,8 @@ import { environment } from '../../../../environments/environment';
 export class TableProductsInventoryComponent implements OnInit, OnDestroy {
 
   private offcanvasService = inject(NgbOffcanvas); //Para el canvas
+
+  isQZAvailable: boolean = false; //configuracion de qz
 
   @Input() product: any; 
   @Input() warehouse_id: number = 0; 
@@ -56,7 +59,8 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
     private _skuWarehouse : SkuWarehouseService, 
     private _product: ProductService,
     private _upload: UploadService,
-    private _color: ColorService
+    private _color: ColorService,
+    private qzService: QzService
   ){
 
     if(environment.showNameComponent){
@@ -67,6 +71,14 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
 
   private modalService = inject(NgbModal);
 
+  checkQZAvailability() {
+    this.qzService.connect().then(() => {
+      this.qzService.setAvailable(true);
+    }).catch(() => {
+      this.qzService.setAvailable(false);
+    });
+  }
+
   openTop(content: TemplateRef<any>) {
 		this.offcanvasService.open(content, { position: 'top' });
 	}
@@ -76,6 +88,8 @@ export class TableProductsInventoryComponent implements OnInit, OnDestroy {
 	}
 
   ngOnInit(): void {
+
+    this.checkQZAvailability();
 
     // console.log(this.product.prices);
 

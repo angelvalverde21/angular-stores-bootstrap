@@ -26,22 +26,24 @@
 
     <div class="m-3 text-center">
 
-      <button (click)="openVerticallyCentered(variantes)" class="btn-thumb mb-3">
-        <img [src]="color.image?.url_thumbnail" 
-             alt="Vista previa de variante" 
-             class="thumb-img">
+      <!-- <button (click)="openVerticallyCentered(variantes)" class="btn-thumb mb-3">
+
       </button>
+
+      <img [src]="color.image?.url_thumbnail" 
+      alt="Vista previa de variante" 
+      class="thumb-img"> -->
 
       <!-- <div class="icon-gallery mb-3">
         <button class="btn btn-outline-dark" (click)="openVerticallyCentered(variantes)"><i class="fa-solid fa-images"></i></button>
       </div>
-
-      <div class="image">
+ -->
+      <div class="image mb-3">
         <img width="120px" height="180px" style="border-radius: 0.75rem;" [src]="color.image?.url_thumbnail" alt="">
-        <div class="icon-gallery mb-3">
-          <button class="btn btn-outline-dark" (click)="openVerticallyCentered(variantes)"><i class="fa-solid fa-images"></i></button>
+        <div class="icon-gallery">
+          <button class="btn btn-dark" (click)="openVerticallyCentered(variantes)"><i class="fa-solid fa-images"></i></button>
         </div>
-      </div> -->
+      </div>
       
       <form [formGroup]="form">
 
@@ -63,7 +65,7 @@
     <!-- <gallery [items]="[image]"></gallery> -->
 
     <div class="p-3">
-      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [product]="product" [warehouse_id]="warehouse_id" [size]="size"
+      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [isQZAvailable]="isQZAvailable" [product]="product" [warehouse_id]="warehouse_id" [size]="size"
         *ngFor="let size of color.sizes"></app-inventory-size>
     </div>
 
