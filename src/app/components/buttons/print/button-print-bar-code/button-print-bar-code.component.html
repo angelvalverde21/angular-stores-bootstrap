@@ -1,0 +1,1 @@
+<button (click)="printBarcode()"  [disabled]="!isQZAvailable" class="btn" [ngClass]="isQZAvailable ? 'btn-outline-dark' : 'btn-outline-secondary'"><i class="fa-solid fa-print me-2"></i> {{ nameButton }}</button>

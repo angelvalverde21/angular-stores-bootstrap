@@ -65,6 +65,7 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   loadingDelete: boolean = false;
   isQZAvailable: boolean = false;
   loadImagesFromColor!: Subscription;
+  qzAvailableSubscription!: Subscription;
   componentName: string = '';
 
   constructor(
@@ -76,6 +77,39 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   ) {
     if (environment.showNameComponent) {
       this.componentName = this.constructor.name;
+    }
+  }
+
+  form!: FormGroup;
+
+  ngOnInit(): void {
+
+    this.qzAvailableSubscription = this.qzService.getAvailable().subscribe((resp: boolean) => {
+      this.isQZAvailable = resp;
+      console.log('Respuesta de Qz Service');
+      console.log(resp);
+    });
+
+    this.form = this.fb.group({
+      status: [''],
+    });
+
+    this.form.patchValue(this.color);
+
+    Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
+      // Custom options
+    });
+
+    this.initForm(); //inicial el formulario
+
+    if (this.color) {
+      console.log('color modelo');
+      // this.image = { src: this.color.image.url_thumbnail, thumb: this.color.image.url_thumbnail };
+      console.log(this.color);
+
+      this.colorForm.patchValue(this.color);
+      this.totalQuantityColor = this.color.sku.warehouse.pivot.quantity;
+      // this.updateSizes(this.color.sizes);
     }
   }
 
@@ -168,38 +202,7 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   //   this.colorForm.setControl('sizes', formArray);
   // }
 
-  form!: FormGroup;
 
-  ngOnInit(): void {
-
-    this.qzService.getAvailable().subscribe((resp: boolean) => {
-      this.isQZAvailable = resp;
-      console.log('Respuesta de Qz Service');
-      console.log(resp);
-    });
-
-    this.form = this.fb.group({
-      status: [''],
-    });
-
-    this.form.patchValue(this.color);
-
-    Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
-      // Custom options
-    });
-
-    this.initForm(); //inicial el formulario
-
-    if (this.color) {
-      console.log('color modelo');
-      // this.image = { src: this.color.image.url_thumbnail, thumb: this.color.image.url_thumbnail };
-      console.log(this.color);
-
-      this.colorForm.patchValue(this.color);
-      this.totalQuantityColor = this.color.sku.warehouse.pivot.quantity;
-      // this.updateSizes(this.color.sizes);
-    }
-  }
 
   handleQuantityUpdate(quantity: number) {
     // Actualiza el totalQuantity con el valor recibido
@@ -239,6 +242,9 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
 
     if (this.loadImagesFromColor) {
       this.loadImagesFromColor.unsubscribe();
+    }
+    if (this.qzAvailableSubscription) {
+      this.qzAvailableSubscription.unsubscribe();
     }
   }
 

@@ -26,6 +26,7 @@ import { QzService } from '../../../../services/qz.service';
 import { ShortTitlePipe } from '../../../../shared/Pipes/short-title.pipe';
 // import Swal from 'sweetalert2';
 import { environment } from '../../../../../environments/environment';
+import { ButtonPrintBarCodeComponent } from "../../../../components/buttons/print/button-print-bar-code/button-print-bar-code.component";
 
 @Component({
   selector: 'app-inventory-size',
@@ -36,7 +37,8 @@ import { environment } from '../../../../../environments/environment';
     PipesModule,
     ReactiveFormsModule,
     LoadingComponent,
-  ],
+    ButtonPrintBarCodeComponent
+],
   templateUrl: './inventory-size.component.html',
   styleUrl: './inventory-size.component.css'
 })
@@ -211,6 +213,7 @@ export class InventorySizeComponent {
   print() {
 
     let title = this.product.name.split(' ');
+    
     // Primero, intentamos conectar a QZ Tray
     this.qzService.connect().then(() => {
       this.qzService.printLabel(title[0] + ' ' + title[1], this.size.color_size.sku.id, this.sizeForm.value.quantity);  // Si la conexión es exitosa, imprime la etiqueta
