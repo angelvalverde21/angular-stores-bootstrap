@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { LoadingComponent } from "../../../../../components/loading/loading.component";
 import { ColorService } from '../../../../../services/color.service';
 import Swal from 'sweetalert2';
 import { DropdownDownloadImagesComponent } from "../../../../../components/buttons/dropdown/dropdown-download-images/dropdown-download-images.component";
+import { Fancybox } from '@fancyapps/ui';
 
 @Component({
   selector: 'app-image-color',
@@ -12,7 +13,7 @@ import { DropdownDownloadImagesComponent } from "../../../../../components/butto
   templateUrl: './image-color.component.html',
   styleUrl: './image-color.component.css'
 })
-export class ImageColorComponent {
+export class ImageColorComponent implements OnInit, OnDestroy{
 
   @Input() image: any; 
   @Input() color_id: any; 
@@ -20,8 +21,17 @@ export class ImageColorComponent {
   @Output() statusDelete = new EventEmitter<number>();
   loadingDelete: boolean = false;
 
-  constructor(private _color: ColorService){
+  constructor(private elRef: ElementRef, private _color: ColorService){
 
+  }
+  ngOnDestroy(): void {
+    Fancybox.unbind(this.elRef.nativeElement);
+    Fancybox.close();
+  }
+  ngOnInit(): void {
+    Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
+      // Custom options
+    });
   }
   
   deleleImage(image_id: number){
@@ -42,5 +52,7 @@ export class ImageColorComponent {
     });
     
   }
+
+  
 
 }

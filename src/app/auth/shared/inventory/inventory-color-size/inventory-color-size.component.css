@@ -11,3 +11,28 @@
     padding: 0.5rem 1rem;
     font-size: 1rem;
 }
+
+.image{
+    position: relative;
+}
+
+.icon-gallery{
+    position: absolute;
+    left: 2.5rem;
+    bottom: 1rem;
+}
+
+.btn-thumb {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: block;
+  }
+  
+  .thumb-img {
+    width: 120px;
+    height: 180px;
+    border-radius: 0.75rem;
+    object-fit: cover;
+  }

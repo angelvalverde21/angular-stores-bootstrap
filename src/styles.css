@@ -33,6 +33,10 @@ a {
   height: auto; /* Ajusta la altura al contenido automáticamente */
 }
 
+.fancybox__container {
+  z-index: 99999999999999999 !important;
+}
+
 /* Canvas Cart */
 @media (min-width: 0px) and (max-width: 576px) {
   .custom-offcanvas {

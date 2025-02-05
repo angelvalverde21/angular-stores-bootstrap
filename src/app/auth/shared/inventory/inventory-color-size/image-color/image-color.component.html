@@ -1,6 +1,10 @@
 <div class="controls d-flex justify-content-between align-items-center">
 
+
+  <a data-fancybox="gallery" [attr.data-caption]="image.name" [href]="image.url_medium" class="d-block mb-3 image-thumb">
     <img width="100px" [src]="image.url_thumbnail" alt="">
+  </a>
+    
 
     <app-dropdown-download-images [image]="image"></app-dropdown-download-images>
 

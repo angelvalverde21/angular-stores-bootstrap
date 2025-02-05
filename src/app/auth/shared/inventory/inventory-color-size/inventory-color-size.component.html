@@ -7,10 +7,10 @@
     <div class="controls d-flex justify-content-between align-items-center">
 
       <!-- button hamburguesa -->
-      <button class="btn btn-outline-secondary" (click)="openVerticallyCentered(variantes)">
+      <!-- <button class="btn btn-outline-secondary" (click)="openVerticallyCentered(variantes)"> -->
         <!-- <i class="fa-solid fa-ellipsis"></i> -->
-        <i class="fa-solid fa-ellipsis-vertical"></i>
-      </button>
+        <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
+      <!-- </button> -->
 
       <!-- title del card -->
       <div class="title">
@@ -26,10 +26,23 @@
 
     <div class="m-3 text-center">
 
-      <a data-fancybox="gallery" [href]="color.image?.url_medium" class="d-block mb-3">
-        <img width="120px" height="180px" style="border-radius: 0.75rem;" [src]="color.image?.url_thumbnail" alt="">
-      </a>
+      <button (click)="openVerticallyCentered(variantes)" class="btn-thumb mb-3">
+        <img [src]="color.image?.url_thumbnail" 
+             alt="Vista previa de variante" 
+             class="thumb-img">
+      </button>
 
+      <!-- <div class="icon-gallery mb-3">
+        <button class="btn btn-outline-dark" (click)="openVerticallyCentered(variantes)"><i class="fa-solid fa-images"></i></button>
+      </div>
+
+      <div class="image">
+        <img width="120px" height="180px" style="border-radius: 0.75rem;" [src]="color.image?.url_thumbnail" alt="">
+        <div class="icon-gallery mb-3">
+          <button class="btn btn-outline-dark" (click)="openVerticallyCentered(variantes)"><i class="fa-solid fa-images"></i></button>
+        </div>
+      </div> -->
+      
       <form [formGroup]="form">
 
         <app-button-switch formControlName="status" (change)="save()"  [id]="'color-status-switchx'"/>
@@ -37,7 +50,7 @@
       </form>
 
 
-      <app-dropdown-download-images [image]="color.image"></app-dropdown-download-images>
+      <!-- <app-dropdown-download-images [image]="color.image"></app-dropdown-download-images> -->
 
       <!-- <button class="btn btn-outline-secondary" (click)="openVerticallyCentered(variantes)">
         <i class="fa-solid fa-ellipsis"></i>
