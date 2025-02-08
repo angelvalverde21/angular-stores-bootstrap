@@ -8,8 +8,8 @@
 
       <!-- button hamburguesa -->
       <!-- <button class="btn btn-outline-secondary" (click)="openVerticallyCentered(variantes)"> -->
-        <!-- <i class="fa-solid fa-ellipsis"></i> -->
-        <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
+      <!-- <i class="fa-solid fa-ellipsis"></i> -->
+      <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
       <!-- </button> -->
 
       <!-- title del card -->
@@ -39,19 +39,45 @@
       </div>
  -->
       <div class="image mb-3">
-        <img width="120px" height="180px" style="border-radius: 0.75rem;" [src]="color.image?.url_thumbnail" alt="">
-        <div class="icon-gallery">
-          <button class="btn btn-dark" (click)="openVerticallyCentered(variantes)"><i class="fa-solid fa-images"></i></button>
-        </div>
+        <a data-fancybox="gallery" [attr.data-caption]="color.image.name" [href]="color.image?.url_medium">
+          <img width="120px" height="180px" style="border-radius: 0.75rem;" [src]="color.image?.url_thumbnail" alt="">
+        </a>
       </div>
-      
+
+      <div ngbDropdown class="d-inline-block me-2 mb-3">
+
+        <button class="btn btn-outline-dark" ngbDropdownToggle>
+          <i class="fa-regular fa-image me-2"></i>Galeria
+        </button>
+
+        <div ngbDropdownMenu>
+
+          <button ngbDropdownItem class="btn btn-dark" (click)="openVerticallyCentered(variantes)"><i
+              class="fa-solid fa-camera me-2"></i> Fotos</button>
+
+          <hr class="dropdown-divider">
+          <button ngbDropdownItem class="btn btn-dark" (click)="openVerticallyCentered(sesiones)"><i
+              class="fa-solid fa-images me-2"></i> Sesiones HD</button>
+
+          <hr class="dropdown-divider">
+          <button ngbDropdownItem class="btn btn-dark" (click)="openVerticallyCentered(EditColor)"><i
+              class="fa-solid fa-check me-2"></i> Editar Nombre</button>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- <div class="icon-gallery">
+        <button class="btn btn-dark" (click)="openVerticallyCentered(variantes)"><i class="fa-solid fa-images"></i></button>
+      </div> -->
       <form [formGroup]="form">
 
-        <app-button-switch formControlName="status" (change)="save()"  [id]="'color-status-switchx'"/>
+        <app-button-switch formControlName="status" (change)="save()" [id]="'color-status-switchx'" />
 
       </form>
-
-
       <!-- <app-dropdown-download-images [image]="color.image"></app-dropdown-download-images> -->
 
       <!-- <button class="btn btn-outline-secondary" (click)="openVerticallyCentered(variantes)">
@@ -65,13 +91,12 @@
     <!-- <gallery [items]="[image]"></gallery> -->
 
     <div class="p-3">
-      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [isQZAvailable]="isQZAvailable" [product]="product" [warehouse_id]="warehouse_id" [size]="size"
+      <app-inventory-size (quantitySizeUpdated)="getUpdateQuantity($event)" [isQZAvailable]="isQZAvailable"
+        [product]="product" [warehouse_id]="warehouse_id" [size]="size"
         *ngFor="let size of color.sizes"></app-inventory-size>
     </div>
 
     <h3 class="text-center quantity" *ngIf="color.sizes.length > 1">{{ totalQuantityColor }}</h3>
-
-    
 
   </div>
 
@@ -113,11 +138,6 @@
 
   <div class="modal-body">
 
-    <!-- {{ variants | json }} -->
-
-    <app-color-fields (titleToColor)="setColorTitle($event)" [color]="color"></app-color-fields>
-
-
     <ul class="list-group">
 
       <!-- Empieza el bucle -->
@@ -149,6 +169,83 @@
     </ul>
 
   </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!-- Edicion de color -->
+
+<ng-template #EditColor let-modal>
+
+  <div class="modal-header">
+
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="modal-body">
+
+    <app-color-fields (titleToColor)="setColorTitle($event)" [color]="color"></app-color-fields>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+<!-- Sesiones de fotos -->
+<ng-template #sesiones let-modal>
+
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+
+  <div class="modal-body">
+
+
+
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+	<li [ngbNavItem]="1">
+		<button ngbNavLink><i class="fa-solid fa-camera me-2"></i> Agregar</button>
+		<ng-template ngbNavContent>
+      <p class="my-3 text-center">Agregar Sesion</p>
+      <app-upload-variants class="my-3" (uploadReady)="uploadUpdate($event)" (completedUpload)="uploadComplete($event)"
+      [color_id]="color.id" [product_id]="color.product_id"></app-upload-variants>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="2">
+		<button ngbNavLink>07 Febrero 2025</button>
+		<ng-template ngbNavContent>
+			<p>
+				Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
+				farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
+				ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
+				helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
+				8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
+				stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+			</p>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="3">
+		<button ngbNavLink>31 Marzo 2025</button>
+		<ng-template ngbNavContent>
+			<p>
+				Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi.
+				Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio.
+				Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna,
+				egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec
+				tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et
+				magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget
+				neque. Phasellus nec tortor vel tellus pulvinar feugiat.
+			</p>
+		</ng-template>
+	</li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+  </div>
+
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
   </div>

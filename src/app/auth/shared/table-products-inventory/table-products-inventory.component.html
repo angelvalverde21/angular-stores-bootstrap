@@ -6,6 +6,30 @@
         <button class="btn btn-outline-dark" (click)="openVerticallyCentered(contentModal)">
             <i class="fa-solid fa-camera"></i> Agregar
         </button>
+
+        <div ngbDropdown class="d-inline-block ms-2">
+
+            <button class="btn btn-outline-dark" ngbDropdownToggle>
+                <i class="fa-solid fa-download me-2"></i>Descargar
+            </button>
+
+            <div ngbDropdownMenu>
+
+                <button ngbDropdownItem class="btn btn-outline-dark ms-2" (click)="openVerticallyCentered(contentModal)">
+                    <i class="fa-solid fa-download"></i> Colores Activos
+                </button>
+
+                <hr class="dropdown-divider">
+                <button ngbDropdownItem class="btn btn-outline-dark ms-2" (click)="openVerticallyCentered(contentModal)">
+                    <i class="fa-solid fa-download"></i> Colores Stock
+                </button>
+
+            </div>
+
+
+        </div>
+
+
     </div>
 
 </div>
@@ -23,7 +47,7 @@
 
     </div>
 
-    
+
     <!-- <button type="button" class="btn btn-outline-dark"
         [routerLink]="['/', store, 'auth', 'products',product.id]"><i class="fa-solid fa-bars mx-1"></i></button> -->
 </div>
@@ -101,8 +125,8 @@
 
     @if (colorsFilter.length > 0) {
 
-    <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [product]="product" [warehouse_id]="warehouse_id"
-        [color]="color" *ngFor="let color of colorsFilter"></app-inventory-color-size>
+    <app-inventory-color-size (quantityColorUpdated)="updateProductColor($event)" [product]="product"
+        [warehouse_id]="warehouse_id" [color]="color" *ngFor="let color of colorsFilter"></app-inventory-color-size>
 
     }@else {
     <div class="text-center">

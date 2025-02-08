@@ -22,16 +22,15 @@ import { InventorySizeComponent } from '../inventory-size/inventory-size.compone
 import { SkuWarehouseService } from '../../../../services/api/sku-warehouse.service';
 import { ColorFieldsComponent } from '../../products/colors/color-fields/color-fields.component';
 import { Fancybox } from '@fancyapps/ui';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorService } from '../../../../services/color.service';
 import { UploadVariantsComponent } from '../../../../components/upload-dropzone/upload-variants/upload-variants.component';
 import Swal from 'sweetalert2';
 import { LoadingCenterComponent } from '../../../../components/loading-center/loading-center.component';
-import { first, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ImageColorComponent } from './image-color/image-color.component';
 import { environment } from '../../../../../environments/environment';
 import { ButtonSwitchComponent } from '../../../../components/buttons/button-switch/button-switch.component';
-import { DropdownDownloadImagesComponent } from '../../../../components/buttons/dropdown/dropdown-download-images/dropdown-download-images.component';
 import { QzService } from '../../../../services/qz.service';
 
 @Component({
@@ -46,7 +45,8 @@ import { QzService } from '../../../../services/qz.service';
     ImageColorComponent,
     ButtonSwitchComponent,
     ReactiveFormsModule,
-    DropdownDownloadImagesComponent,
+    NgbDropdownModule,
+    NgbNavModule
   ],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css',
@@ -67,7 +67,8 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   loadImagesFromColor!: Subscription;
   qzAvailableSubscription!: Subscription;
   componentName: string = '';
-
+  active = 1;
+  
   constructor(
     private fb: FormBuilder,
     private _skuWarehouse: SkuWarehouseService,
@@ -158,7 +159,7 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   }
 
   openVerticallyCentered(content: TemplateRef<any>) {
-    this.modalService.open(content, { centered: true });
+    this.modalService.open(content, { centered: true, size: 'lg' });
     this.loadVariants();
   }
 

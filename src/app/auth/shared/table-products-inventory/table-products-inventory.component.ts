@@ -16,7 +16,7 @@ import { ProductService } from '../../../services/product.service';
 import { Subscription } from 'rxjs';
 import { LoadingCenterComponent } from "../../../components/loading-center/loading-center.component";
 
-import { NgbOffcanvas, NgbModal  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbOffcanvas, NgbModal, NgbDropdownModule  } from '@ng-bootstrap/ng-bootstrap';
 import { UploadDropzoneColorComponent } from "../../../components/upload-dropzone/upload-dropzone-color/upload-dropzone-color.component"; //Para el canvas y el modal
 import { UploadService } from '../../../services/upload.service';
 import { ColorService } from '../../../services/color.service';
@@ -29,7 +29,7 @@ import { QzService } from '../../../services/qz.service';
 @Component({
   selector: 'app-table-products-inventory',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, InventoryColorSizeComponent, DropdownInventoryComponent, LoadingCenterComponent, UploadDropzoneColorComponent, ReportInventoryComponent, ButtonProductReportComponent],
+  imports: [RouterModule, FormsModule, NgbDropdownModule, CommonModule, InventoryColorSizeComponent, DropdownInventoryComponent, LoadingCenterComponent, UploadDropzoneColorComponent, ReportInventoryComponent, ButtonProductReportComponent],
   templateUrl: './table-products-inventory.component.html',
   styleUrl: './table-products-inventory.component.css',
   encapsulation: ViewEncapsulation.None, //Para el canvas y el modal
