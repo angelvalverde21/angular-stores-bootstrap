@@ -1,0 +1,33 @@
+
+<ul class="list-group">
+
+    <!-- Empieza el bucle -->
+
+    <app-loading-center *ngIf="loading"></app-loading-center>
+
+    <ng-container *ngIf="!loading">
+<!-- 
+      <li class="list-group-item">
+        <h4 class="modal-title"><i class="fa-solid fa-images"></i></h4>
+      </li> -->
+
+      <!-- cuadro de carga - upload  -->
+
+      <li class="list-group-item pt-3">
+        <app-upload-dropzone title="Agregar Session" [path]="path + '/create'" (fileUpload)="fileUpload($event)" (fileTotalUpload)="fileTotalUpload($event)" (errorUpload)="errorUpload($event)"></app-upload-dropzone>
+      </li>
+
+      <!-- Listando imagenes del color -->
+
+      <li class="list-group-item" *ngFor="let image of images">
+        <!-- {{ images | json}} -->
+        <app-media-gallery-item [path]="path" [image]="image" (deleteId)="deleteId($event)"></app-media-gallery-item>
+      </li>
+
+    </ng-container>
+    <!-- fin del bucle -->
+     
+
+  </ul>
+
+

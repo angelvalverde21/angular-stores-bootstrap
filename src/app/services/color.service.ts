@@ -78,7 +78,7 @@ export class ColorService {
     // const url = `${this.url_base}?store=${store}`;
     // console.log(url);
   
-    return this.http.delete(url);;
+    return this.http.delete(url);
   }
 
 

@@ -22,7 +22,7 @@ import { InventorySizeComponent } from '../inventory-size/inventory-size.compone
 import { SkuWarehouseService } from '../../../../services/api/sku-warehouse.service';
 import { ColorFieldsComponent } from '../../products/colors/color-fields/color-fields.component';
 import { Fancybox } from '@fancyapps/ui';
-import { NgbModal, NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorService } from '../../../../services/color.service';
 import { UploadVariantsComponent } from '../../../../components/upload-dropzone/upload-variants/upload-variants.component';
 import Swal from 'sweetalert2';
@@ -32,6 +32,8 @@ import { ImageColorComponent } from './image-color/image-color.component';
 import { environment } from '../../../../../environments/environment';
 import { ButtonSwitchComponent } from '../../../../components/buttons/button-switch/button-switch.component';
 import { QzService } from '../../../../services/qz.service';
+import { ModalColorPhotosComponent } from "../../../../components/modal/modal-color-photos/modal-color-photos.component";
+import { MediaGalleryComponent } from "../../../../components/media/media-gallery/media-gallery.component";
 
 @Component({
   selector: 'app-inventory-color-size',
@@ -46,8 +48,9 @@ import { QzService } from '../../../../services/qz.service';
     ButtonSwitchComponent,
     ReactiveFormsModule,
     NgbDropdownModule,
-    NgbNavModule
-  ],
+    ModalColorPhotosComponent,
+    MediaGalleryComponent
+],
   templateUrl: './inventory-color-size.component.html',
   styleUrl: './inventory-color-size.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -67,7 +70,7 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
   loadImagesFromColor!: Subscription;
   qzAvailableSubscription!: Subscription;
   componentName: string = '';
-  active = 1;
+
   
   constructor(
     private fb: FormBuilder,
@@ -320,4 +323,6 @@ export class InventoryColorSizeComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+
 }

@@ -1,0 +1,21 @@
+<div class="controls d-flex justify-content-between align-items-center">
+
+  <div class="image mb-3">
+    <a data-fancybox="gallery" [attr.data-caption]="image.name" [href]="image.url_medium"
+      class="d-block image-thumb">
+      <img width="100px" [src]="image.url_thumbnail" alt="">
+    </a>
+    <div>
+      {{ image.name }}
+    </div>
+  </div>
+
+
+  <app-dropdown-download-images [image]="image"></app-dropdown-download-images>
+
+  <button class="btn btn-danger" (click)="deleteByUrl()">
+    <i class="fa-solid fa-x" *ngIf="!loadingDelete"></i>
+    <app-loading *ngIf="loadingDelete" [size]="'sm'" [color]="'light'"></app-loading>
+  </button>
+
+</div>

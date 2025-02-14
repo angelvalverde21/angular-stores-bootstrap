@@ -5,6 +5,7 @@ import { ColorService } from '../../../../../services/color.service';
 import Swal from 'sweetalert2';
 import { DropdownDownloadImagesComponent } from "../../../../../components/buttons/dropdown/dropdown-download-images/dropdown-download-images.component";
 import { Fancybox } from '@fancyapps/ui';
+import { ImageService } from '../../../../../services/image.service';
 
 @Component({
   selector: 'app-image-color',
@@ -21,7 +22,7 @@ export class ImageColorComponent implements OnInit, OnDestroy{
   @Output() statusDelete = new EventEmitter<number>();
   loadingDelete: boolean = false;
 
-  constructor(private elRef: ElementRef, private _color: ColorService){
+  constructor(private elRef: ElementRef, private _color: ColorService, private _image: ImageService){
 
   }
   ngOnDestroy(): void {
@@ -51,6 +52,25 @@ export class ImageColorComponent implements OnInit, OnDestroy{
       }
     });
     
+  }
+
+  deleteImageByUrl(path:string){
+
+    this.loadingDelete = true; 
+
+    this.image.destroy(path).subscribe({
+      next: (resp:any) => {
+
+        Swal.fire('Eliminado', 'El elemento ha sido eliminado.', 'success');
+        // this.statusDelete.emit(image_id);
+
+        this.loadingDelete = false; 
+      },
+      error: (error:any) => {
+        console.log(error);
+      }
+    });
+
   }
 
   
