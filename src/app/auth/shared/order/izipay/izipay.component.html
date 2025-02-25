@@ -35,5 +35,10 @@
 
 <!-- {{ order | json }} -->
 
-<button class="btn w-100 mb-3" [ngClass]="order.is_pay? 'btn-secondary' : 'btn-primary'" [disabled]="order.is_pay" (click)="openVerticallyCentered(content)"><i
-        class="fa-solid fa-credit-card me-2"></i> Pagar Ahora</button>
+<button 
+    class="btn w-100 mb-3 py-3 fw-bold" style="font-size: 1.25rem;"
+    [ngClass]="order.is_pay? 'btn-secondary' : 'btn-primary'" 
+    [disabled]="order.is_pay" 
+    (click)="openVerticallyCentered(content)">
+    <i class="fa-solid fa-credit-card me-2"></i> Pagar {{ order.resta_pagar | pen }}
+</button>

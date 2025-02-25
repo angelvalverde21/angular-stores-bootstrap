@@ -1,52 +1,79 @@
-<div class="card mb-3">
 
-    <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
-        <app-loading-center></app-loading-center>
-    </div>
+<div ngbAccordion #accordion="ngbAccordion" class="mb-3">
+	<div ngbAccordionItem="first">
+		<h2 ngbAccordionHeader>
+			<button ngbAccordionButton [ngClass]="is_pay ? 'bg bg-success text-white' : 'bg bg-light'">
+                <h5 *ngIf="is_pay">
+                    Pagado
+                </h5>
+                <h6 class="" *ngIf="!is_pay">
+                    Resumen de pago
+                </h6>
+            </button>
+		</h2>
+		<div ngbAccordionCollapse>
+			<div ngbAccordionBody>
+				<ng-template>
 
-    <div class="card-header d-flex justify-content-between bg text-white align-items-center"
-        [ngClass]="is_pay ? 'bg-success' : 'bg-secondary'">
+                    <div class="card-content">
 
-        <h5 *ngIf="is_pay">
-            Pagado
-        </h5>
-        <h6 class="py-2" *ngIf="!is_pay">
-            Resumen de pago
-        </h6>
+                        <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
+                            <app-loading-center></app-loading-center>
+                        </div>
 
-        <button class="btn btn-outline-light px-3" (click)="openVerticallyCentered(content)"><i
-                class="fa-solid fa-ellipsis-vertical"></i></button>
+                        <ul class="list-group mb-3 list-group-flush">
+                    
+                    
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="label">Sub Total</span><span class="amount">{{ summary?.sub_total | pen }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="label">Descuentos</span><span class="amount">{{ summary?.descuentos | pen }}</span>
+                            </li>
+                    
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="label">IGV</span><span class="amount">S/. 0.00</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="label">Envio</span>
+                                <div>
+                                    <div class="d-flex  flex-row-reverse mb-2">
+                                        <span class="amount">{{ order.shipping_cost_client | pen }}</span>
+                                    </div>
+                                    <button class="btn btn-outline-dark px-3 d-flex  flex-row-reverse" (click)="openVerticallyCentered(content)">Editar</button>
+                                </div>
+                                
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="label">Envio: </span>
 
-    </div>
+                                <form action="" [formGroup]="form">
+                                    <app-input-group icon="fa-solid fa-truck-fast">
+                                        <select class="form-select" id="inputGroupSelect01" formControlName="envio_es" (change)="save(false)">
+                                            <option value="1">GRATIS</option>
+                                            <option value="3">PAGO EN DESTINO</option>
+                                            <option value="2">COBRADO AL CLIENTE</option>
+                                            <option value="4">NO APLICA</option>
+                                        </select>
+                                    </app-input-group>
+                                </form>
 
-    <ul class="list-group mb-3 list-group-flush">
-
-
-        <li class="list-group-item d-flex justify-content-between">
-            <span class="label">Sub Total</span><span class="amount">{{ summary?.sub_total | pen }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-            <span class="label">Descuentos</span><span class="amount">{{ summary?.descuentos | pen }}</span>
-        </li>
-
-        <li class="list-group-item d-flex justify-content-between">
-            <span class="label">IGV</span><span class="amount">S/. 0.00</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-            <span class="label">Envio</span><span class="amount">{{ order.shipping_cost | pen }}</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-            <span class="label">Tipo</span><span class="amount">{{ envio_es(order.envio_es) }}</span>
-        </li>
-        <li class="list-group-item">
-            <h4 class="d-flex justify-content-between"><span class="label">Total</span><span class="amount">{{
-                    summary?.total_amount | pen }}</span>
-            </h4>
-        </li>
-
-    </ul>
-
+                            </li>
+                            <li class="list-group-item">
+                                <h4 class="d-flex justify-content-between"><span class="label">Total</span><span class="amount">{{
+                                        order?.total_amount | pen }}</span>
+                                </h4>
+                            </li>
+                    
+                        </ul>
+                    </div>
+                    
+				</ng-template>
+			</div>
+		</div>
+	</div>
 </div>
+
 
 <ng-template #content let-modal>
 
@@ -57,24 +84,26 @@
             <h4 class="modal-title">Costos de envio</h4>
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
+
         <div class="modal-body">
 
 
-            <app-input-group icon="fa-solid fa-truck-fast">
+            <!-- <app-input-group icon="fa-solid fa-truck-fast">
                 <select class="form-select" id="inputGroupSelect01" formControlName="envio_es">
                     <option value="1">GRATIS</option>
-                    <option value="2">COBRADO AL CLIENTE</option>
                     <option value="3">PAGO EN DESTINO</option>
+                    <option value="2">COBRADO AL CLIENTE</option>
                     <option value="4">NO APLICA</option>
                 </select>
-            </app-input-group>
+            </app-input-group> -->
 
             <app-input-group icontext="S/.">
-                <input type="number" step="0.01" class="form-control" formControlName="shipping_cost" placeholder="0.00"
+                <input type="number" step="0.01" class="form-control" formControlName="shipping_cost_client" placeholder="0.00"
                     aria-label="Costo de envio" aria-describedby="addon-wrapping">
             </app-input-group>
 
         </div>
+
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
             <app-button-save [btnActive]="btnActive" [btnLoading]="btnLoading"></app-button-save>

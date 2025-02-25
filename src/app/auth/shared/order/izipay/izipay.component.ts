@@ -17,6 +17,7 @@ import { OrderService } from '../../../../services/order.service';
 import { NgbModal, NgbModalConfig, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from "../../../../components/loading/loading.component";
 import Swal from 'sweetalert2';
+import { PipesModule } from '../../../../shared/pipes.module';
 
 interface postData {
   amount: string;
@@ -35,7 +36,7 @@ interface postData {
 @Component({
   selector: 'app-izipay',
   standalone: true,
-  imports: [CommonModule, LoadingComponent],
+  imports: [CommonModule, LoadingComponent, PipesModule],
   templateUrl: './izipay.component.html',
   styleUrl: './izipay.component.css',
   encapsulation: ViewEncapsulation.None,

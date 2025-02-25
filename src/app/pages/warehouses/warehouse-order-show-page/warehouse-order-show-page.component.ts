@@ -6,28 +6,37 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { StoreService } from '../../../services/store.service';
 import { IzipayComponent } from '../../../auth/shared/order/izipay/izipay.component';
-import { CardCourierComponent } from '../../../auth/shared/order/card-courier/card-courier.component';
-import { TableItemsComponent } from '../../../auth/shared/order/table-items/table-items.component';
 import { BreadCrumbComponent } from '../../../auth/shared/bread-crumb/bread-crumb.component';
-import { CardSummaryComponent } from '../../../auth/shared/order/card-summary/card-summary.component';
 import { WarehouseOrderService } from '../../../services/warehouse-order.service';
 import { ActivatedRoute } from '@angular/router';
 import { PipesModule } from '../../../shared/pipes.module';
 import { CardOrderItemComponent } from "../../../auth/shared/order/card-order-item/card-order-item.component";
 import { InputSearchProductComponent } from "../../../components/product/input-search-product/input-search-product.component";
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
-import { AddressIndexComponent } from "../../../components/address/address-index/address-index.component";
 import { AddressDefaultComponent } from "../../../components/address/address-default/address-default.component";
 import { CourierDefaultComponent } from "../../../components/courier/courier-default/courier-default.component";
 import { CartService } from '../../../services/cart.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PaymentComponent } from "../../../components/Order/payment/payment.component";
 import { ButtonPdfComponent } from "../../../components/buttons/button-pdf/button-pdf.component";
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
-  imports: [PipesModule, HeaderComponent, LoadingCenterComponent, StepperComponent, CommonModule, CardCourierComponent, TableItemsComponent, BreadCrumbComponent, CardSummaryComponent, IzipayComponent, CardOrderItemComponent, InputSearchProductComponent, OrderSummaryComponent, AddressIndexComponent, AddressDefaultComponent, CourierDefaultComponent, PaymentComponent, ButtonPdfComponent],
+  imports: [
+    PipesModule, 
+    HeaderComponent, 
+    LoadingCenterComponent, 
+    StepperComponent, 
+    CommonModule, 
+    BreadCrumbComponent, 
+    IzipayComponent, 
+    CardOrderItemComponent, 
+    InputSearchProductComponent, 
+    OrderSummaryComponent, 
+    AddressDefaultComponent, 
+    CourierDefaultComponent, 
+    ButtonPdfComponent,
+  ],
   templateUrl: './warehouse-order-show-page.component.html',
   styleUrl: './warehouse-order-show-page.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -46,6 +55,7 @@ export class WarehouseOrderShowPageComponent {
   @Input() order_id: number = 0;
   warehouse_id: number = 0;
   items: any[] = [];
+	isCollapsed = false;
 
   constructor(
     private _warehouseOrder: WarehouseOrderService,
@@ -61,6 +71,13 @@ export class WarehouseOrderShowPageComponent {
 		this.modalService.open(content, { size: 'lg' });
 	}
 
+  totalAmountUpdated(total_amount: number){
+    this.order.total_amount = total_amount;
+  }
+
+  isPayUpdated(is_pay: boolean){
+    this.order.is_pay = is_pay;
+  }
 
   ngOnInit(): void {
 

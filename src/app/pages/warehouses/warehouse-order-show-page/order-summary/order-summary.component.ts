@@ -1,11 +1,10 @@
-import { Component, Input, OnDestroy, OnInit, TemplateRef, ViewEncapsulation  } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewEncapsulation  } from '@angular/core';
 import { PipesModule } from '../../../../shared/pipes.module';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../../services/cart.service';
 import { Subscription } from 'rxjs';
 import { StoreService } from '../../../../services/store.service';
-import { ButtonDotsVerticalComponent } from "../../../../components/button-dots-vertical/button-dots-vertical.component";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InputGroupComponent } from "../../../../components/forms/input-group/input-group.component";
 import { ButtonSaveComponent } from "../../../../components/buttons/button-save/button-save.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; //Colocar esto arriba en los imports
@@ -16,7 +15,15 @@ import { LoadingCenterComponent } from "../../../../components/loading-center/lo
 @Component({
   selector: 'app-order-summary',
   standalone: true,
-  imports: [PipesModule, CommonModule, ButtonDotsVerticalComponent, InputGroupComponent, ButtonSaveComponent, ReactiveFormsModule, LoadingCenterComponent],
+  imports: [
+    PipesModule, 
+    CommonModule, 
+    InputGroupComponent, 
+    ButtonSaveComponent, 
+    ReactiveFormsModule, 
+    LoadingCenterComponent,
+    NgbAccordionModule
+  ],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -29,15 +36,19 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   @Input() btnLoading: boolean = false; 
   @Input() btnActive: boolean = true; 
   @Input() order: any; 
+  @Output() eventTotalAmount = new EventEmitter<number>();
+  @Output() eventIsPay = new EventEmitter<boolean>();
+  
   summary: any;
   summarySubscription! : Subscription;
   costosSubscription! : Subscription;
-  items: any[] = [];
+  // items: any[] = [];
   overlay: boolean = false; 
-
+	items = ['First', 'Second', 'Third'];
   modal: any;
 
   formChildrenIsValid: boolean = false;
+
 
   constructor(
     private _cart: CartService, 
@@ -86,7 +97,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       //array.reduce((accumulator, currentValue, index, array) => {
         // lógica de reducción
       //}, initialValue);
-      const shipping_cost = this.order.shipping_cost != null ? this.order.shipping_cost : 0;
+      const shipping_cost = this.order.shipping_cost_client != null ? this.order.shipping_cost_client : 0;
       const sub_total =  this.items.reduce((sum:number, item:any) => sum + parseFloat(item.price), 0); //sum:number es el acumulador
       const total =  this.items.reduce((sum:number, item:any) => sum + parseFloat(item.content.price), 0) + parseFloat(shipping_cost);
       const descuentos = sub_total - total;
@@ -123,7 +134,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     this.formChildrenIsValid = value;
   }
   
-  save(){
+  save(closeModal = true){
 
     this.btnLoading = true;
     this.btnActive = false;
@@ -137,7 +148,14 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
         Swal.showLoading();
 
+        // if (this.form.value.envio_es == 1 || this.form.value.envio_es == 3 || this.form.value.envio_es == 4) {
+        //   this.form.value.shipping_cost_client = 0;
+        // }
+
         console.log(this.form.value);
+
+
+
         this._warehouse.getById(this.warehouse_id).order.update(this.form.value, this.order_id).subscribe((resp:any) => {
 
           Swal.fire({
@@ -148,10 +166,18 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
             showConfirmButton: true
           })
 
-          this.modal.close();
+          if (closeModal) {
+            this.modal.close();
+          }
+          
+          console.log("response order");
+          //emit
+          this.eventTotalAmount.emit(resp.data.total_amount);
+          this.eventIsPay.emit(resp.data.is_pay);
           
           console.log(resp);
           this.order = resp.data;
+          this.is_pay = this.order.is_pay;
           this.btnLoading = !this.btnLoading;
           this.btnActive = !this.btnActive;
 
@@ -170,7 +196,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   private initForm(): void {
     this.form = this.fb.group({
       envio_es: [this.order.envio_es, [Validators.required]],
-      shipping_cost: [this.order.shipping_cost],
+      shipping_cost_client: [this.order.shipping_cost_client],
     });
   }
   

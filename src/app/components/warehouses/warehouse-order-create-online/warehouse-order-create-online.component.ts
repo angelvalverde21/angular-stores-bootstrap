@@ -1,8 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-
 import { InputGroupComponent } from "../../forms/input-group/input-group.component";
-import { CartOrderComponent } from "../../../componentes/order/cart-order/cart-order.component";
-import { InputSearchProductComponent } from "../../product/input-search-product/input-search-product.component";
 import { AddressFormComponent } from "../../address/address-form/address-form.component";
 import { CartService } from '../../../services/cart.service';
 import { WarehouseOrderService } from '../../../services/warehouse-order.service';
@@ -12,17 +9,17 @@ import { StoreService } from '../../../services/store.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
-
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectCustomComponent } from "../../select-custom/select-custom.component";
 import { ButtonPushComponent } from '../../buttons/button-push/button-push.component';
 import { ButtonEnvioEsComponent } from '../../buttons/button-envio-es/button-envio-es.component';
-
+import { CartOrderComponent } from "../../../componentes/order/cart-order/cart-order.component";
+import { InputSearchProductComponent } from "../../product/input-search-product/input-search-product.component";
 
 @Component({
   selector: 'app-warehouse-order-create-online',
   standalone: true,
-  imports: [InputGroupComponent, CartOrderComponent, InputSearchProductComponent, AddressFormComponent, CommonModule, ReactiveFormsModule, SelectCustomComponent, ButtonPushComponent, ButtonEnvioEsComponent ],
+  imports: [InputGroupComponent, AddressFormComponent, CommonModule, ReactiveFormsModule, SelectCustomComponent, ButtonPushComponent, ButtonEnvioEsComponent, CartOrderComponent, InputSearchProductComponent],
   templateUrl: './warehouse-order-create-online.component.html',
   styleUrl: './warehouse-order-create-online.component.css'
 })
@@ -105,6 +102,11 @@ export class WarehouseOrderCreateOnlineComponent implements OnInit, OnDestroy{
     this.cartItems = this._cart.getItemsCartWarehouse();
     this.store = this._store.name()!;
     // this.loadWarehouseCart();
+
+    /****** boton que activa el input para agregar productos *******/
+
+    /**
+
     this.warehouseCartSubscription = this._cart.getCartWarehouseObservable().subscribe ((resp:any) => {
       //Escucho si se agrego o no elementos al warehouseCartItems
       console.log(resp);
@@ -119,6 +121,10 @@ export class WarehouseOrderCreateOnlineComponent implements OnInit, OnDestroy{
       }
 
     });
+
+    **/
+
+    /****************************************************************/
 
     this.form.get('courier_id')?.valueChanges.subscribe(value => {
 
@@ -208,10 +214,19 @@ export class WarehouseOrderCreateOnlineComponent implements OnInit, OnDestroy{
 
   form!: FormGroup;
   
+  //este forma valid viene del componente address que si todo es correcto emitara un valor que se recibira con esta funcion
   formValid(value: boolean) {
-    this.formAddressIsValid = value;
+
+    if(this.form.valid && value){
+      this.formAddressIsValid = true;
+      this.btnActive = true;
+    }else{
+      this.formAddressIsValid = false;
+      this.btnActive = false;
+    }
+
     console.log(value);
-    
+
   }
 
 }
