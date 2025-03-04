@@ -13,30 +13,30 @@ import { PipesModule } from '../../../shared/pipes.module';
 import { CardOrderItemComponent } from "../../../auth/shared/order/card-order-item/card-order-item.component";
 import { InputSearchProductComponent } from "../../../components/product/input-search-product/input-search-product.component";
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
-import { AddressDefaultComponent } from "../../../components/address/address-default/address-default.component";
 import { CourierDefaultComponent } from "../../../components/courier/courier-default/courier-default.component";
 import { CartService } from '../../../services/cart.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ButtonPdfComponent } from "../../../components/buttons/button-pdf/button-pdf.component";
+import { ShipmentShowComponent } from "../../../components/Shipments/shipment-show/shipment-show.component";
 
 @Component({
   selector: 'app-warehouse-order-show-page',
   standalone: true,
   imports: [
-    PipesModule, 
-    HeaderComponent, 
-    LoadingCenterComponent, 
-    StepperComponent, 
-    CommonModule, 
-    BreadCrumbComponent, 
-    IzipayComponent, 
-    CardOrderItemComponent, 
-    InputSearchProductComponent, 
-    OrderSummaryComponent, 
-    AddressDefaultComponent, 
-    CourierDefaultComponent, 
+    PipesModule,
+    HeaderComponent,
+    LoadingCenterComponent,
+    StepperComponent,
+    CommonModule,
+    BreadCrumbComponent,
+    IzipayComponent,
+    CardOrderItemComponent,
+    InputSearchProductComponent,
+    OrderSummaryComponent,
+    CourierDefaultComponent,
     ButtonPdfComponent,
-  ],
+    ShipmentShowComponent
+],
   templateUrl: './warehouse-order-show-page.component.html',
   styleUrl: './warehouse-order-show-page.component.css',
   encapsulation: ViewEncapsulation.None,
@@ -180,8 +180,6 @@ export class WarehouseOrderShowPageComponent {
   elementoEliminado(item_id : number){
 
     console.log(item_id);
-    
-
     this.order.items = this.order.items.filter((item:any) => item.id !== item_id);
     console.log(this.order.items);
     console.log("se esuch a un eliminado");
