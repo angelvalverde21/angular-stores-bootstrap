@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonSwitchComponent } from "../../buttons/button-switch/button-switch.component";
 import { CourierDefaultComponent } from "../../courier/courier-default/courier-default.component";
 import { SelectCustomComponent } from "../../select-custom/select-custom.component";
+import { ButtonEnvioEsComponent } from "../../buttons/button-envio-es/button-envio-es.component";
 
 @Component({
   selector: 'app-shipment-show',
@@ -28,7 +29,8 @@ import { SelectCustomComponent } from "../../select-custom/select-custom.compone
     ReactiveFormsModule,
     ButtonSwitchComponent,
     CourierDefaultComponent,
-    SelectCustomComponent
+    SelectCustomComponent,
+    ButtonEnvioEsComponent
 ],
   templateUrl: './shipment-show.component.html',
   styleUrl: './shipment-show.component.css',
@@ -81,17 +83,23 @@ export class ShipmentShowComponent implements OnInit {
         "name": "ENVIO GRATIS",
         "icon": "fa-solid fa-credit-card"
       },
-      {
-        "id": 2,
-        "name": "ENVIO PAGO DESTINO",
-        "icon": "fas fa-motorcycle"
-      },
+
       {
         "id": 3,
-        "name": "Cobro anticipado",
+        "name": "ENVIO PAGADO",
         "icon": "fa-solid fa-money-bill-wave"
       },
     ]
+
+    if (this.shipment.courier_address.courier.acepta_pago_destino) {
+      this.payment_types.push(
+        {
+          "id": 2,
+          "name": "PAGO DESTINO",
+          "icon": "fas fa-motorcycle"
+        },
+      )
+    }
 
 
     this.form = this.fb.group({

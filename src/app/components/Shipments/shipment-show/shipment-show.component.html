@@ -47,6 +47,10 @@
           </app-input-group>
         </div>
 
+        <div class="col-lg-12">
+          <app-button-envio-es formControlName="envio_es"
+              [acepta_pago_destino]="shipment.courier_address.courier.acepta_pago_destino"></app-button-envio-es>
+        </div>
 
         <!-- <div class="col-lg-12 col-12">
           <textarea id="" formControlName="body" class="form-control"
@@ -63,10 +67,20 @@
 
       <app-button-save type="primary" [btnLoading]="loading" [btnActive]="form.valid"></app-button-save>
 
-
-
     </div>
 
   </div>
 
 </form>
+
+                <!-- <div class="col-lg-12">
+                    <app-button-envio-es formControlName="envio_es"
+                        [acepta_pago_destino]="courier.acepta_pago_destino"></app-button-envio-es>
+                </div>
+
+                <div class="col-lg-12" *ngIf="form.get('envio_es')?.value == 2">
+                    <app-input-group icon="fa-solid fa-user" icontext="S/." class="w-100">
+                        <input type="number" class="form-control" step="0.01" formControlName="shipping_cost"
+                            placeholder="0.00">
+                    </app-input-group>
+                </div> -->

@@ -33,14 +33,10 @@
 
                 <!-- {{ shipment.courier_address | json }} -->
 
-
                 <!-- <app-order-summary [items]="order.items" [is_pay]="order.is_pay"></app-order-summary> -->
                 <!-- <app-card-summary></app-card-summary> -->
             </ng-container>
             
-            <app-order-summary [order_id]="order.id" [is_pay]="order.is_pay" [order]="order" [warehouse_id]="warehouse_id" (eventTotalAmount)="totalAmountUpdated($event)" (eventIsPay)="isPayUpdated($event)"></app-order-summary>
-            
-            <app-izipay [order]="order"></app-izipay>
 
         </div>
 
@@ -68,6 +64,10 @@
             </div>
 
         </div>
+
+        <app-order-summary [order_id]="order.id" [is_pay]="order.is_pay" [order]="order" [warehouse_id]="warehouse_id" (eventTotalAmount)="totalAmountUpdated($event)" (eventIsPay)="isPayUpdated($event)"></app-order-summary>
+            
+        <app-izipay [order]="order"></app-izipay>
 
 
 
