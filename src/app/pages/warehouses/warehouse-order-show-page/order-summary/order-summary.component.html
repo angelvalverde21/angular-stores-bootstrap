@@ -1,113 +1,87 @@
-
+<!-- 
 <div ngbAccordion #accordion="ngbAccordion" class="mb-3">
 	<div ngbAccordionItem="first">
 		<h2 ngbAccordionHeader>
-			<button ngbAccordionButton [ngClass]="is_pay ? 'bg bg-success text-white' : 'bg bg-light'">
-                <h5 *ngIf="is_pay">
-                    Pagado
-                </h5>
-                <h6 class="" *ngIf="!is_pay">
-                    Resumen de pago
-                </h6>
+			<button ngbAccordionButton [ngClass]="order.is_pay ? 'bg bg-success text-white' : 'bg bg-light'">
+
             </button>
 		</h2>
 		<div ngbAccordionCollapse>
 			<div ngbAccordionBody>
 				<ng-template>
 
-                    <div class="card-content">
-
-                        <div class="overlay d-flex align-items-center justify-content-center" *ngIf="overlay">
-                            <app-loading-center></app-loading-center>
-                        </div>
-
-                        <ul class="list-group mb-3 list-group-flush">
-                    
-                    
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span class="label">Sub Total</span><span class="amount">{{ summary?.sub_total | pen }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span class="label">Descuentos</span><span class="amount">{{ summary?.descuentos | pen }}</span>
-                            </li>
-                    
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span class="label">IGV</span><span class="amount">S/. 0.00</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span class="label">Envio</span>
-                                <div>
-                                    <div class="d-flex  flex-row-reverse mb-2">
-                                        <span class="amount">{{ order.shipping_cost_client | pen }}</span>
-                                    </div>
-                                    <button class="btn btn-outline-dark px-3 d-flex  flex-row-reverse" (click)="openVerticallyCentered(content)">Editar</button>
-                                </div>
-                                
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span class="label">Envio: </span>
-
-                                <form action="" [formGroup]="form">
-                                    <app-input-group icon="fa-solid fa-truck-fast">
-                                        <select class="form-select" id="inputGroupSelect01" formControlName="envio_es" (change)="save(false)">
-                                            <option value="1">GRATIS</option>
-                                            <option value="3">PAGO EN DESTINO</option>
-                                            <option value="2">COBRADO AL CLIENTE</option>
-                                            <option value="4">NO APLICA</option>
-                                        </select>
-                                    </app-input-group>
-                                </form>
-
-                            </li>
-                            <li class="list-group-item">
-                                <h4 class="d-flex justify-content-between"><span class="label">Total</span><span class="amount">{{
-                                        order?.total_amount | pen }}</span>
-                                </h4>
-                            </li>
-                    
-                        </ul>
-                    </div>
+                   
                     
 				</ng-template>
 			</div>
 		</div>
 	</div>
+</div> -->
+
+
+<div class="card-content">
+
+    <div class="overlay d-flex align-items-center justify-content-center" *ngIf="loading">
+        <app-loading-center></app-loading-center>
+    </div>
+
+    <ul class="list-group mb-3 list-group-flush">
+
+        <li class="list-group-item d-flex justify-content-between"
+            [ngClass]="order.is_pay ? 'bg bg-success text-white' : 'bg bg-light'">
+            <h5 *ngIf="order.is_pay">
+                Pagado
+            </h5>
+            <h6 class="" *ngIf="!order.is_pay">
+                Resumen de pago 
+            </h6>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between">
+            <span class="label">Sub Total</span><span class="amount">{{ order?.subtotal_price_list | pen }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between">
+            <span class="label">Descuentos</span><span class="amount">-{{ order?.discount | pen }}</span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between">
+            <span class="label">IGV</span><span class="amount">S/. 0.00</span>
+        </li>
+        <!-- <li class="list-group-item d-flex justify-content-between">
+            <span class="label">Envio</span>
+            <div>
+                <div class="d-flex  flex-row-reverse mb-2">
+                    <span class="amount">{{ order.shipment.cost_client | pen }}</span>
+                </div>
+            </div>
+        </li> -->
+
+        <li class="list-group-item d-flex justify-content-between" [ngSwitch]="order.shipment?.payment_type">
+
+            <ng-container *ngSwitchCase="1">
+                <span class="label">Envío</span><span class="amount">GRATIS</span>
+            </ng-container>
+        
+            <ng-container *ngSwitchCase="2">
+                <span class="label">Envío</span><span class="amount">PAGO DESTINO</span>
+            </ng-container>
+        
+            <ng-container *ngSwitchCase="3">
+                <span class="label">Envío</span><span class="amount">{{ order.shipment.cost_client | pen }}</span>
+            </ng-container>
+        
+            <ng-container *ngSwitchDefault>
+                <span class="label">Envío</span><span class="amount">NO DEFINIDO</span>
+            </ng-container>
+        
+        </li>
+
+        <li class="list-group-item">
+            <h4 class="d-flex justify-content-between"><span class="label">Total</span><span class="amount">{{
+                    order?.total_amount | pen }}</span>
+            </h4>
+        </li>
+
+    </ul>
 </div>
-
-
-<ng-template #content let-modal>
-
-
-    <form action="" [formGroup]="form" (submit)="save()">
-
-        <div class="modal-header">
-            <h4 class="modal-title">Costos de envio</h4>
-            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-        </div>
-
-        <div class="modal-body">
-
-
-            <!-- <app-input-group icon="fa-solid fa-truck-fast">
-                <select class="form-select" id="inputGroupSelect01" formControlName="envio_es">
-                    <option value="1">GRATIS</option>
-                    <option value="3">PAGO EN DESTINO</option>
-                    <option value="2">COBRADO AL CLIENTE</option>
-                    <option value="4">NO APLICA</option>
-                </select>
-            </app-input-group> -->
-
-            <app-input-group icontext="S/.">
-                <input type="number" step="0.01" class="form-control" formControlName="shipping_cost_client" placeholder="0.00"
-                    aria-label="Costo de envio" aria-describedby="addon-wrapping">
-            </app-input-group>
-
-        </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-            <app-button-save [btnActive]="btnActive" [btnLoading]="btnLoading"></app-button-save>
-        </div>
-
-    </form>
-</ng-template>

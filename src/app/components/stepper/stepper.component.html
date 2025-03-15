@@ -15,7 +15,7 @@
         </div>
         <div class="bs-stepper-line"></div>
 
-        <div class="step" [ngClass]="order?.is_package ? 'active' : ''">
+        <div class="step d-flex flex-column text-center" [ngClass]="order?.is_package ? 'active' : ''">
 
             <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true" (click)="openUploadPaymentCourier(openUplodPackage)">
                 <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-box-open"></i></span>
@@ -28,14 +28,49 @@
 
         <div class="bs-stepper-line"></div>
 
-        <div class="step" [ngClass]="order?.is_shipment ? 'active' : ''">
+        <div class="step d-flex flex-column text-center" [ngClass]="order?.is_shipment ? 'active' : ''">
 
             <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-selected="true" (click)="openUploadPaymentCourier(uploadPaymentCourier)">
-                <span class="bs-stepper-circle" style="font-size: 1.25rem;"><i class="fas fa-shipping-fast"></i></span>
-                <span class="bs-stepper-label  label-gris  d-none d-sm-block">
-                    Enviado
+                <span class="bs-stepper-circle" style="font-size: 1.25rem;" [ngSwitch]="order.shipment.method">
+                    <ng-container *ngSwitchCase="1">
+                        <i class="fas fa-shipping-fast"></i>
+                    </ng-container>
+                
+                    <ng-container *ngSwitchCase="2">
+                        <i class="fa-solid fa-motorcycle"></i>
+                    </ng-container>
+                
+                    <ng-container *ngSwitchCase="3">
+                        <i class="fa-solid fa-plane"></i>
+                    </ng-container>
+  
+                    <ng-container *ngSwitchDefault>
+                        Error
+                    </ng-container>
                 </span>
+                
+  
             </button>
+
+            <span [ngSwitch]="order.shipment.method">
+                <ng-container *ngSwitchCase="1">
+                    Estandar
+                </ng-container>
+            
+                <ng-container *ngSwitchCase="2">
+                    Express
+                </ng-container>
+            
+                <ng-container *ngSwitchCase="3">
+                    Aereo
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                    Error
+                </ng-container>
+            </span>
+            
+            <!-- <span>Express</span> -->
 
         </div>
 

@@ -33,6 +33,7 @@ import { StoreService } from '../../../../services/store.service';
 import { ButtonDotsVerticalComponent } from '../../../../components/button-dots-vertical/button-dots-vertical.component';
 import { ButtonIconDeleteComponent } from '../../../../components/button-icon-delete/button-icon-delete.component';
 import { Fancybox } from '@fancyapps/ui';
+import { OrderService } from '../../../../services/order.service';
 
 @Component({
   selector: 'app-card-order-item',
@@ -69,7 +70,8 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
     private _sweetAlert: SweetAlertService,
     private _cart: CartService,
     private elRef: ElementRef,
-    private _store: StoreService
+    private _store: StoreService,
+    private _order: OrderService
   ) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
@@ -131,13 +133,15 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
           //this._store.setOrderItem(this.item);
 
           //se actualiza los valores del summary
-          this._cart.setSummary();
+          this._order.setLoadingOrder(true);
+          this._order.setOrder(this.item.order_id);
           //Mostrando un control de sweetAlert2
           this._sweetAlert.showSuccess(
             'Correcto',
-            'El pedido ha sido registrado'
+            'El item ha sido actualizado'
           );
           //cerrando el modal
+
           this.closeModal();
 
           console.log(this.item.id);
@@ -191,6 +195,8 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
             this.btnActive = !this.btnActive;
 
             this.eventDelete.emit(this.item.id);
+
+            // this._order.setOrder()
 
             this._sweetAlert.showDeletionSuccess(
               'Eliminado!',

@@ -1,0 +1,9 @@
+<div class="label mb-3">Tipo de envio</div>
+
+<div class="controls d-flex justify-content-between mb-3">
+
+    <button class="w-100 btn me-2" [ngClass]="this.shipment_method == 1 ? 'btn-dark' : 'btn-outline-dark'" (click)="method(1)">ESTANDAR</button>
+    <button *ngIf="courier.acepta_envio_express" class="w-100 btn me-2" [ngClass]="this.shipment_method == 2 ? 'btn-dark' : 'btn-outline-dark'" (click)="method(2)">EXPRESS</button>
+    <button *ngIf="courier.acepta_envio_aereo" class="w-100 btn" [ngClass]="this.shipment_method == 3 ? 'btn-dark' : 'btn-outline-dark'" (click)="method(3)">AEREO</button>
+
+</div>

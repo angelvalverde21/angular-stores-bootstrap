@@ -1,46 +1,39 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, SimpleChanges} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'app-button-envio-es',
+  selector: 'app-button-shipment-method',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './button-envio-es.component.html',
-  styleUrl: './button-envio-es.component.css',
+  templateUrl: './button-shipment-method.component.html',
+  styleUrl: './button-shipment-method.component.css',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ButtonEnvioEsComponent),
+      useExisting: forwardRef(() => ButtonShipmentMethodComponent),
       multi: true,
     },
   ],
 })
-export class ButtonEnvioEsComponent implements OnInit, OnDestroy, ControlValueAccessor{
+export class ButtonShipmentMethodComponent implements ControlValueAccessor {
 
-  // Implementar los métodos de ControlValueAccessor
+
   onChange: any = () => {};
   onTouched: any = () => {};
-  envio_es: number = 1;
-  @Input() acepta_pago_destino: boolean = false; 
+  shipment_method: number = 1;
+  @Input() courier: any; 
   
-  ngOnInit(): void {
-    
-  }
-  
-  ngOnDestroy(): void {
-    
-  }
 
-  envioEs(value:number){
+  method(value:number){
     console.log(value);
-    this.envio_es = value;
+    this.shipment_method = value;
     this.onChange(value);
   }
 
   writeValue(value: any): void {
     // throw new Error('Method not implemented.');
-    this.envio_es = value;
+    this.shipment_method = value;
   }
 
   registerOnChange(fn: any): void {
@@ -54,5 +47,6 @@ export class ButtonEnvioEsComponent implements OnInit, OnDestroy, ControlValueAc
   setDisabledState?(isDisabled: boolean): void {
     
   }
+
 
 }

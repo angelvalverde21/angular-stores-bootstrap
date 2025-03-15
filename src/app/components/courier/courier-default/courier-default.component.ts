@@ -1,29 +1,36 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject, TemplateRef, ViewEncapsulation  } from '@angular/core';
 import { LoadingCenterComponent } from "../../loading-center/loading-center.component";
 import { AddressTemplateComponent } from "../../address/address-template/address-template.component";
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AddressService } from '../../../services/address.service';
+// import { AddressService } from '../../../services/address.service';
 import { Subscription } from 'rxjs';
 import { AddressFormComponent } from "../../address/address-form/address-form.component";
 import { CourierService } from '../../../services/courier.service';
+
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-courier-default',
   standalone: true,
   imports: [LoadingCenterComponent, AddressTemplateComponent, CommonModule, ReactiveFormsModule, AddressFormComponent],
   templateUrl: './courier-default.component.html',
-  styleUrl: './courier-default.component.css'
+  styleUrl: './courier-default.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class CourierDefaultComponent  implements OnInit{
 
-  @Input() courier_id: number | null = null; 
-  @Input() address: any; 
+
+  courier_id: number | null = null; 
+  address: any; 
+  @Input() courier_address: any; 
   @Input() title: string = "Transporte"; 
   @Input() bg: string  = "secondary"; 
   @Input() logo: string  = "https://placehold.co/400x400"; 
 
   @Output() eventAddress = new EventEmitter<[]>();
+  @Output() eventSelectCourier = new EventEmitter<[]>();
   
 
   overlay: boolean = false; 
@@ -42,18 +49,30 @@ export class CourierDefaultComponent  implements OnInit{
   form!: FormGroup; //Para los formularios reactivos
   formIsValid: boolean = false;
 
-  constructor(private _courier: CourierService, private fb: FormBuilder){
-
+  constructor(
+    private _courier: CourierService, 
+    private fb: FormBuilder,
+    config: NgbModalConfig,
+    private modalService: NgbModal,
+  ){
+    config.backdrop = 'static';
+    config.keyboard = false;
+  
   }
 
+  modal: any;
+
   ngOnInit(): void {
-  
+
+    // this.logo = this.courier_address.courier.profile_photo_url;
+    this.courier_id = this.courier_address.courier.id;
+    // this.address = this.courier_address;
     this.form = this.fb.group({
       address: {},
     });    
 
     //sino se recibe un address por el input...
-    if (this.address != null) {
+    if (this.courier_address != null) {
       this.setViewState('default'); 
     }else{
       //... entonces mostramos el formulario para registrar un nuevo Address
@@ -101,7 +120,6 @@ export class CourierDefaultComponent  implements OnInit{
     });
 
   }
-
 
   /*estados*/
 
@@ -209,5 +227,38 @@ export class CourierDefaultComponent  implements OnInit{
 
   }
 
+  success: boolean = false;
+  loadingCourier: boolean = true;
+  couriers: any;
+
+  couriersLoad(){
+    this._courier.index().subscribe( (resp:any) => {
+      console.log(resp);
+      this.couriers = resp.data;
+      this.loadingCourier = false;
+    });
+  }
+
+  openModal(content: TemplateRef<any>) {
+
+    this.couriersLoad(); 
+
+    this.modal = this.modalService.open(content, { centered: true, size: 'lg' });
+
+  }
+
+  closeModal(){
+    this.modal.close();
+  }
+
+  selectCourier(courier: any){
+
+    console.log(courier);
+    
+    this.eventSelectCourier.emit(courier);
+    
+  }
 
 }
+
+

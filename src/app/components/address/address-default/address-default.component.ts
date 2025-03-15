@@ -148,6 +148,7 @@ export class AddressDefaultComponent implements OnInit{
   fnShowAddressDefault(address:any){
 
     this.overlay = true;
+    
     setTimeout(() => {
 
       this.address = address;
@@ -156,6 +157,7 @@ export class AddressDefaultComponent implements OnInit{
       this.setViewState('default');  
 
     },500)
+
   }
 
   fnShowEditAddress(address:any){

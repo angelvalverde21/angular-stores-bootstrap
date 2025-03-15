@@ -179,6 +179,9 @@ export class CartService {
       );
   };
 
+
+  /************************************** */
+
   private summarySubject: Subject<void> = new Subject<void>();
 
   /** CREANDO LOS SETTER Y GETTER */
@@ -191,6 +194,8 @@ export class CartService {
   getSummaryObservable() {
     return this.summarySubject.asObservable();
   }
+
+
 
   /*************calculos ***********/
 

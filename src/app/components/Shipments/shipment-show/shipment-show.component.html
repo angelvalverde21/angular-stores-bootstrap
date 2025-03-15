@@ -1,79 +1,77 @@
 <app-loading-center *ngIf="loading" />
 
-<form [formGroup]="form" (ngSubmit)="update()" *ngIf="!loading" class="mb-3">
+<form [formGroup]="form" *ngIf="!loading" class="mb-3">
 
   <div class="row mb-3">
 
-    <div class="col-lg-4">
-      <app-address-default [user_id]="user_id" [address]="address" title="Direccion de envio"
-        (eventAddress)="selectedAddress($event)"></app-address-default>
+    <div class="col-lg-12">
+
+      <div class="card mb-3">
+
+        <!-- <div class="card-header py-3">
+          Configuracion
+        </div>
+       -->
+        <div class="card-body">
+
+          <app-button-switch formControlName="cash_on_delivery"
+            *ngIf="shipment.courier_address.courier.acepta_contra_entrega" textActive="Contra Entrega"
+            textDesactive="Enviar Contra Entrega" [id]="'color-status-switchx'" />
+
+          <!-- Tipo de envio, Estandar, Express o Areo -->
+          <app-button-shipment-method [courier]="shipment.courier_address.courier"
+            formControlName="method"></app-button-shipment-method>
+
+          <!-- payment_type quiere decir el tipo de pago del shipment (no de la orden) -->
+          <!-- Gratis, Pago Destino, Cliente paga -->
+          <app-button-envio-es formControlName="payment_type"
+            [acepta_pago_destino]="shipment.courier_address.courier.acepta_pago_destino"></app-button-envio-es>
+
+          <div class="col-lg-12" *ngIf="form.value.payment_type == 3">
+            <app-input-group icon="fa-solid fa-dollar-sign">
+              <input formControlName="cost_client" type="number" step="0.01" class="form-control"
+                placeholder="Costo de envio" aria-label="Cost Client" aria-describedby="Cost Client">
+            </app-input-group>
+          </div>
+
+          <label for="" class="mb-3">Fecha de envio</label>
+          <app-input-group icon="fa-solid fa-truck-fast">
+            <input type="date" class="form-control" formControlName="date" aria-describedby="nameHelp"
+              placeholder="Fecha de entrega">
+          </app-input-group>
+
+          <div class="row">
+
+            <app-button-save type="primary" (click)="update()" [btnLoading]="btnLoading" [btnActive]="btnActive"></app-button-save>
+
+            <!-- {{ form.value | json }} -->
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="col-lg-4">
+    <!-- <div class="col-lg-12">
+      <app-address-default [user_id]="user_id" [address]="address" title="Direccion de envio"
+        (eventAddress)="selectedAddress($event)"></app-address-default>
+    </div> -->
+
+    <!-- <div class="col-lg-12">
 
       <app-courier-default [courier_id]="shipment.courier_address.courier.id" [address]="shipment.courier_address"
         [logo]="shipment.courier_address.courier.profile_photo_url"
         (eventAddress)="selectedCourierAddress($event)"></app-courier-default>
 
-      <app-button-switch formControlName="cash_on_delivery" *ngIf="shipment.courier_address.courier.acepta_contra_entrega" textActive="Contra Entrega"
-        textDesactive="Enviar Contra Entrega" [id]="'color-status-switchx'" />
-
-    </div>
-
-    <div class="col-lg-4">
-
-      <div class="row">
-
-        <!-- {{ form.value | json}} -->
-
-        <div class="col-lg-6">
-          <app-input-group icon="fa-solid fa-truck">
-            <input formControlName="cost_client" type="number" step="0.01" class="form-control"
-              placeholder="Costo de envio" aria-label="Cost Client" aria-describedby="Cost Client">
-          </app-input-group>
-        </div>
-
-        <div class="col-lg-6">
-          <app-input-group icon="fa-solid fa-dolly">
-            <input formControlName="cost_courier" type="number" step="0.01" class="form-control"
-              placeholder="Costo de courier" aria-label="Cost Courier" aria-describedby="Cost Courier">
-          </app-input-group>
-        </div>
-
-        <div class="col-lg-12">
-          <app-input-group icon="fa-solid fa-truck-fast">
-            <input type="date" class="form-control" formControlName="date" aria-describedby="nameHelp"
-              placeholder="Fecha de entrega">
-          </app-input-group>
-        </div>
-
-        <div class="col-lg-12">
-          <app-button-envio-es formControlName="envio_es"
-              [acepta_pago_destino]="shipment.courier_address.courier.acepta_pago_destino"></app-button-envio-es>
-        </div>
-
-        <!-- <div class="col-lg-12 col-12">
-          <textarea id="" formControlName="body" class="form-control"
-            placeholder="Descripcion"></textarea>
-        </div> -->
-
-        <app-select-custom [options]="methods"
-        formControlName="method"></app-select-custom>
-
-        <app-select-custom [options]="payment_types"
-        formControlName="payment_type"></app-select-custom>
-
-      </div>
-
-      <app-button-save type="primary" [btnLoading]="loading" [btnActive]="form.valid"></app-button-save>
-
-    </div>
+    </div> -->
 
   </div>
 
 </form>
 
-                <!-- <div class="col-lg-12">
+<!-- <div class="col-lg-12">
                     <app-button-envio-es formControlName="envio_es"
                         [acepta_pago_destino]="courier.acepta_pago_destino"></app-button-envio-es>
                 </div>

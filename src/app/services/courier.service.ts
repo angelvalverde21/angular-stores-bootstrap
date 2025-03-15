@@ -55,4 +55,47 @@ export class CourierService {
     return this.http.get(url);
   }
 
+
+  index(): Observable<any> {
+    const url = `${this.url}/index`;
+    // console.log(url);
+    return this.http.get(url);
+  }
+
+  
+  indexFirstAddress(): Observable<any> {
+    const url = `${this.url}/index/first/address`;
+    // console.log(url);
+    return this.http.get(url);
+  }
+
+  //se usa save para la primera vez
+  show(id: number | null): Observable<any> {
+    const url = `${this.url}/id`;
+    // console.log(url);
+    return this.http.get(url);
+  }
+
+  //se usa save para la primera vez
+  create(data: []): Observable<any> {
+    const url = `${this.url}/create`;
+    // console.log(url);
+    return this.http.post(url, data);
+  }
+
+  //se usa update para las demás veces
+  update(data: [], id: number | null): Observable<any> {
+    const url = `${this.url}/id/update`;
+    // console.log(url);
+    return this.http.post(url, data);
+  }
+
+  //se usa update para las demás veces
+  updateAddressId(data: [], id: number | null): Observable<any> {
+    const url = `${this.url}/id/update/address`;
+    // console.log(url);
+    return this.http.post(url, data);
+  }
+
 }
+

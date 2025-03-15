@@ -53,6 +53,13 @@ export class ShipmentService {
     // console.log(url);
     return this.http.post(url, data);
   }
+  
+  //se usa update para las demas veces
+  updateCourierAddressId(data: [], id: number | null): Observable<any> {
+    const url = `${this.url}/${id}/update/courier/address`;
+    // console.log(url);
+    return this.http.post(url, data);
+  }
 
 }
 
