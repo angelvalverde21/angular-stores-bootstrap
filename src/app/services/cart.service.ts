@@ -195,8 +195,6 @@ export class CartService {
     return this.summarySubject.asObservable();
   }
 
-
-
   /*************calculos ***********/
 
   /*********** CREANDO UN SERVICIO SUSCRIBIBLE PARA EL GRAN TOTAL ***********/

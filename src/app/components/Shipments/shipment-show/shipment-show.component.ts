@@ -20,6 +20,7 @@ import { ButtonShipmentMethodComponent } from "../../buttons/button-shipment-met
 import { OrderService } from '../../../services/order.service';
 import { WarehouseOrderService } from '../../../services/warehouse-order.service';
 import { catchError, Subscription } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-shipment-show',
@@ -43,7 +44,11 @@ export class ShipmentShowComponent implements OnInit, OnDestroy {
     private _shipment: ShipmentService,
     private _order: OrderService,
     private _warehouseOrder: WarehouseOrderService,
-  ) {}
+  ) {
+        if (environment.showNameComponent) {
+          this.componentName = this.constructor.name;
+        }
+  }
 
   ngOnDestroy(): void {
     if(this.orderSubscription){
@@ -52,7 +57,7 @@ export class ShipmentShowComponent implements OnInit, OnDestroy {
     
   }
 
-  
+  componentName: string = "";
   @Input() user_id: number | null = null;
   @Input() warehouse_id: number = 0;
   @Input() address: any;

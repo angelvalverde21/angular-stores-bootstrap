@@ -9,6 +9,7 @@ import { AddressFormComponent } from "../address-form/address-form.component";
 
 /* formularios */
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-address-default',
@@ -42,9 +43,12 @@ export class AddressDefaultComponent implements OnInit{
 
   form!: FormGroup; //Para los formularios reactivos
   formIsValid: boolean = false;
+  componentName: string = "";
 
   constructor(private _address: AddressService, private fb: FormBuilder,){
-
+    if (environment.showNameComponent) {
+      this.componentName = this.constructor.name;
+    }
   }
 
   ngOnInit(): void {

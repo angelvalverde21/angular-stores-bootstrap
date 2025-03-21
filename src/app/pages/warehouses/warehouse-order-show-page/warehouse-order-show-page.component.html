@@ -1,10 +1,12 @@
 <app-header></app-header>
 
+
 <app-loading-center *ngIf="loading"></app-loading-center>
 
 
 <div class="container" *ngIf="!loading">
     
+    {{ componentName }}
 
     <div class="controls d-flex justify-content-between mb-3">
         

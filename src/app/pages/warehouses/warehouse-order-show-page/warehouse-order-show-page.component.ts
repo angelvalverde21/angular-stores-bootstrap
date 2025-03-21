@@ -27,6 +27,7 @@ import { AddressDefaultComponent } from '../../../components/address/address-def
 import { ShipmentService } from '../../../services/shipment.service';
 import Swal from 'sweetalert2';
 import { OrderService } from '../../../services/order.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-warehouse-order-show-page',
@@ -70,7 +71,8 @@ export class WarehouseOrderShowPageComponent {
   courier_id: number = 0;
   items: any[] = [];
   isCollapsed = false;
-
+  componentName: string = "";
+  
   constructor(
     private _warehouseOrder: WarehouseOrderService,
     private _store: StoreService,
@@ -79,13 +81,15 @@ export class WarehouseOrderShowPageComponent {
     private modalService: NgbModal,
     private _shipment: ShipmentService,
     private _order: OrderService
-  ) {}
+  ) {
+      if (environment.showNameComponent) {
+        this.componentName = this.constructor.name;
+      }
+  }
 
   ngOnInit(): void {
 
     console.log('onInit');
-
-
 
     this.route.parent?.params.subscribe((param: any) => {
       this.warehouse_id = param['warehouse_id'];
@@ -279,6 +283,7 @@ export class WarehouseOrderShowPageComponent {
   }
 
   elementoEliminado(item_id: number) {
+
     console.log(item_id);
     this.order.items = this.order.items.filter(
       (item: any) => item.id !== item_id
@@ -286,7 +291,9 @@ export class WarehouseOrderShowPageComponent {
     console.log(this.order.items);
     console.log('se escucho a un eliminado');
 
-    this._cart.setSummary();
+    this._order.setLoadingOrder(true);
+    this._order.setOrder(this.order.id);
+
   }
 
   updatedSummary() {

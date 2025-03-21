@@ -34,6 +34,7 @@ import { ButtonDotsVerticalComponent } from '../../../../components/button-dots-
 import { ButtonIconDeleteComponent } from '../../../../components/button-icon-delete/button-icon-delete.component';
 import { Fancybox } from '@fancyapps/ui';
 import { OrderService } from '../../../../services/order.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-card-order-item',
@@ -61,7 +62,8 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
   btnActive: boolean = true;
   subscription!: Subscription;
   modal!: NgbModalRef;
-
+  componentName: string = "";
+  
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
@@ -76,6 +78,9 @@ export class CardOrderItemComponent implements OnInit, OnDestroy {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
+    if (environment.showNameComponent) {
+      this.componentName = this.constructor.name;
+    }
   }
 
   openModal(content: TemplateRef<any>) {

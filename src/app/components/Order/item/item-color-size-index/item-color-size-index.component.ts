@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../../services/cart.service';
 import Swal from 'sweetalert2';
 import { WarehouseOrderService } from '../../../../services/warehouse-order.service';
+import { OrderService } from '../../../../services/order.service';
 
 @Component({
   selector: 'app-item-color-size-index',
@@ -27,7 +28,8 @@ export class ItemColorSizeIndexComponent implements OnInit, OnDestroy {
     private _warehouseProductColor: WarehouseProductColorService,
     private route: ActivatedRoute,
     private _cart: CartService,
-    private _warehouseOrder: WarehouseOrderService
+    private _warehouseOrder: WarehouseOrderService,
+    private _order: OrderService
   ) {
     console.log(this.product);
   }
@@ -57,12 +59,14 @@ export class ItemColorSizeIndexComponent implements OnInit, OnDestroy {
   }
 
   addCart(color: any, size: any, value: any) {
+
     const price = this.product.prices.find((price: any) => price.quantity == 1);
 
     console.log(color);
     console.log(value);
 
     if (this.order_id > 0) {
+      
       const item = {
         warehouse_id: this.warehouse_id,
         sku: size.color_size.sku.id,
@@ -80,8 +84,13 @@ export class ItemColorSizeIndexComponent implements OnInit, OnDestroy {
           this._cart
             .addItemToOrder(item, this.order_id)
             .subscribe((resp: any) => {
+
               this._warehouseOrder.setAddItem(resp.data);
-              this._cart.setSummary();
+
+              this._order.setLoadingOrder(true);
+              this._order.setOrder(this.order_id);
+              // this._cart.setSummary();
+
 
               Swal.fire({
                 icon: 'success',

@@ -9,6 +9,7 @@ import { InputGroupComponent } from '../../forms/input-group/input-group.compone
 import { ProductService } from '../../../services/product.service';
 import { ItemColorSizeIndexComponent } from "../../Order/item/item-color-size-index/item-color-size-index.component";
 import { trigger, style, transition, animate } from '@angular/animations';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-input-search-product',
@@ -39,8 +40,13 @@ export class InputSearchProductComponent implements OnInit, OnDestroy {
   searchSubject: Subject<string> = new Subject();
   // @Output() eventProduct = new EventEmitter<number>();
   @Input() order_id: number = 0;
+  componentName: string = "";
   
-  constructor(private _product: ProductService) {}
+  constructor(private _product: ProductService) {
+    if (environment.showNameComponent) {
+      this.componentName = this.constructor.name;
+    }
+  }
 
   ngOnInit(): void {
     this.searchSubject

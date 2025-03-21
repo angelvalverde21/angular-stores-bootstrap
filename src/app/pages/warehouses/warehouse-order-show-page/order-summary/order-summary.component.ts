@@ -14,6 +14,7 @@ import { LoadingCenterComponent } from "../../../../components/loading-center/lo
 import { WarehouseOrderService } from '../../../../services/warehouse-order.service';
 import { catchError } from 'rxjs/operators';
 import { OrderService } from '../../../../services/order.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-order-summary',
@@ -50,6 +51,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   formChildrenIsValid: boolean = false;
   
   loading: boolean = false;
+  componentName: string = "";
 
   constructor(
     private _order: OrderService, 
@@ -58,7 +60,9 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     private fb: FormBuilder,
     private _warehouseOrder: WarehouseOrderService,
   ){
-
+    if (environment.showNameComponent) {
+      this.componentName = this.constructor.name;
+    }
   }
   
   // loading = true; // Definir la variable en la clase
