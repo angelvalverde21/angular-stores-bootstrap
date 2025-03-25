@@ -39,6 +39,7 @@
       </div>
  -->
       <div class="image mb-3">
+        {{ color.id }}
         <a data-fancybox="gallery" [attr.data-caption]="color.image.name" [href]="color.image?.url_medium">
           <img width="120px" height="180px" style="border-radius: 0.75rem;" [src]="color.image?.url_thumbnail" alt="">
         </a>
